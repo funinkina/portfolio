@@ -8,11 +8,15 @@
 body {
   background-color: #fefefe;
   display: flex;
-  gap: 14vh;
+  gap: 6rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 20vh;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-image: url('/images/grain.png');
+  background-repeat: repeat;
 }
 
 #topbar {
@@ -20,7 +24,7 @@ body {
   justify-content: space-between;
   margin-top: 7vh;
   text-decoration: none;
-  opacity: 60%;
+  opacity: 70%;
 }
 
 #topbar a{
@@ -42,23 +46,12 @@ body {
   flex-direction: column;
 }
 
-@media screen and (min-width: 768px) {
-  #about, #topbar, #experience, #projects {
-    width: 45vw;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  #about, #topbar, #experience, #projects{
-    width: 100%;
-  }
-}
-
 #about img{
   margin-bottom: 30px;
   width: 6rem;
   border-radius: 99999px;
   filter: grayscale(100%);
+  box-shadow: 0px 0px 10px 0px #dadada;
 }
 
 #about img:hover {
@@ -72,6 +65,23 @@ body {
 #about p {
   margin-top: 20px;
   opacity: 70%;
+}
+
+#about #links {
+  color: #313131;
+  font-weight: 600;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#about #links a {
+  color: #313131;
+  text-decoration: none;
+}
+
+#about #links a:hover {
+  color: #616161;
 }
 
 #experience {
@@ -88,6 +98,7 @@ body {
 #experience p {
   font-size: 1.2rem;
   opacity: 70%;
+  text-align: justify;
 }
 
 .experience_heading{
@@ -96,6 +107,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: #313131;
 }
 
 .experience_heading img {
@@ -106,3 +118,78 @@ body {
   border-radius: 99999px;
   box-shadow: 0px 0px 10px 0px #dadada;
 }
+
+.experience_heading h5 {
+  margin-left: auto;
+  align-self: flex-start;
+  justify-self: end;
+  opacity: 70%;
+}
+
+.project {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.project h5{
+  opacity: 70%;
+}
+
+.project h2 {
+  color: #313131;
+}
+
+.project p {
+  font-size: 1.2rem;
+  text-align: justify;
+  opacity: 70%;
+}
+
+.project #links {
+  margin-top: 10px;
+  display: flex;
+  gap: 40px;
+}
+
+.project a {
+  color: #313131;
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: flex-end; */
+  gap: 20px;
+}
+
+.project-info img{
+  width: 250px;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0px 0px 10px 0px #dadada;
+}
+
+.project-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+@media screen and (min-width: 768px) {
+  #about, #topbar, #experience, #projects, #skills {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #about, #topbar, #experience, #projects, #skills{
+    width: 100%;
+  }
+}
+
