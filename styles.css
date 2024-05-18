@@ -3,7 +3,9 @@
   padding: 0;
   margin: 0;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   background-color: #fefefe;
   display: flex;
@@ -27,7 +29,8 @@ body {
 #topbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 7vh;
+  margin-top: 5vh;
+  padding-top: 3vh;
   text-decoration: none;
   opacity: 70%;
   /* padding: 10px 20px;
@@ -154,9 +157,10 @@ h1:hover {
   opacity: 70%;
 }
 
-.project {
-  margin-top: 30px;
-  margin-bottom: 10px;
+#projects {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
 .project h5 {
@@ -213,6 +217,11 @@ h1:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+#all_projects {
+  justify-self: end;
+  margin-left: auto;
 }
 
 @media screen and (min-width: 768px) {
