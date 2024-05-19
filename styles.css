@@ -61,8 +61,8 @@ body {
   justify-content: center;
   align-items: center;
   padding-bottom: 20vh;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-image: url("/images/grain.png");
   background-repeat: repeat;
 }
@@ -75,6 +75,7 @@ body {
 
 #topbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 5vh;
   padding-top: 3vh;
@@ -133,6 +134,8 @@ body {
   font-weight: 600;
   margin-top: 30px;
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
   justify-content: space-between;
 }
 
@@ -182,6 +185,7 @@ h1:hover {
   margin-top: 30px;
   margin-bottom: 10px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   color: var(--secondary-color);
@@ -453,4 +457,20 @@ h1:hover {
   #skills, #miscellaneous {
     width: 100%;
   }
+
+  #topbar {
+    column-gap: 30px;
+    row-gap: 10px;
+  }
+
+  .experience_heading h5 {
+    margin-right: auto;
+    align-self: flex-start;
+    justify-self: start;
+  }
+
+  .project-info {
+    flex-wrap: wrap-reverse;
+  }
+  
 }
