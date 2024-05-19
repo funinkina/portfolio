@@ -29,7 +29,7 @@ body.dark-mode {
 }
 
 * {
-  font-family: "Satoshi", sans-serif !important;
+  font-family: "Satoshi", sans-serif;
   padding: 0;
   margin: 0;
 }
