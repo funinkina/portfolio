@@ -101,6 +101,10 @@ body {
   flex-direction: column;
 }
 
+#about h1:hover {
+  text-decoration: none;
+}
+
 #about img {
   margin-bottom: 30px;
   width: 6rem;
