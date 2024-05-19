@@ -18,7 +18,7 @@
         <a href="#skills">Skills</a>
         <a href="#miscellaneous">Miscellaneous</a>
     </div>
-
+    <button id="theme-toggle"><ion-icon name="moon-outline"></ion-icon></button>
     <div id="about">
         <img src="/images/IMG_8919.jpg" alt="">
         <h1>Aryan Kushwaha, aka funinkina</h1>
@@ -240,30 +240,65 @@
 
     <div id="miscellaneous">
         <h1>Miscellaneous</h1>
-        <div>
+        <div id="photos">
             <h2>Some Cool clicks</h2>
             <div class="gallery">
                 <div class="card">
-                  <img src="/images/PXL_20221225_183201822~2.jpg">
+                    <img src="/images/PXL_20221225_183201822~2.jpg">
                 </div>
                 <div class="card">
-                  <img src="/images/PXL_20221229_171751511.jpg">
+                    <img src="/images/PXL_20221229_171751511.jpg">
                 </div>
                 <div class="card">
-                  <img src="/images/PXL_20230209_090935688.jpg">
+                    <img src="/images/PXL_20230209_090935688.jpg">
                 </div>
                 <div class="card">
-                  <img src="/images/PXL_20230419_125552461.jpg">
+                    <img src="/images/PXL_20230419_125552461.jpg">
                 </div>
                 <div class="card">
-                  <img src="/images/PXL_20230701_161801875~2.jpg">
+                    <img src="/images/PXL_20230701_161801875~2.jpg">
                 </div>
                 <div class="card">
-                  <img src="/images/20221112_134355_lmc_8.4.jpg">
+                    <img src="/images/20221112_134355_lmc_8.4.jpg">
                 </div>
-              </div>
+            </div>
+            <a href="https://photos.app.goo.gl/fyvgKAx4MvtytAuC8" target="_blank">
+                Even more cool clicks
+                <ion-icon name="arrow-forward-circle"></ion-icon>
+            </a>
+        </div>
+
+        <div id="spotify">
+            <h2>Kinda dope music</h2>
+            <iframe style="border-radius:10px" src="https://open.spotify.com/embed/playlist/1lW4dMJ4Eqkyh542gjvVoi?utm_source=generator&theme=0" width="100%" height="550" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <a href="https://open.spotify.com/user/qj7gzuga20hcmfwot1795zu4f?si=6e7d3c1c2fa243a0" target="_blank">
+                More cool music
+                <ion-icon name="arrow-forward-circle"></ion-icon>
+            </a>
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light-mode';
+        const icon = themeToggle.querySelector('ion-icon');
+        document.body.classList.add(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('light-mode')) {
+                icon.setAttribute('name', 'sunny-outline');
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                icon.setAttribute('name', 'moon-outline');
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light-mode');
+            }
+        });
+    });
+</script>
 
 </html>
