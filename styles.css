@@ -3,7 +3,7 @@
   --secondary-color-light: #313131;
   --tertiary-color-light: #d5d5d5;
   --text-opacity-light: 70%;
-  
+
   --primary-color-dark: #fefefe;
   --secondary-color-dark: #cfcfcf;
   --tertiary-color-dark: #3a3a3a;
@@ -60,7 +60,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 20vh;
+  padding-bottom: 10vmin;
   padding-left: 20px;
   padding-right: 20px;
   background-image: url("/images/grain.png");
@@ -69,7 +69,7 @@ body {
 
 .separator {
   height: 1px;
-  width: 600px;
+  width: 700px;
   background-color: var(--tertiary-color);
 }
 
@@ -326,7 +326,7 @@ h1:hover {
   border: var(--secondary-color) 1px solid;
 }
 
-.achievement-info:hover img {
+.achievement:hover img {
   filter: grayscale(0%);
 }
 
@@ -390,7 +390,7 @@ h1:hover {
   gap: 2rem;
 }
 
-#photos a{
+#photos a {
   justify-self: end;
   align-self: flex-end;
 }
@@ -406,13 +406,21 @@ h1:hover {
   align-self: flex-end;
 }
 
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5vh;
+  opacity: var(--text-opacity);
+}
+
 .gallery {
   width: 100%;
-  max-width: 700px;
+  max-width: 760px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 180px);
-  gap: 10px;
+  gap: 14px;
 }
 
 .gallery > .card {
@@ -512,8 +520,10 @@ h1:hover {
   #topbar,
   #experience,
   #projects,
-  #skills, #miscellaneous, #achievements {
-    width: 700px;
+  #skills,
+  #miscellaneous,
+  #achievements {
+    width: 760px;
   }
 }
 
@@ -522,7 +532,9 @@ h1:hover {
   #topbar,
   #experience,
   #projects,
-  #skills, #miscellaneous, #achievements {
+  #skills,
+  #miscellaneous,
+  #achievements {
     width: 100%;
   }
 
@@ -540,5 +552,8 @@ h1:hover {
   .project-info {
     flex-wrap: wrap-reverse;
   }
-  
+
+  .achievement-info {
+    flex-wrap: wrap-reverse;
+  }
 }
