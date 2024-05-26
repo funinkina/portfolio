@@ -7,7 +7,7 @@
   --primary-color-dark: #fefefe;
   --secondary-color-dark: #cfcfcf;
   --tertiary-color-dark: #3a3a3a;
-  --text-opacity-dark: 80%;
+  --text-opacity-dark: 70%;
 }
 
 body.light-mode {
@@ -91,7 +91,7 @@ body {
 }
 
 #topbar a:hover {
-  color: #383838;
+  opacity: 0.5;
 }
 
 #about {
@@ -107,11 +107,19 @@ body {
 }
 
 #about img {
-  margin-bottom: 30px;
   width: 6rem;
   border-radius: 99999px;
   filter: grayscale(100%);
   box-shadow: 0px 0px 10px 0px var(--tertiary-color);
+}
+
+#about-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  font-size: 4rem !important;
+  flex-direction: row;
+  margin-bottom: 30px;
 }
 
 #about img:hover {
