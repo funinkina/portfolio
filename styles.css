@@ -135,6 +135,7 @@ body {
   margin-top: 20px;
   opacity: var(--text-opacity);
   font-weight: 500;
+  text-align: justify;
 }
 
 #about #links {
@@ -273,6 +274,65 @@ h1:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+#achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.achievement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.achievement p {
+  font-size: 1.2rem;
+  text-align: justify;
+  opacity: var(--text-opacity);
+  font-weight: 500;
+}
+
+.achievement-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.achievement-header span {
+  color: var(--secondary-color);
+  opacity: var(--text-opacity);
+  font-size: 1rem;
+}
+
+.achievement-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.achievement-info img {
+  width: 250px;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0px 0px 10px 0px var(--tertiary-color);
+  border-radius: 10px;
+  filter: grayscale(100%);
+  border: var(--secondary-color) 1px solid;
+}
+
+.achievement-info:hover img {
+  filter: grayscale(0%);
+}
+
+.achievement-links {
+  display: flex;
+  gap: 20px;
 }
 
 #all_projects {
@@ -452,7 +512,7 @@ h1:hover {
   #topbar,
   #experience,
   #projects,
-  #skills, #miscellaneous {
+  #skills, #miscellaneous, #achievements {
     width: 700px;
   }
 }
@@ -462,7 +522,7 @@ h1:hover {
   #topbar,
   #experience,
   #projects,
-  #skills, #miscellaneous {
+  #skills, #miscellaneous, #achievements {
     width: 100%;
   }
 
