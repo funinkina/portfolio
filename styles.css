@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --primary-color-light: #000000;
   --secondary-color-light: #313131;
