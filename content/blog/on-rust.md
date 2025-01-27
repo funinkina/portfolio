@@ -1,26 +1,131 @@
 ---
-title: "On Rust"
-date: "2024-01-03"
+title: "Simplifying Package installation on Arch Linux"
+date: "2024-08-25"
 tags:
-  - rust
+  - Linux
 ---
 
-Thinking of using Rust as a web backend?
+All of us in the "Arch Btw" cult use it for one of its main selling points, the repositories. Arch Linux's pragmatic approach to its packages makes it so much easier for users to sync packages without fiddling with multiple repositories and dependency hell, making it a one-stop solution. The Arch User Repository (AUR) is just a cherry on top. Including packages submitted by users makes it even more complete, removing the need for flatpaks or snaps. (Might cause dependency issues, we will discuss this later).
+>100% Human written btw
 
-Imagine that TypeScript is like a shitty but versatile truck. It will do all sorts of weird shit, including a godawful toolchain and bundling system, but it is well supported by the community and it will handle whatever you throw at it. A huge pothole in the road? It will somehow manage to come out the other end but it won't be pretty. It will get to the finish line slowly but surely.
+### Still using Pacman and Yay?
 
-Imagine Go as a nice a quick, but flawed sports car. It's got some really weird weird shit going on, but it's undeniably quick and well let you get to the finish line in comfort as long as you have the skill to stop it flipping the fuck over at the slightest touch. That's because it is not forgiving and will ruin your life if you're not ultra competent at software architecture concepts.
+If you read any basics about Arch, you know that the default way to install packages is `pacman`, which is great if you only install from the official repositories where `pacman` beautifully takes care of the dependency issues, but the real culprit to Arch instability issues is caused by packages installed from the AUR, as they might include outdated packages that can potentially break your system. Most probably, you might be using **Yay** or **Paru**, as your AUR helpers to get packages from AUR, while they work pretty flawlessly and fast, they also introduce system dependency issues and not work really well with `pacman`. The solution? Aura
 
-Now imagine Rust as a sexy fast formula 1 race car. It is geared to be as performant as possible, yet has the sleek, sexy feel that C and C++ lacks. It literally converts every electron coursing through your computer to gold. It's so good. It's so damn sexy.
+### Introducing Aura
 
-Now imagine the Rust car at the starting line, revving its engines. People are cheering, so excited it will win. They're popping the champagne already.
+Aura is a fully fledged replacement for `pacman` with enhancements as well as an AUR helper built-in. Aura provides all the same features as `pacman` with all the same commands and flags.
 
-Except the Rust car is not on a racetrack to the finish line. It's a racetrack up your asshole. The car goes in. Then out. Then in. Then out. At incredible speed. Blood is everywhere and you're basically crying at how amazingly fast it is, it's so damn cool. Yet your ass is getting ruined.
+Taken from the [Aura's own guide](https://fosskers.github.io/aura/introduction.html): Aura doesn't just mimic `pacman`; it *is* `pacman`. All `pacman` operations and their sub-options are accepted, as-is.
 
-And that's why you don't develop your web backends on Rust unless you know exactly why the fuck you're doing it. There are very real, excellent use cases for Rust that make it the natural winner. But by god if you're using it cause you feel like a leet hacker and it's hype, weighting it as an equivalent choice to something like Ruby on Rails or nodejs, then my god you're screwed.
+Aura also provides a dead simple way to install AUR packages from
 
-### ...
+```bash
+aura -As google-chrome
+```
 
-The reason people get a bit disgruntled by Rust advocacy is that it's like a bunch of gay men coming to straight men proselytizing about anal and how it can replace pussy and is completely safe and you don't have to deal with women. So they bend over, spread open, look back and go "just try" in a very well-meaning way. Only problem is that straight men enjoy pussy, want to make pussy safe and are getting used to and are prepared to live with the hazards of women.
+**Using Aura as** `pacman` **also provides multiple extra features such as:**
 
-Yeah, going gay is probably a lot safer. No kids. Never for a moment are you worried you're going to jail soon because of how consent in straight escapades is like undefined behavior; anything can happen if you don't get it right. There's probably less drama and it's more productive in many ways I'm sure.
+* Downgrading a package
+    
+    ```bash
+    aura -C firefox
+    ```
+    
+* Discovering what package owns a certain file
+    
+    ```bash
+    aura -Qo firefox
+    /usr/bin/firefox is owned by firefox 127.0.2-1
+    ```
+    
+
+**Using Aura as AUR helper:**
+
+* Installing a package from AUR
+    
+    ```bash
+    aura -As google-chrome
+    ```
+    
+* Scrutinizing a package
+    
+    ```bash
+    aura -Ai google-chrome
+    ```
+    
+
+Now let's see how do we get started with Aura
+
+### Getting started with Aura
+
+To install Aura, we have to compile it from source first.
+
+* Step 1: Grab the code from code and cd into it
+    
+    ```bash
+    git clone https://aur.archlinux.org/aura.git && cd aura
+    ```
+    
+* Step 2: Compile it
+    
+    ```bash
+    makepkg -si
+    ```
+    
+
+Then run `aura check` to see the status.
+
+### Some recommended configurations:
+
+First generate the config file by running
+
+```bash
+aura conf --gen > ~/.config/aura/config.toml
+```
+
+* If you are not comfortable with vim as editor, change `editor="nano"` in \[general\] of the config file
+    
+* Put `delmakedeps = true` if you want to remove the build dependencies after every install automatically to save space.
+    
+* Now you can use
+    
+
+```bash
+aura -As google-chrome
+```
+
+to get started with installing packages.
+
+### Some bonus life hacks
+
+A few tricks I use to make installing and removing packages faster and easier is to create aliases in my .zshrc (.bashrc) file, such as
+
+```bash
+alias yeet="aura -Rns"
+alias update="aura -Syu"
+alias install="install_package"
+alias search="search_package"
+alias list="aura -Q | grep"
+
+install_package() {
+    if ! aura -S "$1"; then
+        echo "\e[38;2;94;255;190m\e[1mPackage not found in official repositories. Trying to install from AUR...\e[m\n"
+        aura -A "$1"
+    fi
+}
+search_package() {
+    echo "\e[38;2;94;255;190m\e[1m$1 in official repositories:\e[m"
+    aura -Ss "$1"
+    echo "\n\e[38;2;94;255;190m\e[1m$1 in AUR:\e[m"
+    aura -As "$1"
+}
+```
+
+Here, I have simply created aliases to uninstall and install a package using `yeet` and `install`. For searching and installing packages, there's a simple script that checks both official and AUR while installing a package. (This is not perfect, I am aware).
+
+> Check out rest of my configuration in my [Dotfiles GitHub repository](https://github.com/funinkina/dotfiles).
+
+### A word on stability
+Most people use Arch for its rolling release cycle and being on the bleeding edge, but most of the time, this is the main reason for your system instability, therefore in my opinion, it is best to update your packages weekly. This increases the chance that if a certain bug or dependency was present in an update, it would have been fixed after a few days.
+Also if you aren't using Nvidia GPU, and your hardware is well-supported by the latest kernel, chances are, it is also supported by the LTS kernel as well. So I would recommend you to switch to LTS kernel for maximum stability.

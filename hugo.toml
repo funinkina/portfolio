@@ -1,6 +1,6 @@
 baseURL = 'https://funinkina.xyz/'
 languageCode = 'en-us'
-title = 'funinkinas portfolio'
+title = "funinkina's portfolio"
 theme = 'hugo-dead-simple'
 
 [params]
@@ -16,17 +16,17 @@ project = "/project/:slug/"
 
 [menu]
 [[menu.main]]
-name = "Home"
+name = "🏠 Home"
 url = "/"
 weight = 1
 [[menu.main]]
-name = "Blog"
+name = "📝 Blogs"
 url = "/blog/"
 weight = 2
 [[menu.main]]
-name = "Projects"
+name = "💻 Projects"
 url = "/project/"
 weight = 3
 [[menu.main]]
-name = "Resume"
+name = "📄 Resume"
 url = "https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing"

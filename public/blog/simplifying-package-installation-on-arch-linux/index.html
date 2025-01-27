@@ -18,11 +18,10 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1b" />
 
-    <meta name="description" content="Categories">
+    <meta name="description" content="Simplifying Package installation on Arch Linux">
 
-    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/index.xml" title="funinkina's portfolio" />
     
-        <title>Categories | funinkina&#39;s portfolio</title>
+        <title>Simplifying Package installation on Arch Linux | funinkina&#39;s portfolio</title>
     
 
     
@@ -65,11 +64,128 @@
         
 
 
-<h1>Categories</h1>
 
-<ul class="terms">
-  
+
+<div id="single-header">
+  <h1>
+    Simplifying Package installation on Arch Linux
+  </h1>
+  <div id="single-meta">
+    
+    
+        <span class="datesub">Aug 25, 2024</span>
+      
+<span id="tags">
+  &nbsp;&nbsp;
+   <span>
+    <a href="http://localhost:1313/tags/linux/">#linux</a>
+  </span>&nbsp;</span>
+
+
+  </div>
+</div>
+
+
+
+
+
+<main><p>All of us in the &ldquo;Arch Btw&rdquo; cult use it for one of its main selling points, the repositories. Arch Linux&rsquo;s pragmatic approach to its packages makes it so much easier for users to sync packages without fiddling with multiple repositories and dependency hell, making it a one-stop solution. The Arch User Repository (AUR) is just a cherry on top. Including packages submitted by users makes it even more complete, removing the need for flatpaks or snaps. (Might cause dependency issues, we will discuss this later).</p>
+<blockquote>
+<p>100% Human written btw</p>
+</blockquote>
+<h3 id="still-using-pacman-and-yay">Still using Pacman and Yay?</h3>
+<p>If you read any basics about Arch, you know that the default way to install packages is <code>pacman</code>, which is great if you only install from the official repositories where <code>pacman</code> beautifully takes care of the dependency issues, but the real culprit to Arch instability issues is caused by packages installed from the AUR, as they might include outdated packages that can potentially break your system. Most probably, you might be using <strong>Yay</strong> or <strong>Paru</strong>, as your AUR helpers to get packages from AUR, while they work pretty flawlessly and fast, they also introduce system dependency issues and not work really well with <code>pacman</code>. The solution? Aura</p>
+<h3 id="introducing-aura">Introducing Aura</h3>
+<p>Aura is a fully fledged replacement for <code>pacman</code> with enhancements as well as an AUR helper built-in. Aura provides all the same features as <code>pacman</code> with all the same commands and flags.</p>
+<p>Taken from the <a href="https://fosskers.github.io/aura/introduction.html"  target="_blank" rel="noreferrer nofollow">Aura&rsquo;s own guide</a>
+: Aura doesn&rsquo;t just mimic <code>pacman</code>; it <em>is</em> <code>pacman</code>. All <code>pacman</code> operations and their sub-options are accepted, as-is.</p>
+<p>Aura also provides a dead simple way to install AUR packages from</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura -As google-chrome
+</span></span></code></pre></div><p><strong>Using Aura as</strong> <code>pacman</code> <strong>also provides multiple extra features such as:</strong></p>
+<ul>
+<li>
+<p>Downgrading a package</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura -C firefox
+</span></span></code></pre></div></li>
+<li>
+<p>Discovering what package owns a certain file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura -Qo firefox
+</span></span><span style="display:flex;"><span>/usr/bin/firefox is owned by firefox 127.0.2-1
+</span></span></code></pre></div></li>
 </ul>
+<p><strong>Using Aura as AUR helper:</strong></p>
+<ul>
+<li>
+<p>Installing a package from AUR</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura -As google-chrome
+</span></span></code></pre></div></li>
+<li>
+<p>Scrutinizing a package</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura -Ai google-chrome
+</span></span></code></pre></div></li>
+</ul>
+<p>Now let&rsquo;s see how do we get started with Aura</p>
+<h3 id="getting-started-with-aura">Getting started with Aura</h3>
+<p>To install Aura, we have to compile it from source first.</p>
+<ul>
+<li>
+<p>Step 1: Grab the code from code and cd into it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://aur.archlinux.org/aura.git <span style="color:#f92672">&amp;&amp;</span> cd aura
+</span></span></code></pre></div></li>
+<li>
+<p>Step 2: Compile it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>makepkg -si
+</span></span></code></pre></div></li>
+</ul>
+<p>Then run <code>aura check</code> to see the status.</p>
+<h3 id="some-recommended-configurations">Some recommended configurations:</h3>
+<p>First generate the config file by running</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura conf --gen &gt; ~/.config/aura/config.toml
+</span></span></code></pre></div><ul>
+<li>
+<p>If you are not comfortable with vim as editor, change <code>editor=&quot;nano&quot;</code> in [general] of the config file</p>
+</li>
+<li>
+<p>Put <code>delmakedeps = true</code> if you want to remove the build dependencies after every install automatically to save space.</p>
+</li>
+<li>
+<p>Now you can use</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>aura -As google-chrome
+</span></span></code></pre></div><p>to get started with installing packages.</p>
+<h3 id="some-bonus-life-hacks">Some bonus life hacks</h3>
+<p>A few tricks I use to make installing and removing packages faster and easier is to create aliases in my .zshrc (.bashrc) file, such as</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>alias yeet<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aura -Rns&#34;</span>
+</span></span><span style="display:flex;"><span>alias update<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aura -Syu&#34;</span>
+</span></span><span style="display:flex;"><span>alias install<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;install_package&#34;</span>
+</span></span><span style="display:flex;"><span>alias search<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;search_package&#34;</span>
+</span></span><span style="display:flex;"><span>alias list<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aura -Q | grep&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>install_package<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ! aura -S <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;\e[38;2;94;255;190m\e[1mPackage not found in official repositories. Trying to install from AUR...\e[m\n&#34;</span>
+</span></span><span style="display:flex;"><span>        aura -A <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>search_package<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;\e[38;2;94;255;190m\e[1m</span>$1<span style="color:#e6db74"> in official repositories:\e[m&#34;</span>
+</span></span><span style="display:flex;"><span>    aura -Ss <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;\n\e[38;2;94;255;190m\e[1m</span>$1<span style="color:#e6db74"> in AUR:\e[m&#34;</span>
+</span></span><span style="display:flex;"><span>    aura -As <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Here, I have simply created aliases to uninstall and install a package using <code>yeet</code> and <code>install</code>. For searching and installing packages, there&rsquo;s a simple script that checks both official and AUR while installing a package. (This is not perfect, I am aware).</p>
+<blockquote>
+<p>Check out rest of my configuration in my <a href="https://github.com/funinkina/dotfiles"  target="_blank" rel="noreferrer nofollow">Dotfiles GitHub repository</a>
+.</p>
+</blockquote>
+<h3 id="a-word-on-stability">A word on stability</h3>
+<p>Most people use Arch for its rolling release cycle and being on the bleeding edge, but most of the time, this is the main reason for your system instability, therefore in my opinion, it is best to update your packages weekly. This increases the chance that if a certain bug or dependency was present in an update, it would have been fixed after a few days.
+Also if you aren&rsquo;t using Nvidia GPU, and your hardware is well-supported by the latest kernel, chances are, it is also supported by the LTS kernel as well. So I would recommend you to switch to LTS kernel for maximum stability.</p>
+</main>
+
+
+
 
 <br>
 
