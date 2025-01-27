@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on funinkinas portfolio</title>
+    <link>http://localhost:1313/project/</link>
+    <description>Recent content in Projects on funinkinas portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 01 Jul 2021 00:00:00 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Twitter bot</title>
+      <link>http://localhost:1313/project/twitter-bot/</link>
+      <pubDate>Thu, 01 Jul 2021 00:00:00 +0530</pubDate>
+      <guid>http://localhost:1313/project/twitter-bot/</guid>
+      <description>&lt;h1 id=&#34;placeholder&#34;&gt;Placeholder&lt;/h1&gt;</description>
+    </item>
+  </channel>
+</rss>

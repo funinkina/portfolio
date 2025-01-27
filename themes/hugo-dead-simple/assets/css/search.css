@@ -1,0 +1,37 @@
+/* SEARCH */
+#search-input {
+    padding: 6px;
+    width: 72%;
+    border: 1px solid whitesmoke;
+}
+
+#search-input:focus {
+    border-color: #000000;
+}
+
+#search-input:active {
+    color: #000000;
+}
+
+@media screen and (min-width: 900px) {
+    #search-input {
+        width: 42%;
+    }
+}
+
+@media screen and (min-width: 1150px) {
+    #search-input {
+        width: 33%;
+    }
+}
+
+input {
+    background-color: var(--background);
+    color: var(--text);
+    border-color: var(--border-general);
+    border-radius: 4px;
+}
+
+#results {
+    padding-left: 16px;
+}

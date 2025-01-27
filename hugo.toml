@@ -1,0 +1,32 @@
+baseURL = 'https://funinkina.xyz/'
+languageCode = 'en-us'
+title = 'funinkinas portfolio'
+theme = 'hugo-dead-simple'
+
+[params]
+author = "Aryan Kushwaha"
+description = "A portfolio and blog by Your Name"
+ShowReadingTime = true
+ShowDate = true
+
+[permalinks]
+blog = "/blog/:slug/"
+project = "/project/:slug/"
+
+
+[menu]
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+[[menu.main]]
+name = "Blog"
+url = "/blog/"
+weight = 2
+[[menu.main]]
+name = "Projects"
+url = "/project/"
+weight = 3
+[[menu.main]]
+name = "Resume"
+url = "https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing"

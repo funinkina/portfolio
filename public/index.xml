@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>funinkina&#39;s portfolio on funinkinas portfolio</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in funinkina&#39;s portfolio on funinkinas portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>On Rust</title>
+      <link>http://localhost:1313/blog/on-rust/</link>
+      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/on-rust/</guid>
+      <description>&lt;p&gt;Thinking of using Rust as a web backend?&lt;/p&gt;&#xA;&lt;p&gt;Imagine that TypeScript is like a shitty but versatile truck. It will do all sorts of weird shit, including a godawful toolchain and bundling system, but it is well supported by the community and it will handle whatever you throw at it. A huge pothole in the road? It will somehow manage to come out the other end but it won&amp;rsquo;t be pretty. It will get to the finish line slowly but surely.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>REST API Guidelines 📜</title>
+      <link>http://localhost:1313/blog/rest-api-guidelines/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/rest-api-guidelines/</guid>
+      <description>&lt;p&gt;This is a shortened merge of &lt;a href=&#34;https://cloud.google.com/apis/design&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer nofollow&#34;&gt;Google&amp;rsquo;s API design guide&lt;/a&gt;&#xA;&#xA;and &lt;a href=&#34;https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer nofollow&#34;&gt;Microsoft REST API Guidelines&lt;/a&gt;&#xA;.&lt;/p&gt;&#xA;&lt;p&gt;To write OpenAPI schema &lt;a href=&#34;https://swagger.io/docs/specification/basic-structure/&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer nofollow&#34;&gt;swagger&lt;/a&gt;&#xA; documentation is useful.&#xA;To quickly iterate on a design, &lt;a href=&#34;https://semver.org/&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer nofollow&#34;&gt;semantic versioning&lt;/a&gt;&#xA; should be used.&#xA;To generate human-readable diff of different versions &lt;a href=&#34;https://github.com/OpenAPITools/openapi-diff&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer nofollow&#34;&gt;openapi-diff&lt;/a&gt;&#xA;&#xA;can be useful.&lt;/p&gt;&#xA;&lt;h2 id=&#34;1-resource-oriented-design&#34;&gt;1. Resource-oriented design&lt;/h2&gt;&#xA;&lt;p&gt;In general URL paths should follow this scheme:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;API Service Name&lt;/th&gt;&#xA;          &lt;th&gt;Collection ID&lt;/th&gt;&#xA;          &lt;th&gt;Resource ID&lt;/th&gt;&#xA;          &lt;th&gt;Collection ID&lt;/th&gt;&#xA;          &lt;th&gt;Resource ID&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;//storage.googleapis.com&lt;/td&gt;&#xA;          &lt;td&gt;/buckets&lt;/td&gt;&#xA;          &lt;td&gt;/bucket-id&lt;/td&gt;&#xA;          &lt;td&gt;/objects&lt;/td&gt;&#xA;          &lt;td&gt;/object-id&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;A storage service has a collection of &lt;em&gt;buckets&lt;/em&gt;, where each bucket has a collection of &lt;em&gt;objects&lt;/em&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Twitter bot</title>
+      <link>http://localhost:1313/project/twitter-bot/</link>
+      <pubDate>Thu, 01 Jul 2021 00:00:00 +0530</pubDate>
+      <guid>http://localhost:1313/project/twitter-bot/</guid>
+      <description>&lt;h1 id=&#34;placeholder&#34;&gt;Placeholder&lt;/h1&gt;</description>
+    </item>
+  </channel>
+</rss>
