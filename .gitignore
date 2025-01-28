@@ -1,2 +1,42 @@
 node_modules/
 *.pdf
+# Hugo Generated Files
+public/
+/resources/
+hugo_stats.json
+
+# Static File Cache
+/.hugo_build.lock
+
+# Node Modules (if using npm/yarn for managing dependencies)
+/node_modules/
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
+
+# System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor Files
+/.vscode/
+/.idea/
+/*.sublime-project
+/*.sublime-workspace
+/.project
+/.classpath
+/.settings/
+/*.swp
+*.log
+
+# Backup Files
+*.bak
+*.tmp
+*.~*
+*.orig
+
+# Git-Specific Files
+.git/
+.gitignore
