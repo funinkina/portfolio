@@ -4,7 +4,7 @@ node_modules/
 public/
 /resources/
 hugo_stats.json
-
+public
 # Static File Cache
 /.hugo_build.lock
 
@@ -36,7 +36,3 @@ desktop.ini
 *.tmp
 *.~*
 *.orig
-
-# Git-Specific Files
-.git/
-.gitignore

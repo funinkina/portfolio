@@ -22,12 +22,5 @@
       <guid>http://localhost:1313/blog/simplifying-package-installation-on-arch-linux/</guid>
       <description>&lt;p&gt;All of us in the &amp;ldquo;Arch Btw&amp;rdquo; cult use it for one of its main selling points, the repositories. Arch Linux&amp;rsquo;s pragmatic approach to its packages makes it so much easier for users to sync packages without fiddling with multiple repositories and dependency hell, making it a one-stop solution. The Arch User Repository (AUR) is just a cherry on top. Including packages submitted by users makes it even more complete, removing the need for flatpaks or snaps. (Might cause dependency issues, we will discuss this later).&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>Twitter bot</title>
-      <link>http://localhost:1313/project/twitter-bot/</link>
-      <pubDate>Thu, 01 Jul 2021 00:00:00 +0530</pubDate>
-      <guid>http://localhost:1313/project/twitter-bot/</guid>
-      <description>&lt;h1 id=&#34;placeholder&#34;&gt;Placeholder&lt;/h1&gt;</description>
-    </item>
   </channel>
 </rss>
