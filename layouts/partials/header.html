@@ -71,16 +71,13 @@
         {{ partial "google-analytics.html" . }}
     {{ end }}
 
-    <!-- Google Analytics -->
+    {{/*  {{ if eq (getenv "HUGO_ENV") "production" }}
+        <!-- Google Analytics tracking code goes here -->
+        {{ template "_internal/google_analytics.html" . }}
+        {{ template "_internal/google_analytics_async.html" . }}
+    {{ end }}  */}}
     {{ if eq (getenv "HUGO_ENV") "production" }}
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN1LB8C8L2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-KN1LB8C8L2');
-        </script>
+        {{ partial "google-analytics.html" . }}
     {{ end }}
   </head>
 
