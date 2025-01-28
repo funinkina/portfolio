@@ -79,7 +79,7 @@ An Inode is of 256 bytes in size. Containing the following fields:
 | Time file was last accessed |
 | Time file was last modified |
 | Time file was last changed |
-| 12 Direct block pointers (32/64 bits) to reference upto 16 MB |
+| 12 Direct block pointers (32/64 bits) to reference upto 96 KB |
 | 1 Single Indirect block pointer (32/64 bits) to reference upto 16 MB |
 | 1 Double Indirect block pointer (32/64 bits) to reference upto 32 GB |
 | 1 Triple Indirect block pointer (32/64 bits) to reference upto 64 TB |
