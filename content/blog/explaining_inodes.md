@@ -35,7 +35,7 @@ total 1380
 24782644 -rw-r--r-- 1 funinkina funinkina    2024 Aug 18 19:22 starship.toml
 ```
 Let's take the file `starship.toml` as an example.
-Here we see `24782644`, this is the inode number of the file `config.jsonc`. You can think of this inode number as a primary key to the `Inode` data structure of this file. Let's dive deeper into the `Inode` data structure.
+Here we see `24782644`, this is the inode number of the file `starship.toml`. You can think of this inode number as a primary key to the `Inode` data structure of this file. Let's dive deeper into the `Inode` data structure.
 We can further see the properties of the file using the `stat` command. The output of the `stat` command is shown below:
 
 ```bash {hl_lines=[4]}
