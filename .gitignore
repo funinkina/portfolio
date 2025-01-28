@@ -5,6 +5,7 @@ node_modules/
 hugo_stats.json
 # Static File Cache
 /.hugo_build.lock
+public/
 
 # Node Modules (if using npm/yarn for managing dependencies)
 /node_modules/
