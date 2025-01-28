@@ -2,6 +2,7 @@ baseURL = 'https://funinkina.xyz/'
 languageCode = 'en-us'
 title = "funinkina's portfolio"
 theme = 'hugo-dead-simple'
+googleAnalytics = "G-KN1LB8C8L2"
 
 [params]
 author = "Aryan Kushwaha"
