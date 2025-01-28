@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Filesystem on funinkina&#39;s portfolio</title>
+    <link>http://localhost:1313/tags/filesystem/</link>
+    <description>Recent content in Filesystem on funinkina&#39;s portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Jan 2025 23:05:52 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/filesystem/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Explaining Inodes In Linux</title>
+      <link>http://localhost:1313/blog/explaining-inodes-in-linux/</link>
+      <pubDate>Mon, 27 Jan 2025 23:05:52 +0530</pubDate>
+      <guid>http://localhost:1313/blog/explaining-inodes-in-linux/</guid>
+      <description>&lt;h2 id=&#34;what-are-inodes&#34;&gt;What are Inodes?&lt;/h2&gt;&#xA;&lt;p&gt;If you are a linux user, you must have encountered some kind &lt;code&gt;Insufficient Permission&lt;/code&gt; or &lt;code&gt;File not found&lt;/code&gt; errors. These errors are usually caused by the filesystem structure of linux. Ever wondered from where Linux reads these properties of a file? Also if you use symlinks (shortcuts if you are coming from windows) to a file, how is it resolved internally? When I was a beginner, I used to think that Linux reads these properties from the file itself. But then where are these properties stored in the file? It turns out, that&amp;rsquo;s not the case. Linux reads these properties from a data structure called &lt;code&gt;Inode&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
