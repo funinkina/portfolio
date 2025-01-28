@@ -4,6 +4,9 @@ title = "funinkina's portfolio"
 theme = 'hugo-dead-simple'
 googleAnalytics = "G-KN1LB8C8L2"
 
+[params.google.analytics]
+id = "G-KN1LB8C8L2"
+
 [params]
 author = "Aryan Kushwaha"
 description = "A portfolio and blog by Aryan Kushwaha"
