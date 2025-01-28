@@ -12,17 +12,17 @@ tags = [
     "responsive",
     "light",
     "simple",
-    "clean"
+    "clean",
 ]
 features = [
-  "responsive",
-  "single-column",
-  "blog",
-  "table-of-contents",
-  "favicon"
+    "responsive",
+    "single-column",
+    "blog",
+    "table-of-contents",
+    "favicon",
 ]
 min_version = "0.83.0"
 
 [author]
-    name = "Gleb Buzin"
-    homepage = "https://github.com/barklan"
+name = "Gleb Buzin"
+homepage = "https://github.com/barklan"

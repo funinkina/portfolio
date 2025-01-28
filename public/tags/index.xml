@@ -6,20 +6,13 @@
     <description>Recent content in Tags on funinkina&#39;s portfolio</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jan 2025 23:05:52 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Rust</title>
-      <link>http://localhost:1313/tags/rust/</link>
-      <pubDate>Wed, 03 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/rust/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Rest</title>
-      <link>http://localhost:1313/tags/rest/</link>
-      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/rest/</guid>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Mon, 27 Jan 2025 23:05:52 +0530</pubDate>
+      <guid>http://localhost:1313/tags/linux/</guid>
       <description></description>
     </item>
   </channel>

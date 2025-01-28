@@ -5,9 +5,10 @@ theme = 'hugo-dead-simple'
 
 [params]
 author = "Aryan Kushwaha"
-description = "A portfolio and blog by Your Name"
+description = "A portfolio and blog by Aryan Kushwaha"
 ShowReadingTime = true
 ShowDate = true
+favicon = "favicon.ico"
 
 [permalinks]
 blog = "/blog/:slug/"
