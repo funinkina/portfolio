@@ -58,7 +58,7 @@
         }
     </style>
 
-    {{ $CSS := slice
+    {{ $CSS := slice 
         (resources.Get "css/main.css")
         (resources.Get "css/menu.css")
         (resources.Get "css/toc.css")
@@ -68,25 +68,8 @@
         (resources.Get "css/code.css")
         (resources.Get "css/tables.css")
         (resources.Get "css/misc.css")
-    | resources.Concat "style.css" | minify | fingerprint }}
+        | resources.Concat "style.css" | minify | fingerprint }}
     <link rel="stylesheet" type="text/css" href="{{ $CSS.RelPermalink }}" media="all">
-    {{/*  {{ if eq (getenv "HUGO_ENV") "production" }}
-    <!-- Google Analytics tracking code goes here -->
-    {{ template "_internal/google_analytics.html" . }}
-    {{ template "_internal/google_analytics_async.html" . }}
-    {{ end }}  */}}
-    {{ if eq (getenv "HUGO_ENV") "production" }}
-        {{ partial "google-analytics.html" . }}
-    {{ end }}
-
-    {{/*  {{ if eq (getenv "HUGO_ENV") "production" }}
-        <!-- Google Analytics tracking code goes here -->
-        {{ template "_internal/google_analytics.html" . }}
-        {{ template "_internal/google_analytics_async.html" . }}
-    {{ end }}  */}}
-    {{ if eq (getenv "HUGO_ENV") "production" }}
-        {{ partial "google-analytics.html" . }}
-    {{ end }}
   </head>
 
 
