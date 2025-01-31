@@ -1,16 +1,16 @@
 ---
 date : '2025-01-31T23:42:36+05:30'
-draft : true
+draft : false
 title : 'Running Deepseek on Raspberry Pi'
 ---
 Let's start by addressing the elephant in the room, why? Why would I run a freaking Large Language Model on a 4-core arm processor with 4GB of RAM? Well, why not? I have a Raspberry Pi 4 lying around and I wanted to see if I could run Deepseek on it. (Also cause free content for the blog). Before starting, let me say, I have absolutely zero expectations from this experiment. I am not expecting it to work, I am not expecting it to be fast, I am not expecting it to be usable. I am just doing it because I can. So, let's get started.
 
-## Setting up the Pi
+## 🛠️ Setting up the Pi
 I am using a Raspberry Pi 4 with 4GB of RAM. I have installed the latest version of Raspberry Pi OS Lite which is based on Debian. I don't have a spare keyboard or mouse laying around, so it's going headless on my home router. Therefore all the commands will be run over SSH.
 
 ![Raspberry Pi 4](/blog-assets/PXL_20240127_130937347.jpg)
 
-## Setting up Software
+## 🧑‍💻 Setting up Software
 To run the Deepseek model, without much hassle, the obvious choice is Ollama. It provides us with simple commands to run the model. So, let's start by installing Ollama. This command is from the official [webiste](https://ollama.com/download).
 
 ```bash
@@ -23,7 +23,7 @@ curl -fsSL https://ollama.com/install.sh | sh
 I would not recommend using the default SD card for running the model. The SD card is not designed for heavy read-write operations. It will wear out quickly. I would recommend using an external SSD or a USB drive for running the model. In my case, I am using a 16GB Sandisk USB drive. It is ext4 formatted and mounted at `/mnt/usb`.
 {{< /box >}}
 
-## Getting the model
+## ⬇️ Getting the model
 Since we are using USB for storing the model, we need to set the `OLLAMA_MODELS` environment variable to point to the USB drive. I have added the following line to my `.bashrc` file.
 
 ```bash
@@ -49,7 +49,7 @@ The model is around 1.4GB in size. The Raspberry Pi 4 has 4GB of RAM. So, you ca
 
 As you can see this is definitely not 200 tokens/sec, but not bad for a hardware with 4GB of RAM and no GPU. Also considering the fact that the model has only 1.5 Billion parameters, it is definitely usable for some basic tasks. The model also seems to reason before the answer, which is something you don't have to pay $200 for, and I think that's pretty cool in itself.
 
-## Performance and comparisons
+## ⏳ Performance and comparisons
 Let's actually see if the result is any good. Here's the entire output:
 
 ### Deepseek R1 1.5B
@@ -169,17 +169,20 @@ that particular non
 
 Which yea I would agree is not great, or even right. I asked it in C++ and it gave me a Python solution. But hey, it's running on a Raspberry Pi 4, so I am not complaining. I am just happy it works.
 
-## Benchmarks
+## 📊 Benchmarks
 I ran some benchmarks to see how the model performs on the Raspberry Pi 4. I used the [ollama-bench](https://github.com/dalist1/ollama-bench) tool to measure the time taken to generate the output for a given input. Here are the results:
 
-### Deepseek R1 1.5B
-```
-
-
-### Deepseek Coder
 ```
 ⭐ Benchmark results for deepseek-coder:
   Total time: 42.97 seconds
   Tokens generated: 93
   Tokens per second: 4.57
 ```
+
+## 🎯 Conclusion
+
+So, can you run Deepseek on a Raspberry Pi 4? Yes, you can. Is it usable? Not really.The model is too large for the available RAM and the performance is abysmal. But it works! 🎊 
+
+If you have a Raspberry Pi 4 lying around and want to run a Large Language Model on it, you can. Just don't expect it to be fast or usable. 🐌 It's more of a fun experiment than anything else. But hey, it's cool to see a Large Language Model running on a Raspberry Pi 4! 🤖 And that's all that matters. I still consider deepseek a huge win for the open source community! 🌟 💪
+
+![My Raspberry Pi 4 running Deepseek](/blog-assets/PXL_20240123_184438843.jpg)
