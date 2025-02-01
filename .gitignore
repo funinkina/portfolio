@@ -16,7 +16,7 @@ hugo_stats.json
 Thumbs.db
 ehthumbs.db
 desktop.ini
-
+public/
 # Editor Files
 /.vscode/
 /.idea/
