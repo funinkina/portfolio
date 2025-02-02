@@ -3,16 +3,16 @@ title: "funinkina's portfolio"
 ---
 # Hi, I'm Aryan Kushwaha 👋
 
-Currently a **Third Year Engineering** Undergrad based in **Delhi, India**. I'm passionate about 🐧 Linux, 🌟 Open-Source, ☁️ Devops, 🤖 Machine Learning.
+Currently a **Third Year Engineering** Undergrad based in **Delhi, India**. I work with 🐧 Linux, 🌟 Open-Source, ☁️ Devops, 🤖 Machine Learning.
 
 This website is a collection of my work and thoughts. All writings, projects and opinions are my own
 
 Here, you'll find my experience, projects, and blogs.
 
-{{< box info >}}   
+{{< box info >}}
 **You can also connect with me on:**
 
-[Github](https://github.com/funinkina) &nbsp; &nbsp; &nbsp;  [LinkedIn](https://www.linkedin.com/funinkina)  &nbsp; &nbsp; &nbsp; [Twitter](https://x.com/funinkina)  &nbsp; &nbsp; &nbsp;  ✉️ [Mail](mailto:aryankushwaha3101@gmail.com)    
+[Github](https://github.com/funinkina) &nbsp; &nbsp; &nbsp;  [LinkedIn](https://www.linkedin.com/funinkina)  &nbsp; &nbsp; &nbsp; [Twitter](https://x.com/funinkina)  &nbsp; &nbsp; &nbsp;  ✉️ [Mail](mailto:aryankushwaha3101@gmail.com)
 {{< /box >}}
 
 ## Experience
@@ -21,7 +21,7 @@ Here, you'll find my experience, projects, and blogs.
   - ⚡ **Streamlined backend architecture** and automated web scraping pipelines, cutting API latency by 25% and saving 15+ hours per week in manual data aggregation.
   - 🛠️ **Deployed and managed scalable solutions on Microsoft Azure and Amazon S3**, ensuring 99.9% uptime and secure handling of over 1TB of data.
   - 🧠 **Leveraged embeddings and NLP models** to extract actionable insights from customer interactions, enhancing the system's analytical capabilities.
-  
+
 ### 🔬 Summer Reasearch Intern *at* NIT Jalandhar &nbsp; &nbsp; `(May 2024 - July 2024)`
   - 📊 Completed a 2-month summer research internship at NIT Jalandhar in June 2024.
   - 🌊 Worked on a research paper to predict various diseases using 20+ real time water quality parameters using machine learning models with ~90% accuracy.
@@ -32,6 +32,6 @@ Here, you'll find my experience, projects, and blogs.
   - 🌟 Mentored numerous students in Machine Learning, AI etc.
   - 🚀 Conducted workshops on Git, GitHub, and open-source contributions.
   - 📈 Worked on a wide variety of projects in fields of finance, NLP etc..
-  
+
 ----
 ### 🔍 Explore my projects and blogs below

@@ -2,6 +2,7 @@
 date : '2025-01-31T23:42:36+05:30'
 draft : false
 title : 'Running Deepseek on Raspberry Pi'
+tags: ['LLM', 'Raspberry Pi']
 ---
 Let's start by addressing the elephant in the room, why? Why would I run a freaking Large Language Model on a 4-core arm processor with 4GB of RAM? Well, why not? I have a Raspberry Pi 4 lying around and I wanted to see if I could run Deepseek on it. (Also cause free content for the blog). Before starting, let me say, I have absolutely zero expectations from this experiment. I am not expecting it to work, I am not expecting it to be fast, I am not expecting it to be usable. I am just doing it because I can. So, let's get started.
 
@@ -181,7 +182,7 @@ I ran some benchmarks to see how the model performs on the Raspberry Pi 4. I use
 
 ## 🎯 Conclusion
 
-So, can you run Deepseek on a Raspberry Pi 4? Yes, you can. Is it usable? Not really.The model is too large for the available RAM and the performance is abysmal. But it works! 🎊 
+So, can you run Deepseek on a Raspberry Pi 4? Yes, you can. Is it usable? Not really.The model is too large for the available RAM and the performance is abysmal. But it works! 🎊
 
 If you have a Raspberry Pi 4 lying around and want to run a Large Language Model on it, you can. Just don't expect it to be fast or usable. 🐌 It's more of a fun experiment than anything else. But hey, it's cool to see a Large Language Model running on a Raspberry Pi 4! 🤖 And that's all that matters. I still consider deepseek a huge win for the open source community! 🌟 💪
 
