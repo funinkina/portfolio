@@ -1,6 +1,6 @@
 baseURL = 'https://funinkina.xyz/'
 languageCode = 'en-us'
-title = "funinkina's portfolio"
+title = "funinkina's blogs"
 theme = 'hugo-dead-simple'
 googleAnalytics = "G-KN1LB8C8L2"
 
