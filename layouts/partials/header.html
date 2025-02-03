@@ -29,7 +29,7 @@
     <!-- Open Graph Meta Tags for Social Media -->
     <meta property="og:title" content="{{ .Title }}" />
     <meta property="og:description" content="{{ .Summary }}" />
-    <meta property="og:image" content="{{ .Site.BaseURL }}images/og-image.jpg" />
+    <meta property="og:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.BaseURL }}images/og-image.jpg{{ end }}" />
     <meta property="og:url" content="{{ .Permalink }}" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="{{ .Site.Title }}" />
@@ -38,7 +38,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ .Title }}" />
     <meta name="twitter:description" content="{{ .Summary }}" />
-    <meta name="twitter:image" content="{{ .Site.BaseURL }}images/og-image.jpg" />
+    <meta name="twitter:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.BaseURL }}images/og-image.jpg{{ end }}" />
     <meta name="twitter:url" content="{{ .Permalink }}" />
     <meta name="twitter:site" content="@funinkina" />
 
