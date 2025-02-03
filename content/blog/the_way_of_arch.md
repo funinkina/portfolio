@@ -1,12 +1,16 @@
 ---
 title : 'The Way of Arch'
-date : '2025-02-02T16:14:53+05:30'
+date : '2025-02-03T10:14:53+05:30'
 draft : false
 tags : [Linux, Arch, Guide]
 description : 'A guide to set up Arch Linux with a minimal installation for an optimized workflow experience.'
+images:
+  - /blog-assets/arch-guide-header.png
 ---
+![Header Image](/blog-assets/arch-guide-header.png)
 
 # My Zenful Arch linux setup for an optimized and secure workflow
+## Introduction
 If it's not clear by now, I use arch btw. But you might ask, why arch linux, what's so special about it. After years of distro hopping I have realized what makes arch linux special, Its minimalism is its strength—allowing infinite customization to fit any workflow. It can be tweaked infinitely to your needs, regardless of the kind of work you do. Even if you are not an engineer, it will serve you pretty well instead of getting in your way. Though this guide is mainly targeted towards programmers. Starting with arch linux seems kinds daunting isn't it? I mean the [CLI installation](https://wiki.archlinux.org/title/Installation_guide) might indeed throw off a beginner from trying arch. But then you realise it's actually just copy pasting commands from the internet and pasting into your terminal. (Honestly, you should not run unknown scripts off of the internet without verifying).
 
 What I've seen is that a lot of guides just cover just the basics, and leave cover the security and the post installation aspect. Sure you can refer to [arch wiki about security](https://wiki.archlinux.org/title/Security) and about post installation. Also we can't forget about security, so that's why we will cover everything from [Secure Boot](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot), [Full Disk Encryption](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system) to [Firewall](https://wiki.archlinux.org/title/Category:Firewalls) and passwords. But then again, how will you know what will suit your needs? Therefore this blog will act like a guide to set up arch linux with a minimal installation for an optimized workflow experience.
