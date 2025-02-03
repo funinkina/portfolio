@@ -3,6 +3,7 @@ title : 'The Way of Arch'
 date : '2025-02-02T16:14:53+05:30'
 draft : false
 tags : [Linux, Arch, Guide]
+description : 'A guide to set up Arch Linux with a minimal installation for an optimized workflow experience.'
 ---
 
 # My Zenful Arch linux setup for an optimized and secure workflow
@@ -113,7 +114,7 @@ NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 nvme0n1     259:0    0  709.5G  0 disk
 ```
 Launch cfdisk: Open a terminal. Identify your disk. For this guide, we'll use /dev/nvme0n1 as an example. Replace it with your actual disk identifier.
-```
+```bash
 cfdisk /dev/nvme0n1
 ```
 Select the Label Type:
@@ -149,12 +150,12 @@ nvme0n1     259:0    0   710G   0  disk
 ```
 ### Creating the encrypted LUKS container
 Create the LUKS encrypted container at the designated partition. Enter the chosen password twice.
-```
-# cryptsetup luksFormat /dev/nvme0n1p2
+``` bash
+cryptsetup luksFormat /dev/nvme0n1p2
 ```
 Open the container:
-```
-# cryptsetup open /dev/nvme0n1p2 cryptlvm
+```bash
+cryptsetup open /dev/nvme0n1p2 cryptlvm
 ```
 Here cryptlvm is the name we are assigning to the encrypted container after opening it.
 
@@ -163,52 +164,52 @@ The decrypted container is now available at /dev/mapper/cryptlvm.
 ### Preparing the logical volumes
 
 Create a physical volume on top of the opened LUKS container:
-```
-# pvcreate /dev/mapper/cryptlvm
+```bash
+pvcreate /dev/mapper/cryptlvm
 ```
 Create a volume group (in this example, it is named MyVolGroup, but it can be whatever you want) and add the previously created physical volume to it:
-```
-# vgcreate MyVolGroup /dev/mapper/cryptlvm
+```bash
+vgcreate MyVolGroup /dev/mapper/cryptlvm
 ```
 Create all your logical volumes on the volume group:
 {{< box info>}}
 If a logical volume will be formatted with ext4, leave at least 256 MiB free space in the volume group to allow using e2scrub. After creating the last volume with -l 100%FREE, this can be accomplished by reducing its size with `lvreduce -L -256M MyVolGroup/home`.
 {{< /box >}}
 
-```
-# lvcreate -L 4G MyVolGroup -n swap
-# lvcreate -L 32G MyVolGroup -n root
-# lvcreate -l 100%FREE MyVolGroup -n home
-# lvreduce -L -256M MyVolGroup/home
+```bash
+lvcreate -L 4G MyVolGroup -n swap
+lvcreate -L 32G MyVolGroup -n root
+lvcreate -l 100%FREE MyVolGroup -n home
+lvreduce -L -256M MyVolGroup/home
 ```
 Format your file systems on each logical volume:
-```
-# mkfs.ext4 /dev/MyVolGroup/root
-# mkfs.ext4 /dev/MyVolGroup/home
-# mkswap /dev/MyVolGroup/swap
+```bash
+mkfs.ext4 /dev/MyVolGroup/root
+mkfs.ext4 /dev/MyVolGroup/home
+mkswap /dev/MyVolGroup/swap
 ```
 Mount your file systems:
 ```
-# mount /dev/MyVolGroup/root /mnt
-# mount --mkdir /dev/MyVolGroup/home /mnt/home
-# swapon /dev/MyVolGroup/swap
+mount /dev/MyVolGroup/root /mnt
+mount --mkdir /dev/MyVolGroup/home /mnt/home
+swapon /dev/MyVolGroup/swap
 ```
 ### Preparing the boot partition
-```
-# mkfs.fat -F32 /dev/nvme0n1p1
+```bash
+mkfs.fat -F32 /dev/nvme0n1p1
 ```
 Replace nvme0n1p1 with the drive identifier for your EFI partition.
 
 Mount the partition to /mnt/efi:
-```
-# mount --mkdir -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/nvme0n1p1 /mnt/efi
+```bash
+mount --mkdir -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/nvme0n1p1 /mnt/efi
 ```
 
 ## 3. Installing the base system
 
 Install essential packages:
-```
-# pacstrap -K /mnt base linux linux-firmware linux-headers intel-ucode vim nano efibootmgr sudo
+```bash
+pacstrap -K /mnt base linux linux-firmware linux-headers intel-ucode vim nano efibootmgr sudo
 ```
 {{< box info>}}
 Replace `intel-ucode` with `amd-ucode` if you are using an AMD processor.
@@ -219,37 +220,37 @@ You can also choose `linux-lts` instead of `linux` if you want to use the LTS ke
 {{< /box >}}
 
 After that is completed, we need to generate the fstab file:
-```
-# genfstab -U /mnt >> /mnt/etc/fstab
+```bash
+genfstab -U /mnt >> /mnt/etc/fstab
 ```
 Change root into the new system:
-```
-# arch-chroot /mnt
+```bash
+arch-chroot /mnt
 ```
 Set the time zone:
-```
-# ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+```bash
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
 ```
 Replace Region and City with your corresponding ones.
 
 Run hwclock to generate /etc/adjtime:
-```
-# hwclock --systohc
+```bash
+hwclock --systohc
 ```
 This command assumes the hardware clock is set to UTC.
 
 #### Localization:
 
 Edit `/etc/locale.gen` and uncomment en_US.UTF-8 UTF-8 and other needed UTF-8 locales.
-```
+```bash
 nano /etc/locale.gen
 ```
 Generate the locales by running:
-```
-# locale-gen
+```bash
+locale-gen
 ```
 Create the `locale.conf` file, and set the LANG variable accordingly:
-```
+```bash
 touch /etc/locale.conf
 ```
 ```
@@ -286,8 +287,8 @@ Add the following lines:
 127.0.1.1	yourhostname.localdomain	yourhostname
 ```
 Set the root password:
-```
-# passwd
+```bash
+passwd
 ```
 Create a non-root user account:
 Username can be anything you want, like newuser, user, etc.
@@ -295,8 +296,8 @@ Username can be anything you want, like newuser, user, etc.
 useradd -m newuser
 ```
 Set the newuser password:
-```
-# passwd newuser
+```bash
+passwd newuser
 ```
 Edit the /etc/sudoers file:
 
@@ -310,8 +311,8 @@ Press `X` on the `#` to remove it from the beginning of the line. and press `esc
 ```
 Add new user to wheel group:
 here `newuser` is the username you created earlier.
-```
-# usermod -G wheel newuser
+```bash
+usermod -G wheel newuser
 ```
 
 ## 4. Configuring the boot loader
@@ -329,8 +330,8 @@ You can skip `sd-vconsole` , if you didn't configure `/etc/vconsole.conf`. Do no
 `mkinitcpio` supports reading kernel parameters from command line files in the `/etc/cmdline.d` directory. `mkinitcpio` will concatenate the contents of all files with a `.conf` extension in this directory and use them to generate the kernel command line. Any lines in the command line file that start with a # character are treated as comments and ignored by mkinitcpio.
 
 Create the `cmdline.d` directory:
-```
-# mkdir /etc/cmdline.d
+```bash
+mkdir /etc/cmdline.d
 ```
 In order to unlock the encrypted root partition at boot, the following kernel parameters need to be set:
 ```
@@ -372,7 +373,7 @@ It is possible for someone to mimic our root partiton's UUID, and basically, que
 {{< /box >}}
 
 To do this, we need to install the systemd-ukify and sbsigntools
-```
+```bash
 sudo pacman -Syu systemd-ukify sbsigntools efitools
 ```
 `mkinitcpio` can build a UKI itself, but it prefers to use `systemd-ukify` when it is available. When building an UKI with `systemd-ukify`, it uses `systemd-measure` to automatically pre-calculate expected PCR11 values. The PCR11 values depends on the content of the UKI (see systemd-stub documentation), but PCR11 is also extended at different boot "phases". systemd-measure can be used to create and sign a policy for a specific phase.
@@ -393,7 +394,7 @@ The calculated policy will be included in the .pcrsig section.
 When .pcrsig and/or .pcrpkey sections are present in a unified kernel image their contents are passed to the booted kernel in an synthetic initrd cpio archive that places them in the /.extra/tpm2-pcr-signature.json and /.extra/tpm2-pcr-public-key.pem files. Typically, a tmpfiles.d line then ensures they are copied into /run/systemd/tpm2-pcr-signature.json and /run/systemd/tpm2-pcr-public-key.pem where they remain accessible even after the system transitions out of the initrd environment into the host file system. Tools such as `systemd-cryptsetup@.service`, `systemd-cryptenroll` and `systemd-creds` will automatically use files present under these paths to unlock protected resources (encrypted storage or credentials) or bind encryption to booted kernels.
 
 Create uki.conf
-```
+```bash
 sudo nano /etc/kernel/uki.conf
 ```
 ```
@@ -409,7 +410,7 @@ PCRPrivateKey=/etc/kernel/pcr-initrd.key.pem
 PCRPublicKey=/etc/kernel/pcr-initrd.pub.pem
 ```
 Generate the key for the PCR policy
-```
+```bash
 sudo ukify genkey --config=/etc/kernel/uki.conf
 ```
 ## 8. Use mkinitcpio to generate the UKI
@@ -439,29 +440,29 @@ fallback_uki="/efi/EFI/Linux/arch-linux-fallback.efi"
 fallback_options="-S autodetect"
 ```
 Finally, to build the UKI, make sure that the directory for the UKIs exist. For example, for the linux preset:
-```
-# mkdir -p /efi/EFI/Linux
+```bash
+mkdir -p /efi/EFI/Linux
 ```
 Now install the lvm2 package:
-```
+```bash
 sudo pacman -S lvm2
 ```
 Now, regenerate initramfs:
-```
-# mkinitcpio -p linux
+```bash
+mkinitcpio -p linux
 ```
 
 ## 9. Configuring the bootloader
 Since we are not dualbooting, we can use a much simple bootloader, or in this no bootloader at all. We will use EFI stub loader to boot the kernel directly from the UEFI firmware. This is the most secure way to boot the system, as it eliminates the need for a bootloader, which can be a potential attack vector.
 
 First, we need to copy the kernel image to the EFI system partition:
-```
+```bash
 cp /boot/vmlinuz-linux /efi/EFI/Linux/arch-linux.efi
 cp /boot/initramfs-linux.img /boot/efi/EFI/arch/initramfs-linux.img
 ```
 
 Then, we need to create a boot entry in the UEFI firmware. This can be done using the `efibootmgr` command. First, we need to find the device path of the EFI system partition. This can be done using the `lsblk` command:
-```
+```bash
 lsblk
 ```
 Look for the `/efi` partition, and note the device path. For example, if the device path is `/dev/nvme0n1p1`, you can create a boot entry using the following command:
@@ -476,22 +477,22 @@ nvme0n1        259:0    0 476.9G  0 disk
     └─vol-home 254:3    0 421.7G  0 lvm   /home
 ```
 Here the EFI system partition is `/dev/nvme0n1p1`. You can create a boot entry using the following command:
-```
+```bash
 efibootmgr --disk /dev/nvme0n1 --part 1 --create --label "Arch Linux" --loader /EFI/Linux/arch-linux.efi
 ```
 Replace `/dev/nvme0n1` with the device path of the disk containing the EFI system partition and 1 with the partition number of the EFI system partition.
 
 ## 10. Installing the GNOME desktop environment
 First install network manager and enable it to manage the network connections:
-```
+```bash
 sudo pacman -S networkmanager && systemctl enable NetworkManager
 ```
 Then install the GNOME desktop environment:
-```
+```bash
 sudo pacman -S gnome gnome-tweaks gnome-shell-extensions
 ```
 Enable the GDM service:
-```
+```bash
 sudo systemctl enable gdm
 ```
 
@@ -507,7 +508,7 @@ Now when booting into Arch Linux you'll be prompted to enter the passphrase to y
 At this point, you should have booted and logged into the GNOME desktop environment.
 
 Now to configure secure boot , first install the sbctl utility:
-```
+```bash
 sudo pacman -S sbctl
 ```
 {{< box info>}}
@@ -516,11 +517,11 @@ It might say completed installation with some errors, that's fine because sbctl 
 Now run sbctl status and ensure setup mode is enabled.
 
 Then create your secure boot keys with:
-```
+```bash
 sudo sbctl create-keys
 ```
 Enroll the keys, with Microsoft's keys, to the UEFI:
-```
+```bash
 sudo sbctl enroll-keys -m --firmware-builtin --tpm-eventlog
 ```
 {{< box info>}}
@@ -555,7 +556,7 @@ Check the secure boot status again
 `sbctl` should be installed now, but secure boot will not work until the boot files have been signed with the keys you just created.
 
 Check what files need to be signed for secure boot to work:
-```
+```bash
 sudo sbctl verify
 ```
 Now sign all the unsigned files. Most probably these are the files you need to sign:
@@ -566,7 +567,7 @@ Now sign all the unsigned files. Most probably these are the files you need to s
 /efi/EFI/systemd/systemd-bootx64.efi
 ```
 The files that need to be signed will depend on your system's layout, kernel and boot loader.
-```
+```bash
 $ sbctl sign --save /efi/EFI/BOOT/BOOTX64.EFI
 $ sbctl sign --save /efi/EFI/Linux/arch-linux-fallback.efi
 $ sbctl sign --save /efi/EFI/Linux/arch-linux.efi
@@ -622,7 +623,7 @@ Note that incorrect PIN entry when unlocking increments the TPM dictionary attac
 {{< box info>}}
 **Note:** Including PCR0 in the PCRs can cause the entry to become invalid after every firmware update. This happens because PCR0 reflects measurements of the firmware, and any update to the firmware will change these measurements, invalidating the TPM2 entry. If you prefer to avoid this issue, you might exclude PCR0 and use only PCR7 or other suitable PCRs.
 {{< /box >}}
-Info on all additional PCRs can be found here.
+Info on all additional PCRs can be found [here](https://wiki.archlinux.org/title/Trusted_Platform_Module#Accessing_PCR_registers).
 
 If all is well, reboot , and you won't be prompted for a passphrase, unless secure boot is disabled or secure boot state has changed.
 
@@ -810,7 +811,7 @@ This list is just what I use, you can add or remove aliases according to your ne
 Don't you want to be greeted neatly everytime you open your terminal? This is what my terminal looks like with starship prompt.
 ![Starship prompt](/blog-assets/starship-prompt.png)
 To configure starship prompt, add the following to the end of your `.zshrc` file.
-```
+```bash
 eval "$(starship init zsh)"
 ```
 
@@ -963,7 +964,7 @@ Then open GNOME tweaks app, which we installed when installing GNOME and set the
 ```
 ### Consistent Theming
 In gnome, some apps are in GTK3, and some are in GTK4, it can cause inconsistencies in the look of the two apps, you can make it more consistent by installing theme that will make the GTK3 apps look more modern
-```
+```bash
 yay -S adw-gtk-theme-git
 ```
 Then open gnome-tweaks, and set the legacy applications theme to adw-gtk or adw-gtk-dark

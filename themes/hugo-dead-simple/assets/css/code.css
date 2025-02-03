@@ -20,6 +20,7 @@ pre {
 
 .highlight {
   margin: 0.8em 0;
+  font-size: 1.3em;
 }
 
 .highlight div pre {
@@ -30,7 +31,7 @@ pre {
 }
 
 code {
-  font-family: 'Source Code Pro', monospace;
+  font-family: monospace;
   color: var(--code);
 
   /* For Iosevka */
@@ -41,11 +42,11 @@ code {
   border-radius: 5%;
   padding: 1px 4px;
   border: 1px solid var(--code-border);
-  font-size: 0.920em;
+  font-size: 1.1em;
 }
 
 pre code {
-  font-size: 0.900em;
+  font-size: 0.85em;
   font-stretch: normal;
 
   border: none;
@@ -105,7 +106,7 @@ pre code {
 
 /* Copy code button */
 .copy-code-button {
-  display: none;
+  display: block;
 }
 
 @media screen and (min-width: 760px) {
