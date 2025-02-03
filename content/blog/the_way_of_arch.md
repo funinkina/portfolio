@@ -1,11 +1,12 @@
-+++
-date = '2025-02-02T16:14:53+05:30'
-draft = true
-title = 'The Way of Arch'
-+++
+---
+title : 'The Way of Arch'
+date : '2025-02-02T16:14:53+05:30'
+draft : false
+tags : [Linux, Arch, Guide]
+---
 
 # My Zenful Arch linux setup for an optimized and secure workflow
-If it's not clear by now, I use arch btw. But you might ask, why arch linux, whats so special about this. After years of distro hopping I have realized what makes arch linux special, its nothing. Yes, the fact that it comes with nothing is what makes it so special. It can be tweaked infinitely to your needs, regardless of the kind of work you do. Even if you are not an engineer, it will serve you pretty well instead of getting in your way. Though this guide is mainly targeted towards programmers. Starting with arch linux seems kinds daunting isn't it? I mean the [CLI installation](https://wiki.archlinux.org/title/Installation_guide) might indeed throw off a beginner from trying arch. But then you realise its actually just copy pasting commands from the internet and pasting into your terminal. (Honestly, you should not run unknown scripts off of the internet without verifying).
+If it's not clear by now, I use arch btw. But you might ask, why arch linux, what's so special about it. After years of distro hopping I have realized what makes arch linux special, Its minimalism is its strength—allowing infinite customization to fit any workflow. It can be tweaked infinitely to your needs, regardless of the kind of work you do. Even if you are not an engineer, it will serve you pretty well instead of getting in your way. Though this guide is mainly targeted towards programmers. Starting with arch linux seems kinds daunting isn't it? I mean the [CLI installation](https://wiki.archlinux.org/title/Installation_guide) might indeed throw off a beginner from trying arch. But then you realise it's actually just copy pasting commands from the internet and pasting into your terminal. (Honestly, you should not run unknown scripts off of the internet without verifying).
 
 What I've seen is that a lot of guides just cover just the basics, and leave cover the security and the post installation aspect. Sure you can refer to [arch wiki about security](https://wiki.archlinux.org/title/Security) and about post installation. Also we can't forget about security, so that's why we will cover everything from [Secure Boot](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot), [Full Disk Encryption](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_an_entire_system) to [Firewall](https://wiki.archlinux.org/title/Category:Firewalls) and passwords. But then again, how will you know what will suit your needs? Therefore this blog will act like a guide to set up arch linux with a minimal installation for an optimized workflow experience.
 
@@ -22,18 +23,18 @@ After the successful completion of this guide, you should have a working Arch li
 ----
 
 # Installation Guide:
-## 0. Booting off the Arch Installation media
-Firstly, acquire an installation image. Visit the [download page](https://archlinux.org/download/) and, acquire the ISO file and the respective GnuPG signature, and flash it to a USB drive and boot off it.
+## 0. Booting off of the Arch Installation media
+First, acquire an installation image. Visit the [download page](https://archlinux.org/download/) and, acquire the ISO file and the respective GnuPG signature, and flash it to a USB drive and boot off it.
 
 It is recommended to verify the image signature before use, especially when downloading from an HTTP mirror, where downloads are generally prone to be intercepted to serve malicious images.
 
-If you have already have a existing windows installation with secure boot turned on, you should turn it off as this Arch ISO won't pass that secure boot check as it is not signed with the microsoft keys.
+If you already have an existing Windows installation with secure boot turned on, you should turn it off as this Arch ISO won't pass that secure boot check as it is not signed with the microsoft keys.
 
 ## 1. Connecting to Internet
 As you might have noticed, the ISO is fairly small compared to other OS, it's because the ISO only contains the bare bones stuff, rest will be pulled from the internet later on. Therefore having a good stable internet connection is necessary.
 
 ### Via wired ethernet
-If you device is connected to wired ethernet, you don't need to do anything else, it should automatically be configured by the installer. You can check the internet connection by pinging a website.
+If you device is connected to wired Ethernet, you don't need to do anything else, it should automatically be configured by the installer. You can check the internet connection by pinging a website.
 ```bash
 $ ping archlinux.org
 PING archlinux.org (2a01:4f9:c010:6b1f::1) 56 data bytes
@@ -210,7 +211,11 @@ Install essential packages:
 # pacstrap -K /mnt base linux linux-firmware linux-headers intel-ucode vim nano efibootmgr sudo
 ```
 {{< box info>}}
-You can replace `intel-ucode` with `amd-ucode` if your CPU is an AMD CPU
+Replace `intel-ucode` with `amd-ucode` if you are using an AMD processor.
+{{< /box >}}
+
+{{< box info>}}
+You can also choose `linux-lts` instead of `linux` if you want to use the LTS kernel for some extra stability as a rolling release distro might not be suitable for everyone's hardware. Just make sure to replace `linux-headers` with `linux-lts-headers` as well and `linux-lts` in the subsequent sections.
 {{< /box >}}
 
 After that is completed, we need to generate the fstab file:
@@ -625,9 +630,12 @@ This finishes the system installation part. Now lets move on to the post install
 
 ## 13. Installing packages
 ```bash
-sudo pacman -S firefox zsh zed pyenv python-pip
+sudo pacman -S firefox zsh zed pyenv python-pip ufw git base base-devel
 ```
-This will install firefox, zed text editor, zsh shell with some cool plugins.
+This will install firefox, zed text editor, zsh shell, pyenv, python-pip, ufw, git, base and base-devel packages. Let's go through each of them.
+
+## Git, base and base-devel
+Git is a distributed version control system that is widely used for source code management. It is used to track changes in source code during software development. It is an essential tool for developers and is widely used in the open-source community. It is also used by many packages as their dependencies, so it will come in handy regardless. Base and base-devel are essential packages that are required for building and compiling software from source. They contain essential tools and libraries that are required for building software on Arch Linux like gcc, make, etc.
 
 ### Zed
 [Zed](https://zed.dev/) is an awesome replacement for VS Code if you are not a fan of Microsoft products. It is a fully featured text editor with support for multiple languages, themes, and plugins. It is written in Rust and is very fast unlike VS code that is written in electron.
@@ -647,8 +655,18 @@ sudo rm -rf /usr/lib/python3.13/EXTERNALLY-MANAGED
 ```
 You can replace python3.13 with your python version in your system.
 
+### UFW
+UFW stands for Uncomplicated Firewall. It is a simple and easy-to-use firewall configuration tool for Linux. It is highly recommended to enable this as it protects your system from network attacks. It is a front-end for iptables and is particularly well-suited for host-based firewalls. To enable UFW, run the following commands:
+```bash
+sudo pacman -S ufw && sudo systemctl enable --now ufw
+```
+
 ### Setting up AUR
-AUR stands for Arch User Repository, it is a community-driven repository for Arch users. It contains packages that are not available in the official repositories. To install packages from AUR, you need an AUR helper. There are many AUR helpers available, but the most popular one is `yay`.
+While pacman is an excellent tool for managing packages from the official Arch repositories, it lacks support for the AUR, which is where the majority of user-contributed packages reside. This is where AUR helpers such as yay and paru come in. While these tools make installing AUR packages easier, they are external tools that don't integrate seamlessly with pacman, potentially introducing dependency conflicts or package management issues. Aura, on the other hand, aims to address this by providing a more integrated approach.
+
+
+AUR stands for Arch User Repository, it is a community-driven repository for Arch users. It contains packages that are not available in the official repositories. To install packages from AUR, you need an AUR helper. There are many AUR helpers available, but the most popular one is `yay`. Yay is an AUR helper that uses the `pacman` syntax and can install packages from AUR with ease, so you don't have to manually clone the repositories and compile the packages yourself.
+
 To install yay, first install the `base-devel` package group:
 ```bash
 sudo pacman -S base-devel
@@ -895,6 +913,9 @@ symbol = " "
 symbol = " "
 ```
 Reload your terminal, and you should see the beautiful starship prompt.
+
+#### Check out rest of the dotfiles in [my repository](https://github.com/funinkina/dotfiles)
+
 
 ## 16. Improving Arch Linux
 ### Pacman Tweaks
