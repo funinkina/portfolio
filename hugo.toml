@@ -33,10 +33,6 @@ name = "📝 Blogs"
 url = "/blog/"
 weight = 2
 [[menu.main]]
-name = "📄 Resume"
-url = "https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing"
-weight = 3
-[[menu.main]]
 name = "📡 RSS Feed"
 url = "/index.xml"
-weight = 4
+weight = 3
