@@ -8,6 +8,7 @@ description : 'A guide to set up Arch Linux with a minimal installation for an o
 images:
   - /blog-assets/arch-guide-header.png
 toc: true
+next: true
 ---
 ![Header Image](/blog-assets/arch-guide-header.png)
 

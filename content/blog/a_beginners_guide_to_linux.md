@@ -5,6 +5,7 @@ date : '2025-02-20T15:45:33+05:30'
 draft : false
 tags : ['linux', 'guide']
 toc: true
+next: true
 ---
 ![Header](/blog-assets/guide_to_linux.png)
 

@@ -5,6 +5,7 @@ date : '2025-01-27T23:05:52+05:30'
 tags : ['Linux', 'Filesystem']
 draft : false
 toc: true
+next: true
 ---
 
 ## What are Inodes?

@@ -8,6 +8,7 @@ description : 'Python script enhancing GNOME Screenshot with OCR with Tesseract'
 toc: true
 image:
     - '/blog-assets/gnome-ss-enhance-header.png'
+next: true
 ---
 
 ![Enhancing Screenshots in GNOME with OCR](/blog-assets/gnome-ss-enhance-header.png)

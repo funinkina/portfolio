@@ -4,6 +4,7 @@ date: "2024-08-25"
 tags:
   - Linux
 toc: true
+next: true
 ---
 
 All of us in the "Arch Btw" cult use it for one of its main selling points, the repositories. Arch Linux's pragmatic approach to its packages makes it so much easier for users to sync packages without fiddling with multiple repositories and dependency hell, making it a one-stop solution. The Arch User Repository (AUR) is just a cherry on top. Including packages submitted by users makes it even more complete, removing the need for flatpaks or snaps. (Might cause dependency issues, we will discuss this later).
