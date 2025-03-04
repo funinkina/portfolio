@@ -3,6 +3,7 @@ title: 'Explaining Inodes In Linux'
 date : '2025-01-27T23:05:52+05:30'
 tags : ['Linux', 'Filesystem']
 draft : false
+toc: true
 ---
 
 ## What are Inodes?

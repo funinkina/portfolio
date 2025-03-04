@@ -6,6 +6,7 @@ tags : [Linux, Arch, Guide]
 description : 'A guide to set up Arch Linux with a minimal installation for an optimized workflow experience.'
 images:
   - /blog-assets/arch-guide-header.png
+toc: true
 ---
 ![Header Image](/blog-assets/arch-guide-header.png)
 

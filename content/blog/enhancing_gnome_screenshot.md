@@ -4,6 +4,7 @@ date : '2025-02-06T22:57:22+05:30'
 draft : false
 tags : ['Linux', 'Python', 'Machine Learning', 'Project']
 description : 'Python script enhancing GNOME Screenshot with OCR with Tesseract'
+toc: true
 image:
     - '/blog-assets/gnome-ss-enhance-header.png'
 ---
@@ -24,7 +25,7 @@ I had strict requirements for this project, I wanted to use only open-source too
 - Tesseract OCR *(Only thing you need to install)*
 - GTK 4.0
 - Adwaita 1.0
-- XDP 
+- XDP
 
 ## 🎨 Design Overview
 The design of the project is simple, I have used Python to create a script that takes a screenshot using XDP (xdg-desktop-portal), then it extracts the text from the image using Tesseract OCR, and then it displays the extracted text in a dialog box using Adwaita and GTK. The script is designed to be executed using a keyboard shortcut, so you can take a screenshot and extract the text from the image with just a single key press.

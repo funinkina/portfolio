@@ -3,6 +3,7 @@ title: "Simplifying Package installation on Arch Linux"
 date: "2024-08-25"
 tags:
   - Linux
+toc: true
 ---
 
 All of us in the "Arch Btw" cult use it for one of its main selling points, the repositories. Arch Linux's pragmatic approach to its packages makes it so much easier for users to sync packages without fiddling with multiple repositories and dependency hell, making it a one-stop solution. The Arch User Repository (AUR) is just a cherry on top. Including packages submitted by users makes it even more complete, removing the need for flatpaks or snaps. (Might cause dependency issues, we will discuss this later).
@@ -27,33 +28,33 @@ aura -As google-chrome
 **Using Aura as** `pacman` **also provides multiple extra features such as:**
 
 * Downgrading a package
-    
+
     ```bash
     aura -C firefox
     ```
-    
+
 * Discovering what package owns a certain file
-    
+
     ```bash
     aura -Qo firefox
     /usr/bin/firefox is owned by firefox 127.0.2-1
     ```
-    
+
 
 **Using Aura as AUR helper:**
 
 * Installing a package from AUR
-    
+
     ```bash
     aura -As google-chrome
     ```
-    
+
 * Scrutinizing a package
-    
+
     ```bash
     aura -Ai google-chrome
     ```
-    
+
 
 Now let's see how do we get started with Aura
 
@@ -62,17 +63,17 @@ Now let's see how do we get started with Aura
 To install Aura, we have to compile it from source first.
 
 * Step 1: Grab the code from code and cd into it
-    
+
     ```bash
     git clone https://aur.archlinux.org/aura.git && cd aura
     ```
-    
+
 * Step 2: Compile it
-    
+
     ```bash
     makepkg -si
     ```
-    
+
 
 Then run `aura check` to see the status.
 
@@ -85,11 +86,11 @@ aura conf --gen > ~/.config/aura/config.toml
 ```
 
 * If you are not comfortable with vim as editor, change `editor="nano"` in \[general\] of the config file
-    
+
 * Put `delmakedeps = true` if you want to remove the build dependencies after every install automatically to save space.
-    
+
 * Now you can use
-    
+
 
 ```bash
 aura -As google-chrome
