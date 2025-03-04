@@ -8,6 +8,8 @@ toc: true
 next: true
 ---
 
+![Header](/blog-assets/terminal-emulators-header.png)
+
 ## A little overview about terminals
 As a developer, you must have gotten your hands dirty with terminal emulators at some point in your career. They are powerful tools that allow you to interact with your operating system and run commands from the command line. You might think that it is just text in a black box, but it's much more than that.
 
