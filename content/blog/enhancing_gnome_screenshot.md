@@ -1,5 +1,6 @@
 ---
 title : 'Enhancing Screenshots in GNOME with OCR'
+subtitle: 'A simple Python script to directly extract text from GNOME native screenshot menu.'
 date : '2025-02-06T22:57:22+05:30'
 draft : false
 tags : ['Linux', 'Python', 'Machine Learning', 'Project']

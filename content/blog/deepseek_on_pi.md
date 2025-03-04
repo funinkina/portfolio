@@ -1,7 +1,8 @@
 ---
+title : 'Running Deepseek on Raspberry Pi'
+subtitle: 'Pushing the limits of a Pi, by running an LLM'
 date : '2025-01-31T23:42:36+05:30'
 draft : false
-title : 'Running Deepseek on Raspberry Pi'
 tags: ['LLM', 'Raspberry Pi']
 toc: true
 ---

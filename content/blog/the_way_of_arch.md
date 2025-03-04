@@ -1,5 +1,6 @@
 ---
 title : 'The Way of Arch'
+subtitle : 'My Zenful Arch linux setup for an optimized and secure workflow and installation guide.'
 date : '2025-02-03T10:14:53+05:30'
 draft : false
 tags : [Linux, Arch, Guide]
@@ -10,7 +11,6 @@ toc: true
 ---
 ![Header Image](/blog-assets/arch-guide-header.png)
 
-# My Zenful Arch linux setup for an optimized and secure workflow
 ## Introduction
 If it's not clear by now, I use arch btw. But you might ask, why arch linux, what's so special about it. After years of distro hopping I have realized what makes arch linux special, Its minimalism is its strength—allowing infinite customization to fit any workflow. It can be tweaked infinitely to your needs, regardless of the kind of work you do. Even if you are not an engineer, it will serve you pretty well instead of getting in your way. Though this guide is mainly targeted towards programmers. Starting with arch linux seems kinds daunting isn't it? I mean the [CLI installation](https://wiki.archlinux.org/title/Installation_guide) might indeed throw off a beginner from trying arch. But then you realise it's actually just copy pasting commands from the internet and pasting into your terminal. (Honestly, you should not run unknown scripts off of the internet without verifying).
 

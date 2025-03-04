@@ -1,5 +1,6 @@
 ---
 title: 'Explaining Inodes In Linux'
+subtitle: 'Understanding how the files are structured and their permission in linux.'
 date : '2025-01-27T23:05:52+05:30'
 tags : ['Linux', 'Filesystem']
 draft : false
