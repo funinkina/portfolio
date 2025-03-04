@@ -2,7 +2,7 @@
 title : 'Terminal Emulators: Under the Hood'
 subtitle: 'Explaining the inner workings of terminal emulators'
 date : '2025-02-25T11:44:45+05:30'
-draft : true
+draft : false
 tags : ['linux', 'terminal']
 toc: true
 next: true
