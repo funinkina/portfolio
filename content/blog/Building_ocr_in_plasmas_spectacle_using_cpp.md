@@ -45,14 +45,13 @@ Qt provides the core GUI and utility functions for this application. The followi
 
 ### 2. Tesseract OCR (Leptonica and Tesseract)
 
-- Leptonica (leptonica/allheaders.h) – A helper library for image processing, needed by Tesseract.
-- Tesseract OCR (tesseract/baseapi.h) – The OCR engine that extracts text from images.
+- Leptonica (`leptonica/allheaders.h`) – A helper library for image processing, needed by Tesseract.
+- Tesseract OCR (`tesseract/baseapi.h`) – The OCR engine that extracts text from images.
 
 ### 3. Spectacle (External KDE Utility)
 
 Spectacle is used to take screenshots in KDE Plasma.
-It is executed via QProcess::execute("spectacle", QStringList() << "-b" << "-r" << "-n" << "-o" << outputPath);
-
+It is executed via `QProcess::execute("spectacle", QStringList() << "-b" << "-r" << "-n" << "-o" << outputPath);`
 
 - -b: Background mode (no GUI).
 
