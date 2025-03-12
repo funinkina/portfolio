@@ -55,7 +55,7 @@ It is executed via `QProcess::execute("spectacle", QStringList() << "-b" << "-r"
 
 - -b: Background mode (no GUI).
 
-- -r: Capture the entire screen.
+- -r: Capture a rectangular region.
 
 - -n: Skip confirmation dialogs.
 
