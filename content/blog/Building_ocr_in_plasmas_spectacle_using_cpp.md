@@ -1,13 +1,16 @@
 ---
 title : "Building OCR in Plasma's Spectacle using C++"
-subtitle: 'An overview of how I wrote a c++ program to extarct text from KDE Plasma Spectacle'
+subtitle: 'An overview of how I wrote a c++ program to extract text from KDE Plasma Spectacle'
 date : '2025-03-12T13:10:15+05:30'
-draft : true
+draft : false
 tags : ['linux', 'kde', 'ocr', 'cpp']
 toc: true
 next: true
 ---
-## The why?
+
+![Header](/blog-assets/spectacle-ocr-header.png)
+
+## 🔍 The Why?
 A while ago I made a python script that achieved the same goal but in GNOME desktop environment. You can read more about it [here](https://funinkina.xyz/blog/enhancing-screenshots-in-gnome-with-ocr/). That also uses *Tesseract* to extract the text and displays a GTK window to copy or save. But recently, I switched to KDE Plasma and I wanted to have the same functionality in Spectacle, the default screenshot tool in KDE Plasma. So I decided to write one for KDE Plasma too. 
 
 The GNOME desktop environment is based on GTK and it provides a native python keybindings. That means I can easily to `import GTK4.0` and create a window that displays the text extracted from the screenshot. But KDE Plasma is based on Qt and it does not provide a native python keybindings. Since I wanted to make a program that would use minimal external dependencies, I decided to write it in C++. Since doing it in python would require me to use a lot of external libraries and I wanted to avoid that. Admittedly, I am not very good at C++ but I wanted to give it a try. I mean these days with all the LLM's, I can give it a try.
@@ -18,13 +21,15 @@ The GNOME desktop environment is based on GTK and it provides a native python ke
 - You can get the precompiled binary from the [releases page](https://github.com/funinkina/spectacle-ocr-screenshot/releases).
 {{< /box >}}
 
-This projects involved a lot of learning and unlearning. I had to learn how to use Qt, how to use C++, how to use cmake, makefile, how to use KDE libraries, how to use Tesseract. And realising how so many things I took for granted in python. But it was a fun project and I am happy to share that I have successfully enhanced KDE Plasma Spectacle with OCR. In this article, I will share how I did it and how you can also use it.
+This projects involved a lot of learning and unlearning. I had to learn how to use Qt, how to use C++, how to use cmake, makefile, how to use KDE libraries, how to use Tesseract. And realizing how so many things I took for granted in python. But it was a fun project and I am happy to share that I have successfully enhanced KDE Plasma Spectacle with OCR. In this article, I will share how I did it and how you can also use it. You can find the installation instructions and usage instructions in the github repo.
 
-## Overview
+## 💡 Overview
 This C++ program is a GUI application built using the [Qt framework](https://www.qt.io/product/framework) that takes screenshots on KDE Plasma using Spectacle and performs OCR (Optical Character Recognition) using [Tesseract OCR](https://github.com/tesseract-ocr/tesseract). You can also pass command line arguments to specify the language for OCR. The extracted text can be copied to the clipboard, saved as a text file, or stored as an image. The program is designed to be executed using a keyboard shortcut, so you can take a screenshot and extract the text from the image with just a single key press.
 
-## Dependencies
-Mainly the heavylifting is done by the Qt libraries and Tesseract Ocr. So you need to have them installed. You can find the building and installation instructions in the github repo.
+![Screenshot](/blog-assets/spectacle_ocr_screenshot.png)
+
+## ⚙️ Dependencies
+Mainly the heavy-lifting is done by the Qt libraries and Tesseract Ocr. So you need to have them installed. You can find the building and installation instructions in the github repo.
 ### 1. Qt Libraries
 
 Qt provides the core GUI and utility functions for this application. The following Qt modules are used:
@@ -58,11 +63,11 @@ It is executed via QProcess::execute("spectacle", QStringList() << "-b" << "-r" 
 - -o outputPath: Save the screenshot to the given path.
 
 ### 4. CMake and Qmake (Build Dependencies)
-Working on this project also required me to learn how to use CMake and Makefile. I had to write a `CMakeLists.txt` file to compile the project. I also had to write a Makefile to compile the project. I had to learn how to use these tools and how to write them. But after some more research, I realised I can used `qmake` to simplify the process. So I used `qmake` to compile the project.
+Working on this project also required me to learn how to use CMake and Makefile. I had to write a `CMakeLists.txt` file to compile the project. I also had to write a Makefile to compile the project. I had to learn how to use these tools and how to write them. But after some more research, I realized I can used `qmake` to simplify the process. So I used `qmake` to compile the project.
 
 Compiling the program using `qmake` gave the binary that was slightly off looking because it was using Qt5. But I was using Qt6. So I had to use `qmake6` to compile the project. Using `qmake6` gave me the binary that was looking as expected as it was using Qt6. Instead of using `CMakeLists.txt` and `Makefile`, `simple.pro` file was used to compile the project which is much more concise and easy to use for Qt projects.
 
-## Architecture Breakdown
+## 🏗️ Architecture Breakdown
 ### 1. Screenshot Capture (`takeScreenshot`)
 * **Function**: `takeScreenshot(const QString& outputPath)`
 * Calls Spectacle via QProcess::execute to take a screenshot and save it to a temporary file.
@@ -88,7 +93,7 @@ Compiling the program using `qmake` gave the binary that was slightly off lookin
 - Button clicks are connected to their respective functions using Qt’s signal-slot mechanism (`QObject::connect`).
 - Status messages are updated dynamically based on user actions (copying, saving).
 
-## Key Features
+## ✨ Key Features
 - **Automated Screenshot OCR:** Captures a screenshot instantly and performs OCR without user intervention.
 
 - **Multi-Language OCR Support:** Users can specify the OCR language(s) using the --lang command-line option (e.g., --lang eng+hin).
@@ -99,7 +104,7 @@ Compiling the program using `qmake` gave the binary that was slightly off lookin
 
 - **Simple and Minimal GUI:** A straightforward UI that displays extracted text and allows basic operations.
 
-## Considerations and Potential Improvements
+## 🔑 Key Considerations
 ### 1. Minimal External Dependencies
 - The program is designed to use minimal external dependencies to ensure easy installation and portability.
 - The only external dependency required is Tesseract OCR, which can be installed using package managers (e.g., apt, pacman).
@@ -120,5 +125,15 @@ Compiling the program using `qmake` gave the binary that was slightly off lookin
 - Buttons can be used to copy text, save text, or save the screenshot with a single click.
 - The extracted text can even be edited before saving or copying to fix any OCR errors.
 
-## Closing Thoughts
-This project was a great learning experience for me. I got to learn a lot of new things and I am happy to share that I have successfully enhanced KDE Plasma Spectacle with OCR. I hope this project will be useful to others as well. This was my first time working with c++ so the code might not be upto the standards. You can find the code on my [github](https://github.com/funinkina) and you can also download the precompiled binary from the releases page. If you have any questions or suggestions, feel free to reach out to me. I would be happy to help. Thank you for reading.
+## 📝 Closing Thoughts
+This project was a great learning experience for me. I got to learn a lot of new things and I am happy to share that I have successfully enhanced KDE Plasma Spectacle with OCR. I hope this project will be useful to others as well. This was my first time working with c++ so the code might not be up to the standards. You can find the code on my [github](https://github.com/funinkina) and you can also download the precompiled binary from the releases page. I am also planning to release this as an AUR package soon.
+
+If you have any questions or suggestions, feel free to reach out to me. I would be happy to help. Thank you for reading.
+
+## 📚 References
+- [Qt Documentation](https://doc.qt.io/qt-6/)
+- [Tesseract OCR Documentation](https://tesseract-ocr.github.io/tessdoc/)
+- [CMake Documentation](https://cmake.org/documentation/)
+- [Qmake Documentation](https://doc.qt.io/qt-6/qmake-manual.html)
+- [Leptonica Documentation](http://www.leptonica.org/)
+- [Running external executable in Qt using QProcess](https://stackoverflow.com/questions/31174173/running-external-executable-in-qt-using-qprocess)
