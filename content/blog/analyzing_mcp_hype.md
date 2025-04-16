@@ -1,6 +1,6 @@
 ---
 title : 'MCP: Giving LLMs Hands (and Tools)'
-subtitle: 'A Deep Dive into the Model Context Protocol and its Impact on AI Agents'
+subtitle: 'Enabling LLM Agency with the Model Context Protocol'
 date : '2025-04-16T14:37:16+05:30'
 draft : true
 tags : ['LLMs', 'AI', 'MCP']
@@ -9,18 +9,20 @@ next: true
 ---
 
 ## Why the hype?
-Let's be real, we all have been in a situation where we need to write a professional email, and send it with slight changes to a lot of people. You surely can use ChatGPT to write it, but wouldn't it be better if it can also send to the people you want? Specifically curated for each one of them. So wouldn't it be great if your LLMs can just do the task for you? This is where MCP steps in.
+We've all faced the task of writing professional emails and sending personalized versions to multiple recipients. While ChatGPT can help draft the email, it would be even more efficient if the entire process, including sending personalized emails to each recipient, could be automated. Imagine your LLM handling the entire task for you – this is where MCP comes in.
+
+For example, suppose you're a marketing manager launching a new product. You need to email different customer segments with tailored messages highlighting the product features most relevant to them. Or, imagine you're a recruiter sending personalized follow-up emails to candidates after an interview, referencing specific points discussed. MCP enables these kinds of automated, personalized communications, saving you time and improving engagement.
 
 ## Origin of MCP
-In November of last year, Anthropic [introduced](https://www.anthropic.com/news/model-context-protocol) (more accurately - open sourced it) the Model Context Protocol (MCP), and it quickly gained significant traction in the AI community. Its popularity has surged to the point where major players like Google, OpenAI, and Microsoft have begun to adopt it.
+In November of last year, Anthropic [introduced](https://www.anthropic.com/news/model-context-protocol) (more accurately - open sourced it) the **Model Context Protocol (MCP)**, and it quickly gained significant traction in the AI community. Its popularity has surged to the point where major players like Google, OpenAI, and Microsoft have begun to adopt it.
 
-MCP is designed to enhance the capabilities of Large Language Models (LLMs) by enabling them to seamlessly interact with external tools and APIs. This empowers LLMs to execute tasks that necessitate real-time data access, such as retrieving information from databases, initiating API calls, or running code. Essentially, MCP streamlines the integration of LLMs into diverse applications and workflows by providing a unified protocol for all interactions. The open-source nature of MCP has also contributed to its rapid adoption, as developers can easily implement and customize it for their specific use cases.
+MCP is designed to enhance the capabilities of Large Language Models (LLMs) by enabling them to seamlessly interact with external tools and APIs. This empowers LLMs to execute tasks that require real-time data access, such as retrieving information from databases, initiating API calls, or running code. Essentially, MCP streamlines the integration of LLMs into diverse applications and workflows by providing a unified protocol for all interactions. The open-source nature of MCP has also contributed to its rapid adoption, as developers can easily implement and customize it for their specific use cases.
 
 MCP is supposed to be a standard protocol for interacting with the LLM and creating new agents. Let's hope it doesn't get like [XKCD 927](https://xkcd.com/927/) where we have a million different protocols for the same thing.
 ![XKCD on Standards](https://imgs.xkcd.com/comics/standards.png)
 
 ## But didn't we already had function calling?
-Yes, we still have and it is great for making your LLM's perform an action on your behalf, but given the number of LLMs and the number of APIs that is growing exponentially, it is becoming increasingly difficult to keep track of all the different APIs and their respective function calling formats. MCP aims to solve this problem by providing a unified interface for all LLMs and APIs, making it easier for developers to integrate them into their applications.
+Yes, we still have it, and it is great for making your LLMs perform an action on your behalf, but given the number of LLMs and the number of APIs that are growing exponentially, it is becoming increasingly difficult to keep track of all the different APIs and their respective function calling formats. MCP aims to solve this problem by providing a unified interface for all LLMs and APIs, making it easier for developers to integrate them into their applications.
 
 To give you an idea of how many formats for function calling we have, here are some of the most popular ones:
 - ### OpenAI's function calling
@@ -98,16 +100,16 @@ set_light_values_declaration = {
 As you can see, there is no standardized way to do function calling. If your workflow uses one of these models, and you want to switch to a different model by a different provider, you have to refactor your whole code. I know as a programmer you love to refactor codebase, but I think we can all agree refactoring something as simple as function calling is not the best use of our time.
 
 ## Limitations of existing solutions
-Function calling works well for very structured and specific kinds of output, but as the complexity of the workflow increases, you cannot rely on just function calling. You cannot have implement functions that requires some form of creative thinking that the newer models provide. On top of that function calling is not very reliable, specially when you have a lot of them and certain criteria to call them. LLMs can often miss the function call, or even worse, call the wrong function at the wrong time. Given all this, something like MCP was imminent.
+Function calling works well for very structured and specific kinds of output, but as the complexity of the workflow increases, you cannot rely on just function calling. You cannot implement functions that leverages the creative capabilities of newer models. On top of that function calling is not very reliable, especially when you have a lot of them and complex criteria for which function to call. LLMs can often miss the function call, or even worse, call the wrong function at the wrong time. Given these limitations, a more standardized approach like MCP was a logical next step.
 
-MCP aims to standardize the way we interact with LLMs and APIs, making it easier to integrate them into our applications. At the application level, OpenAI and Anthropic already had standardized formats for function definitions. They have annoying differences (OpenAI uses parameters; Anthropic uses input_schema) so standardization is helpful. But at the implementation level, there are still differences in how these function calls are implemented. For example, OpenAI's function calling is implemented as a separate API endpoint, while Anthropic's function calling is implemented as part of the main API. This means that if you want to switch from one provider to another, you have to refactor your code to use the new API endpoint.
+MCP aims to standardize the way we interact with LLMs and APIs, making it easier to integrate them into our applications. At the application level, OpenAI and Anthropic already had standardized formats for function definitions. They have annoying differences (OpenAI uses `parameters`; Anthropic uses `input_schema`) so standardization is helpful. But at the implementation level, there are still differences in how these function calls are implemented. For example, OpenAI's function calling is implemented as a separate API endpoint, while Anthropic's function calling is implemented as part of the main API. This means that if you want to switch from one provider to another, you have to refactor your code to use the new API endpoint.
 
-Where MCPs really shine is how they handle communication between the LLM and the server. Unlike OpenAI's [ChatGPT Plugins](https://openai.com/index/chatgpt-plugins/) which only use HTTP/REST, which is limited for local calls. This flexibility enables both local and remote operation.
+Where MCP really shine is how they handle communication between the LLM and the server. Unlike OpenAI's [ChatGPT Plugins]((https://openai.com/index/chatgpt-plugins/)), which typically rely on HTTP/REST (potentially limiting for local calls), MCP supports multiple transport mechanisms. This flexibility enables both local and remote operation.
 
-MCPs also enable secure and scalable integration of LLMs with various tools and APIs. The MCP architecture allows deploying AI solutions in a complex environment, where multiple LLMs and tools can work together seamlessly without compromising security or performance. This is particularly important for enterprise applications, where security and scalability are critical.
+MCP also enable secure and scalable integration of LLMs with various tools and APIs. The MCP architecture enables the deployment of AI solutions in a complex environment, where multiple LLMs and tools can work together seamlessly without compromising security or performance. This is particularly important for enterprise applications, where security and scalability are critical.
 
 # Getting deeper into MCP
-Compared to Function Calling, MCP is a more flexible and powerful way to interact with LLMs. Imagine the function calling but on steroids. So let's see how MCP actually works. You can think of MCP protocol very similar to HTTP requests. You got your server, that executes/processes stuff and you client, the LLM that sends the request and get things done for the user. Let's see how this works in practice.
+Compared to Function Calling, MCP is a more flexible and powerful way to interact with LLMs. Think of it as a significantly enhanced and standardized version of function calling. So let's see how MCP actually works. You can think of MCP protocol very similar to HTTP requests. You have your server, that executes/processes stuff and your client, the LLM that sends the request and get things done for the user. Let's see how this works in practice.
 ## MCP Architecture
 ![MCP Architecture](/blog-assets/mcp_architecture.png)
 
@@ -126,7 +128,7 @@ To get started with GhidraMCP, you need an MCP client and server as we saw earli
 
 The MCP protocol consists of 3 main components:
 1. **Server**: The server is responsible for executing the tools and providing the results back to the client. It can be any server that supports the MCP protocol.
-2. **Host**: The host is the environment where the server is running. It can be a local machine or a remote server. The host is responsible for providing the necessary resources for the server to run.
+2. **Host**: The host is the environment where your LLM is running. It can be a local machine or a cloud-based environment. The host is responsible for managing the LLM and providing it with the necessary resources to perform its tasks.
 3. **Client**: The client is responsible for sending the requests to the server and receiving the responses. It can be any client that supports the MCP protocol.
 
 ### Server Setup
@@ -215,14 +217,13 @@ All the actual interactions with the Ghidra Application is written in Java. You 
 {{<  /box  >}}
 
 ## Communication in MCP
-By now, we now MCP is way to standardize the way we interact with LLMs and APIs. But how does it actually work? The communication in MCP is done using JSON-RPC 2.0 to exchange messages. MCP uses a request-response model, where the client sends a request to the server and waits for a response. The request and response messages are formatted as JSON objects, which makes it easy to parse and process them.
+By now, we know MCP is way to standardize the way we interact with LLMs and APIs. But how does it actually work? The communication in MCP is done using JSON-RPC 2.0 to exchange messages. MCP uses a request-response model, where the client sends a request to the server and waits for a response. The request and response messages are formatted as JSON objects, which makes it easy to parse and process them.
 
 MCP supports multiple transport mechanisms like:
 1. **STDIO Transport**: This is the default transport mechanism used by MCP. It allows the client and server to communicate using standard input and output streams. This is useful for local development and testing.
 2. **HTTP with SSE Transport**: This transport mechanism allows the client and server to communicate over HTTP. This is useful for remote communication and integration with web applications.
 
 As an AI agent, it needs to communicate and transfer different kinds of messages too. MCP supports different types of messages like:
-
 1. **Request**: This message is sent by the client to the server to request a specific action or information. It contains the method name, parameters, and an ID to identify the request.
 ```
 interface Request {
@@ -253,9 +254,9 @@ interface Notification {
 ```
 
 ## Client Setup
-Our client here is the Claude Desktop App. Claude desktop is great for this usecase because it has a built in MCP client support. The desktop will connect to our MCP server and will automatically give us a list of available tools. This will enable claude to directly connect to Ghidra and perform all sorts and analysis and debugging for us.
+Our client here is the Claude Desktop App. Claude desktop is great for this usecase because it has a built in MCP client support. The desktop will connect to our MCP server and will automatically give us a list of available tools. This will enable Claude to directly connect to Ghidra and perform all sorts of analysis and debugging for us.
 
-Using the MCP client is very simple. Just start by entering the prompt in claude on what you want to achieve. The LLM is smart enough to figure out which tools and functions need to be called and what to do with the output. One of the most powerful features of MCP is that it allows you to chain multiple tools together. This means you can use the output of one tool as the input for another tool, creating a seamless workflow. In this example, we can ask Claude to find the `main` function in the application and rename all the methods based on their functionality. Let's go through the steps performed by the MCP and Claude.
+Using the MCP client is very simple. Just start by entering the prompt in Claude on what you want to achieve. The LLM is smart enough to figure out which tools and functions need to be called and what to do with the output. One of the most powerful features of MCP is that it allows you to chain multiple tools together. This means you can use the output of one tool as the input for another tool, creating a seamless workflow. In this example, we can ask Claude to find the `main` function in the application and rename all the methods based on their functionality. Let's go through the steps performed by the MCP and Claude.
 
 ### Calling `search_function_by_name`
 
@@ -295,6 +296,7 @@ private String searchFunctionsByName(String searchTerm, int offset, int limit) {
 
 This will return the relevant function to the LLM. And let's say inside the function `main` it is calling methods named `NXjkBDBKJBFKd` and `sdDFnkmjwDKJbD` which is garbled or maybe a way to obfuscate the code. Now we can use the `decompile_function` tool to decompile the function and get the actual code.
 
+### Calling `decompile_function`
 ```java
 private String decompileFunctionByName(String name) {
     // Get the current program loaded in Ghidra
@@ -351,6 +353,7 @@ and the response from the server will be something like:
 
 And this is the actual code that is being executed on the server side to rename the function. If you are wondering why Java is being used here, it is because Ghidra is written in Java and the MCP server is just a plugin for Ghidra. So all the code that is being executed on the server side is in Java.
 
+### Calling `rename_function`
 ```java
 private boolean renameFunction(String oldName, String newName) {
     // Get the current program loaded in Ghidra
@@ -409,7 +412,7 @@ MCP is a powerful tool that can be used to automate the process of reverse engin
 - **Security Risks**: MCP can be used to automate tasks that require access to sensitive data or systems. If not properly secured, this can lead to security risks, such as unauthorized access to sensitive data or systems. For example, combining calendar information with email content and file storage access enables sophisticated spear-phishing or extortion campaigns. Even legitimate MCP operators could potentially mine user data across services for commercial purposes or to build comprehensive user profiles
 
 # Advanced MCP Clients (ADK)
-Between all this hype, you must have heard about Google's ADK or **Agent Development Kit**. An ADK is basically a advanced MCP client that can be used to create and manage AI agents. It provides a set of tools and libraries that make it easy to build, deploy, and manage AI agents. The ADK is designed to work with the MCP protocol, allowing you to easily integrate your AI agents with external tools and APIs.
+Between all this hype, you must have heard about Google's ADK or **Agent Development Kit**. An ADK is basically an advanced MCP client that can be used to create and manage AI agents. It provides a set of tools and libraries that make it easy to build, deploy, and manage AI agents. The ADK is designed to work with the MCP protocol, allowing you to easily integrate your AI agents with external tools and APIs.
 The ADK provides a set of features that make it easy to build and manage AI agents, including:
 - **Agent Management**: The ADK provides a set of tools for managing AI agents, including the ability to create, deploy, and manage agents. This makes it easy to build and manage AI agents that can interact with external tools and APIs.
 - **Agent Communication**: The ADK provides a set of tools for communicating with AI agents, including the ability to send and receive messages. This makes it easy to build and manage AI agents that can communicate with external tools and APIs.
@@ -434,3 +437,10 @@ The Model Context Protocol (MCP) represents a significant advancement in the fie
 Through the GhidraMCP example, we've seen how MCP can be applied in real-world scenarios, such as reverse engineering, to automate complex tasks and enhance the capabilities of AI agents. We've also touched on the privacy concerns associated with MCP, emphasizing the importance of responsible data handling and security measures.
 
 Finally, we've introduced Advanced MCP Clients (ADKs) like Google's Agent Development Kit, which further extend the potential of MCP by enabling agent-to-agent communication and facilitating the creation of sophisticated AI workflows. As the AI landscape continues to evolve, MCP is poised to play a crucial role in shaping the future of AI agents and their interactions with the world around them.
+
+### References
+- [Introducing the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
+- [Function Calling vs. Model Context Protocol (MCP): What You Need to Know ](https://dev.to/fotiecodes/function-calling-vs-model-context-protocol-mcp-what-you-need-to-know-4nbo)
+- [LLM Function-Calling vs. Model Context Protocol (MCP)](https://www.gentoro.com/blog/function-calling-vs-model-context-protocol-mcp)
+- [Announcing the Agent2Agent Protocol (A2A)](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)
+- [The security risks of MCP](https://www.pillar.security/blog/the-security-risks-of-model-context-protocol-mcp)
