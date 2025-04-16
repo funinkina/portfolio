@@ -2,7 +2,7 @@
 title : 'MCP: Giving LLMs Hands (and Tools)'
 subtitle: 'Enabling LLM Agency with the Model Context Protocol'
 date : '2025-04-16T14:37:16+05:30'
-draft : true
+draft : false
 tags : ['LLMs', 'AI', 'MCP']
 toc: true
 next: true
