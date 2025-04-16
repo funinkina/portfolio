@@ -9,7 +9,7 @@ next: true
 ---
 
 ## Why the hype?
-Let's be real, we all have been in a situation where we need to write a professional email, and send it with slight changes to a lot of people. You surely can use ChatGPT to write it, but wouldn't it be better if it can also send to the peope you want? Specifically curated for each one of them. So wouldn't it be great if your LLMs can just do the task for you? This is where MCP steps in.
+Let's be real, we all have been in a situation where we need to write a professional email, and send it with slight changes to a lot of people. You surely can use ChatGPT to write it, but wouldn't it be better if it can also send to the people you want? Specifically curated for each one of them. So wouldn't it be great if your LLMs can just do the task for you? This is where MCP steps in.
 
 ## Origin of MCP
 In November of last year, Anthropic [introduced](https://www.anthropic.com/news/model-context-protocol) (more accurately - open sourced it) the Model Context Protocol (MCP), and it quickly gained significant traction in the AI community. Its popularity has surged to the point where major players like Google, OpenAI, and Microsoft have begun to adopt it.
@@ -112,7 +112,7 @@ Compared to Function Calling, MCP is a more flexible and powerful way to interac
 ![MCP Architecture](/blog-assets/mcp_architecture.png)
 
 ## Understanding through an example
-One of my favourite real world use cases of MCP is how it can be used to reverse engineer any executable of compiled code. Lets understand how MCP works with the example of [GhidraMCP](https://github.com/LaurieWired/GhidraMCP/). Ghidra is a popular open-source reverse engineering tool developed by the NSA. It provides a powerful framework for analyzing and decompiling binary files. GhidraMCP is a plugin that integrates the Model Context Protocol (MCP) into Ghidra, allowing users to leverage the capabilities of large language models (LLMs) for reverse engineering tasks.
+One of my favorite real world use cases of MCP is how it can be used to reverse engineer any executable of compiled code. Lets understand how MCP works with the example of [GhidraMCP](https://github.com/LaurieWired/GhidraMCP/). Ghidra is a popular open-source reverse engineering tool developed by the NSA. It provides a powerful framework for analyzing and decompiling binary files. GhidraMCP is a plugin that integrates the Model Context Protocol (MCP) into Ghidra, allowing users to leverage the capabilities of large language models (LLMs) for reverse engineering tasks.
 
 For someone who is a beginner in the field of reverse engineering, GhidraMCP can be a valuable tool to help them understand and analyze binary files more effectively. It can assist in tasks such as:
 - **Code Analysis**: GhidraMCP can help users analyze the control flow and data flow of a binary, making it easier to understand how the code works.
@@ -130,7 +130,7 @@ The MCP protocol consists of 3 main components:
 3. **Client**: The client is responsible for sending the requests to the server and receiving the responses. It can be any client that supports the MCP protocol.
 
 ### Server Setup
-Here we are using MCP Python SDK to initialise the server. You can use any other server as long as it is compatible with MCP. The server is responsible for handling requests from the client and executing the necessary actions. It acts as a bridge between the LLM and the Ghidra tool.
+Here we are using MCP Python SDK to initialize the server. You can use any other server as long as it is compatible with MCP. The server is responsible for handling requests from the client and executing the necessary actions. It acts as a bridge between the LLM and the Ghidra tool.
 ```python
 import sys
 import requests
@@ -211,7 +211,7 @@ def rename_data(address: str, new_name: str) -> str:
 ```
 
 {{<  box info  >}}
-All the actual interactions with the Ghidra Applicaiton is written in Java. You can find them in the github repo mentioned above.
+All the actual interactions with the Ghidra Application is written in Java. You can find them in the github repo mentioned above.
 {{<  /box  >}}
 
 ## Communication in MCP
@@ -428,8 +428,8 @@ A2A is an open protocol that provides a standard way for agents to collaborate w
 
 - **Modality agnostic:** The agentic world isn’t limited to just text, which is why we’ve designed A2A to support various modalities, including audio and video streaming.
 
-## Conclusion
-In conclusion, the Model Context Protocol (MCP) represents a significant advancement in the field of AI, offering a standardized and versatile approach to integrating LLMs with external tools and APIs. We've explored its origins, contrasting it with existing function calling mechanisms and highlighting its advantages in terms of flexibility, security, and scalability.
+## Closing thoughts
+The Model Context Protocol (MCP) represents a significant advancement in the field of AI, offering a standardized and versatile approach to integrating LLMs with external tools and APIs. We've explored its origins, contrasting it with existing function calling mechanisms and highlighting its advantages in terms of flexibility, security, and scalability.
 
 Through the GhidraMCP example, we've seen how MCP can be applied in real-world scenarios, such as reverse engineering, to automate complex tasks and enhance the capabilities of AI agents. We've also touched on the privacy concerns associated with MCP, emphasizing the importance of responsible data handling and security measures.
 
