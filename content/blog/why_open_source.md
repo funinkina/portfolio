@@ -1,6 +1,6 @@
 ---
 title : 'Why you should be a part of open source?'
-subtitle: ''
+subtitle: 'What is open source software, and why should you care as a CS student? Explore the core concepts of freedom and collaboration behind OSS, its vital role in technologies like Linux and the internet, and the importance of transparency for security. Learn practical ways to contribute using Git, find beginner-friendly projects, and discover how participation can boost your skills and unlock opportunities like GSoC.'
 date : '2025-05-04T13:16:23+05:30'
 draft : false
 tags : ['open-source', 'guide']
