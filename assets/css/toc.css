@@ -27,13 +27,17 @@
 
 .toc {
   animation-duration: 0.4s;
+  background: var(--toc-background) none repeat scroll 0 0;
+  border: 1px solid var(--toc-border);
+  border-radius: 5px;
+  width: full;
   display: table;
-  font-size: 95%;
+  font-size: 90%;
   margin-bottom: 1em;
   padding: 0.4em 1.5em 0.4em 0.2em;
-  width: auto;
   margin-top: auto;
-  font-weight: 100;
+  font-weight: 400;
+  color: var(--text-dim);
 }
 
 @media screen and (min-width: 1150px) {

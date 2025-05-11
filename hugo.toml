@@ -1,7 +1,6 @@
-baseURL = 'https://funinkina.xyz/'
+baseURL = 'https://funinkina.is-a.dev/'
 languageCode = 'en-us'
 title = "funinkina's blogs"
-theme = 'hugo-dead-simple'
 googleAnalytics = "G-KN1LB8C8L2"
 
 [params.google.analytics]
@@ -25,14 +24,14 @@ blog = "/blog/:slug/"
 
 [menu]
 [[menu.main]]
-name = "🏠 Home"
+name = "Home"
 url = "/"
 weight = 1
 [[menu.main]]
-name = "📝 Blogs"
+name = "Blogs"
 url = "/blog/"
 weight = 2
 [[menu.main]]
-name = "📡 RSS Feed"
+name = "RSS Feed"
 url = "/index.xml"
 weight = 3
