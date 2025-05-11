@@ -1,0 +1,82 @@
+.box-shortcode {
+    padding: 1.2em;
+    padding-top: 1em;
+    line-height: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 3px;
+    color: var(--text);
+    background: #f3ebe850;
+}
+
+.box-title {
+    margin: -18px;
+    padding: 4px 18px;
+    border-radius: 3px 3px 0 0;
+    font-weight: 700;
+    color: var(--text);
+    background: #6ab0de;
+}
+
+.box-shortcode.warning .box-title {
+    background: #ff6b6b;
+}
+
+.box-shortcode.warning {
+    background: #ff6b6b4f;
+}
+
+.box-shortcode.info .box-title {
+    background: #7fccff;
+}
+
+.box-shortcode.info {
+    background: #c2dcee;
+}
+
+.box-shortcode.important .box-title {
+    background: #6e6a26;
+}
+
+.box-shortcode.important {
+    background: #ffe081;
+}
+
+.box-shortcode.tip .box-title {
+    background: #a3ffa34d;
+}
+
+.box-shortcode.tip {
+    background: #a3ffa34d;
+}
+
+.icon-box {
+    display: inline-flex;
+    align-self: center;
+    margin-right: 4px;
+}
+
+.icon-box img,
+.icon-box svg {
+    height: 1em;
+    width: 1em;
+    fill: var(--text-dim);
+}
+
+.icon-box img,
+.icon-box.baseline svg {
+    top: 0.125em;
+    position: relative;
+}
+
+.box-shortcode p:first-of-type {
+    display: inline;
+}
+
+.box-shortcode p:nth-of-type(2) {
+    margin-top: 0.6em;
+}
+
+.box-shortcode p:last-child {
+    margin-bottom: 0;
+}

@@ -1,4 +1,3 @@
-/* TOC */
 .toc a {
   color: var(--text-dim);
 }
@@ -18,7 +17,7 @@
 
   #TableOfContents {
     opacity: 0.6;
-    transition-duration: 1s;
+    transition-duration: 0.4s;
   }
 
   #TableOfContents:hover {
@@ -27,15 +26,14 @@
 }
 
 .toc {
-  animation-duration: 1s;
-  background: var(--toc-background) none repeat scroll 0 0;
-  border: 1px solid var(--toc-border);
+  animation-duration: 0.4s;
   display: table;
   font-size: 95%;
   margin-bottom: 1em;
   padding: 0.4em 1.5em 0.4em 0.2em;
   width: auto;
   margin-top: auto;
+  font-weight: 100;
 }
 
 @media screen and (min-width: 1150px) {
@@ -56,7 +54,7 @@
   }
 
   #TableOfContents li {
-    max-width: 13vw;
+    max-width: 14vw;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

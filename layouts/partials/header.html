@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
-    <script async data-id="101477204" src="//static.getclicky.com/js"></script>
   <head>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -20,9 +19,6 @@
     <link rel="icon" type="image/x-icon" href="{{ relURL "favicon.ico" }}">
     <link rel="icon" href="{{ "favicon.ico" | absURL }}" sizes="32x32" type="image/x-icon">
     <link rel="manifest" href="{{ relURL "site.webmanifest" }}">
-
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1b" />
 
     <meta name="description" content="{{ .Title }}">
 
@@ -53,7 +49,7 @@
         <title>{{ .Title }} | {{ .Site.Title }}</title>
     {{ end }}
 
-    <!-- Prevent flicker on page load. -->
+    <!-- Prevent flicker on page load.
     <style>
         :root {
           --background: #ffffff;
@@ -69,7 +65,7 @@
         body {
             background-color: var(--background);
         }
-    </style>
+    </style> -->
 
     {{ $CSS := slice
         (resources.Get "css/main.css")
@@ -79,6 +75,7 @@
         (resources.Get "css/post_meta.css")
         (resources.Get "css/search.css")
         (resources.Get "css/code.css")
+        (resources.Get "css/box.css")
         (resources.Get "css/tables.css")
         (resources.Get "css/misc.css")
         | resources.Concat "style.css" | minify | fingerprint }}

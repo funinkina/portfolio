@@ -24,7 +24,7 @@ You might wonder: why release software for free when you could sell it? A key re
 
 ### Case in Point: OpenSSL
 
-(OpenSSL)[https://www.openssl.org/] is a critical piece of internet infrastructure. See the `https` in the URL bar? The '`s`' (for secure) often relies on protocols like TLS/SSL, which OpenSSL implements. This secures your connection to websites by encrypting traffic. In 2014, a major flaw was discovered in OpenSSL, now famously known as "[**The Heartbleed Bug**](https://heartbleed.com/)". This vulnerability allowed attackers potentially to read sensitive memory from affected servers, exposing data like passwords and private keys.
+[OpenSSL](https://www.openssl.org/) is a critical piece of internet infrastructure. See the `https` in the URL bar? The '`s`' (for secure) often relies on protocols like TLS/SSL, which OpenSSL implements. This secures your connection to websites by encrypting traffic. In 2014, a major flaw was discovered in OpenSSL, now famously known as "[**The Heartbleed Bug**](https://heartbleed.com/)". This vulnerability allowed attackers potentially to read sensitive memory from affected servers, exposing data like passwords and private keys.
 
 Crucially, Heartbleed was discovered because security researchers could audit OpenSSL's source code – something only possible due to its open nature. Imagine if OpenSSL were proprietary software, developed behind closed doors by a single company. Such a critical flaw might have remained hidden much longer, or potentially indefinitely, without independent review. Furthermore, with closed source, there's less external assurance against hidden backdoors.
 
