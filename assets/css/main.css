@@ -160,6 +160,7 @@ ul {
 }
 
 .post-list {
+  font-family: sans-serif;
   color: var(--complimentary);
   padding-left: 1em;
 }
