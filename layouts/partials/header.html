@@ -32,16 +32,14 @@
     <meta property="og:url" content="{{ .Permalink }}" />
     <meta property="og:title" content="{{ .Title }}" />
     <meta property="og:description" content="{{ .Description }}" />
-    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/blog-assets/me.jpg{{ end }}" />
+    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/default-header.png{{ end }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ .Permalink }}" />
     <meta property="twitter:title" content="{{ .Title }}" />
     <meta property="twitter:description" content="{{ .Description }}" />
-    <meta property="twitter:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/blog-assets/me.jpg{{ end }}" />
-
-
+    <meta property="twitter:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/default-header.png{{ end }}" />
 
     {{ with .OutputFormats.Get "rss" -}}
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
