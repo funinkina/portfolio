@@ -3,20 +3,27 @@
 <div class="home-content">{{ .Content }}</div>
 
 {{ if .IsHome }}
-    <!--TODO: replace with faster search-->
     {{ if not .Site.Params.noSearch }}
         {{ partial "search-form.html" . }}
         <ul id="results"></ul>
     {{ end }}
 
-    {{ range .Sections }}
-        <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
-        {{ .CurrentSection.Content }}
-        {{ partial "post_list.html" . }}
-    {{ end }}
+    <div class="sections-container">
+        {{ range .Sections }}
+            <div class="section">
+                <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
+                {{ .CurrentSection.Content }}
+                {{ partial "post_list.html" . }}
+            </div>
+        {{ end }}
+    </div>
 {{ else }}
-    <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
-    {{ partial "post_list.html" . }}
+    <div class="sections-container">
+        <div class="section">
+            <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
+            {{ partial "post_list.html" . }}
+        </div>
+    </div>
 {{ end }}
 
 {{ partial "footer.html" . }}

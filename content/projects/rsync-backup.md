@@ -3,7 +3,7 @@ title : 'RSync Backup Script'
 subtitle: 'A customizable shell script to backup home folder to extrnal drive'
 date : '2025-03-31T20:45:51+05:30'
 draft : false
-tags : ['shell', 'linux']
+tags : ['shell scripting', 'linux']
 toc: true
 next: true
 ---
