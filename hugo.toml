@@ -32,6 +32,10 @@ name = "Blogs"
 url = "/blog/"
 weight = 2
 [[menu.main]]
+name = "Projects"
+url = "/projects/"
+weight = 3
+[[menu.main]]
 name = "RSS Feed"
 url = "/index.xml"
-weight = 3
+weight = 4
