@@ -1,9 +1,11 @@
-/* POST META */
 #single-header {
-  /* border-bottom: 2px solid var(--complimentary); */
+  border-bottom: 1px solid var(--complimentary);
   padding: 0px 8px 4px 0;
   margin-bottom: 20px;
   margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .date {
@@ -24,7 +26,6 @@
 }
 
 #subtitle {
-  /* font-family: serif; */
   margin-top: -8px;
   margin-bottom: 0.3em;
   font-size: 1.4em;

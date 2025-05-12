@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
-  --complimentary: #C97C5D;
+  --complimentary: #616161;
   --text: #1e1e1e;
   --code: #2c2c2c;
   --text-dim: #383838;
@@ -37,6 +37,10 @@ html {
   color: var(--text);
   background-color: var(--background);
   scroll-behavior: smooth;
+  background-image: url(/footer-bg.svg);
+  background-repeat: no-repeat;
+  background-position: bottom left calc(100% - 50px);
+  background-size: 7%;
 }
 
 body {

@@ -2,23 +2,26 @@
 
 {{ if not .Params.notitle }}
 <div id="single-header">
-  <h1>
-    {{ .Title | markdownify }}
-  </h1>
-  <div id="single-meta">
-    {{ if .Params.subtitle }}
-        <p id="subtitle">{{ .Params.subtitle }}</p>
-    {{ end }}
-    {{ if .Params.date }}
-        <span class="datesub">
-            {{ .Date.Format "Jan 2, 2006" }}
-            {{- if .GitInfo -}}
-                &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
-            {{- end -}}
-        </span>
-    {{ end }}
-    {{ partial "tags.html" .}}
+  <div>
+    <h1>
+      {{ .Title | markdownify }}
+    </h1>
+    <div id="single-meta">
+      {{ if .Params.subtitle }}
+          <p id="subtitle">{{ .Params.subtitle }}</p>
+      {{ end }}
+      {{ if .Params.date }}
+          <span class="datesub">
+              {{ .Date.Format "Jan 2, 2006" }}
+              {{- if .GitInfo -}}
+                  &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
+              {{- end -}}
+          </span>
+      {{ end }}
+      {{ partial "tags.html" .}}
+    </div>
   </div>
+  <img src="/waves.svg" alt="waves">
 </div>
 {{ else }}
 <div style="padding-bottom: 1px;"></div>
