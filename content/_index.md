@@ -10,9 +10,9 @@ This website is a collection of my work and thoughts. All writings, projects and
 Here, you'll find my experience, projects, and blogs.
 
 {{< box info >}}
-**You can also connect with me on:**
+**You can find more info here:**
 
-[Github](https://github.com/funinkina) &nbsp; &nbsp; &nbsp;  [LinkedIn](https://www.linkedin.com/funinkina)  &nbsp; &nbsp; &nbsp; [Twitter](https://x.com/funinkina)  &nbsp; &nbsp; &nbsp;  ✉️ [Mail](mailto:aryankushwaha3101@gmail.com)
+[Github](https://github.com/funinkina) &nbsp; &nbsp; &nbsp; [Resume](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing)  &nbsp; &nbsp; &nbsp; [LinkedIn](https://www.linkedin.com/funinkina)  &nbsp; &nbsp; &nbsp; [Twitter](https://x.com/funinkina)  &nbsp; &nbsp; &nbsp;  ✉️ [Mail](mailto:aryankushwaha3101@gmail.com)
 {{< /box >}}
 
 ## Experience
