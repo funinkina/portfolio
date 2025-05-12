@@ -6,8 +6,10 @@ draft : false
 tags : ['LLMs', 'AI', 'MCP']
 toc: true
 next: true
-image: ''
+image: '/blog-assets/mcp-header.png'
 ---
+
+![mcp header](/blog-assets/mcp-header.png)
 
 ## Why the hype?
 We've all faced the task of writing professional emails and sending personalized versions to multiple recipients. While ChatGPT can help draft the email, it would be even more efficient if the entire process, including sending personalized emails to each recipient, could be automated. Imagine your LLM handling the entire task for you – this is where MCP comes in.

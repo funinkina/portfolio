@@ -1,13 +1,15 @@
 ---
 title : 'Why you should be a part of open source?'
-subtitle: 'What is open source software, and why should you care as a CS student? Explore the core concepts of freedom and collaboration behind OSS, its vital role in technologies like Linux and the internet, and the importance of transparency for security. Learn practical ways to contribute using Git, find beginner-friendly projects, and discover how participation can boost your skills and unlock opportunities like GSoC.'
+subtitle: 'Exploring and explaining perks of Open Source software and community.'
 date : '2025-05-04T13:16:23+05:30'
 draft : false
 tags : ['open-source', 'guide']
 toc: true
 next: true
-image: ''
+image: '/blog-assets/open-source-header.png'
 ---
+
+![Header](/blog-assets/open-source-header.png)
 
 As a computer science student, you've likely encountered the terms "open source software" or "free software" while working on projects. But what exactly does open source mean, and why should it matter to you? Let's explore that in this post.
 
