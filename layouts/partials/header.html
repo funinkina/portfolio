@@ -35,14 +35,14 @@
     <meta property="og:url" content="{{ .Permalink }}" />
     <meta property="og:title" content="{{ .Title }}" />
     <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
-    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/default-header.png{{ end }}" />
+    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.is-a.dev/default-header.png{{ end }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ .Permalink }}" />
     <meta property="twitter:title" content="{{ .Title }}" />
     <meta property="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
-    <meta property="twitter:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/default-header.png{{ end }}" />
+    <meta property="twitter:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.is-a.dev/default-header.png{{ end }}" />
     <meta property="twitter:site" content="@funinkina" />
     <meta property="twitter:creator" content="@funinkina" />
 
