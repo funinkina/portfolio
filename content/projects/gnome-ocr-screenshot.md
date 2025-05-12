@@ -1,6 +1,6 @@
 ---
 title : 'Gnome OCR Screenshot'
-subtitle: ''
+subtitle: 'A simple OCR (Optical Character Recognition) tool for the GNOME desktop environment that allows you to extract text as well as scan QR codes directly automatically from screenshots.'
 date : '2025-02-06T20:04:01+05:30'
 draft : false
 tags : ['python', 'gtk', 'tesseract']
@@ -10,7 +10,7 @@ next: true
 
 GNOME Screenshot OCR is a simple, native tool for the GNOME desktop environment that allows users to instantly extract text or scan QR codes directly from a selected area of their screen via a screenshot.
 
-### Github Repository: [Gnome-OCR-Screenshot](https://github.com/funinkina/Gnome-OCR-Screenshot)
+### Github Repository: [funinkina/Gnome-OCR-Screenshot](https://github.com/funinkina/Gnome-OCR-Screenshot)
 ![Screenshot Demo](https://github.com/funinkina/Gnome-OCR-Screenshot/raw/main/screenshot.png)
 
 ## Why I made this?
