@@ -14,7 +14,7 @@ Spectacle OCR Screenshot is a straightforward Qt application designed for the KD
 ![Screenshot](https://github.com/funinkina/spectacle-ocr-screenshot/raw/main/screenshot.png)
 
 ## Why I made this?
-Oftentimes I needed to copy a error or debug message from the screen but it won't be in a nice text box, so i decided to make this simple utility to do that for me. It is the same tool as [funinkina/Gnome-OCR-Screenshot](https://github.com/funinkina/Gnome-OCR-Screenshot) but for KDE desktop.
+Oftentimes I needed to copy a error or debug message from the screen but it won't be in a nice text box, so i decided to make this simple utility to do that for me. Basically the same tool as [funinkina/Gnome-OCR-Screenshot](https://github.com/funinkina/Gnome-OCR-Screenshot) but for KDE desktop.
 
 ## How it is built
 This project is primarily built using **Qt 6**, a robust C++ framework often used for creating desktop applications, especially within the KDE ecosystem. It leverages **KDE Spectacle** for the screenshot capture functionality, and **Tesseract OCR** along with its dependency **Leptonica** for the optical character recognition. **Zxing** is used specifically for the QR code decoding capability. The use of these libraries allows for native integration with KDE and powerful text/QR analysis. The build process supports both `qmake6` and `cmake`.
