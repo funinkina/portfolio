@@ -22,21 +22,25 @@
 
     <meta name="description" content="{{ .Title }}">
 
-    <!-- Open Graph Meta Tags for Social Media -->
-    <meta property="og:title" content="{{ .Title }}" />
-    <meta property="og:description" content="{{ .Summary }}" />
-    <meta property="og:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.BaseURL }}images/og-image.jpg{{ end }}" />
-    <meta property="og:url" content="{{ .Permalink }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <!-- Primary Meta Tags -->
+    <title>funinkina's blogs</title>
+    <meta name="title" content="funinkina's blogs" />
+    <meta name="description" content="funinkina's blogs, projects and everything else" />
 
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ .Title }}" />
-    <meta name="twitter:description" content="{{ .Summary }}" />
-    <meta name="twitter:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.BaseURL }}images/og-image.jpg{{ end }}" />
-    <meta name="twitter:url" content="{{ .Permalink }}" />
-    <meta name="twitter:site" content="@funinkina" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://funinkina.is-a.dev/" />
+    <meta property="og:title" content="funinkina's blogs" />
+    <meta property="og:description" content="funinkina's blogs, projects and everything else" />
+    <meta property="og:image" content="/blog-assets/me.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://funinkina.is-a.dev/" />
+    <meta property="twitter:title" content="funinkina's blogs" />
+    <meta property="twitter:description" content="funinkina's blogs, projects and everything else" />
+    <meta property="twitter:image" content="/blog-assets/me.jpg" />
+
 
 
     {{ with .OutputFormats.Get "rss" -}}
@@ -48,24 +52,6 @@
     {{ else }}
         <title>{{ .Title }} | {{ .Site.Title }}</title>
     {{ end }}
-
-    <!-- Prevent flicker on page load.
-    <style>
-        :root {
-          --background: #ffffff;
-        }
-        @media (prefers-color-scheme: dark) {
-          :root {
-            --background: #1b1b1b;
-          }
-        }
-        html {
-            background-color: var(--background);
-        }
-        body {
-            background-color: var(--background);
-        }
-    </style> -->
 
     {{ $CSS := slice
         (resources.Get "css/main.css")
