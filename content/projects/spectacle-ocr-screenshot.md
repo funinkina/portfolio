@@ -3,14 +3,14 @@ title : 'Spectacle Ocr Screenshot'
 subtitle: 'A simple Qt application that integrates KDE Spectacle screenshot tool with Tesseract OCR to extract text from screenshots as well QR codes.'
 date : '2025-03-11T20:13:54+05:30'
 draft : false
-tags : ['tesseract', 'qt']
+tags : ['tesseract', 'qt', 'linux']
 toc: true
 next: true
 ---
 
 Spectacle OCR Screenshot is a straightforward Qt application designed for the KDE desktop environment. It integrates seamlessly with KDE's native Spectacle screenshot tool to enable users to quickly extract text and decode QR codes directly from captured screen regions.
 
-### Github Repository: [funinkina/spectacle-ocr-screenshot](https://github.com/funinkina/spectacle-ocr-screenshot)
+### GitHub Repository: [funinkina/spectacle-ocr-screenshot](https://github.com/funinkina/spectacle-ocr-screenshot)
 ![Screenshot](https://github.com/funinkina/spectacle-ocr-screenshot/raw/main/screenshot.png)
 
 ## Why I made this?

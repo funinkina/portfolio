@@ -11,7 +11,7 @@ next: true
 Bloop is a web application designed to analyze exported WhatsApp chat files, offering insights into conversation dynamics, popular words, user activity, and more. It provides a comprehensive look into your chat history.
 
 ### Try it live at: &nbsp; [bloopit.vercel.app](https://bloopit.vercel.app)
-### The Github Repos: [Backend](https://github.com/funinkina/whatsappchatanalyzer/) [Frontend](https://github.com/funinkina/bloop-frontend)
+### The GitHub Repos: [Backend](https://github.com/funinkina/whatsappchatanalyzer/) [Frontend](https://github.com/funinkina/bloop-frontend)
 
 [![bloop demo](/blog-assets/bloop-demo.png)](https://bloopit.vercel.app)
 
