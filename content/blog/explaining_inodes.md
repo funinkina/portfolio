@@ -6,6 +6,7 @@ tags : ['Linux', 'Filesystem']
 draft : false
 toc: true
 next: true
+image: ''
 ---
 
 ## What are Inodes?
@@ -72,23 +73,23 @@ Here we can see that the root partition has `3276800` inodes and `230296` inodes
 ## Inode Structure
 An Inode is of 256 bytes in size. Containing the following fields:
 
-| Field |
-| ---- |
-| Mode |
-| Link count |
-| Owner's UID number |
-| Owner's GID number |
-| File Size in bytes |
-| Time file was last accessed |
-| Time file was last modified |
-| Time file was last changed |
-| 12 Direct block pointers (32/64 bits) to reference upto 96 KB |
+| Field                                                                |
+| -------------------------------------------------------------------- |
+| Mode                                                                 |
+| Link count                                                           |
+| Owner's UID number                                                   |
+| Owner's GID number                                                   |
+| File Size in bytes                                                   |
+| Time file was last accessed                                          |
+| Time file was last modified                                          |
+| Time file was last changed                                           |
+| 12 Direct block pointers (32/64 bits) to reference upto 96 KB        |
 | 1 Single Indirect block pointer (32/64 bits) to reference upto 16 MB |
 | 1 Double Indirect block pointer (32/64 bits) to reference upto 32 GB |
 | 1 Triple Indirect block pointer (32/64 bits) to reference upto 64 TB |
-| Inode status (flags) |
-| Count of data blocks actually held |
-| (Optional) extra reserved fields |
+| Inode status (flags)                                                 |
+| Count of data blocks actually held                                   |
+| (Optional) extra reserved fields                                     |
 
 The Inodes not only store metadata for the file but also store pointers to the disk blocks that store the file data. The disk blocks are used to store the file data. The size of the disk blocks is usually 4 KB. The Inodes store pointers to the disk blocks that store the file data. The Inodes store 15 pointers to the disk blocks that store the file data. They point from the beginning of the file upto 96 KB. If thats not enough, the Inodes store 3 types of indirect pointers to point to the disk blocks that store the file data. These indirect pointers are used to point to the blocks that store the addresses of the disk blocks that store the file data.
 

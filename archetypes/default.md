@@ -6,4 +6,5 @@ draft : true
 tags : []
 toc: true
 next: true
+image: ''
 ---

@@ -6,6 +6,7 @@ draft : false
 tags : ['nextjs', 'golang']
 toc: true
 next: true
+image: '/blog-assets/bloop-demo.png'
 ---
 
 Bloop is a web application designed to analyze exported WhatsApp chat files, offering insights into conversation dynamics, popular words, user activity, and more. It provides a comprehensive look into your chat history.

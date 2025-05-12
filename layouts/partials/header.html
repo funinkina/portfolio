@@ -29,17 +29,17 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://funinkina.is-a.dev/" />
-    <meta property="og:title" content="funinkina's blogs" />
-    <meta property="og:description" content="funinkina's blogs, projects and everything else" />
-    <meta property="og:image" content="/blog-assets/me.jpg" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Description }}" />
+    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/blog-assets/me.jpg{{ end }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://funinkina.is-a.dev/" />
-    <meta property="twitter:title" content="funinkina's blogs" />
-    <meta property="twitter:description" content="funinkina's blogs, projects and everything else" />
-    <meta property="twitter:image" content="/blog-assets/me.jpg" />
+    <meta property="twitter:url" content="{{ .Permalink }}" />
+    <meta property="twitter:title" content="{{ .Title }}" />
+    <meta property="twitter:description" content="{{ .Description }}" />
+    <meta property="twitter:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}/blog-assets/me.jpg{{ end }}" />
 
 
 

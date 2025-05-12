@@ -4,6 +4,7 @@ subtitle: 'A look at some terminologies related to linux for newbies'
 date : '2025-02-20T15:45:33+05:30'
 draft : false
 tags : ['linux', 'guide']
+image: '/blog-assets/guide_to_linux.png'
 toc: true
 next: true
 ---

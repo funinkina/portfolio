@@ -6,8 +6,7 @@ draft : false
 tags : ['Linux', 'Python', 'Machine Learning', 'Project']
 description : 'Python script enhancing GNOME Screenshot with OCR with Tesseract'
 toc: true
-image:
-    - '/blog-assets/gnome-ss-enhance-header.png'
+image: '/blog-assets/gnome-ss-enhance-header.png'
 next: true
 ---
 

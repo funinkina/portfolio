@@ -6,6 +6,7 @@ draft : false
 tags : ['llm', 'genAI', 'tui']
 toc: true
 next: true
+image: 'https://github.com/funinkina/QueryMD/raw/main/Screenshot.png'
 ---
 QueryMD is an AI-powered application designed to help users interact with and query their personal markdown notes. It allows you to ask questions and search your notes using natural language, leveraging the power of large language models.
 

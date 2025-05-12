@@ -6,6 +6,7 @@ draft : false
 tags: ['LLM', 'Raspberry Pi']
 toc: true
 next: true
+image: '/blog-assets/PXL_20240127_130937347.jpg'
 ---
 Let's start by addressing the elephant in the room, why? Why would I run a freaking Large Language Model on a 4-core arm processor with 4GB of RAM? Well, why not? I have a Raspberry Pi 4 lying around and I wanted to see if I could run Deepseek on it. (Also cause free content for the blog). Before starting, let me say, I have absolutely zero expectations from this experiment. I am not expecting it to work, I am not expecting it to be fast, I am not expecting it to be usable. I am just doing it because I can. So, let's get started.
 

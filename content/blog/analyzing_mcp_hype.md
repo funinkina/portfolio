@@ -6,6 +6,7 @@ draft : false
 tags : ['LLMs', 'AI', 'MCP']
 toc: true
 next: true
+image: ''
 ---
 
 ## Why the hype?

@@ -6,6 +6,7 @@ draft : false
 tags : ['linux', 'shell scripting']
 toc: true
 next: true
+image: 'https://github.com/funinkina/manjaro-minimal-bootsplash/raw/main/preview.gif'
 ---
 
 Manjaro Minimal Bootsplash is a custom theme for Plymouth, the graphical boot splash system used in many Linux distributions, specifically tailored for Manjaro Linux. It aims to provide a cleaner, more minimal look during the system boot process.

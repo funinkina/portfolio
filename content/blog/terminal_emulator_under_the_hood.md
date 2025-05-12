@@ -6,6 +6,7 @@ draft : false
 tags : ['linux', 'terminal']
 toc: true
 next: true
+image: '/blog-assets/terminal-emulators-header.png'
 ---
 
 ![Header](/blog-assets/terminal-emulators-header.png)

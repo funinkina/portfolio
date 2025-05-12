@@ -6,6 +6,7 @@ draft : false
 tags : ['linux', 'kde', 'ocr', 'cpp']
 toc: true
 next: true
+image: '/blog-assets/spectacle-ocr-header.png'
 ---
 
 ![Header](/blog-assets/spectacle-ocr-header.png)
