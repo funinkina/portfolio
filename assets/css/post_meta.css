@@ -6,6 +6,17 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 25px;
+}
+
+#single-header img {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  #single-header img {
+    display: block;
+  }
 }
 
 .date {
