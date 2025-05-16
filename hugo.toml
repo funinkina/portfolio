@@ -18,6 +18,12 @@ ShowReadingTime = true
 ShowDate = true
 favicon = "favicon.ico"
 
+[params.vercel_analytics]
+enable = true
+
+[params.vercel_speed_insights]
+enable = true
+
 [permalinks]
 blog = "/blog/:slug/"
 
