@@ -5,15 +5,17 @@ title: "funinkina's portfolio"
 
 Currently a **Third Year Engineering** Undergrad based in **Delhi, India**. I work with 🐧 Linux, 🌟 Open-Source, ☁️ Devops, 🤖 Machine Learning.
 
+{{< social-links >}}
+[![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)](https://github.com/funinkina)
+[![X Badge](https://img.shields.io/badge/X-000?logo=x&logoColor=fff&style=for-the-badge)](https://x.com/funinkina)
+[![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=fff&style=for-the-badge)](https://www.linkedin.com/in/funinkina)
+[![Gmail Badge](https://img.shields.io/badge/Gmail-EA4335?logo=gmail&logoColor=fff&style=for-the-badge)](mailto:aryankuswaha3101@gmail.com)
+[![Resume](https://img.shields.io/badge/Resume-PDF-green?style=for-the-badge)](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing)
+{{< /social-links >}}
+
 This website is a collection of my work and thoughts. All writings, projects and opinions are my own
 
 Here, you'll find my experience, projects, and blogs.
-
-{{< box info >}}
-**You can find more info here:**
-
-[Github](https://github.com/funinkina) &nbsp; &nbsp; &nbsp; [Resume](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing)  &nbsp; &nbsp; &nbsp; [LinkedIn](https://www.linkedin.com/funinkina)  &nbsp; &nbsp; &nbsp; [Twitter](https://x.com/funinkina)  &nbsp; &nbsp; &nbsp;  ✉️ [Mail](mailto:aryankushwaha3101@gmail.com)
-{{< /box >}}
 
 ## Experience
 ### GenAI Intern *at* Weya.ai &nbsp; &nbsp; `(Nov 2024 - Jan 2025)`
@@ -32,6 +34,11 @@ Here, you'll find my experience, projects, and blogs.
   - 🌟 Mentored numerous students in Machine Learning, AI etc.
   - 🚀 Conducted workshops on Git, GitHub, and open-source contributions.
   - 📈 Worked on a wide variety of projects in fields of finance, NLP etc..
+
+### You can support my work via:
+{{< social-links >}}
+[![Buy Me A Coffee Badge](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FD0?logo=buymeacoffee&logoColor=000&style=for-the-badge)](https://www.buymeacoffee.com/funinkina)
+{{< /social-links >}}
 
 ----
 ### 🔍 Explore my projects and blogs below

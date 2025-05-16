@@ -69,6 +69,30 @@ main {
   hyphens: none;
 }
 
+.social-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.social-links-container a {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.social-links-container img {
+  height: 28px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .social-links-container {
+    justify-content: center;
+  }
+}
+
 /* BASIC HTML ELEMENTS */
 p {
   margin: 0.7em 0;
