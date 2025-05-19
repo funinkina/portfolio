@@ -2,7 +2,7 @@
 title : 'SSH for Noobs'
 subtitle: "A beginner's guide to SSH"
 date : '2025-05-19T21:51:21+05:30'
-draft : flase
+draft : false
 tags : ['linux', 'ssh', 'security']
 toc: true
 next: true
