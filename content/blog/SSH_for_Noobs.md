@@ -22,7 +22,7 @@ SSH stands for Secure Shell. It is a protocol that allows you to securely connec
 
 SSH is a [client-server protocol](https://en.wikipedia.org/wiki/Client%E2%80%93server_model), which means that it consists of two parts: the SSH client and the SSH server. The SSH client is the program that you run on your local machine to connect to the remote server, while the SSH server is the program that runs on the remote machine and listens for incoming connections.
 
-### A small history lesson
+### A small history detour
 SSH was designed as a replacement for [Telnet](https://en.wikipedia.org/wiki/TELNET) and other insecure remote shell protocols. It was developed by Tatu Ylönen in 1995 and has since become the de facto standard for secure remote access to servers. By default, SSH uses port 22 for communication. This is the actual email Tatu Ylönen sent to the [IANA](https://www.iana.org/):
 
 ```
