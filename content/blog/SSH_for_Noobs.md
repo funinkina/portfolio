@@ -2,12 +2,14 @@
 title : 'SSH for Noobs'
 subtitle: "A beginner's guide to SSH"
 date : '2025-05-19T21:51:21+05:30'
-draft : true
+draft : flase
 tags : ['linux', 'ssh', 'security']
 toc: true
 next: true
-image: ''
+image: '/blog-assets/ssh-header.png'
 ---
+
+![SSH Header](/blog-assets/ssh-header.png)
 
 Many of you must have worked with AWS or GCP at some point, and even if you were scared of the terminals, you might have been forced to use it. And you also must have accessed the terminal of your service from your local terminal. But wait, how is that possible? How can you access the console of another system from your own?
 
@@ -319,3 +321,11 @@ And there you have it – a whirlwind tour of SSH, from basics to some advanced 
 While "noob" might have been in the title, by now you should feel much more comfortable and confident in using SSH. Remember, like any skill, proficiency comes with practice. So, don't be afraid to fire up your terminal, connect to your servers (or even a local virtual machine for practice), and experiment with the commands we've discussed.
 
 SSH is a fundamental tool for anyone working with Linux, cloud services, or remote systems. Mastering it opens up a world of possibilities for efficient and secure system administration.
+
+## References
+
+- [A Deep Dive into How SSH Works: Step-by-Step Guide](https://medium.com/@ByteWaveNetwork/a-deep-dive-into-how-ssh-works-step-by-step-guide-c5e10e4e0edc)
+- [What is SSH (Secure Shell) and How Does It Work?](https://www.techtarget.com/searchsecurity/definition/Secure-Shell)
+- [What is SSH? | Secure Shell (SSH) protocol](https://www.cloudflare.com/en-gb/learning/access-management/what-is-ssh/)
+- [How Does SSH Work?](https://phoenixnap.com/kb/how-does-ssh-work)
+- [The story of the SSH port is 22.](https://www.ssh.com/academy/ssh/port)
