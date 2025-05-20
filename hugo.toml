@@ -1,10 +1,6 @@
 baseURL = 'https://funinkina.is-a.dev/'
 languageCode = 'en-us'
 title = "funinkina's blogs"
-googleAnalytics = "G-KN1LB8C8L2"
-
-[params.google.analytics]
-id = "G-KN1LB8C8L2"
 
 [sitemap]
 changefreq = "weekly"
