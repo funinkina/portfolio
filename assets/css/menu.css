@@ -34,6 +34,7 @@
   flex-direction: row;
   gap: 1.5rem;
   font-size: 1.2rem;
+  font-weight: 300;
 }
 
 @media (max-width: 980px) {
@@ -59,9 +60,19 @@
   margin: 0;
 }
 
+.nav-bar h1 img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 12px 0 0;
+  padding: 0;
+}
+
 .nav-bar h1 a {
   text-decoration: none;
   color: var(--text);
+  display: flex;
+  justify-items: center;
+  align-items: center;
 }
 
 .nav-bar h1 a:hover {

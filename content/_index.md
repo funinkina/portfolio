@@ -3,7 +3,9 @@ title: "funinkina's portfolio"
 ---
 # Hi, I'm Aryan Kushwaha 👋
 
-Currently a **Third Year Engineering** Undergrad based in **Delhi, India**. I work with 🐧 Linux, 🌟 Open-Source, ☁️ Devops, 🤖 Machine Learning.
+A Pre-final Year Computer Science UG, based in **Delhi, India.**
+
+I work with **Machine Learning, Linux, Backend Development, Devops**.
 
 {{< social-links >}}
 [![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)](https://github.com/funinkina)
@@ -13,9 +15,9 @@ Currently a **Third Year Engineering** Undergrad based in **Delhi, India**. I wo
 [![Resume](https://img.shields.io/badge/Resume-PDF-green?style=for-the-badge)](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing)
 {{< /social-links >}}
 
-This website is a collection of my work and thoughts. All writings, projects and opinions are my own
+Explore my works on my GitHub, or check out the projects section.
 
-Here, you'll find my experience, projects, and blogs.
+This website is a collection of my work and thoughts. All writings, projects and opinions are my own. Here, you'll find my experience, projects, and blogs.
 
 ## Experience
 ### GenAI Intern *at* Weya.ai &nbsp; &nbsp; `(Nov 2024 - Jan 2025)`
