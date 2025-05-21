@@ -37,22 +37,21 @@
 }
 
 #subtitle {
-  margin-top: -8px;
+  margin-top: -4px;
   margin-bottom: 0.3em;
   font-size: 1.4em;
   color: var(--text-dim);
+  font-weight: 300;
 }
 
 .datesub {
   font-weight: normal;
   color: var(--text-dim);
-  font-family: sans-serif;
 }
 
 #tags {
   font-weight: normal;
   color: var(--text-dim);
-  font-family: sans-serif;
 }
 
 #tags a {

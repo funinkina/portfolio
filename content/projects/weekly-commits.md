@@ -3,7 +3,7 @@ title : 'Weekly Commits'
 subtitle: 'GNOME Extension to see your weekly GitHub commits in top bar'
 date : '2025-05-14T00:30:42+05:30'
 draft : false
-tags : ['linux', 'gnome', 'github', 'extension']
+tags : ['linux', 'gnome', 'javascript', 'extension']
 toc: true
 next: true
 image: ''

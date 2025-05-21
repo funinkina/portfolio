@@ -17,27 +17,23 @@ favicon = "favicon.ico"
 [params.vercel_analytics]
 enable = true
 
-[params.vercel_speed_insights]
-enable = true
-
 [permalinks]
 blog = "/blog/:slug/"
 
-
 [menu]
 [[menu.main]]
-name = "Home"
+name = "HOME"
 url = "/"
 weight = 1
 [[menu.main]]
-name = "Blogs"
+name = "BLOGS"
 url = "/blog/"
 weight = 2
 [[menu.main]]
-name = "Projects"
+name = "PROJECTS"
 url = "/projects/"
 weight = 3
 [[menu.main]]
-name = "RSS Feed"
+name = "RSS FEED"
 url = "/index.xml"
 weight = 4

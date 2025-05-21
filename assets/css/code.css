@@ -39,12 +39,16 @@ code {
   border-radius: 4px;
   padding: 1px;
   border: 1px solid var(--code-border);
-  font-size: 1.1em;
   font-weight: 200;
 }
 
+p code,
+li code {
+  font-size: 1rem;
+}
+
 pre>code {
-  font-size: 1em;
+  font-size: 0.8rem;
   font-stretch: normal;
   background: inherit;
   tab-size: 4;

@@ -14,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(var(--background-rgb), 0.9);
+  background-color: rgba(var(--background-rgb), 0.8);
   margin-bottom: 20px;
   padding: 10px 20px;
   border: 1px solid var(--toc-border);
@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 980px) {
@@ -61,4 +62,8 @@
 .nav-bar h1 a {
   text-decoration: none;
   color: var(--text);
+}
+
+.nav-bar h1 a:hover {
+  text-decoration: underline;
 }
