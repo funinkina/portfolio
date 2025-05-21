@@ -5,8 +5,12 @@
     margin-top: 1em;
     margin-bottom: 1em;
     border-radius: 3px;
-    color: var(--code-background);
     background: #f3ebe850;
+}
+
+.box-shortcode p {
+    color: var(--code-background);
+    font-weight: 300;
 }
 
 .box-shortcode code {
@@ -23,11 +27,11 @@
 }
 
 .box-shortcode.warning .box-title {
-    background: #ff6b6b;
+    background: #ff9090;
 }
 
 .box-shortcode.warning {
-    background: #ff6b6b4f;
+    background: #c06b6b;
 }
 
 .box-shortcode.info .box-title {
@@ -47,11 +51,11 @@
 }
 
 .box-shortcode.tip .box-title {
-    background: #a3ffa34d;
+    background: #85e585;
 }
 
 .box-shortcode.tip {
-    background: #a3ffa34d;
+    background: #79d279;
 }
 
 .icon-box {

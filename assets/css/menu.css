@@ -78,3 +78,11 @@
 .nav-bar h1 a:hover {
   text-decoration: underline;
 }
+
+.nav-bar h1 a>img {
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-bar h1 a:hover>img {
+  scale: 1.2;
+}
