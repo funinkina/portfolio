@@ -5,16 +5,20 @@
     margin-top: 1em;
     margin-bottom: 1em;
     border-radius: 3px;
-    color: var(--text);
+    color: var(--code-background);
     background: #f3ebe850;
 }
 
+.box-shortcode code {
+    color: var(--text);
+}
+
 .box-title {
-    margin: -18px;
+    margin: -10px;
     padding: 4px 18px;
     border-radius: 3px 3px 0 0;
     font-weight: 700;
-    color: var(--text);
+    color: var(--code-background);
     background: #6ab0de;
 }
 
@@ -60,7 +64,7 @@
 .icon-box svg {
     height: 1em;
     width: 1em;
-    fill: var(--text-dim);
+    fill: var(--code-background);
 }
 
 .icon-box img,

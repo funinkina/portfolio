@@ -36,7 +36,7 @@ code {
   font-weight: 600;
   background: var(--code-background);
   font-stretch: normal;
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 1px;
   border: 1px solid var(--code-border);
   font-size: 1.1em;
@@ -49,6 +49,7 @@ pre>code {
   background: inherit;
   tab-size: 4;
   font-weight: 200;
+  border: none;
 }
 
 @media screen and (max-width: 760px) {

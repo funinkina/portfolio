@@ -1,24 +1,37 @@
-/* @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
-  --complimentary: #616161;
-  --text: #1e1e1e;
-  --code: #2c2c2c;
-  --text-dim: #383838;
-  --link: #3366cc;
-  --link-visited: #6c3bcc;
-  --code-background: #fffbe0;
-  --code-border: #eaecf0;
-  --code-border: transparent;
-  --code-hl: #e6e6e6;
-  --border-general: #cccfd4;
-  --table-th: #fff8ea;
-  --table-tr: #fff1d7;
-  --toc-background: #fff9df;
-  --toc-border: #aaa;
-  --background: #e6dbc7;
+  --complimentary: #a0a0a0;
+  /* soft gray */
+  --text: #e0e0e0;
+  /* light gray text */
+  --code: #dcdcdc;
+  /* slightly dimmed light text for code */
+  --text-dim: #a9a9a9;
+  /* dimmed text */
+  --link: #6699ff;
+  /* bright but readable blue */
+  --link-visited: #b388ff;
+  /* muted purple for visited links */
+  --code-background: #2b2b2b;
+  /* dark gray background for code blocks */
+  --code-border: #3a3a3a;
+  /* subtle border for code */
+  --code-hl: #3d3d3d;
+  /* highlight background in code */
+  --border-general: #444;
+  /* general subtle border */
+  --table-th: #33302a;
+  /* dark brown-gray for table headers */
+  --table-tr: #2c2924;
+  /* darker table row background */
+  --toc-background: #2f2f2f;
+  /* dark neutral background for TOC */
+  --toc-border: #555;
+  /* slightly lighter border */
+  --background: #1c1c1c;
+  /* main dark background, not pure black */
+
 }
 
 #gitinfo-date {
@@ -99,7 +112,9 @@ main {
 p {
   margin: 0.7em 0;
   font-size: large;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 h1 {

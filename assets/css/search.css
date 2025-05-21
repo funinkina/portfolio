@@ -2,15 +2,15 @@
 #search-input {
     padding: 6px;
     width: 72%;
-    border: 1px solid #1d1d1d;
+    border: 1px solid #9f9f9f;
 }
 
 #search-input:focus {
-    border-color: #4e4e4e;
+    border-color: #dadada;
 }
 
 #search-input:active {
-    color: #2d2d2d;
+    color: #dddddd;
 }
 
 @media screen and (min-width: 900px) {
