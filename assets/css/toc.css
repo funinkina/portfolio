@@ -81,7 +81,6 @@
   transition-duration: 50ms;
 }
 
-/* h2 in toc has 20px padding and h1 should be the title and shouldn't be present in toc */
 @media screen and (min-width: 1150px) {
   #TableOfContents {
     margin-left: -32px;

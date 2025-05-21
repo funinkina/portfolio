@@ -1,0 +1,56 @@
+<!-- {{ if .TableOfContents }}
+<div id="tableOfContentContainer">
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    {{ .TableOfContents }}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toc = document.querySelector('.toc');
+    
+    // Function to check screen size and set initial state
+    function checkScreenSize() {
+      if (window.innerWidth < 1150) {
+        toc.classList.add('collapsed');
+      } else {
+        toc.classList.remove('collapsed');
+        toc.classList.remove('expanded');
+      }
+    }
+    
+    // Set initial state immediately
+    checkScreenSize();
+    
+    // Also run it after a slight delay to ensure DOM is fully processed
+    setTimeout(checkScreenSize, 100);
+    
+    // Toggle on click for mobile
+    toc.addEventListener('click', function(e) {
+      if (window.innerWidth < 1150) {
+        if (toc.classList.contains('collapsed')) {
+          toc.classList.remove('collapsed');
+          toc.classList.add('expanded');
+          e.stopPropagation();
+        } else if (!e.target.closest('a')) {
+          // Only collapse if not clicking a link
+          toc.classList.add('collapsed');
+          toc.classList.remove('expanded');
+        }
+      }
+    });
+    
+    // Close TOC when clicking elsewhere on the page
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth < 1150 && !e.target.closest('.toc') && !toc.classList.contains('collapsed')) {
+        toc.classList.add('collapsed');
+        toc.classList.remove('expanded');
+      }
+    });
+    
+    // Update on window resize
+    window.addEventListener('resize', checkScreenSize);
+  });
+</script>
+{{ end }} -->

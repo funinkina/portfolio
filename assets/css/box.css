@@ -11,6 +11,13 @@
 .box-shortcode p {
     color: var(--code-background);
     font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.box-shortcode ul {
+    color: var(--code-background);
+    font-weight: 300;
+    margin: 0;
 }
 
 .box-shortcode code {
