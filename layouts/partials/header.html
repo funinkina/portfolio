@@ -87,7 +87,8 @@
 
   <body>
         {{ if not .Params.nomenu }}
-        <nav>
+        <nav class="nav-bar">
+          <h1><a href="{{ .Site.Home.Permalink }}" class="site-title">funinkina&apos;s blogs</a></h1>
           <ul class="menu">
             {{ range .Site.Menus.main }}
                 <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{ safeHTML .Name }}</a></li>

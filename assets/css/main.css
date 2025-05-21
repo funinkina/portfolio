@@ -2,36 +2,21 @@
 
 :root {
   --complimentary: #a0a0a0;
-  /* soft gray */
   --text: #e0e0e0;
-  /* light gray text */
   --code: #dcdcdc;
-  /* slightly dimmed light text for code */
   --text-dim: #a9a9a9;
-  /* dimmed text */
-  --link: #6699ff;
-  /* bright but readable blue */
+  --link: #88b0ff;
   --link-visited: #b388ff;
-  /* muted purple for visited links */
   --code-background: #2b2b2b;
-  /* dark gray background for code blocks */
   --code-border: #3a3a3a;
-  /* subtle border for code */
   --code-hl: #3d3d3d;
-  /* highlight background in code */
   --border-general: #444;
-  /* general subtle border */
   --table-th: #33302a;
-  /* dark brown-gray for table headers */
   --table-tr: #2c2924;
-  /* darker table row background */
   --toc-background: #2f2f2f;
-  /* dark neutral background for TOC */
   --toc-border: #555;
-  /* slightly lighter border */
   --background: #1c1c1c;
-  /* main dark background, not pure black */
-
+  --background-rgb: 28, 28, 28;
 }
 
 #gitinfo-date {
@@ -139,7 +124,7 @@ h3 {
   font-size: 1.3em;
   font-weight: 700;
   margin-bottom: 0.5em;
-  margin-top: 1.2em;
+  margin-top: 0.7em;
   padding-bottom: 0;
   font-family: sans-serif;
 }
