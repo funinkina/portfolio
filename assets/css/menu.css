@@ -37,11 +37,12 @@
   font-weight: 300;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1400px) {
   .nav-bar {
     flex-direction: column;
     align-items: flex-start;
     padding-top: 10px;
+    flex-wrap: wrap;
   }
 
   .menu {
