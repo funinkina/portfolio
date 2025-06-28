@@ -14,18 +14,17 @@ My comfort zone includes:
   - Backend Development  
   - DevOps
 
-## What I'm Up To
+## 🚀 What I'm Up To
 
 - **AI Intern** at [SuperDash](https://superdash.ai/)  
   *Bangalore, Karnataka · July 2025 – Present*  
-  Helping build AI features, probably feeding more data to the machines than I do to myself.
+  Something something with AI, don't know yet.
 
 - **Blogger & Backend Developer** at [Let's Code](https://www.lets-code.co.in)  
   *Remote, Part Time · April 2025 – Present*  
   Writing backend logic and blogs when I'm not busy breaking my Arch install.
 
-## I'm also on
-
+## 👥 I'm also on
 {{< social-links >}}
 
 [![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)](https://github.com/funinkina)  
@@ -40,13 +39,13 @@ Wanna see what I'm building or breaking?
 Check out the [Projects](/projects) section or stalk my [GitHub](https://github.com/funinkina).  
 This site’s basically a brain-dump of my code, experiments, and occasionally, thoughts.
 
-## Experience
+## 💼 Experiences so far
 
 - **GenAI Intern** at [Weya.ai](https://weya.ai)  
   Noida, Uttar Pradesh · *Nov 2024 – Jan 2025*
 
-  - Built a **FastAPI** backend that handled real-time voice calls (yes, actual talking machines).
-  - Improved concurrency support — fewer crashes, more sass.
+  - Worked on **FastAPI** based backend to handle realtime voice calls with AI agents.
+  - Added multiple integrations such as Calendar, Meet, WhatsApp, Twilio.
   - Developed a microservice to convert **S3 documents into embeddings**.
   - Tested and fine-tuned **LLMs** like they were fresh recipes.
 
@@ -56,16 +55,16 @@ This site’s basically a brain-dump of my code, experiments, and occasionally, 
   - Worked on a research paper to predict waterborne diseases using 20+ real-time water quality parameters.
   - Achieved around **90% accuracy** — not bad for a student and a laptop!
 
-## Extra-Curricular
+## 🎓 Extra-Curricular
 
 - **AIML Club** · *Google Developer Groups OnCampus*  
   *April 2022 – Present*
 
   - Mentored students in ML, AI, and avoiding Stack Overflow copy-paste errors.
   - Led workshops on **Git**, **GitHub**, and open-source.
-  - Dabbled in projects spanning **finance**, **NLP**, and possibly interdimensional tech.
+  - Dabbled in projects spanning **finance**, **NLP**
 
-## Like what I do?
+## 💖 Like what I do?
 
 Help keep the coffee flowing:
 
