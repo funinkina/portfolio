@@ -21,19 +21,19 @@ enable = true
 blog = "/blog/:slug/"
 
 [menu]
-[[menu.main]]
-name = "🏠 HOME"
-url = "/"
-weight = 1
+# [[menu.main]]
+# name = "🏠 HOME"
+# url = "/"
+# weight = 1
 [[menu.main]]
 name = "📝 BLOGS"
 url = "/blog/"
-weight = 2
+weight = 1
 [[menu.main]]
 name = "🚀 PROJECTS"
 url = "/projects/"
-weight = 3
+weight = 2
 [[menu.main]]
 name = "📰 RSS FEED"
 url = "/index.xml"
-weight = 4
+weight = 3

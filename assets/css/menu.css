@@ -37,12 +37,11 @@
   font-weight: 300;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1000px) {
   .nav-bar {
     flex-direction: column;
     align-items: flex-start;
     padding-top: 10px;
-    flex-wrap: wrap;
   }
 
   .menu {
@@ -55,6 +54,8 @@
   .nav-bar ul {
     font-size: 1rem;
     margin-top: 10px;
+    white-space: nowrap;
+    flex-wrap: wrap;
   }
 }
 
