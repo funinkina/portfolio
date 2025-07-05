@@ -31,9 +31,12 @@ My comfort zone includes:
 [![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)](https://github.com/funinkina)  
 [![X Badge](https://img.shields.io/badge/X-000?logo=x&logoColor=fff&style=for-the-badge)](https://x.com/funinkina)  
 [![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=fff&style=for-the-badge)](https://www.linkedin.com/in/funinkina)  
-[![Gmail Badge](https://img.shields.io/badge/Gmail-EA4335?logo=gmail&logoColor=fff&style=for-the-badge)](mailto:aryankuswaha3101@gmail.com)  
 [![Resume](https://img.shields.io/badge/Resume-PDF-green?style=for-the-badge)](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing)
 
+{{< /social-links >}}
+
+{{< social-links >}}
+[![Proton Mail Badge](https://img.shields.io/badge/Proton%20Mail-6D4AFF?logo=protonmail&logoColor=fff&style=plastic)](mailto:funinkina@proton.me) [funinkina@proton.me](mailto:funinkina@proton.me)
 {{< /social-links >}}
 
 Wanna see what I'm building or breaking?  
