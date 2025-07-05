@@ -1,12 +1,13 @@
 ---
 title: "funinkina's portfolio"
+toc: true
 ---
 
-# Hey there, I'm Aryan Kushwaha 👋
+# 👋 Hey there, I'm Aryan Kushwaha
 ### aka *funinkina*
 
 I'm a final-year **Computer Science** undergrad based in **Delhi NCR, India**.  
-I spend my time wrangling code, debugging life, and occasionally teaching computers to think.
+I spend my time writing code, debugging life, and occasionally making rocks think.
 
 My comfort zone includes:
   - Machine Learning  
