@@ -17,9 +17,9 @@ My comfort zone includes:
 
 ## 🚀 What I'm Up To
 
-- **AI Intern** at [SuperDash](https://superdash.ai/)  
+- **Backend & AI Intern** at [SuperDash](https://superdash.ai/)  
   *Bangalore, Karnataka · July 2025 – Present*  
-  Something something with AI, don't know yet.
+  Streamlining communications with AI.
 
 - **Blogger & Backend Developer** at [Let's Code](https://www.lets-code.co.in)  
   *Remote, Part Time · April 2025 – Present*  
