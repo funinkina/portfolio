@@ -2,7 +2,7 @@
 title : 'Audio Formats and Voice Agents'
 subtitle: 'Sharing what I have learned while building Voice Agents'
 date : '2025-07-26T12:38:47+05:30'
-draft : true
+draft : false
 tags : ['agents', 'AI', 'voice']
 toc: true
 next: true
