@@ -1,16 +1,18 @@
 ---
-title : 'Audio Formats Primer'
+title : 'Audio Formats and Voice Agents'
 subtitle: 'Sharing what I have learned while building Voice Agents'
 date : '2025-07-26T12:38:47+05:30'
 draft : true
 tags : ['agents', 'AI', 'voice']
 toc: true
 next: true
-image: ''
+image: '/blog-assets/audio-header.png'
 ---
 
+![Header](/blog-assets/audio-header.png)
+
 ## A little backstory
-So for those of you who don't know, I have been working as a Backend and AI engineer at [Superdash](https://superdash.ai/) for two weeks at the time I am writing this. And so far, I have worked on voice based AI agents and made them sound more natural. And, I'm sharing whatever I have scratched my head for. You can use this as a reference while building anything related to voice based communication over the internet.
+So for those of you who don't know, I have been working as a Backend and AI engineer at [Superdash](https://superdash.ai/) for two weeks at the time I am writing this. And so far, I have worked on voice based AI agents and made them sound more natural. And, I'm sharing whatever I have scratched my head for. You can use this as a extra reading material while building anything related to voice based communication over the internet.
 
 ## Let's start with the transfers
 Before we dig in the details, let's see what are some ways to efficiently get your voice or text data from any external API, because unless you are running your own servers, you must be using some TTS provider to get you that sweet sweet voice. Now most commonly, you must have seen either of these ways to get the voice data you want.
@@ -26,7 +28,7 @@ So now we have to optimize our websockets to be as fast as it can be, while main
 When you hear the word audio format, you might think of .mp3, .wav etc etc. But here is a important distinction. These are file extensions, and they represent how the data is packaged or structured. They provide standardized ways for your audio players to read the data and play it as intended. When dealing with AI agents, we mainly use PCM or u-law. So that is what I'll be covering here.
 
 ### Why we do not use mp3 for streaming TTS?
-I an .mp3 file, the data is stored in sequence of frames, each frame has a compressed data with its relevant header that describes how to decode that frame. Here is a rough visualization of the mp3 file.
+In an .mp3 file, the data is stored in sequence of frames, each frame has a compressed data with its relevant header that describes how to decode that frame. Here is a rough visualization of the mp3 file.
 
 ```
 +----------------------------+  
@@ -126,5 +128,133 @@ Let's break down what I just said, say you have a 16-bit signed PCM sample. To c
    - `sign(x)` retains polarity.   
    This squeezes the linear range into a logarithmic curve, favoring low amplitudes.
 
-3. **Adding Bias**
-   After 
+3. **Adding Bias**      
+   Since μ-law uses logarithmic numbers, it becomes undefined where the or problematic for 0 or negative values. The bias ensures:
+   - Avoiding log(0) (which is undefined).
+   - Shifting the dynamic range to fit the μ-law curve.
+   - Ensuring better quantization for low amplitude signals (which humans are more sensitive to).
+
+    If we skip this step, small signals may get clipped or mapped to the same value and the dynamic range at low amplitudes is lost, which may result in harsh or incorrect audio quality.
+
+### **2 cents on standards**
+ITU-T G.711 is the international standard for audio format used in telephony. It defines how to digitally encode analog voice signals using pulse code modulation (PCM) with logarithmic compression (μ-law or A-law).
+
+Adding bias also makes the audio stream complaint to G.711 standard, making it easier to deal when building agents that talk to users over the phone.
+
+## What else you can do with this RAW data?
+One of things I did to make the voice agent sound more natural and mor life-like is to add some background ambient noise, making it seem that the other person is sitting in some call center in the real world.
+
+On surface, seems like a simple task, just take the voice data, and the background noise data, merge them and send them to the user. Oh, I wish it was as simple as that. So let's dig a bit deeper into what you can and cannot do with both of these types of formats.
+
+Well if you are just dealing with PCM data, you can actually add the two audio streams, like this:
+
+```rust
+pub fn mix_audio_p16le(speech_bytes: &[u8], noise_bytes: &[u8]) -> Vec<u8> {
+    let len = speech_bytes.len().min(noise_bytes.len());
+    let mut mixed = Vec::with_capacity(len);
+
+    for i in (0..len).step_by(2) {
+        let speech_sample = i16::from_le_bytes([speech_bytes[i], speech_bytes[i + 1]]);
+        let noise_sample = i16::from_le_bytes([noise_bytes[i], noise_bytes[i + 1]]);
+        let mixed_sample_i32 = speech_sample as i32 + noise_sample as i32;
+        let mixed_sample_i16 = mixed_sample_i32.clamp(i16::MIN as i32, i16::MAX as i32) as i16;
+        mixed.extend_from_slice(&mixed_sample_i16.to_le_bytes());
+    }
+    mixed
+}
+```
+
+You should keep one thing in mind, when you add two audio signals, their amplitudes combine. If both your speech and noise are loud, the mixed result can be twice as loud. This can cause the audio to "clip," which is a gnarly form of distortion you definitely want to avoid.
+
+So what is clipping? In digital audio, every sample has a maximum value it can reach (for 16-bit PCM, it's 32,767 and -32,768). When you mix two sounds, their sample values are added together. If the new value exceeds the maximum, it gets "clipped" or chopped off. This transforms the nice, smooth sine waves of your audio into harsh-sounding square waves, which sounds like a distorted mess. And once your audio is clipped, that data is gone forever; you can't get it back.
+
+### **So, how do we prevent this?**
+The code snippet above has a slick and simple solution: `mixed_sample_i32.clamp(i16::MIN as i32, i16::MAX as i32)`. 
+
+This is a form of hard-limiting. After adding the speech and noise samples, it checks if the result is outside the valid 16-bit range. If it is, it clamps it to the maximum or minimum value. This is a basic way to prevent the harsh distortion of digital clipping, although a more advanced approach would be to use a "limiter" or "compressor" to smoothly reduce the volume before it hits the ceiling. But for real-time mixing, clamping is a super-efficient way to keep things in check.
+
+### **The issues in playing with volumes**
+Now, you might be thinking, "To avoid clipping, I'll just reduce the volume of my PCM audio by multiplying all the samples by, like, 0.5 and then encode it to µ-law." Intuitively, that makes sense, but in reality, it's a terrible idea.
+
+Here's why: µ-law encoding is logarithmic. It's specifically designed to compress the dynamic range of a 16-bit signal into 8 bits by giving more precision to quieter sounds—which is where most of the important stuff in speech happens—and less precision to louder sounds.
+
+When you scale down your 16-bit PCM audio, you're effectively making the entire signal quieter. Then, when you convert this quieted-down signal to µ-law, you're squashing it into the lower, less precise part of the µ-law curve. This leads to a loss of detail and a lower signal-to-noise ratio.The result? The decoded audio will sound flat, muffled, and generally worse than if you had just encoded the original, full-volume PCM to µ-law.
+
+### **Resampling and Faking New Samples with Interpolation**
+Sometimes, you'll get audio in one sample rate, say 48kHz, but you need it in another, like 8kHz for a phone call. The process of changing the sample rate is called resampling. It involves creating a new set of samples at the desired rate. The challenge is figuring out the value of these new samples when they fall between the original ones.
+
+This is where interpolation comes in. It’s a fancy word for generating new data points between existing, known data points. Think of it like "connecting the dots" on a graph. Our code uses a couple of methods for this.
+
+#### **Linear Interpolation: The Straight Line**
+
+The most basic way to interpolate is linear interpolation. It just draws a straight line between two existing sample points and picks the value on that line for the new sample.
+Check out the `linear_interpolate` function:
+```rust
+fn linear_interpolate(samples: &[i16], position: f64) -> f64 {
+    let idx = position.floor() as usize; // find the last real sample
+    let frac = position - idx as f64;   // how far are we to the next sample?
+
+    if idx >= samples.len() - 1 {
+        return samples[samples.len() - 1] as f64; // edge case
+    }
+
+    let y1 = samples[idx] as f64;     // value of the last real sample
+    let y2 = samples[idx + 1] as f64; // value of the next real sample
+
+    y1 + frac * (y2 - y1) // calc the point on the line
+}
+```
+
+While it's fast, the downside is that real audio waveforms aren't made of straight lines; they're smooth curves. So, linear interpolation can introduce some high-frequency artifacts, making the audio sound a bit robotic or less natural.
+
+#### **Cubic Interpolation: Getting Curvy**
+Okay, so we know linear interpolation connects the dots with straight lines. It's fast, it's simple, but it's not how sound works. Real-world sound waves are smooth, continuous curves. When you use straight lines to guess the points in between, you're creating sharp corners where the lines meet. In the audio world, sharp corners = high-frequency noise. Our ears are super sensitive to this, and it can make the audio sound "phasey," harsh, or just plain unnatural.
+
+This is where cubic interpolation really shines. Instead of looking at just two sample points, it takes four points into account—the one before the new point, and two after (or two on each side of the gap you're filling).
+By looking at this bigger picture, it doesn't just draw a line; it calculates a smooth curve that passes through all four points. Think about it like this: if you're trying to guess the path of a baseball, you'd get a much better prediction by looking at the last few feet of its trajectory, not just the last two inches.
+Why Is a Curve So Much Better?
+- **It Mimics Reality**: Natural sounds don't jump from one value to another. They transition smoothly. Cubic interpolation, by creating a curve, does a much better job of estimating what the original, analog waveform looked like before it was sampled. It "bends" the interpolated points around the original samples to create a more natural curve.
+- **Fewer Audible Artifacts**: Those sharp corners from linear interpolation can introduce a type of distortion called aliasing. Cubic interpolation's smooth curves help to minimize these unwanted high-frequency artifacts. The result is cleaner, smoother audio that's much closer to the original sound. While no interpolation method is perfect, cubic interpolation significantly reduces the "noise" that can be created during resampling.
+- **It's the Sweet Spot**: There are even more complex methods out there, like windowed-sinc interpolation, but they are much more demanding on the CPU. For many applications, cubic interpolation, specifically a type called Catmull-Rom spline interpolation, hits the sweet spot between high-quality results and computational efficiency. It gives you a huge leap in quality over linear interpolation without bringing your processor to its knees.
+
+Let's look at the `cubic_interpolate` function:
+
+```rust
+fn cubic_interpolate(samples: &[i16], position: f64) -> f64 {
+    let idx = position.floor() as usize;
+    let frac = position - idx as f64;
+
+    // Fallback to linear if we're at the edges
+    if idx == 0 || idx >= samples.len() - 2 {
+        return linear_interpolate(samples, position);
+    }
+
+    // The four points for our curve
+    let y0 = samples[idx - 1] as f64;
+    let y1 = samples[idx] as f64;
+    let y2 = samples[idx + 1] as f64;
+    let y3 = samples[idx + 2] as f64;
+
+    // some math magic to create the curve
+    let a0 = y3 - y2 - y0 + y1;
+    let a1 = y0 - y1 - a0;
+    let a2 = y2 - y0;
+    let a3 = y1;
+
+    // calculate the final value
+    a0 * frac * frac * frac + a1 * frac * frac + a2 * frac + a3
+}
+```
+So, in short, while linear interpolation is like a quick "connect-the-dots" sketch, cubic interpolation is more like a skilled artist creating a smooth, flowing line that more accurately represents the original picture. When it comes to audio, that extra bit of artistry makes all the difference.
+
+## The Final Takeaway
+
+At the end of the day, working with raw audio for voice agents is a game of trade-offs, precision, and a little bit of math. It’s about understanding that every byte has a purpose, and how you manipulate those bytes directly impacts what the user hears.
+
+I might have been a lot, or too random, from choosing the right transport protocol like WebSockets to diving deep into the DNA of audio with PCM and µ-law. We've seen that what seems like a simple task of mixing two audio streams or changing a sample rate, is full of potential pitfalls. If nothing, here is what you can take away from all this:
+
+- **Handle Your Levels:** Always be mindful of clipping. A simple `clamp` gets you most of the way there and saves your users' ears from harsh distortion.
+- **Respect the Format:** µ-law is a powerful tool for compression, but its logarithmic nature means you can't just scale PCM data down without tanking the quality. Encode at the proper volume.
+- **Don't Settle for Jagged Edges:** When you need to resample, remember that smooth curves beat straight lines. Using something like cubic interpolation instead of linear is a small change in code that makes a huge difference in sound quality.
+
+Ultimately, it’s the sum of these small, deliberate choices that elevates a voice agent from merely functional to truly believable. Getting the audio right is the foundation for creating a fluid, natural, and engaging user experience. And that, after all, is the goal we're all aiming for.
