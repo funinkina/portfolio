@@ -1,8 +1,5 @@
-<ul class="post-list">
-  {{ range .CurrentSection.RegularPages }}
-
+<div class="post-list">
+  {{ range .CurrentSection.RegularPages.ByDate.Reverse }}
   {{ partial "post_row.html" . }}
-
   {{ end }}
-</ul>
-
+</div>

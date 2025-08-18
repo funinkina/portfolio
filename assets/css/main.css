@@ -198,11 +198,32 @@ main ul {
 /* MISC */
 .section-title {
   border: 0;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .post-list {
   color: var(--complimentary);
-  padding-left: 1em;
+}
+
+.post-item {
+  display: flex;
+  align-items: center;
+}
+
+.post-image {
+  scale: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+.post-item:has(:hover)>.post-image {
+  scale: 1.1;
+}
+
+.post-details a {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: white;
 }
 
 @media screen and (min-width: 760px) {

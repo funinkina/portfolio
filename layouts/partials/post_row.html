@@ -1,23 +1,35 @@
-<li>
-{{ if not .CurrentSection.Params.nodate }}
-    <div style="display: grid; grid-template-columns: 7em auto">
-      <span class="date">{{ .Date.Format "Jan 2, 2006" }}</span>
-      {{ if .Params.bold }}
-      <a class="bold-post-in-list" href="{{ .RelPermalink }}"
-        >{{ .Page.Title | markdownify }}</a
-      >
-      {{ else }}
-      <a href="{{ .RelPermalink }}">{{ .Page.Title | markdownify }}</a>
-      {{ end }}
-    </div>
-{{ else }}
-    {{ if .Params.bold }}
-    <a class="bold-post-in-list" href="{{ .RelPermalink }}"
-      >{{ .Page.Title | markdownify }}</a
-    >
-    {{ else }}
-    <a href="{{ .RelPermalink }}">{{ .Page.Title | markdownify }}</a>
-    {{ end }}
-{{ end }}
-</li>
+<div class="post-item">
+  <!-- Left side: Image -->
+  {{ if .Params.image }}
+  <div class="post-image" style="margin-right: 20px;">
+    <a href="{{ .RelPermalink }}">
+      <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}"
+        loading="lazy"
+        style="width: 290px; max-height: 160px; border-radius: 5px; object-fit: cover;">
+    </a>
+  </div>
+  {{ end }}
 
+  <!-- Right side: Title and Date -->
+  <div class="post-details">
+    <h3 class="post-title" style="margin-bottom: 0.2rem; margin-top: 0;">
+      <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
+    </h3>
+    {{ if not .CurrentSection.Params.nodate }}
+    <span class="date"
+      style="font-size: 0.9em; color: #848484; display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+        width="20px" height="20px"><g
+          id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+          id="SVGRepo_tracerCarrier" stroke-linecap="round"
+          stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="3"
+            y="6" width="18" height="15" rx="2" stroke="#848484"></rect> <path
+            d="M3 10C3 8.11438 3 7.17157 3.58579 6.58579C4.17157 6 5.11438 6 7 6H17C18.8856 6 19.8284 6 20.4142 6.58579C21 7.17157 21 8.11438 21 10H3Z"
+            fill="#848484"></path> <path d="M7 3L7 6" stroke="#848484"
+            stroke-linecap="round"></path> <path d="M17 3L17 6" stroke="#848484"
+            stroke-linecap="round"></path> </g></svg>
+      {{ .Date.Format "Jan 2, 2006" }}
+    </span>
+    {{ end }}
+  </div>
+</div>
