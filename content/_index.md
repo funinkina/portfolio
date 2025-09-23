@@ -31,7 +31,7 @@ My comfort zone includes:
 [![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)](https://github.com/funinkina)  
 [![X Badge](https://img.shields.io/badge/X-000?logo=x&logoColor=fff&style=for-the-badge)](https://x.com/funinkina)  
 [![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=fff&style=for-the-badge)](https://www.linkedin.com/in/funinkina)  
-[![Resume](https://img.shields.io/badge/Resume-PDF-green?style=for-the-badge)](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing)
+<!-- [![Resume](https://img.shields.io/badge/Resume-PDF-green?style=for-the-badge)](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing) -->
 
 {{< /social-links >}}
 
