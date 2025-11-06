@@ -7,13 +7,13 @@ toc: true
 ### aka *funinkina*
 
 I'm a final-year **Computer Science** undergrad based in **Delhi NCR, India**.  
-I spend my time writing code, debugging life, and occasionally making rocks think.
+I love making deterministic machines predictebly undeterministic.
 
-My comfort zone includes:
-  - Machine Learning  
+What I work with:
+  - Backend  
   - Linux  
-  - Backend Development  
-  - DevOps
+  - AWS, GCP  
+  - Machine Learning
 
 ## 🚀 What I'm Up To
 
