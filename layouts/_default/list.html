@@ -44,20 +44,34 @@
 {{ else }}
     <div class="home-content">{{ .Content }}</div>
 
-    {{ if not .Site.Params.noSearch }}
-        {{ partial "search-form.html" . }}
-        <ul id="results"></ul>
-    {{ end }}
-
-    <div class="sections-container">
-        {{ range .Sections }}
-            <div class="section">
-                <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
-                {{ .CurrentSection.Content }}
-                {{ partial "post_list.html" . }}
-            </div>
+    {{ if eq .Section "blog" }}
+        <div class="blog-list-clean">
+            {{ range .RegularPages.ByDate.Reverse }}
+                {{ partial "blog_row.html" . }}
+            {{ end }}
+        </div>
+    {{ else if eq .Section "projects" }}
+        <div class="project-grid">
+            {{ range .RegularPages }}
+                {{ partial "project_card.html" . }}
+            {{ end }}
+        </div>
+    {{ else }}
+        {{ if not .Site.Params.noSearch }}
+            {{ partial "search-form.html" . }}
+            <ul id="results"></ul>
         {{ end }}
-    </div>
+
+        <div class="sections-container">
+            {{ range .Sections }}
+                <div class="section">
+                    <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
+                    {{ .CurrentSection.Content }}
+                    {{ partial "post_list.html" . }}
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
 {{ end }}
 
 {{ partial "footer.html" . }}
