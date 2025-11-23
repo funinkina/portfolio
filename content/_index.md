@@ -12,7 +12,7 @@ What I work with:
   - AWS, GCP  
   - Machine Learning
 
-## 🚀 What I'm Up To
+## {{< icon "rocket_launch" >}} What I'm Up To
 
 - **Backend & AI Intern** at [SuperDash](https://superdash.ai/)  
   *Bangalore, Karnataka · July 2025 – Present*  
@@ -22,7 +22,7 @@ What I work with:
   *Remote, Part Time · April 2025 – Present*  
   Writing backend logic and blogs when I'm not busy breaking my Arch install.
 
-## 👥 I'm also on
+## {{< icon "surfing" >}} I'm also on
 {{< social-links >}}
 
 [![GitHub Badge](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=fff&style=for-the-badge)](https://github.com/funinkina)  
@@ -38,7 +38,7 @@ Wanna see what I'm building or breaking?
 Check out the [Projects](/projects) section or stalk my [GitHub](https://github.com/funinkina).  
 This site’s basically a brain-dump of my code, experiments, and occasionally, thoughts.
 
-## 💼 Experiences so far
+## {{< icon "work" >}} Experiences so far
 
 - **GenAI Intern** at [Weya.ai](https://weya.ai)  
   Noida, Uttar Pradesh · *Nov 2024 – Jan 2025*
@@ -54,7 +54,7 @@ This site’s basically a brain-dump of my code, experiments, and occasionally, 
   - Worked on a research paper to predict waterborne diseases using 20+ real-time water quality parameters.
   - Achieved around **90% accuracy** — not bad for a student and a laptop!
 
-## 🎓 Extra-Curricular
+## {{< icon "school" >}} Extra-Curricular
 
 - **AIML Club** · *Google Developer Groups OnCampus*  
   *April 2022 – Present*
@@ -64,4 +64,4 @@ This site’s basically a brain-dump of my code, experiments, and occasionally, 
   - Dabbled in projects spanning **finance**, **NLP**
 
 
-## 🔍 Explore my blogs and projects below
+## {{< icon "search" >}} Explore my blogs and projects below

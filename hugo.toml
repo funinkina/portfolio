@@ -28,14 +28,14 @@ blog = "/blog/:slug/"
 # url = "/"
 # weight = 1
 [[menu.main]]
-name = "📝 BLOGS"
+name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>newsmode</span> BLOGS"
 url = "/blog/"
 weight = 1
 [[menu.main]]
-name = "🚀 PROJECTS"
+name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>deployed_code</span> PROJECTS"
 url = "/projects/"
 weight = 2
 [[menu.main]]
-name = "📰 RSS FEED"
+name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>rss_feed</span> RSS FEED"
 url = "/index.xml"
 weight = 3
