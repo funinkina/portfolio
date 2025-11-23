@@ -1,11 +1,9 @@
 <div class="post-item">
   <!-- Left side: Image -->
   {{ if .Params.image }}
-  <div class="post-image" style="margin-right: 20px;">
+  <div class="post-image">
     <a href="{{ .RelPermalink }}">
-      <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}"
-        loading="lazy"
-        style="width: 290px; max-height: 160px; border-radius: 5px; object-fit: cover;">
+      <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" loading="lazy">
     </a>
   </div>
   {{ end }}
