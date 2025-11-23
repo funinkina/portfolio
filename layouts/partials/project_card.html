@@ -1,4 +1,5 @@
 <div class="project-card">
+    <a href="{{ .RelPermalink }}">
     <div class="project-image-container">
         {{ if .Params.image }}
         <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="project-image">
@@ -8,6 +9,7 @@
         </div>
         {{ end }}
     </div>
+    </a>
     <div class="project-details">
         <h3 class="project-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         <p class="project-description">{{ .Description | default .Summary | plainify }}</p>

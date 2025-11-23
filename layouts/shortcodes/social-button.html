@@ -1,0 +1,4 @@
+<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="social-btn">
+    <span class="icon">{{ .Inner | safeHTML }}</span>
+    <span>{{ .Get "text" }}</span>
+</a>
