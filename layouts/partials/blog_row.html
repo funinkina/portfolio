@@ -1,0 +1,16 @@
+<div class="blog-row">
+    {{ if .Params.image }}
+    <div class="blog-row-image">
+        <a href="{{ .RelPermalink }}">
+            <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}">
+        </a>
+    </div>
+    {{ end }}
+    <div class="blog-row-content">
+        <div class="blog-row-header">
+            <h3 class="blog-row-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            <span class="blog-row-date">{{ .Date.Format "January 2, 2006" }}</span>
+        </div>
+        <p class="blog-row-description">{{ .Description | default .Summary | plainify }}</p>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="project-card">
+    <div class="project-image-container">
+        {{ if .Params.image }}
+        <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="project-image">
+        {{ else }}
+        <div class="project-placeholder">
+            <span>{{ .Title }}</span>
+        </div>
+        {{ end }}
+    </div>
+    <div class="project-details">
+        <h3 class="project-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="project-description">{{ .Description | default .Summary | plainify }}</p>
+        <div class="project-tags">
+            {{ range .Params.tags }}
+            <span class="tech-tag">{{ . }}</span>
+            {{ end }}
+        </div>
+    </div>
+</div>

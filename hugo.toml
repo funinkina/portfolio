@@ -9,6 +9,8 @@ priority = 0.5
 
 [params]
 author = "Aryan Kushwaha"
+subtitle = "22 • Engineer • ENGLISH / हिंदी"
+avatar = "avatar.jpg"
 description = "A portfolio and blog by Aryan Kushwaha"
 ShowReadingTime = true
 ShowDate = true

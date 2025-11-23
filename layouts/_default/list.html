@@ -1,8 +1,49 @@
 {{ partial "header.html" . }}
 
-<div class="home-content">{{ .Content }}</div>
-
 {{ if .IsHome }}
+    <div class="home-container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-header">
+                <img src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author }}" class="profile-avatar">
+                <div class="profile-text">
+                    <h1 class="profile-name" style="margin-bottom: 10px;">{{ .Site.Params.author }}</h1>
+                    <p class="profile-subtitle">{{ .Site.Params.subtitle }}</p>
+                </div>
+            </div>
+            <div class="profile-bio">
+                {{ .Content }}
+            </div>
+        </div>
+
+        <!-- Blog Section -->
+        {{ with .Site.GetPage "section" "blog" }}
+        <div class="section-block">
+            <h2 class="section-heading">Latest Blog Posts</h2>
+            <div class="blog-list-clean">
+                {{ range first 5 .RegularPages.ByDate.Reverse }}
+                    {{ partial "blog_row.html" . }}
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+
+        <!-- Projects Section -->
+        {{ with .Site.GetPage "section" "projects" }}
+        <div class="section-block">
+            <div style="height: 70px;"></div>
+            <h2 class="section-heading">Building & Learning</h2>
+            <div class="project-grid">
+                {{ range .RegularPages }}
+                    {{ partial "project_card.html" . }}
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+{{ else }}
+    <div class="home-content">{{ .Content }}</div>
+
     {{ if not .Site.Params.noSearch }}
         {{ partial "search-form.html" . }}
         <ul id="results"></ul>
@@ -16,13 +57,6 @@
                 {{ partial "post_list.html" . }}
             </div>
         {{ end }}
-    </div>
-{{ else }}
-    <div class="sections-container">
-        <div class="section">
-            <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
-            {{ partial "post_list.html" . }}
-        </div>
     </div>
 {{ end }}
 

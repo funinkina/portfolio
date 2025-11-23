@@ -3,9 +3,6 @@ title: "funinkina's portfolio"
 toc: true
 ---
 
-# 👋 Hey there, I'm Aryan Kushwaha
-### aka *funinkina*
-
 I'm a final-year **Computer Science** undergrad based in **Delhi NCR, India**.  
 I love making deterministic machines predictebly undeterministic.
 
@@ -33,10 +30,8 @@ What I work with:
 [![LinkedIn Badge](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=fff&style=for-the-badge)](https://www.linkedin.com/in/funinkina)  
 <!-- [![Resume](https://img.shields.io/badge/Resume-PDF-green?style=for-the-badge)](https://drive.google.com/file/d/1ihZrQcT2tONVpIvPu10jKKj2tmh7F0pw/view?usp=sharing) -->
 
-{{< /social-links >}}
-
-{{< social-links >}}
-[![Proton Mail Badge](https://img.shields.io/badge/Proton%20Mail-6D4AFF?logo=protonmail&logoColor=fff&style=plastic)](mailto:funinkina@proton.me) [funinkina@proton.me](mailto:funinkina@proton.me)
+[![Proton Mail Badge](https://img.shields.io/badge/Proton%20Mail-6D4AFF?logo=protonmail&logoColor=fff&style=plastic)](mailto:funinkina@proton.me)
+[![Buy Me A Coffee Badge](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FD0?logo=buymeacoffee&logoColor=000&style=for-the-badge)](https://www.buymeacoffee.com/funinkina)
 {{< /social-links >}}
 
 Wanna see what I'm building or breaking?  
@@ -68,14 +63,5 @@ This site’s basically a brain-dump of my code, experiments, and occasionally, 
   - Led workshops on **Git**, **GitHub**, and open-source.
   - Dabbled in projects spanning **finance**, **NLP**
 
-## 💖 Like what I do?
 
-Help keep the coffee flowing:
-
-{{< social-links >}}
-[![Buy Me A Coffee Badge](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FD0?logo=buymeacoffee&logoColor=000&style=for-the-badge)](https://www.buymeacoffee.com/funinkina)
-{{< /social-links >}}
-
----
-
-### 🔍 Explore my projects and blogs below
+## 🔍 Explore my blogs and projects below
