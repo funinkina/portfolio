@@ -474,11 +474,19 @@ main ul {
   border: 1px solid var(--border);
 }
 
+.blog-row-image a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .blog-row-image img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  margin: 0;
 }
 
 .blog-row:hover .blog-row-image img {
