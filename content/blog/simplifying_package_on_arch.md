@@ -10,7 +10,7 @@ next: true
 All of us in the "Arch Btw" cult use it for one of its main selling points, the repositories. Arch Linux's pragmatic approach to its packages makes it so much easier for users to sync packages without fiddling with multiple repositories and dependency hell, making it a one-stop solution. The Arch User Repository (AUR) is just a cherry on top. Including packages submitted by users makes it even more complete, removing the need for flatpaks or snaps. (Might cause dependency issues, we will discuss this later).
 >100% Human written btw
 
-### Still using Pacman and Yay?
+## Still using Pacman and Yay?
 
 If you read any basics about Arch, you know that the default way to install packages is `pacman`, which is great if you only install from the official repositories where `pacman` beautifully takes care of the dependency issues, but the real culprit to Arch instability issues is caused by packages installed from the AUR, as they might include outdated packages that can potentially break your system. Most probably, you might be using **Yay** or **Paru**, as your AUR helpers to get packages from AUR, while they work pretty flawlessly and fast, they also introduce system dependency issues and not work really well with `pacman`. The solution? Aura
 
@@ -41,7 +41,6 @@ aura -As google-chrome
     /usr/bin/firefox is owned by firefox 127.0.2-1
     ```
 
-
 **Using Aura as AUR helper:**
 
 * Installing a package from AUR
@@ -55,7 +54,6 @@ aura -As google-chrome
     ```bash
     aura -Ai google-chrome
     ```
-
 
 Now let's see how do we get started with Aura
 
@@ -75,10 +73,9 @@ To install Aura, we have to compile it from source first.
     makepkg -si
     ```
 
-
 Then run `aura check` to see the status.
 
-### Some recommended configurations:
+### Some recommended configurations
 
 First generate the config file by running
 
@@ -91,7 +88,6 @@ aura conf --gen > ~/.config/aura/config.toml
 * Put `delmakedeps = true` if you want to remove the build dependencies after every install automatically to save space.
 
 * Now you can use
-
 
 ```bash
 aura -As google-chrome
@@ -129,5 +125,6 @@ Here, I have simply created aliases to uninstall and install a package using `ye
 > Check out rest of my configuration in my [Dotfiles GitHub repository](https://github.com/funinkina/dotfiles).
 
 ### A word on stability
+
 Most people use Arch for its rolling release cycle and being on the bleeding edge, but most of the time, this is the main reason for your system instability, therefore in my opinion, it is best to update your packages weekly. This increases the chance that if a certain bug or dependency was present in an update, it would have been fixed after a few days.
 Also if you aren't using Nvidia GPU, and your hardware is well-supported by the latest kernel, chances are, it is also supported by the LTS kernel as well. So I would recommend you to switch to LTS kernel for maximum stability.

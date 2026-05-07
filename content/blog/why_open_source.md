@@ -147,7 +147,7 @@ Adhering to these guidelines shows respect for the project's maintainers and mak
 
 ## Leveraging Open Source for Opportunities
 
-Beyond the intrinsic rewards of learning and collaboration, contributing to open source can unlock tangible career opportunities, especially for students. Programs like [Google Summer of Code (GSoC)](https://summerofcode.withgoogle.com/) offer **paid, remote mentorships** where participants work on specific projects for established open source organizations over several months. GSoC is a fantastic way to gain real-world software development experience, get mentored by experienced developers, build your resume, and get paid for contributing to meaningful projects. 
+Beyond the intrinsic rewards of learning and collaboration, contributing to open source can unlock tangible career opportunities, especially for students. Programs like [Google Summer of Code (GSoC)](https://summerofcode.withgoogle.com/) offer **paid, remote mentorships** where participants work on specific projects for established open source organizations over several months. GSoC is a fantastic way to gain real-world software development experience, get mentored by experienced developers, build your resume, and get paid for contributing to meaningful projects.
 
 Similar programs exist, such as [Outreachy](https://www.outreachy.org/) (which focuses on promoting diversity in tech), and participation in events like [Hacktoberfest](https://hacktoberfest.com/) can also boost your profile. Even without formal programs, consistent, high-quality contributions build a public portfolio that demonstrates your skills, passion, and ability to collaborate – qualities highly valued by potential employers.
 

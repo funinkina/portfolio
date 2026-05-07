@@ -21,7 +21,9 @@ The code is available here with MIT license: [github.com/funinkina](https://gith
 {{< /box >}}
 
 ## 📋 Prerequisites
+
 I had strict requirements for this project, I wanted to use only open-source tools and libraries, with minimal dependencies, so other's don't have to install a lot of things to use this. Also it needed to simple and single file, so it can be executed easily. Here are the tools and libraries I used for this project:
+
 - Python 3.13
 - Tesseract OCR *(Only thing you need to install)*
 - GTK 4.0
@@ -29,6 +31,7 @@ I had strict requirements for this project, I wanted to use only open-source too
 - XDP
 
 ## 🎨 Design Overview
+
 The design of the project is simple, I have used Python to create a script that takes a screenshot using XDP (xdg-desktop-portal), then it extracts the text from the image using Tesseract OCR, and then it displays the extracted text in a dialog box using Adwaita and GTK. The script is designed to be executed using a keyboard shortcut, so you can take a screenshot and extract the text from the image with just a single key press.
 
 The script follows a modular and event-driven design with the following components:
@@ -42,6 +45,7 @@ The script follows a modular and event-driven design with the following componen
 ## 🏗️ Architecture Breakdown
 
 The script is object-oriented, with the following key classes:
+
 ### 🖥️ 1. TextDialog (UI for Extracted Text)
 
 Displays the recognized text in a `Gtk.TextView` inside a scrollable window.
@@ -77,10 +81,12 @@ Supports optional flags:
 
 ✔ **Automatic Cleanup** – The script deletes temporary files unless explicitly saved.
 
-## 🌟 Here's a demo screenshot of the script in action:
+## 🌟 Here's a demo screenshot of the script in action
+
 ![Gnome Screenshot with OCR](/blog-assets/gnome-ss-demo.png)
 
 ## 🛠️ Installation & Usage
+
 You can find the installation instructions and usage guide in the README file of the project repository: [Gnome-OCR-Screenshot](https://github.com/funinkina/Gnome-OCR-Screenshot)
 
 Please star the repository if you find the project useful and feel free to contribute to the project by creating issues or pull requests.

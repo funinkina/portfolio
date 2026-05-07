@@ -11,11 +11,13 @@ image: '/blog-assets/PXL_20240127_130937347.jpg'
 Let's start by addressing the elephant in the room, why? Why would I run a freaking Large Language Model on a 4-core arm processor with 4GB of RAM? Well, why not? I have a Raspberry Pi 4 lying around and I wanted to see if I could run Deepseek on it. (Also cause free content for the blog). Before starting, let me say, I have absolutely zero expectations from this experiment. I am not expecting it to work, I am not expecting it to be fast, I am not expecting it to be usable. I am just doing it because I can. So, let's get started.
 
 ## 🛠️ Setting up the Pi
+
 I am using a Raspberry Pi 4 with 4GB of RAM. I have installed the latest version of Raspberry Pi OS Lite which is based on Debian. I don't have a spare keyboard or mouse laying around, so it's going headless on my home router. Therefore all the commands will be run over SSH.
 
 ![Raspberry Pi 4](/blog-assets/PXL_20240127_130937347.jpg)
 
 ## 🧑‍💻 Setting up Software
+
 To run the Deepseek model, without much hassle, the obvious choice is Ollama. It provides us with simple commands to run the model. So, let's start by installing Ollama. This command is from the official [webiste](https://ollama.com/download).
 
 ```bash
@@ -29,6 +31,7 @@ I would not recommend using the default SD card for running the model. The SD ca
 {{< /box >}}
 
 ## ⬇️ Getting the model
+
 Since we are using USB for storing the model, we need to set the `OLLAMA_MODELS` environment variable to point to the USB drive. I have added the following line to my `.bashrc` file.
 
 ```bash
@@ -55,9 +58,11 @@ The model is around 1.4GB in size. The Raspberry Pi 4 has 4GB of RAM. So, you ca
 As you can see this is definitely not 200 tokens/sec, but not bad for a hardware with 4GB of RAM and no GPU. Also considering the fact that the model has only 1.5 Billion parameters, it is definitely usable for some basic tasks. The model also seems to reason before the answer, which is something you don't have to pay $200 for, and I think that's pretty cool in itself.
 
 ## ⏳ Performance and comparisons
+
 Let's actually see if the result is any good. Here's the entire output:
 
 ### Deepseek R1 1.5B
+
 ```
 <think>
 To determine the shortest path between two points on a weighted graph, I should consider using
@@ -134,7 +139,6 @@ For most real-world scenarios with non-negative weights, **Dijkstra’s or A\***
 
 Honestly speaking, there is some obvious knowledge gap, but what else can you expect with a that many parameters.
 
-
 Now I have some bad news to break to you guys, the way the model runs locally, it has to copy itself entirely in the memory for processing, that means the model's size can't be more than the available RAM. So, the 1.5b model is the largest model that can run on a Raspberry Pi 4 with 4GB of RAM. The only other model we can fit under 4GB is the Deepseek Coder model, that has 1.3 Billion parameters in only 776MB. Let's see how that goes.
 For this model, I gave it a [hard leetcode question](https://leetcode.com/problems/making-a-large-island/description/), and it gave this:
 
@@ -175,6 +179,7 @@ that particular non
 Which yea I would agree is not great, or even right. I asked it in C++ and it gave me a Python solution. But hey, it's running on a Raspberry Pi 4, so I am not complaining. I am just happy it works.
 
 ## 📊 Benchmarks
+
 I ran some benchmarks to see how the model performs on the Raspberry Pi 4. I used the [ollama-bench](https://github.com/dalist1/ollama-bench) tool to measure the time taken to generate the output for a given input. Here are the results:
 
 ```

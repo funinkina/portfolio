@@ -70,4 +70,4 @@ What I work with:
   - Dabbled in projects spanning **finance**, **NLP**
 
 
-## {{< icon "search" >}} Explore my blogs and projects below
+## {{< icon "search" >}} Stuff that I have written:
