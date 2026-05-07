@@ -4,40 +4,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="cache-control"
+      content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
-
+    <meta name="googlebot"
+      content="index, follow, max-snippet:-1, max-image-preview:large" />
 
     <link rel="icon" type="image/x-icon" href="{{ relURL "favicon.ico" }}">
-    <link rel="icon" href="{{ "favicon.ico" | absURL }}" sizes="32x32" type="image/x-icon">
+    <link rel="icon" href="{{ "favicon.ico" | absURL }}" sizes="32x32"
+      type="image/x-icon">
     <link rel="manifest" href="{{ relURL "site.webmanifest" }}">
     <link rel="canonical" href="{{ .Permalink }}" />
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <!-- Primary Meta Tags -->
     <title>{{ .Title }}</title>
     <meta name="title" content="{{ .Title }} by funinkina" />
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
+    <meta name="description"
+      content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ .Permalink }}" />
     <meta property="og:title" content="{{ .Title }} by funinkina" />
-    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
-    <meta property="og:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.is-a.dev/default-header.png{{ end }}" />
+    <meta property="og:description"
+      content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
+    <meta property="og:image"
+      content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.is-a.dev/default-header.png{{ end }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ .Permalink }}" />
     <meta property="twitter:title" content="{{ .Title }} by funinkina" />
-    <meta property="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
-    <meta property="twitter:image" content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.is-a.dev/default-header.png{{ end }}" />
+    <meta property="twitter:description"
+      content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
+    <meta property="twitter:image"
+      content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.is-a.dev/default-header.png{{ end }}" />
     <meta property="twitter:site" content="@funinkina" />
     <meta property="twitter:creator" content="@funinkina" />
 
@@ -46,15 +53,18 @@
     <meta name="mobile-web-app-capable" content="yes" />
 
     <!-- iOS support -->
-    <meta name="apple-mobile-web-app-title" content="{{ .Site.Title }} by funinkina" />
+    <meta name="apple-mobile-web-app-title"
+      content="{{ .Site.Title }} by funinkina" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent" />
 
     <!-- Accessibility: language already set on <html>, but you can add -->
     <meta http-equiv="Content-Language" content="{{ .Site.LanguageCode }}" />
 
     <!-- Vercel Analytics -->
-    {{ if and (eq hugo.Environment "production") (site.Params.vercel_analytics.enable) }}
+    {{ if and (eq hugo.Environment "production")
+    (site.Params.vercel_analytics.enable) }}
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -62,51 +72,54 @@
     {{ end }}
 
     {{ with .OutputFormats.Get "rss" -}}
-        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel
+    .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
 
     {{ if .IsHome }}
-        <title>{{ .Site.Title }}</title>
+    <title>{{ .Site.Title }}</title>
     {{ else }}
-        <title>{{ .Title }} by funinkina | {{ .Site.Title }} by funinkina</title>
+    <title>{{ .Title }} by funinkina | {{ .Site.Title }} by funinkina</title>
     {{ end }}
 
     {{ $CSS := slice
-        (resources.Get "css/main.css")
-        (resources.Get "css/menu.css")
-        (resources.Get "css/toc.css")
-        (resources.Get "css/images.css")
-        (resources.Get "css/post_meta.css")
-        (resources.Get "css/search.css")
-        (resources.Get "css/code.css")
-        (resources.Get "css/box.css")
-        (resources.Get "css/tables.css")
-        (resources.Get "css/misc.css")
-        | resources.Concat "style.css" | minify | fingerprint }}
-    <link rel="stylesheet" type="text/css" href="{{ $CSS.RelPermalink }}" media="all">
+    (resources.Get "css/main.css")
+    (resources.Get "css/menu.css")
+    (resources.Get "css/toc.css")
+    (resources.Get "css/images.css")
+    (resources.Get "css/post_meta.css")
+    (resources.Get "css/search.css")
+    (resources.Get "css/code.css")
+    (resources.Get "css/box.css")
+    (resources.Get "css/tables.css")
+    (resources.Get "css/misc.css")
+    | resources.Concat "style.css" | minify | fingerprint }}
+    <link rel="stylesheet" type="text/css" href="{{ $CSS.RelPermalink }}"
+      media="all">
   </head>
 
-
   <body>
-        {{ if not .Params.nomenu }}
-        <nav class="nav-bar">
-          <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img src="/favicon.ico" alt="">
+    {{ if not .Params.nomenu }}
+    <nav class="nav-bar">
+      <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
+            src="/favicon.ico" alt>
           {{- if .IsHome -}}
-            funinkina&apos;s portfolio
+          funinkina&apos;s corner on internet
           {{- else if eq .Section "blog" -}}
-            funinkina&apos;s blogs
+          funinkina&apos;s blogs
           {{- else if eq .Section "projects" -}}
-            funinkina&apos;s projects
+          funinkina&apos;s projects
           {{- else -}}
-            funinkina&apos;s blogs
+          funinkina&apos;s blogs
           {{- end -}}
-          </a></h1>
-          <ul class="menu">
-            {{ range .Site.Menus.main }}
-                <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{ safeHTML .Name }}</a></li>
-            {{ end }}
-          </ul>
-        </nav>
+        </a></h1>
+      <ul class="menu">
+        {{ range .Site.Menus.main }}
+        <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{
+            safeHTML .Name }}</a></li>
         {{ end }}
+      </ul>
+    </nav>
+    {{ end }}
 
-<!-- https://hugo-dead-simple.netlify.app/post/hugo-dead-simple/ -->
+    <!-- https://hugo-dead-simple.netlify.app/post/hugo-dead-simple/ -->

@@ -1,6 +1,6 @@
-baseURL = 'https://funinkina.is-a.dev/'
+baseURL = 'https://funinkina.co.in/'
 languageCode = 'en-us'
-title = "funinkina's blogs"
+title = "funinkina's corner"
 
 [sitemap]
 changefreq = "weekly"

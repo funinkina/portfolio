@@ -1,5 +1,5 @@
 ---
-title: "funinkina's portfolio"
+title: "funinkina's corner"
 toc: true
 ---
 
@@ -25,49 +25,77 @@ toc: true
  {{< /social-button >}}
 {{< /social-links >}}
 
-I'm a final-year **Computer Science** undergrad based in **Bangalore, India**.  
-I love making deterministic machines predictebly undeterministic.
+I'm a final-year **Computer Science** undergrad who builds backend systems that are fast, boring to operate, and interesting to build.  
+Most of my time goes into Go and Python — writing the kind of infrastructure that quietly does its job without drama. Distributed systems, voice AI pipelines, low-latency APIs — that's where I live.
+
+Currently based in **Bengaluru, India**.
 
 What I work with:
 
-- Backend  
-- Linux  
-- AWS, GCP  
-- Machine Learning
+- Backend (Go, Python, FastAPI, WebSockets)
+- Linux & Systems Programming
+- AWS, GCP
+- LLM / Voice Agent Infrastructure
 
 ## {{< icon "rocket_launch" >}} What I'm Up To
 
-- **Backend & AI Intern** at [SuperDash](https://superdash.ai/)  
-  *Bangalore, Karnataka · July 2025 – Present*  
-  Streamlining communications with AI.
+- **Backend Engineer Intern** at [SuperDash](https://superdash.ai/)  
+  *Bengaluru, Karnataka · June 2025 – Present*  
 
-- **Blogger & Backend Developer** at [Let's Code](https://www.lets-code.co.in)  
-  *Remote, Part Time · April 2025 – Present*  
-  Writing backend logic and blogs when I'm not busy breaking my Arch install.
+  Building the voice agent backbone — Go services, WebSocket plumbing, TTS optimization. Cut call latency by 80% and shaved cloud costs by 60%. The kind of work where the best outcome is that nobody notices anything changed.
 
 ## {{< icon "work" >}} Experiences so far
 
-- **GenAI Intern** at [Weya.ai](https://weya.ai)  
-  Noida, Uttar Pradesh · *Nov 2024 – Jan 2025*
+- **Backend Engineer Intern** at [Superdash](https://superdash.ai/)  
+  *Bengaluru, Karnataka · June 2025 – Present*
 
-  - Worked on **FastAPI** based backend to handle realtime voice calls with AI agents.
-  - Added multiple integrations such as Calendar, Meet, WhatsApp, Twilio.
-  - Developed a microservice to convert **S3 documents into embeddings**.
-  - Tested and fine-tuned **LLMs** like they were fresh recipes.
+  - Refactored the WebSocket layer for voice calls in **Go**, cutting end-to-end latency from **500ms → 100ms** (80% reduction).
+  - Migrated the message queue from **AWS SQS to EventBridge**, dropping cloud infrastructure costs by **60%** — without touching uptime.
+  - Deployed and tuned self-hosted **TTS models** in production, achieving a **5× inference speedup** (1000ms → sub-200ms) through GPU/CPU resource optimization.
+
+- **Python Developer Intern** at [Weya.ai](https://weya.ai)  
+  *Noida, Uttar Pradesh · Dec 2024 – Feb 2025*
+
+  - Built a real-time voice agent backend using **FastAPI and WebSockets**, scaling to **100+ concurrent connections** with stable p99 latency under load.
+  - Profiled 10+ system metrics across LLM inference and speech pipelines to track down bottlenecks — improved streaming responsiveness and reduced end-to-end latency meaningfully.
+  - Added integrations for Calendar, Meet, WhatsApp, and Twilio. Also built a microservice to convert **S3 documents into embeddings**.
 
 - **Summer Research Intern** at *NIT Jalandhar*  
-  *May 2024 – July 2024*
+  *Jalandhar, Punjab · May 2024 – July 2024*
 
-  - Worked on a research paper to predict waterborne diseases using 20+ real-time water quality parameters.
-  - Achieved around **90% accuracy** — not bad for a student and a laptop!
+  - Designed, trained, and evaluated neural network models to predict waterborne diseases from 20+ real-time water quality parameters — hit **~95% predictive accuracy** through systematic hyperparameter tuning and feature engineering.
+  - Co-authored a **peer-reviewed research paper** on the model architecture, training pipeline, and experimental results — accepted and published in an indexed journal.
+
+## {{< icon "code" >}} Highlighted Projects
+
+*{{< icon "star" >}} 185+ stars across GitHub — here are a few worth calling out.*
+
+- **[Spectacle OCR Screenshot](https://github.com/funinkina/spectacle-ocr-screenshot)** {{< icon "star" >}} 89  
+  A **C++/Qt** desktop utility for Linux that integrates **Tesseract OCR** and **ZXing** for low-latency text extraction and QR decoding — native-performance system integration, no Electron in sight.
+
+- **[DeadEnv](https://github.com/funinkina/deadenv)** {{< icon "star" >}} 15 — Cross-platform CLI secrets manager in **Go**  
+  Replaces plaintext `.env` files with OS-native keychain storage (cgo/macOS, libsecret/Linux, WinCred/Windows) behind biometric auth. Encrypted exports use **AES-256-GCM + Argon2id**, with deliberate error collapsing to prevent oracle attacks and a git audit log baked in.
+
+- **[Maskify](https://github.com/funinkina/Maskify)** — AI-driven PII detection and redaction  
+  Custom **NER pipelines** on unstructured text to detect and redact personally identifiable information. Accompanied by a peer-reviewed paper covering model selection, architecture, and evaluation.
+
+→ *[Explore more on GitHub](https://github.com/funinkina)*
 
 ## {{< icon "school" >}} Extra-Curricular
+
+- **Blogger & Backend Developer** at [Let's Code](https://www.lets-code.co.in)  
+  *Remote, Part Time · Feb 2025 – Present*  
+  Writing technical blogs on backend systems, Linux, and GenAI. Also shipped an AI interview simulator and a resume analyzer — both live and in use. Writing code and words, occasionally at the same time.
 
 - **AIML Club** · *Google Developer Groups OnCampus*  
   *April 2023 – Present*
 
-  - Mentored students in ML, AI, and avoiding Stack Overflow copy-paste errors.
-  - Led workshops on **Git**, **GitHub**, and open-source.
-  - Dabbled in projects spanning **finance**, **NLP**
+  - Mentored students in ML, AI, and Git — roughly in that order of how often things go wrong.
+  - Led workshops on open-source contribution and version control.
+  - Ran projects across NLP and finance.
+
+## {{< icon "emoji_events" >}} Achievements
+
+- **Amazon ML Summer School 2024** — Selected from over **1,000,000 applicants** nationwide. Competitive ML program, non-trivial acceptance rate.
 
 ## {{< icon "search" >}} Stuff that I have written
