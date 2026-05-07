@@ -64,7 +64,7 @@ What I work with:
 ## {{< icon "school" >}} Extra-Curricular
 
 - **AIML Club** · *Google Developer Groups OnCampus*  
-  *April 2022 – Present*
+  *April 2023 – Present*
 
   - Mentored students in ML, AI, and avoiding Stack Overflow copy-paste errors.
   - Led workshops on **Git**, **GitHub**, and open-source.
