@@ -2,7 +2,7 @@
 title : 'Contributing to the Linux Kernel'
 subtitle: 'How trying to fix a small issue on my laptop led me to contribute to the Linux kernel.'
 date : '2026-05-10T23:27:20+05:30'
-draft : true
+draft : false
 tags : ['Linux', 'Kernel Development']
 toc: true
 next: true
@@ -374,6 +374,7 @@ After the patch, the kernel recognizes the laptop, registers the proper LED devi
 
 ## Step 6: Testing the Result
 
+To recompile the kernel and test my change, I followed this guide: [Patching the Arch Linux Kernel](https://amini-allight.org/post/patching-the-arch-linux-kernel)  
 After rebuilding and booting into the patched kernel, I checked whether the LED appeared:
 
 ```bash
@@ -447,3 +448,74 @@ SET_COEF_INDEX(0x0b) then SET_PROC_COEF(with the masked LED on/off pattern)
 ![Mute Signal Path](/blog-assets/mute_led_signal_path.svg)
 
 The kernel now owns this entirely. No background daemon, no polling loop, and no user-space script trying to keep up with mute events.
+
+## Kernel Contribution?
+
+So now that I have fixed the issue for my machine specifically, it would not be fair to keep it to myself. I wanted to share the patch with everyone so that anyone running linux on similar setups as me, will have a working mute LED working as well. Hence it's time to make a kenel contribution and share the fix with the community.
+
+To make a change in the Linux Kernel, you cannot simply create a PR on GitHub, you have to email the patch to the respective maintainer, and they will merge the changes upstream, and if all goes well, your changes will be present in the next release of the Linux Kernel.
+
+### Writing the patch file
+
+I used the same guide I used to patch the arch linux kernel, in the guide it had mentioned on how to create a patch as well against any changes you have done. Following the guide, this is the patch I generated:
+
+```patch
+diff '--color=auto' -ruN a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+--- a/sound/hda/codecs/realtek/alc269.c 2026-04-30 14:43:05.000000000 +0530
++++ b/sound/hda/codecs/realtek/alc269.c 2026-05-10 11:19:44.203186515 +0530
+@@ -7018,6 +7018,7 @@
+  SND_PCI_QUIRK(0x103c, 0x8a30, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+  SND_PCI_QUIRK(0x103c, 0x8a31, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+  SND_PCI_QUIRK(0x103c, 0x8a34, "HP Pavilion x360 2-in-1 Laptop 14-ek0xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
++ SND_PCI_QUIRK(0x103c, 0x8a36, "HP Pavilion Plus 14-eh0xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+  SND_PCI_QUIRK(0x103c, 0x8a3d, "HP Victus 15-fb0xxx (MB 8A3D)", ALC245_FIXUP_HP_MUTE_LED_V2_COEFBIT),
+  SND_PCI_QUIRK(0x103c, 0x8a4f, "HP Victus 15-fa0xxx (MB 8A4F)", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+  SND_PCI_QUIRK(0x103c, 0x8a6e, "HP EDNA 360", ALC287_FIXUP_CS35L41_I2C_4),
+```
+
+### Submitting the patch file
+
+Now you have to send the patch to the respective maintainer. To find the maintainer who is responsible for the files you have changed, the kernel includes a handy script in the source code itself.
+
+```bash
+$ ./scripts/get_maintainer.pl -f sound/hda/codecs/realtek/alc269.c
+Jaroslav Kysela <perex@perex.cz> (maintainer:SOUND)
+Takashi Iwai <tiwai@suse.com> (maintainer:SOUND)
+linux-sound@vger.kernel.org (open list:SOUND)
+linux-kernel@vger.kernel.org (open list)
+```
+
+Now I have the people to send the patch to, but the patch above is missing some information, most importantly, its missing who sent it and when. So after some formatting, here is the final patch file.
+
+```patch
+From: Aryan Kushwaha <aryankushwaha3101@gmail.com>
+Date: Sun, 10 Apr 2026 15:36:22 +0530
+Subject: [PATCH] ALSA: hda/realtek: Add mute LED quirk for HP Pavilion Plus 14
+
+The HP Pavilion Plus 14-eh0xxx with subsystem ID 103c:8a36 needs the
+ALC245 COEF bit mute LED quirk for the mute LED to follow the audio mute
+state.
+
+Add the missing quirk entry.
+
+Signed-off-by: Aryan Kushwaha <aryankushwaha3101@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7018,6 +7018,7 @@
+  SND_PCI_QUIRK(0x103c, 0x8a30, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+  SND_PCI_QUIRK(0x103c, 0x8a31, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+  SND_PCI_QUIRK(0x103c, 0x8a34, "HP Pavilion x360 2-in-1 Laptop 14-ek0xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
++ SND_PCI_QUIRK(0x103c, 0x8a36, "HP Pavilion Plus 14-eh0xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+  SND_PCI_QUIRK(0x103c, 0x8a3d, "HP Victus 15-fb0xxx (MB 8A3D)", ALC245_FIXUP_HP_MUTE_LED_V2_COEFBIT),
+  SND_PCI_QUIRK(0x103c, 0x8a4f, "HP Victus 15-fa0xxx (MB 8A4F)", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+  SND_PCI_QUIRK(0x103c, 0x8a6e, "HP EDNA 360", ALC287_FIXUP_CS35L41_I2C_4),
+--
+2.54.0
+```
+
+At the time of writing this blog, the patch has not been merged yet, I will update the status here only on whatever happens to my patch.
