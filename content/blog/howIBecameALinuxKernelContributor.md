@@ -15,7 +15,7 @@ image: '/blog-assets/kernel-contribution-header.png'
 
 I have been running Linux on my HP Pavilion Plus Laptop 14-eh0xxx since 2022, and inevitably, as with most Linux installations, some things will not work perfectly with your hardware.
 
-Initially there were a few rough edges, like the fingerprint scanner and the mute LED on the function key. The mute button itself worked, but the small orange LED that should indicate the muted state did not. My knowledge on how to fix these kinds of issues was very limited back then, so I just decided to live with it.
+Initially there were a few rough edges, like the fingerprint scanner and the mute LED on the function key. The mute button itself worked, but the small orange LED that should indicate the muted state did not. My knowledge of how to fix these kinds of issues was very limited back then, so I just decided to live with it.
 
 Over the years, the fingerprint scanner started working, thanks to the maintainer who worked on it. The only issue remaining was the mute LED, and with nothing better to do with my time, I decided to fix it myself.
 
@@ -29,7 +29,7 @@ But for some reason, on my Linux machine, the F5 key was muting and unmuting aud
 
 The first obvious thing to do while debugging: do a web search. That led me to this forum page: [Enabling Mute Fn Key LED on HP Laptop](https://bbs.archlinux.org/viewtopic.php?id=282568), where other people with HP laptops had a similar issue: the mute LED was not working.
 
-This forum post has everything I needed to fix this issue.
+That forum post had everything I needed to fix this issue.
 
 ## LEDs in the Linux Kernel
 
@@ -63,7 +63,7 @@ do
   sudo hda-verb "$card" 0x01 0x715 $i
   sleep 0.2
 done
-echo "Testing GPIO pins, polarity 1"true
+echo "Testing GPIO pins, polarity 1"
 for i in 0x01 0x02 0x04 0x08 0x10 0x20 0x40;
 do
   sudo hda-verb "$card" 0x01 0x716 $i
@@ -89,14 +89,14 @@ This is a very simple bash script with three for loops. The most important comma
 
 ### What the hell is HDA?
 
-HDA (High Definition Audio) is an Intel specification from 2004. It defines a controller (the PCH chip, mine: `8086:51c8`) and one or more codecs connected to it over a dedicated serial link running at 6 or 12 MHz. In my laptop:
+HDA (High Definition Audio) is an Intel specification from 2004. It defines a controller (the PCH chip, mine: `8086:51c8`) and one or more codecs connected to it over a dedicated serial link. In my laptop:
 
 ```bash
 $ lspci | grep -i audio
 00:1f.3 Multimedia audio controller: Intel Corporation Alder Lake PCH-P High Definition Audio Controller (rev 01)
 ```
 
-You can read more about HDA at [Intel's High Definition Audio Specification](https://www.intel.com/content/dam/www/public/us/en/documents/product-specifications/high-definition-audio-specification.pdf)
+You can read more about HDA in [Intel's High Definition Audio Specification](https://www.intel.com/content/dam/www/public/us/en/documents/product-specifications/high-definition-audio-specification.pdf).
 
 This means that the laptop motherboard has an Intel PCH (Platform Controller Hub). You can think of it as the "hub" chip that manages everything that is not the CPU itself: USB, storage, audio, etc.
 
@@ -119,7 +119,7 @@ The `Vendor Id` tells us that this is a Realtek ALC245 codec. The `Subsystem Id`
 
 ### Communication between controller and codec
 
-The Intel controller and the Realtek codec are physically connected on the motherboard by a small dedicated serial bus called the HDA link, running at around 6-12 MHz.
+The Intel controller and the Realtek codec are physically connected on the motherboard by a small dedicated serial bus called the HDA link.
 
 They communicate using 32-bit commands called verbs. The controller sends a verb, the codec executes it, and optionally sends a response back. That's the communication protocol: verb → response pairs over the physical connection.
 
@@ -180,8 +180,8 @@ Node 0x25 [Audio Selector] wcaps 0x300101: Stereo
 
 - **NID 0x01**: the root node. Called the Audio Function Group. Every codec has exactly one. It's the entry point; you talk to it to reset the codec or get global info.
 - **NID 0x02, 0x03**: DAC nodes (Digital to Analog Converter). They take the digital audio data from the controller and convert it into an analog signal.
-- **NID 0x12, 0x13**: Pin complex nodes. These represent the physical jacks on your laptop, like the headphone jack, the speakers, etc. Each pin node is wired to a physical connector on the board.
-- **NID 0x20**: this one is special. It's not in the HDA spec at all.
+- **NID 0x12, 0x13**: Pin complex nodes. These represent physical inputs or outputs on the laptop, like the headphone jack or internal speakers. Each pin node is wired to something on the board.
+- **NID 0x20**: this one is special. It shows up as a vendor-defined widget, which means the HDA spec allows it to exist, but does not define what it actually does internally.
 
 Now that we have a basic understanding of the chips and codecs, let's analyse what the brute force script actually does.
 
@@ -213,7 +213,7 @@ When it hit COEF index `0x0b` and wrote `0x08` (bit 3), **the LED turned on**. T
 
 ## Step 3: Putting the Values to Work
 
-As I mentioned above, **NID `0x20`** is not part of the standard HDA spec. It is a Realtek vendor-defined node, and it is not documented in any public Realtek datasheet.
+As I mentioned above, **NID `0x20`** is a Realtek vendor-defined node. The HDA spec allows vendors to expose private widgets like this, but the behavior of this node is Realtek-specific and is not documented in any public Realtek datasheet.
 
 Inside it is a bank of coefficient registers (COEFs): 256 numbered slots (`0x00` through `0xFF`), each holding a 16-bit value. What the kernel community has built up over years is a table of empirically discovered mappings: "for codec X with subsystem Y, COEF index Z bit W controls feature V."
 
@@ -247,8 +247,9 @@ sudo hda-verb /dev/snd/hwC0D0 0x20 0x900 0x00  # read it back
 
 Always cursor first, then read/write. If you skip the cursor step, you are reading or writing whatever register was last pointed at, which is not what we want.
 
-When we write `0x08`, we are setting bit 3 (0-indexed) and clearing all others. The Realtek hardware reads this register and routes bit 3 to whatever internal logic drives the LED. Writing `0x00` clears bit 3, turning the LED off.
-The raw assembly on the HDA link for `hda-verb /dev/snd/hwC0D0 0x20 0x500 0x0b` is a single 32-bit word:
+When we write `0x08`, we are setting bit 3 (0-indexed) and clearing all others. The Realtek hardware reads this register and routes bit 3 to whatever internal logic drives the LED. Writing `0x00` cleared bit 3 on my machine, which was enough to turn the LED off during manual testing.
+
+The raw HDA command sent for `hda-verb /dev/snd/hwC0D0 0x20 0x500 0x0b` is a single 32-bit word:
 
 ```text
 (codec_addr=0 << 28) | (nid=0x20 << 20) | (verb=0x500 << 8) | (param=0x0b)
@@ -266,7 +267,7 @@ At this point I knew the hardware-level control path:
 - Vendor node: `0x20`
 - COEF index: `0x0b`
 - LED bit/value: `0x08`
-- Off value: `0x00`
+- Manual off value: `0x00`
 - Subsystem ID: `0x103c8a36`
 
 The remaining problem was not discovering the LED anymore. It was teaching the kernel that my specific laptop model should use the already-existing ALC245 mute LED fixup.
@@ -278,11 +279,13 @@ The Linux kernel's HDA driver has two broad pieces involved here:
 - `snd-hda-intel`: the generic Intel HDA controller driver
 - `snd-hda-codec-realtek`: the Realtek codec driver
 
-The Intel controller driver knows how to talk over the HDA link, but it does not know every strange Realtek laptop-specific wiring detail. Those details live in the Realtek codec driver, mainly in:
+The Intel controller driver knows how to talk over the HDA link, but it does not know every strange Realtek laptop-specific wiring detail. Those details live in the Realtek codec driver. In the kernel version I worked with, the relevant file is:
 
 ```text
 sound/hda/codecs/realtek/alc269.c
 ```
+
+The filename looks confusing at first, because my codec is ALC245, not ALC269. But Realtek groups a bunch of related codecs under the ALC269-family driver, and ALC245 is handled there too.
 
 That file contains the Realtek-specific fixups. A fixup is basically a small correction the kernel applies for a specific codec, laptop, or board. This is needed because the same Realtek ALC245 codec can be used in many laptops, and each manufacturer can wire LEDs, amplifiers, microphones, and speakers differently.
 
@@ -315,20 +318,15 @@ So the kernel did not need a brand new driver. It only needed one more entry say
 
 ### How `SND_PCI_QUIRK` and the quirk table work
 
-`SND_PCI_QUIRK` is a macro that initializes a struct snd_pci_quirk:
+`SND_PCI_QUIRK` is a macro used to add an entry to a quirk table. In simplified form, that entry stores four things:
 
 ```c
-/* from include/sound/core.h */
-struct snd_pci_quirk {
-    unsigned short subvendor;  /* PCI subsystem vendor ID */
-    unsigned short subdevice;  /* PCI subsystem device ID */
-    const char *name;          /* human-readable, appears in dmesg */
-    int value;                 /* which fixup to apply (enum value) */
+{
+    .subvendor = 0x103c,  /* PCI subsystem vendor ID */
+    .subdevice = 0x8a36,  /* PCI subsystem device ID */
+    .name = "HP Pavilion Plus 14-eh0xxx",
+    .value = ALC245_FIXUP_HP_MUTE_LED_COEFBIT,
 };
-
-#define SND_PCI_QUIRK(vend, dev, name, val) \
-    { .subvendor = (vend), .subdevice = (dev), \
-      .name = (name), .value = (val) }
 ```
 
 So the patch line:
@@ -337,25 +335,9 @@ So the patch line:
 SND_PCI_QUIRK(0x103c, 0x8a36, "HP Pavilion Plus 14-eh0xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
 ```
 
-expands to a struct literal `{ .subvendor=0x103c, .subdevice=0x8a36, .name="HP Pavilion Plus 14-eh0xxx", .value=ALC245_FIXUP_HP_MUTE_LED_COEFBIT }` inserted into the `alc245_fixup_tbl[]` array. The array is terminated by an entry with subvendor=0.
-At boot, `snd_pci_quirk_lookup()` in `sound/core/misc.c` does a linear scan:
+Conceptually, this says: if the PCI subsystem vendor is `0x103c` and the subsystem device is `0x8a36`, use the fixup named `ALC245_FIXUP_HP_MUTE_LED_COEFBIT`.
 
-```c
-const struct snd_pci_quirk *snd_pci_quirk_lookup(struct pci_dev*pci,
-                                                   const struct snd_pci_quirk *list)
-{
-    const struct snd_pci_quirk*q;
-    for (q = list; q->subvendor; q++) {
-        if (q->subvendor != pci->subsystem_vendor)
-            continue;
-        if (!q->subdevice || q->subdevice == pci->subsystem_device)
-            return q;
-    }
-    return NULL;
-}
-```
-
-The `pci->subsystem_vendor` and `pci->subsystem_device` fields come from the PCI configuration space (offsets `0x2C` and `0x2E`), which the BIOS populates with the values HP programmed into the device at the factory. That's where 0x103c:0x8a36 lives — burned into the PCI config space of the Intel PCH audio controller on my laptop's board. The lookup returns the first matching struct, and the value field (the enum index) is used to look up the actual fixup function.
+The `pci->subsystem_vendor` and `pci->subsystem_device` fields come from PCI configuration space. These are the values HP programmed for this laptop's audio device. That's where `0x103c:0x8a36` comes from. The HDA fixup code scans the quirk table for a matching pair, and the value field tells it which fixup function to apply.
 
 ## Step 5: The Actual Patch
 
@@ -365,7 +347,7 @@ The patch was just one line:
 SND_PCI_QUIRK(0x103c, 0x8a36, "HP Pavilion Plus 14-eh0xxx", ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
 ```
 
-This line goes into the ALC245 quirk table in `sound/hda/codecs/realtek/alc269.c`, sorted among the other HP subsystem IDs.
+This line goes into the Realtek ALC269-family quirk table in `sound/hda/codecs/realtek/alc269.c`, sorted among the other HP subsystem IDs.
 
 Breaking it down:
 
@@ -380,9 +362,11 @@ That fixup tells the Realtek driver:
 
 - use vendor node `0x20`
 - use COEF index `0x0b`
-- use mask/value `0x08`
+- use the LED bit pattern handled by the existing ALC245 fixup
 - register the LED as an HDA mute LED
 - connect it to the kernel's audio mute trigger
+
+One small detail: my manual testing showed that writing `0x08` turned the LED on and `0x00` turned it off. The existing kernel fixup is a little more careful. It uses a mask around the LED-related bits and writes the known on/off patterns for that codec. The important part is that the on pattern includes the `0x08` bit I found by brute force.
 
 So before the patch, the kernel could mute and unmute audio, but it did not know that this laptop had a mute LED connected through that Realtek COEF bit.
 
@@ -409,15 +393,29 @@ No background script. No polling. No manually writing `hda-verb` values. The ker
 
 ## Wrapping it up
 
+The whole fix, in short, looked like this:
+
+1. Confirm the visible problem: the F5 mute key worked, but the orange mute LED never changed state.
+2. Check `/sys/class/leds/` and confirm that the kernel had not registered an `hda::mute` LED.
+3. Identify the audio hardware using `lspci` and `/proc/asound/card0/codec#0`.
+4. Use `hda-verb` to brute force GPIO and COEF values until the LED turned on.
+5. Discover that Realtek ALC245 controls the LED through vendor node `0x20`, COEF index `0x0b`, and the `0x08` bit.
+6. Find that the kernel already had an ALC245 mute LED fixup for this COEF-based LED.
+7. Add one `SND_PCI_QUIRK` entry for my HP subsystem ID, `0x103c:0x8a36`, in `sound/hda/codecs/realtek/alc269.c`.
+8. Rebuild and test the patched kernel.
+9. Confirm that `/sys/class/leds/hda::mute` appeared and that the LED now followed the mute state automatically.
+
+So the actual patch was tiny, but the work was in proving which hardware path controlled the LED. The kernel already knew how to drive this kind of ALC245 mute LED. It just did not know that my exact HP laptop should use that path.
+
 ### The fixup chain: from boot to a working LED
 
 Here's the sequence that happens every time the kernel loads the driver:
 
-1. The HDA core enumerates the codec, reads Vendor ID `0x10ec0245`, and calls `patch_realtek()` in `patch_realtek.c`.
+1. The HDA core enumerates the codec, reads Vendor ID `0x10ec0245`, and binds it to the Realtek ALC269-family codec driver.
 
-2. `patch_realtek()` identifies this as an ALC245 and calls `alc245_parse_auto_config()`, which among other things calls `snd_pci_quirk_lookup()` against the `alc245_fixup_tbl[]` table using the PCH's PCI subsystem IDs.
+2. The Realtek driver identifies this codec as an ALC245 and checks the `alc269_fixup_tbl[]` quirk table using the PCI subsystem IDs.
 
-3. The lookup matches `0x103c:0x8a36` and returns the entry with value `ALC245_FIXUP_HP_MUTE_LED_COEFBIT`.
+3. The lookup matches `0x103c:0x8a36` and selects the entry with value `ALC245_FIXUP_HP_MUTE_LED_COEFBIT`.
 
 4. The fixup system calls the associated function `alc245_fixup_hp_mute_led_coefbit()` at action `HDA_FIXUP_ACT_PRE_PROBE`. This function does:
 
@@ -428,11 +426,11 @@ Here's the sequence that happens every time the kernel loads the driver:
     {
         struct alc_spec *spec = codec->spec;
         if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-            spec->mute_led_coef.nid  = 0x20;   /* vendor node */
-            spec->mute_led_coef.idx  = 0x0b;   /* COEF index 11 */
-            spec->mute_led_coef.mask = 0x0008; /* bitmask for LED bit */
-            spec->mute_led_coef.on   = 0x0008; /* value when muted (LED on) */
-            spec->mute_led_coef.off  = 0x0000; /* value when unmuted (LED off) */
+            spec->mute_led_polarity = 0;
+            spec->mute_led_coef.idx = 0x0b;
+            spec->mute_led_coef.mask = 3 << 2;
+            spec->mute_led_coef.on = 2 << 2;   /* 0x08, LED on */
+            spec->mute_led_coef.off = 1 << 2;  /* 0x04, LED off */
             snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
         }
     }
@@ -440,12 +438,12 @@ Here's the sequence that happens every time the kernel loads the driver:
 
 5. `snd_hda_gen_add_mute_led_cdev()` calls `devm_led_classdev_register()`, which creates `/sys/class/leds/hda::mute` and attaches the `audio-mute` trigger to it. The `coef_mute_led_set` function pointer is stored as the LED's `brightness_set` callback.
 
-6. From this point on: when PipeWire or any audio stack toggles the mute state, the HDA core updates its internal mute flag and notifies the `audio-mute` trigger. The trigger calls `brightness_set` → `coef_mute_led_set` → which sends exactly the two verbs you discovered by hand:
+6. From this point on: when PipeWire or any audio stack toggles the mute state, the HDA core updates its internal mute flag and notifies the `audio-mute` trigger. The trigger calls `brightness_set` → `coef_mute_led_set`, which updates the same COEF register I discovered by hand:
 
 ```text
-SET_COEF_INDEX(0x0b) then SET_PROC_COEF(0x0008 or 0x0000)
+SET_COEF_INDEX(0x0b) then SET_PROC_COEF(with the masked LED on/off pattern)
 ```
 
 ![Mute Signal Path](/blog-assets/mute_led_signal_path.svg)
 
-The kernel now owns this entirely. No daemon, no polling, no race conditions.
+The kernel now owns this entirely. No background daemon, no polling loop, and no user-space script trying to keep up with mute events.
