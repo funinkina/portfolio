@@ -10,7 +10,7 @@
 
 .highlight div,
 pre {
-  /* background-color: var(--code-background); */
+  background: var(--code-background) !important;
   padding: 1em;
   overflow-x: auto;
   margin: 0px;
@@ -34,7 +34,7 @@ pre {
 code {
   font-family: monospace;
   font-weight: 600;
-  background: var(--code-background);
+  background: var(--code-background) !important;
   font-stretch: normal;
   border-radius: 4px;
   padding: 1px;
@@ -48,9 +48,9 @@ li code {
 }
 
 pre>code {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-stretch: normal;
-  background: inherit;
+  background: var(--code-background) !important;
   tab-size: 4;
   font-weight: 200;
   border: none;
