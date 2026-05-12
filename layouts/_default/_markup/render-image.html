@@ -1,3 +1,6 @@
+{{- $isDuplicateHeader := and (eq .Text "Header") (.Page.Params.image) (eq .Destination .Page.Params.image) -}}
+{{- if not $isDuplicateHeader -}}
 <p class="imgp">
   <img loading="lazy" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}"{{ end }} />
 </p>
+{{- end -}}

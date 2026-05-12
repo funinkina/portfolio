@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/terminal-emulators-header.png'
 ---
 
-![Header](/blog-assets/terminal-emulators-header.png)
+<!-- ![Header](/blog-assets/terminal-emulators-header.png) -->
 
 ## A little overview about terminals
 

@@ -10,7 +10,7 @@ image: '/blog-assets/gnome-ss-enhance-header.png'
 next: true
 ---
 
-![Enhancing Screenshots in GNOME with OCR](/blog-assets/gnome-ss-enhance-header.png)
+<!-- ![Enhancing Screenshots in GNOME with OCR](/blog-assets/gnome-ss-enhance-header.png) -->
 
 A while ago, I was working on a project, and the way error was being displayed, I could not copy the text directly to paste it in ChatGPT. I had to type the whole error message manually, which was a bit frustrating. I thought, what if I could just take a screenshot and extract the text from the image directly? That's when I decided to enhance GNOME Screenshot with OCR. I mean windows snipping tool has this feature, why not GNOME Screenshot?
 

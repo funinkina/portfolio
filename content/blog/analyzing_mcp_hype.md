@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/mcp-header.png'
 ---
 
-![mcp header](/blog-assets/mcp-header.png)
+<!-- ![mcp header](/blog-assets/mcp-header.png) -->
 
 ## Why the hype?
 
@@ -258,7 +258,7 @@ interface Request {
 }
 ```
 
-4. **Results**: This message is sent by the server to the client to provide the results of a successful request.
+1. **Results**: This message is sent by the server to the client to provide the results of a successful request.
 
 ```javascript
 interface Result {
@@ -266,7 +266,7 @@ interface Result {
 }
 ```
 
-5. **Error**: This message is sent by the server to the client to indicate an error occurred while processing the request. It contains an error code and a message describing the error.
+1. **Error**: This message is sent by the server to the client to indicate an error occurred while processing the request. It contains an error code and a message describing the error.
 
 ```javascript
 interface Error {
@@ -276,7 +276,7 @@ interface Error {
 }
 ```
 
-6. **Notification**: This message is sent by the server to the client to notify it of an event or update. It does not require a response from the client.
+1. **Notification**: This message is sent by the server to the client to notify it of an event or update. It does not require a response from the client.
 
 ```javascript
 interface Notification {

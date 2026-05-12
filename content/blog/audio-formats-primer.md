@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/audio-header.png'
 ---
 
-![Header](/blog-assets/audio-header.png)
+<!-- ![Header](/blog-assets/audio-header.png) -->
 
 ## A little backstory
 

@@ -8,7 +8,7 @@ image: '/blog-assets/guide_to_linux.png'
 toc: true
 next: true
 ---
-![Header](/blog-assets/guide_to_linux.png)
+<!-- ![Header](/blog-assets/guide_to_linux.png) -->
 
 ## 📝 Why this guide?
 

@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/open-source-header.png'
 ---
 
-![Header](/blog-assets/open-source-header.png)
+<!-- ![Header](/blog-assets/open-source-header.png) -->
 
 As a computer science student, you've likely encountered the terms "open source software" or "free software" while working on projects. But what exactly does open source mean, and why should it matter to you? Let's explore that in this post.
 

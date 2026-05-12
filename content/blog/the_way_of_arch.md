@@ -10,7 +10,7 @@ images:
 toc: true
 next: true
 ---
-![Header Image](/blog-assets/arch-guide-header.png)
+<!-- ![Header Image](/blog-assets/arch-guide-header.png) -->
 
 ## Introduction
 

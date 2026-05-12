@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/ssh-header.png'
 ---
 
-![SSH Header](/blog-assets/ssh-header.png)
+<!-- ![SSH Header](/blog-assets/ssh-header.png) -->
 
 Many of you must have worked with AWS or GCP at some point, and even if you were scared of the terminals, you might have been forced to use it. And you also must have accessed the terminal of your service from your local terminal. But wait, how is that possible? How can you access the console of another system from your own?
 

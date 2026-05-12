@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/kernel-contribution-header.png'
 ---
 
-![Header](/blog-assets/kernel-contribution-header.png)
+<!-- ![Header](/blog-assets/kernel-contribution-header.png) -->
 
 I have been running Linux on my HP Pavilion Plus Laptop 14-eh0xxx since 2022, and inevitably, as with most Linux installations, some things will not work perfectly with your hardware.
 
