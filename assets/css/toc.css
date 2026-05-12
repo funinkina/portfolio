@@ -40,16 +40,24 @@
   color: var(--text-dim);
 }
 
+.toc code {
+  font-size: 90% !important;
+}
+
 @media screen and (min-width: 1150px) {
   .toc {
     padding: 0;
     background-color: transparent;
-    font-size: 80%;
+    font-size: 0.65rem !important;
     line-height: 1.3;
     border-right: 0px;
     border-top: 0px;
     border-bottom: 0px;
     border-left: 0px;
+  }
+
+  .toc code {
+    font-size: 0.65rem !important;
   }
 
   #TableOfContents {
@@ -96,4 +104,35 @@
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   font-weight: normal;
+}
+
+.mobile-toc-marker {
+  display: block;
+  height: 1px;
+}
+
+@media screen and (max-width: 1149px) {
+  #tableOfContentContainer.is-mobile-drawer {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    display: none;
+    left: 1rem;
+    margin: 0;
+    max-height: calc(100dvh - var(--mobile-toc-top, 6rem) - 1rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.75rem 1rem 0.75rem 0.2rem;
+    position: fixed;
+    right: 1rem;
+    top: var(--mobile-toc-top, 6rem);
+    width: auto;
+    z-index: 1001;
+  }
+
+  body.mobile-toc-open #tableOfContentContainer.is-mobile-drawer {
+    display: block;
+  }
+
+  body.mobile-toc-open {
+    overflow: hidden;
+  }
 }

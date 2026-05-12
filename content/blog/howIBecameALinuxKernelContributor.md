@@ -9,8 +9,6 @@ next: true
 image: '/blog-assets/kernel-contribution-header.png'
 ---
 
-## How trying to fix a small issue on my laptop led me to contribute to the Linux kernel
-
 ![Header](/blog-assets/kernel-contribution-header.png)
 
 I have been running Linux on my HP Pavilion Plus Laptop 14-eh0xxx since 2022, and inevitably, as with most Linux installations, some things will not work perfectly with your hardware.
@@ -18,6 +16,8 @@ I have been running Linux on my HP Pavilion Plus Laptop 14-eh0xxx since 2022, an
 Initially there were a few rough edges, like the fingerprint scanner and the mute LED on the function key. The mute button itself worked, but the small orange LED that should indicate the muted state did not. My knowledge of how to fix these kinds of issues was very limited back then, so I just decided to live with it.
 
 Over the years, the fingerprint scanner started working, thanks to the maintainer who worked on it. The only issue remaining was the mute LED, and with nothing better to do with my time, I decided to fix it myself.
+
+> Also fair warning: The title is a bit clickbaity, the contribution is literally one line.
 
 ## The main issue
 

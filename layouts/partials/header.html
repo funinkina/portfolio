@@ -100,23 +100,36 @@
 
   <body>
     {{ if not .Params.nomenu }}
-    <nav class="nav-bar">
-      <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
-            src="/favicon.ico" alt>
-          {{- if .IsHome -}}
-          funinkina&apos;s corner
-          {{- else if eq .Section "blog" -}}
-          funinkina&apos;s blogs
-          {{- else if eq .Section "projects" -}}
-          funinkina&apos;s projects
-          {{- else -}}
-          funinkina&apos;s blogs
-          {{- end -}}
-        </a></h1>
+    <nav
+      class="nav-bar{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}">
+      <div class="nav-title-row">
+        <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
+              src="/favicon.ico" alt>
+            {{- if .IsHome -}}
+            funinkina&apos;s corner
+            {{- else if eq .Section "blog" -}}
+            funinkina&apos;s blogs
+            {{- else if eq .Section "projects" -}}
+            funinkina&apos;s projects
+            {{- else -}}
+            funinkina&apos;s blogs
+            {{- end -}}
+          </a></h1>
+      </div>
       <ul class="menu">
         {{ range .Site.Menus.main }}
         <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{
             safeHTML .Name }}</a></li>
+        {{ end }}
+        {{ if and .IsPage .Params.toc }}
+        <button
+          class="mobile-toc-toggle"
+          type="button"
+          aria-label="Open table of contents"
+          aria-controls="tableOfContentContainer"
+          aria-expanded="false">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
         {{ end }}
       </ul>
     </nav>

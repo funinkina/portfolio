@@ -8,20 +8,20 @@
     </h1>
     <div id="single-meta">
       {{ if .Params.subtitle }}
-          <p id="subtitle">{{ .Params.subtitle }}</p>
+      <p id="subtitle">{{ .Params.subtitle }}</p>
       {{ end }}
       {{ if .Params.date }}
-          <span class="datesub">
-              {{ .Date.Format "Jan 2, 2006" }}
-              {{- if .GitInfo -}}
-                  &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
-              {{- end -}}
-          </span>
+      <span class="datesub">
+        {{ .Date.Format "Jan 2, 2006" }}
+        {{- if .GitInfo -}}
+        &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
+        {{- end -}}
+      </span>
       {{ end }}
       {{ partial "tags.html" .}}
     </div>
   </div>
-  <img src="/waves.svg" alt="waves">
+  {{/* <img src="/waves.svg" alt="waves"> */}}
 </div>
 {{ else }}
 <div style="padding-bottom: 1px;"></div>
@@ -29,6 +29,8 @@
 
 {{ if .Params.toc }}
 <aside class="hidden lg:block toc " id="tableOfContentContainer">
+  <h2 style="border:none; opacity:60%; padding:none; margin:none">Table of
+    Contents</h2>
   {{ .TableOfContents }}
 </aside>
 {{ end }}
@@ -36,14 +38,14 @@
 <main>{{ .Content }}</main>
 
 {{ if .Params.Next }}
-    <br>
-    <hr>
-    {{ with .PrevInSection }}
-      Next: <a href="{{ .Permalink }}">{{ .Title }}</a>
-    {{ end }}
+<br>
+<hr>
+{{ with .PrevInSection }}
+Next: <a href="{{ .Permalink }}">{{ .Title }}</a>
+{{ end }}
 {{ end }}
 
 {{ if .Params.math }}
-    {{ partial "math.html" . }}
+{{ partial "math.html" . }}
 {{ end }}
 {{ partial "footer.html" . }}
