@@ -9,7 +9,7 @@ next: true
 image: '/blog-assets/kernel-contribution-header.png'
 ---
 
-# How trying to fix a small issue on my laptop led me to contribute to the Linux kernel
+## How trying to fix a small issue on my laptop led me to contribute to the Linux kernel
 
 ![Header](/blog-assets/kernel-contribution-header.png)
 
@@ -27,7 +27,7 @@ But for some reason, on my Linux machine, the F5 key was muting and unmuting aud
 
 ## Beginning the search
 
-The first obvious thing to do while debugging: do a web search. That led me to this forum page: [Enabling Mute Fn Key LED on HP Laptop](https://bbs.archlinux.org/viewtopic.php?id=282568), where other people with HP laptops had a similar issue: the mute LED was not working.
+The first obvious thing to do while debugging is to do a web search. That led me to this forum page: [Enabling Mute Fn Key LED on HP Laptop](https://bbs.archlinux.org/viewtopic.php?id=282568), where other people with HP laptops had a similar issue: the mute LED was not working.
 
 That forum post had everything I needed to fix this issue.
 
@@ -115,13 +115,13 @@ Subsystem Id: 0x103c8a36
 
 So the audio pipeline is: **CPU** → **Intel PCH (controller)** → **Realtek ALC245 (codec)** → speakers/headphones/LED
 
-The `Vendor Id` tells us that this is a Realtek ALC245 codec. The `Subsystem Id` is also important. `0x103c` is HP's vendor ID, and `0x8a36` identifies this specific HP board/model combination. This value becomes the key to the final kernel patch later.
+The `Vendor Id` tells us that this is a Realtek ALC245 codec. The `Subsystem ID` is also important. `0x103c` is HP's vendor ID, and `0x8a36` identifies this specific HP board/model combination. This value becomes the key to the final kernel patch later.
 
 ### Communication between controller and codec
 
 The Intel controller and the Realtek codec are physically connected on the motherboard by a small dedicated serial bus called the HDA link.
 
-They communicate using 32-bit commands called verbs. The controller sends a verb, the codec executes it, and optionally sends a response back. That's the communication protocol: verb → response pairs over the physical connection.
+They communicate using 32-bit commands called verbs. The controller sends a verb, the codec executes it and optionally sends a response back. That's the communication protocol: verb → response pairs over the physical connection.
 
 You can think of it like sending text commands to a microcontroller over a serial port. `hda-verb` is literally a tool that lets you type those commands manually:
 
@@ -133,7 +133,7 @@ value = 0x0
 
 ### Inside the Codec: Nodes
 
-The ALC245 is a collection of small functional blocks, each doing a different job. The HDA spec calls these nodes, or widgets, and each one has a number called its Node ID (NID).
+The ALC245 is a collection of small functional blocks, each doing a different job. The HDA spec calls these nodes, or widgets and each one has a number called its Node ID (NID).
 To dump the full node map of the codec:
 
 ```bash
