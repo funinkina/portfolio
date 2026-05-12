@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.Language.Locale }}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,7 +60,7 @@
       content="black-translucent" />
 
     <!-- Accessibility: language already set on <html>, but you can add -->
-    <meta http-equiv="Content-Language" content="{{ .Site.LanguageCode }}" />
+    <meta http-equiv="Content-Language" content="{{ .Site.Language.Locale }}" />
 
     <!-- Vercel Analytics -->
     {{ if and (eq hugo.Environment "production")

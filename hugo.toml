@@ -1,5 +1,5 @@
 baseURL = 'https://funinkina.co.in/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = "funinkina's corner"
 
 [sitemap]
