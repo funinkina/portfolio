@@ -45,7 +45,7 @@ html {
   background-repeat: no-repeat;
   background-position: bottom left calc(100% - 50px);
   background-size: 7%;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 .material-symbols-outlined {

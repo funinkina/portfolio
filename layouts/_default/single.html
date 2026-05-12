@@ -2,9 +2,21 @@
 
 {{ if not .Params.notitle }}
 <div id="single-header">
-  <h1>
-    {{ .Title | markdownify }}
-  </h1>
+  <div class="single-title-row">
+    <h1>
+      {{ .Title | markdownify }}
+    </h1>
+    <button
+      class="single-share-button"
+      type="button"
+      aria-label="Share this page"
+      title="Share this page"
+      data-share-title="{{ .Title }}"
+      data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
+      data-share-url="{{ .Permalink }}">
+      <span class="material-symbols-outlined" aria-hidden="true">share</span>
+    </button>
+  </div>
   {{ with .Params.image }}
     {{ if ne . "" }}
     <img class="single-header-image" src="{{ . | safeURL }}" alt="{{ $.Title }}">
@@ -39,13 +51,18 @@
 
 <main>{{ .Content }}</main>
 
-{{ if .Params.Next }}
 <br>
 <hr>
+<div class="single-footer-row">
+  <div>
+{{ if .Params.Next }}
 {{ with .PrevInSection }}
-Next: <a href="{{ .Permalink }}">{{ .Title }}</a>
+    Next: <a href="{{ .Permalink }}">{{ .Title }}</a>
 {{ end }}
 {{ end }}
+  </div>
+  <div class="single-footer-copyright">© 2026 funinkina</div>
+</div>
 
 {{ if .Params.math }}
 {{ partial "math.html" . }}
