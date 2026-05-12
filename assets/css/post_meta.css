@@ -9,6 +9,13 @@
   gap: 25px;
 }
 
+#single-header h1 {
+  font-size: 3.2rem;
+  font-weight: 300;
+  line-height: normal;
+  padding-bottom: 18px;
+}
+
 #single-header img {
   display: none;
 }

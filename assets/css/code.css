@@ -11,12 +11,13 @@
 .highlight div,
 pre {
   background: var(--code-background) !important;
-  padding: 1em;
+  padding: 0.75rem;
   overflow-x: auto;
+  position: relative;
   margin: 0px;
   border: 1px solid var(--code-border);
   border-radius: 5px;
-  line-height: 1.4;
+  line-height: 1.25;
 }
 
 .highlight {
@@ -26,9 +27,10 @@ pre {
 
 .highlight div pre {
   border: 0px;
-  padding: 0px 5px;
+  padding: 0px;
   margin: 0px;
   box-shadow: 0px 0px 0px;
+  line-height: inherit;
 }
 
 code {
@@ -48,12 +50,15 @@ li code {
 }
 
 pre>code {
+  display: block;
   font-size: 0.85rem;
   font-stretch: normal;
   background: var(--code-background) !important;
   tab-size: 4;
   font-weight: 200;
   border: none;
+  padding: 0px;
+  line-height: inherit;
 }
 
 @media screen and (max-width: 760px) {
@@ -106,21 +111,35 @@ pre>code {
 
 /* Copy code button */
 .copy-code-button {
-  display: block;
+  align-items: center;
+  animation-duration: 1s;
+  animation-name: code-fade-in;
+  background-color: var(--text-dim);
+  border: 1px solid var(--code-border);
+  border-radius: 3px;
+  color: var(--code-background);
+  cursor: pointer;
+  display: inline-flex;
+  height: 1.65rem;
+  justify-content: center;
+  opacity: 0;
+  padding: 0px;
+  position: absolute;
+  right: 0.45rem;
+  top: 0.45rem;
+  transition: opacity 0.15s ease;
+  width: 1.65rem;
 }
 
-@media screen and (min-width: 760px) {
-  .copy-code-button {
-    animation-duration: 1s;
-    animation-name: code-fade-in;
-    margin-top: -22px;
-    float: right;
-    display: block;
-    background-color: var(--text-dim);
-    border-color: var(--code-border);
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 3px;
-    color: var(--code-background);
-  }
+.highlight div:hover>.copy-code-button,
+.highlight div:focus-within>.copy-code-button,
+pre:hover>.copy-code-button,
+pre:focus-within>.copy-code-button {
+  opacity: 1;
+}
+
+.copy-code-button .material-symbols-outlined {
+  font-size: 1rem;
+  line-height: 1;
+  padding-bottom: 0px;
 }
