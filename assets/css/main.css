@@ -41,10 +41,11 @@ html {
   color: var(--text);
   background-color: var(--background);
   scroll-behavior: smooth;
-  background-image: url(/footer-bg.svg);
-  background-repeat: no-repeat;
-  background-position: bottom left calc(100% - 50px);
-  background-size: 7%;
+  background-image: url(/Rectangle.png), url(/footer-bg.svg), url(/waves.svg);
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-position: top left, bottom left calc(100% - 50px), right 10px top 300px;
+  background-attachment: fixed, scroll, scroll;
+  background-size: 10%, 7%, 80px;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
@@ -72,29 +73,10 @@ body {
   /* text-align: justify; */
 }
 
-.bg-decor {
-  position: absolute;
-  right: -54px;
-  top: 400px;
-  transform: rotate(90deg);
-  width: 200px;
-  opacity: 70%;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  display: none;
-}
-
 @media screen and (min-width: 760px) {
   body {
     margin: auto;
     max-width: 80vw;
-  }
-
-  .bg-decor {
-    display: block;
   }
 }
 
@@ -102,10 +84,6 @@ body {
   body {
     margin: auto;
     max-width: 65vw;
-  }
-
-  .bg-decor {
-    display: block;
   }
 }
 
