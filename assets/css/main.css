@@ -83,7 +83,7 @@ body {
 @media screen and (min-width: 1150px) {
   body {
     margin: auto;
-    max-width: 65vw;
+    max-width: 50vw;
   }
 }
 
