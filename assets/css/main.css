@@ -68,7 +68,23 @@ body {
   margin: auto;
   padding: 0em 1em 2em 1em;
   line-height: 1.54;
+  overflow-x: hidden;
   /* text-align: justify; */
+}
+
+.bg-decor {
+  position: absolute;
+  right: -54px;
+  top: 400px;
+  transform: rotate(90deg);
+  width: 200px;
+  opacity: 70%;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  display: none;
 }
 
 @media screen and (min-width: 760px) {
@@ -76,12 +92,20 @@ body {
     margin: auto;
     max-width: 80vw;
   }
+
+  .bg-decor {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 1150px) {
   body {
     margin: auto;
     max-width: 65vw;
+  }
+
+  .bg-decor {
+    display: block;
   }
 }
 
