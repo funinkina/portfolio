@@ -17,13 +17,6 @@
   color: white;
 }
 
-.single-title-row {
-  align-items: flex-start;
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
 .single-share-button {
   align-items: center;
   background-color: rgba(var(--card-bg), 0.8);
@@ -32,10 +25,10 @@
   color: var(--text);
   cursor: pointer;
   display: inline-flex;
-  flex: 0 0 auto;
+  float: right;
   height: 3rem;
   justify-content: center;
-  margin-top: 2rem;
+  margin: 0.4em 0 0.5em 1rem;
   padding: 0px;
   width: 3rem;
 }
@@ -113,13 +106,8 @@
 }
 
 @media (max-width: 600px) {
-  .single-title-row {
-    gap: 0.75rem;
-  }
-
   .single-share-button {
     height: 2rem;
-    margin-top: 3rem;
     width: 2rem;
   }
 
