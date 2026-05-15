@@ -2,7 +2,7 @@
     <a href="{{ .RelPermalink }}">
     <div class="project-image-container">
         {{ if .Params.image }}
-        <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="project-image">
+        {{ partial "processed-image.html" (dict "path" .Params.image "width" 600 "alt" .Title "class" "project-image" "loading" "lazy") }}
         {{ else }}
         <div class="project-placeholder">
             <span>{{ .Title }}</span>

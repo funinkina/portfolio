@@ -19,7 +19,7 @@
   </div>
   {{ with .Params.image }}
     {{ if ne . "" }}
-    <img class="single-header-image" src="{{ . | safeURL }}" alt="{{ $.Title }}">
+    {{ partial "processed-image.html" (dict "path" . "width" 1200 "alt" $.Title "class" "single-header-image" "loading" "eager" "fetchpriority" "high") }}
     {{ end }}
   {{ end }}
   <div id="single-meta">
