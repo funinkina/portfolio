@@ -11,7 +11,7 @@ image: ''
 
 Every developer I know has a `.env` file they shouldn't. Maybe it has a production API key. Maybe it's tracked in git with a `.gitignore` entry that someone forgot to add. Maybe it's just sitting there, world-readable, on a shared dev machine. We all know it's bad. We keep doing it anyway because there's no real alternative that doesn't add significant friction.
 
-`deadenv` is my attempt to fix that. It's a cross-platform CLI tool written in Go that stores secrets in the OS-native keychain — Keychain on macOS, libsecret/GNOME Keyring on Linux, Credential Manager on Windows — and injects them into subprocesses at runtime. Secrets never touch the filesystem in plaintext.
+`deadenv` is my attempt to fix that. It's a cross-platform CLI tool written in Go that stores secrets in the OS-native keychain: Keychain on macOS, libsecret/GNOME Keyring on Linux, Credential Manager on Windows, and injects them into subprocesses at runtime. Secrets never touch the filesystem in plaintext.
 
 This post is about why I built it and, more importantly, the architectural decisions that went into making it work across three platforms without becoming a mess.
 
@@ -23,13 +23,13 @@ This post is about why I built it and, more importantly, the architectural decis
 
 **Plaintext on disk.** Any process running as your user can read your `.env`. That includes malicious packages in your `node_modules`, random scripts you piped from the internet, and any other tool you've installed without reading carefully.
 
-**Accidental commits.** `.gitignore` is not a guarantee. A `git add .` at the wrong moment, a `--force`, a renamed file that no longer matches the ignore pattern — all of these have happened to real people with real credentials.
+**Accidental commits.** `.gitignore` is not a guarantee. A `git add .` at the wrong moment, a `--force`, a renamed file that no longer matches the ignore pattern, all of these have happened to real people with real credentials.
 
 **Shell history leakage.** When developers don't have a `.env` setup, they often export variables inline: `API_KEY=abc123 npm start`. That's now in your shell history, potentially synced somewhere.
 
-**No audit trail.** There's no way to know who changed a value or when without inspecting git blame on the `.env` file itself — which only works if you were committing it in the first place.
+**No audit trail.** There's no way to know who changed a value or when without inspecting git blame on the `.env` file itself. Which only works if you were committing it in the first place.
 
-The existing alternatives all have real tradeoffs. Vault and AWS Secrets Manager are production-grade tools with significant ops overhead — overkill for a dev machine. 1Password CLI and similar tools are good but require subscriptions and are opinionated about team workflows. Most `.env` wrappers just add another layer of indirection without fixing the plaintext-on-disk problem.
+The existing alternatives all have real tradeoffs. Vault and AWS Secrets Manager are production-grade tools with significant ops overhead, which is overkill for a dev machine. 1Password CLI and similar tools are good but require subscriptions and are opinionated about team workflows. Most `.env` wrappers just add another layer of indirection without fixing the plaintext-on-disk problem.
 
 I wanted something that behaved like `dotenv` but stored credentials where the OS intended them to be stored.
 
@@ -68,7 +68,7 @@ deadenv import myapp.deadenv
 
 The `.deadenv` file is safe to share over any channel. The decryption password goes via a separate secure channel.
 
----
+
 
 ## Architecture
 
@@ -93,15 +93,15 @@ Every platform has its own implementation file with a build tag at the top:
 package keychain
 ```
 
-The rest of the codebase never imports a platform-specific file. They call `keychain.New()` and get back a `Store`. This kept the platform implementations completely isolated — I could write and test the Linux implementation without touching anything macOS-specific.
+The rest of the codebase never imports a platform-specific file. They call `keychain.New()` and get back a `Store`. This kept the platform implementations completely isolated, so that I could write and test the Linux implementation without touching anything macOS-specific.
 
-It also made testing straightforward. `FakeStore` lives in `internal/keychain/fake.go` (not a `_test.go` file, so it's available to all test packages), and every test that involves keychain operations uses it. The profile package tests, the edit flow tests, the history integration tests — all of them run against the fake without hitting a real keychain.
+It also made testing straightforward. `FakeStore` lives in `internal/keychain/fake.go` (not a `_test.go` file, so it's available to all test packages), and every test that involves keychain operations uses it. The profile package tests, the edit flow tests, the history integration tests: all of them run against the fake without hitting a real keychain.
 
 ### Platform Keychain Implementations
 
 Getting native keychain access right on each platform took the most effort.
 
-**macOS** uses `Security.framework` via cgo. Items are written with `kSecAccessControlUserPresence`, which means the OS enforces Touch ID or device password on every read. The app doesn't implement authentication — it delegates entirely to the OS. The access control attribute `kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly` prevents iCloud sync and migration to another device, which is the right default for dev credentials. The prompt string (`kSecUseOperationPrompt`) is set to something human-readable so the Touch ID dialog says something useful instead of just the app name.
+**macOS** uses `Security.framework` via cgo. Items are written with `kSecAccessControlUserPresence`, which means the OS enforces Touch ID or device password on every read. The app doesn't implement authentication, it delegates entirely to the OS. The access control attribute `kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly` prevents iCloud sync and migration to another device, which is the right default for dev credentials. The prompt string (`kSecUseOperationPrompt`) is set to something human-readable so the Touch ID dialog says something useful instead of just the app name.
 
 **Linux** uses libsecret via D-Bus, which gives access to GNOME Keyring and (with some effort) KWallet. I used the `go-keychain/secretservice` package for the D-Bus protocol. Secrets are stored with a structured attribute schema:
 
@@ -115,11 +115,11 @@ Getting native keychain access right on each platform took the most effort.
 
 This schema lets the list operation do a filtered search rather than fetching everything and filtering in Go. One thing that tripped me up: session negotiation. The code tries `AuthenticationDHAES` (which encrypts the D-Bus traffic) and falls back to `AuthenticationInsecurePlain` if that fails. Some desktop environments don't support the secure session type, so the fallback is necessary for broad compatibility.
 
-**Windows** uses `wincred` (Windows Credential Manager) with target names in the format `deadenv/<profile>/<KEY>`. The items don't show up in Credential Manager's GUI in the obvious way, which confused some early testers — it's expected behavior since `deadenv` stores items with its own prefix, not under the generic Windows credentials category.
+**Windows** uses `wincred` (Windows Credential Manager) with target names in the format `deadenv/<profile>/<KEY>`. The items don't show up in Credential Manager's GUI in the obvious way, which confused some early testers, it's expected behavior since `deadenv` stores items with its own prefix, not under the generic Windows credentials category.
 
 ### The .env Parser
 
-The parser is a pure function — it takes a string and returns `[]EnvPair` or an error. No I/O, no side effects, no dependencies outside the standard library. This meant I could iterate on it quickly with table-driven tests and fuzz it without any setup.
+The parser is a pure function, it takes a string and returns `[]EnvPair` or an error. No I/O, no side effects, no dependencies outside the standard library. This meant I could iterate on it quickly with table-driven tests and fuzz it without any setup.
 
 The parsing rules handle all the .env format variants I've seen in real projects:
 
@@ -143,14 +143,14 @@ func FuzzParseEnvContent(f *testing.F) {
         _, _ = ParseEnvContent(data)
         // must never panic
     })
-}is my attempt to fix that. It's a cross-platform CLI tool written in Go that stores secrets in the OS-native keychain — Keychain on macOS, libsecret/GNOME Keyring on Linux, Credential Manager on Windows — and injects them into subprocesses at runtime. Secrets never 
+}
 ```
 
 It's caught a few edge cases that the table-driven tests missed.
 
 ### Git-Backed Audit Trail
 
-Every mutation — set, unset, delete — is auto-committed to a local git repo at `~/.config/deadenv/history/`. Each profile has a corresponding JSON snapshot file that records key names, operation types, timestamps, and hashed values:
+Every mutation: set, unset, delete: is auto-committed to a local git repo at `~/.config/deadenv/history/`. Each profile has a corresponding JSON snapshot file that records key names, operation types, timestamps, and hashed values:
 
 ```json
 {
@@ -169,7 +169,7 @@ The hash is `SHA-256(salt + value)` where the salt is a fixed per-installation r
 
 Commit messages follow a structured format: `[myapp] set DATABASE_URL`, `[myapp] unset OLD_KEY`, `[myapp] import (8 keys)`. This makes the git log readable as an audit trail.
 
-If `git` isn't on PATH, history silently no-ops. There's a one-time warning at startup, but it doesn't block any operations. This was a deliberate UX decision — the tool should work in minimal environments without making history tracking a hard dependency.
+If `git` isn't on PATH, history silently no-ops. There's a one-time warning at startup, but it doesn't block any operations. This was a deliberate UX decision, that the tool should work in minimal environments without making history tracking a hard dependency.
 
 ### Export Encryption
 
@@ -196,9 +196,9 @@ The encryption scheme: Argon2id derives a 32-byte key from the sharing password 
 
 Two details worth explaining:
 
-**Self-describing KDF parameters.** The Argon2id parameters (time, memory, threads) are stored in the file itself. This means the import side doesn't need to know what parameters were used at export time — it reads them from the envelope and uses them to re-derive the key. It also means I can change the parameters in a future version without breaking old exports.
+**Self-describing KDF parameters.** The Argon2id parameters (time, memory, threads) are stored in the file itself. This means the import side doesn't need to know what parameters were used at export time, it reads them from the envelope and uses them to re-derive the key. It also means I can change the parameters in a future version without breaking old exports.
 
-**GCM auth tag behavior.** AES-256-GCM produces an authentication tag that covers both the ciphertext and any additional data. If the tag verification fails — whether because of a wrong password or because the file was corrupted in transit — you get the same error: `decryption failed — wrong password or file is corrupted`. This is intentional. Distinguishing between wrong password and corrupted file would create an oracle that could leak information about the password.
+**GCM auth tag behavior.** AES-256-GCM produces an authentication tag that covers both the ciphertext and any additional data. If the tag verification fails, whether because of a wrong password or because the file was corrupted in transit. You get the same error: `decryption failed — wrong password or file is corrupted`. This is intentional. Distinguishing between wrong password and corrupted file would create an oracle that could leak information about the password.
 
 All sensitive byte slices (`key`, `salt`, `nonce`, `plain`) are explicitly zeroed after use:
 
@@ -225,7 +225,7 @@ if errors.Is(err, crypto.ErrDecryptFailed) {
 }
 ```
 
-The exit code table is documented: `0` success, `1` general error, `2` auth denied, `3` decrypt failed, `4` parse error, `127` command not found, `N` propagated subprocess exit code. This makes `deadenv run` composable in scripts — the exit code from the subprocess passes through unchanged.
+The exit code table is documented: `0` success, `1` general error, `2` auth denied, `3` decrypt failed, `4` parse error, `127` command not found, `N` propagated subprocess exit code. This makes `deadenv run` composable in scripts, the exit code from the subprocess passes through unchanged.
 
 ### The `deadenv edit` Flow
 
@@ -242,11 +242,11 @@ The exit code table is documented: `0` success, `1` general error, `2` auth deni
 9. Apply the delta: write added and modified keys, delete removed keys
 10. Each changed key is a separate keychain write and a separate git commit
 
-The temp file is deleted immediately after the editor exits, regardless of whether an error occurs. If a keychain write fails partway through, already-written changes are not rolled back — keychain writes aren't transactional. The error message reports which keys succeeded and which failed.
+The temp file is deleted immediately after the editor exits, regardless of whether an error occurs. If a keychain write fails partway through, already-written changes are not rolled back - keychain writes aren't transactional. The error message reports which keys succeeded and which failed.
 
 Treating a key rename (old key gone, new key present) as unset + set rather than an in-place rename was a deliberate choice. The keychain doesn't have a rename primitive, and the audit log is cleaner when it explicitly records both operations.
 
----
+
 
 ## What Was Harder Than Expected
 
@@ -254,19 +254,18 @@ Treating a key rename (old key gone, new key present) as unset + set rather than
 
 **D-Bus session negotiation on Linux.** The DHAES session type (which encrypts the D-Bus traffic carrying secrets) isn't universally supported. Some desktop environments and keyring implementations only support the plain session type. The fallback logic is straightforward but it took real testing on different Linux setups to realize it was necessary. Running headless (no D-Bus session available at all) fails with a clear error rather than silently degrading, which is the right call.
 
-**Shell escaping for `eval` output.** `deadenv export myapp` prints `export KEY=VALUE` lines for shell evaluation. Getting the escaping right — values with spaces, embedded single quotes, newlines, equals signs — is one of those things that seems simple until you write the tests. Single-quote wrapping with `'\''` for embedded single quotes is the correct approach; I got it wrong the first time.
+**Shell escaping for `eval` output.** `deadenv export myapp` prints `export KEY=VALUE` lines for shell evaluation. Getting the escaping right - values with spaces, embedded single quotes, newlines, equals signs. It is one of those things that seems simple until you write the tests. Single-quote wrapping with `'\''` for embedded single quotes is the correct approach; I got it wrong the first time.
 
----
+
 
 ## What Went Well
 
-The interface design made the whole project much easier to navigate than I expected. Being able to develop the parser, crypto, history, and profile packages independently — all tested against fakes — meant I could iterate quickly without setting up a real keychain every time I ran tests.
+The interface design made the whole project much easier to navigate than I expected. Being able to develop the parser, crypto, history, and profile packages independently. All tested against fakes, meant I could iterate quickly without setting up a real keychain every time I ran tests.
 
 The parser being a pure function paid off immediately. Writing a fuzz test took five minutes and it found a panic in the comment-stripping logic within the first few seconds.
 
 The phased implementation plan (parser → keychain interface → profile logic → history → real platform implementations → editor flow → crypto → CLI wiring) meant that at every phase there was something testable and working. I never had a large chunk of code that wasn't integrated into anything.
 
----
 
 ## Try It
 
