@@ -28,8 +28,6 @@ toc: true
 I'm a final-year **Computer Science** undergrad who builds backend systems that are fast, boring to operate, and interesting to build.  
 Most of my time goes writing code and shipping straight to production.
 
-{{< icon "my_location" >}} Currently based in **Bangalore, India**.
-
 What I work with:
 
 - Backend Systems

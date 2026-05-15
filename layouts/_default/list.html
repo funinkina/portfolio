@@ -21,9 +21,15 @@
                 alt="{{ .Site.Params.author }}" class="profile-avatar">
             {{- end -}}
             <div class="profile-text">
-                <h1 class="profile-name" style="margin-bottom: 10px;">{{
+                <h1 class="profile-name">{{
                     .Site.Params.author }}</h1>
-                <p class="profile-subtitle">{{ .Site.Params.subtitle }}</p>
+                <p class="profile-subtitle"><span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1em; margin-top:2px;">info</span> {{ .Site.Params.subtitle }}</p>
+                {{ with .Site.Params.location }}
+                <p class="profile-location"><span
+                        class="material-symbols-outlined"
+                        style="vertical-align: middle; font-size: 1em; margin-top:2px;">location_on</span>
+                    {{ . }}</p>
+                {{ end }}
             </div>
         </div>
         <div class="profile-bio">
