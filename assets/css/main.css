@@ -96,7 +96,7 @@ main {
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
-  margin: 0;
+  margin-bottom: 100px;
 }
 
 .social-btn {
@@ -115,7 +115,7 @@ main {
 }
 
 .social-btn:hover {
-  background-color: var(--border);
+  background-color: #6889b6;
   transform: translateY(-2px);
 }
 
@@ -328,20 +328,23 @@ main ul {
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 1rem;
+  margin-top: 100px;
 }
 
 .profile-avatar {
-  width: 80px;
-  height: 80px;
+  /* name (4.5rem × line-height 1.2) + margin-bottom 10px + subtitle (1.1rem × line-height 1.2) */
+  height: calc(4.5rem * 1.2 + 10px + 1rem * 1.2);
+  width: auto;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .profile-name {
-  font-size: 2.5rem;
+  font-size: 4.5rem;
   margin: 0;
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 100;
 }
 
 .profile-subtitle {

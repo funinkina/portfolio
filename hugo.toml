@@ -9,9 +9,9 @@ priority = 0.5
 
 [params]
 author = "Aryan Kushwaha"
-subtitle = "22 • Software Engineer • ENGLISH / हिंदी"
+subtitle = "23 • Systems and Backend Engineer • ENGLISH / हिंदी"
 avatar = "avatar.jpg"
-description = "A portfolio and blog by Aryan Kushwaha"
+description = "A collection of blogs, projects and opinions by funinkina."
 ShowReadingTime = true
 ShowDate = true
 favicon = "favicon.ico"

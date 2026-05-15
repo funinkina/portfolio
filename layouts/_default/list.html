@@ -1,90 +1,93 @@
 {{ partial "header.html" . }}
 
 {{ if .IsHome }}
-    <div class="home-container">
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="profile-header">
-                {{- $avRes := resources.Get "avatar.jpg" -}}
-                {{- if $avRes -}}
-                  {{- $avWebp := $avRes.Resize "160x160 webp" -}}
-                  {{- $avFallback := $avRes.Resize "160x160" -}}
-                  <picture>
-                    <source srcset="{{ $avWebp.RelPermalink }}" type="image/webp">
-                    <img src="{{ $avFallback.RelPermalink }}" alt="{{ .Site.Params.author }}"
-                         class="profile-avatar" width="160" height="160"
-                         loading="eager" fetchpriority="high">
-                  </picture>
-                {{- else -}}
-                  <img src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}" alt="{{ .Site.Params.author }}" class="profile-avatar">
-                {{- end -}}
-                <div class="profile-text">
-                    <h1 class="profile-name" style="margin-bottom: 10px;">{{ .Site.Params.author }}</h1>
-                    <p class="profile-subtitle">{{ .Site.Params.subtitle }}</p>
-                </div>
-            </div>
-            <div class="profile-bio">
-                {{ .Content }}
-            </div>
-        </div>
-
-        <!-- Blog Section -->
-        {{ with .Site.GetPage "section" "blog" }}
-        <div class="section-block">
-            <h2 class="section-heading">Latest Blog Posts</h2>
-            <div class="blog-list-clean">
-                {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
-                    {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
-                {{ end }}
+<div class="home-container">
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <div class="profile-header">
+            {{- $avRes := resources.Get "avatar.jpg" -}}
+            {{- if $avRes -}}
+            {{- $avWebp := $avRes.Resize "160x160 webp" -}}
+            {{- $avFallback := $avRes.Resize "160x160" -}}
+            <picture>
+                <source srcset="{{ $avWebp.RelPermalink }}" type="image/webp">
+                <img src="{{ $avFallback.RelPermalink }}"
+                    alt="{{ .Site.Params.author }}"
+                    class="profile-avatar" width="160" height="160"
+                    loading="eager" fetchpriority="high">
+            </picture>
+            {{- else -}}
+            <img src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}"
+                alt="{{ .Site.Params.author }}" class="profile-avatar">
+            {{- end -}}
+            <div class="profile-text">
+                <h1 class="profile-name" style="margin-bottom: 10px;">{{
+                    .Site.Params.author }}</h1>
+                <p class="profile-subtitle">{{ .Site.Params.subtitle }}</p>
             </div>
         </div>
-        {{ end }}
-
-        <!-- Projects Section -->
-        {{ with .Site.GetPage "section" "projects" }}
-        <div class="section-block">
-            <div style="height: 70px;"></div>
-            <h2 class="section-heading">Building & Learning</h2>
-            <div class="project-grid">
-                {{ range .RegularPages }}
-                    {{ partial "project_card.html" . }}
-                {{ end }}
-
-            </div>
+        <div class="profile-bio">
+            {{ .Content }}
         </div>
-        {{ end }}
     </div>
-{{ else }}
-    <div class="home-content">{{ .Content }}</div>
 
-    {{ if eq .Section "blog" }}
+    <!-- Blog Section -->
+    {{ with .Site.GetPage "section" "blog" }}
+    <div class="section-block">
+        <h2 class="section-heading">Latest Blog Posts</h2>
         <div class="blog-list-clean">
-            {{ range $i, $p := .RegularPages.ByDate.Reverse }}
-                {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
+            {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
+            {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
             {{ end }}
         </div>
-    {{ else if eq .Section "projects" }}
+    </div>
+    {{ end }}
+
+    <!-- Projects Section -->
+    {{ with .Site.GetPage "section" "projects" }}
+    <div class="section-block">
+        <div style="height: 70px;"></div>
+        <h2 class="section-heading">Building & Learning</h2>
         <div class="project-grid">
             {{ range .RegularPages }}
-                {{ partial "project_card.html" . }}
+            {{ partial "project_card.html" . }}
             {{ end }}
-        </div>
-    {{ else }}
-        {{ if not .Site.Params.noSearch }}
-            {{ partial "search-form.html" . }}
-            <ul id="results"></ul>
-        {{ end }}
 
-        <div class="sections-container">
-            {{ range .Sections }}
-                <div class="section">
-                    <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
-                    {{ .CurrentSection.Content }}
-                    {{ partial "post_list.html" . }}
-                </div>
-            {{ end }}
         </div>
+    </div>
     {{ end }}
+</div>
+{{ else }}
+<div class="home-content">{{ .Content }}</div>
+
+{{ if eq .Section "blog" }}
+<div class="blog-list-clean">
+    {{ range $i, $p := .RegularPages.ByDate.Reverse }}
+    {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
+    {{ end }}
+</div>
+{{ else if eq .Section "projects" }}
+<div class="project-grid">
+    {{ range .RegularPages }}
+    {{ partial "project_card.html" . }}
+    {{ end }}
+</div>
+{{ else }}
+{{ if not .Site.Params.noSearch }}
+{{ partial "search-form.html" . }}
+<ul id="results"></ul>
+{{ end }}
+
+<div class="sections-container">
+    {{ range .Sections }}
+    <div class="section">
+        <h2 class="section-title">{{ .CurrentSection.Title }}</h2>
+        {{ .CurrentSection.Content }}
+        {{ partial "post_list.html" . }}
+    </div>
+    {{ end }}
+</div>
+{{ end }}
 {{ end }}
 
 {{ partial "footer.html" . }}
