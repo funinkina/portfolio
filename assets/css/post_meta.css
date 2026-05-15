@@ -1,9 +1,9 @@
 #single-header {
   border-bottom: 5px dotted var(--accent);
-  padding-top: 60px;
-  padding-bottom: 60px;
+  min-height: 90dvh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -47,11 +47,10 @@
 }
 
 #single-header img {
-  border-radius: 0px;
   display: block;
-  max-height: 440px;
-  object-fit: cover;
-  width: 80%;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
 .date {
@@ -67,12 +66,6 @@
   font-size: 0.9em;
 }
 
-@media (min-width: 900px) {
-  #single-header {
-    padding-top: 100px;
-    padding-bottom: 120px;
-  }
-}
 
 #single-meta a:visited {
   color: var(--link);
