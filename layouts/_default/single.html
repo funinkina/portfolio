@@ -2,37 +2,49 @@
 
 {{ if not .Params.notitle }}
 <div id="single-header">
-  <h1>
-    <button
-      class="single-share-button"
-      type="button"
-      aria-label="Share this page"
-      title="Share this page"
-      data-share-title="{{ .Title }}"
-      data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
-      data-share-url="{{ .Permalink }}">
-      <span class="material-symbols-outlined" aria-hidden="true">share</span>
-    </button>
-    {{ .Title | markdownify }}
-  </h1>
-  {{ with .Params.image }}
-    {{ if ne . "" }}
-    {{ partial "processed-image.html" (dict "path" . "width" 1200 "alt" $.Title "class" "single-header-image" "loading" "eager" "fetchpriority" "high") }}
-    {{ end }}
+  <h1>{{ .Title | markdownify }}</h1>
+  {{ if and .Params.image (ne .Params.image "") }}
+    <div class="single-image-wrapper">
+      <button
+        class="single-share-button"
+        type="button"
+        aria-label="Share this page"
+        title="Share this page"
+        data-share-title="{{ .Title }}"
+        data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
+        data-share-url="{{ .Permalink }}">
+        <span class="material-symbols-outlined" aria-hidden="true">share</span>
+      </button>
+      {{ partial "processed-image.html" (dict "path" .Params.image "width" 1200 "alt" .Title "class" "single-header-image" "loading" "eager" "fetchpriority" "high") }}
+    </div>
   {{ end }}
   <div id="single-meta">
     {{ if .Params.subtitle }}
     <p id="subtitle">{{ .Params.subtitle }}</p>
     {{ end }}
-    {{ if .Params.date }}
-    <span class="datesub">
-      {{ .Date.Format "Jan 2, 2006" }}
-      {{- if .GitInfo -}}
-      &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
-      {{- end -}}
-    </span>
-    {{ end }}
-    {{ partial "tags.html" .}}
+    <div class="single-meta-row">
+      {{ if .Params.date }}
+      <span class="datesub">
+        {{ .Date.Format "Jan 2, 2006" }}
+        {{- if .GitInfo -}}
+        &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
+        {{- end -}}
+      </span>
+      {{ end }}
+      {{ partial "tags.html" .}}
+      {{ if not (and .Params.image (ne .Params.image "")) }}
+      <button
+        class="single-share-button single-share-button--standalone"
+        type="button"
+        aria-label="Share this page"
+        title="Share this page"
+        data-share-title="{{ .Title }}"
+        data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
+        data-share-url="{{ .Permalink }}">
+        <span class="material-symbols-outlined" aria-hidden="true">share</span>
+      </button>
+      {{ end }}
+    </div>
   </div>
 </div>
 {{ else }}

@@ -15,8 +15,6 @@ Every developer I know has a `.env` file they shouldn't. Maybe it has a producti
 
 This post is about why I built it and, more importantly, the architectural decisions that went into making it work across three platforms without becoming a mess.
 
----
-
 ## The Problem With .env Files
 
 `.env` files are a collective security debt the dev community carries because the tooling around them is convenient and the consequences are deferred. The specific failure modes:
@@ -32,8 +30,6 @@ This post is about why I built it and, more importantly, the architectural decis
 The existing alternatives all have real tradeoffs. Vault and AWS Secrets Manager are production-grade tools with significant ops overhead, which is overkill for a dev machine. 1Password CLI and similar tools are good but require subscriptions and are opinionated about team workflows. Most `.env` wrappers just add another layer of indirection without fixing the plaintext-on-disk problem.
 
 I wanted something that behaved like `dotenv` but stored credentials where the OS intended them to be stored.
-
----
 
 ## What deadenv Does
 

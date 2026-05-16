@@ -1,6 +1,6 @@
 #single-header {
   border-bottom: 5px dotted var(--accent);
-  min-height: 90dvh;
+  min-height: 88dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,6 +17,11 @@
   color: white;
 }
 
+.single-image-wrapper {
+  position: relative;
+  margin: none;
+}
+
 .single-share-button {
   align-items: center;
   background-color: rgba(var(--card-bg), 0.8);
@@ -25,12 +30,24 @@
   color: var(--text);
   cursor: pointer;
   display: inline-flex;
-  float: right;
   height: 3rem;
   justify-content: center;
-  margin: 0.4em 0 0.5em 1rem;
   padding: 0px;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
   width: 3rem;
+}
+
+.single-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.single-share-button--standalone {
+  margin-left: auto;
+  position: static;
 }
 
 .single-share-button .material-symbols-outlined {
