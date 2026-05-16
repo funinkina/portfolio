@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --complimentary: #a0a0a0;
   --text: #e4e4e4;
@@ -42,7 +48,7 @@ html {
   scroll-behavior: smooth;
   background-image: url(/Rectangle.png), url(/footer-bg.svg), url(/waves.svg);
   background-repeat: repeat, no-repeat, no-repeat;
-  background-position: top left, bottom left calc(100% - 50px), right 10px top 300px;
+  background-position: top left, bottom left calc(100% - 50px), right 0 top 300px;
   background-attachment: fixed, scroll, scroll;
   background-size: 10%, 7%, 80px;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
@@ -538,8 +544,8 @@ main ul {
 @media (max-width: 768px) {
 
   html {
-    background-position: top left, bottom right 30px, right 5px top 130px;
-    background-size: 40%, 20%, 60px;
+    background-position: top left, bottom right 30px, right top 300px;
+    background-size: 80%, 20%, 12%;
   }
 
   .blog-row {

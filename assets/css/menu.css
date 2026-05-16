@@ -77,6 +77,10 @@
     padding-top: 10px;
   }
 
+  .nav-bar ul {
+    column-gap: 1.1rem;
+  }
+
   .nav-bar.has-mobile-toc .nav-title-row {
     padding-right: 2.6rem;
   }
