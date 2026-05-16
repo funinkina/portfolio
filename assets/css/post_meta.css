@@ -26,28 +26,55 @@
   align-items: center;
   background-color: rgba(var(--card-bg), 0.8);
   border: 1px solid var(--toc-border);
-  border-radius: 4px;
+  border-radius: 5px;
   color: var(--text);
   cursor: pointer;
   display: inline-flex;
+  flex-shrink: 0;
+  width: auto;
   height: 3rem;
   justify-content: center;
-  padding: 0px;
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 8px);
-  width: 3rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.single-share-button>p {
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+
+.single-share-button:hover {
+  background-color: #6889b6;
+  gap: 6px;
+}
+
+.single-share-button:hover>p {
+  max-width: 12rem;
+  opacity: 1;
+}
+
+.single-meta-content {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+}
+
+.single-meta-left {
+  flex: 1;
+  min-width: 0;
 }
 
 .single-meta-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.single-share-button--standalone {
-  margin-left: auto;
-  position: static;
 }
 
 .single-share-button .material-symbols-outlined {
