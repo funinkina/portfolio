@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: #6889b6;
+}
+
 :root {
   --complimentary: #a0a0a0;
   --text: #e4e4e4;
