@@ -7,11 +7,14 @@
         <div class="profile-header">
             {{- $avRes := resources.Get "avatar.jpg" -}}
             {{- if $avRes -}}
-            {{- $avWebp := $avRes.Resize "160x160 webp" -}}
-            {{- $avFallback := $avRes.Resize "160x160" -}}
+            {{- $avWebp1x := $avRes.Resize "160x160 webp" -}}
+            {{- $avWebp2x := $avRes.Resize "320x320 webp" -}}
+            {{- $avFallback1x := $avRes.Resize "160x160" -}}
+            {{- $avFallback2x := $avRes.Resize "320x320" -}}
             <picture>
-                <source srcset="{{ $avWebp.RelPermalink }}" type="image/webp">
-                <img src="{{ $avFallback.RelPermalink }}"
+                <source srcset="{{ $avWebp1x.RelPermalink }} 1x, {{ $avWebp2x.RelPermalink }} 2x" type="image/webp">
+                <img src="{{ $avFallback1x.RelPermalink }}"
+                    srcset="{{ $avFallback1x.RelPermalink }} 1x, {{ $avFallback2x.RelPermalink }} 2x"
                     alt="{{ .Site.Params.author }}"
                     class="profile-avatar" width="160" height="160"
                     loading="eager" fetchpriority="high">
