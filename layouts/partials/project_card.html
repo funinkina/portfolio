@@ -1,4 +1,4 @@
-<div class="project-card">
+<div class="project-card" data-title="{{ .Title | lower }}" data-description="{{ .Description | default .Summary | plainify | lower }}">
     <a href="{{ .RelPermalink }}">
     <div class="project-image-container">
         {{ if .Params.image }}
