@@ -48,7 +48,7 @@
   --border: #d0d0d0;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
-    url(/Rectangle.png),
+    image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')),
     url(/footer-bg-light.svg),
     url(/waves-light.svg);
   background-repeat: no-repeat, repeat, no-repeat, no-repeat;
@@ -81,7 +81,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   min-height: 100vh;
-  background-image: url(/Rectangle.png), url(/footer-bg.svg), url(/waves.svg);
+  background-image: image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')), url(/footer-bg.svg), url(/waves.svg);
   background-repeat: repeat, no-repeat, no-repeat;
   background-position: top left, bottom left calc(100% - 50px), right 10px top 300px;
   background-attachment: scroll, scroll, scroll;
