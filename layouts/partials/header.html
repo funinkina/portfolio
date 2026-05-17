@@ -19,29 +19,46 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
 
+    {{- $desc := or .Description .Params.subtitle .Site.Params.description -}}
+    {{- $ogTitle := cond .IsHome .Site.Title (printf "%s by funinkina" .Title) -}}
+    {{- $ogImgURL := absURL "default-header.png" -}}
+    {{- $ogImgWidth := 1200 -}}
+    {{- $ogImgHeight := 627 -}}
+    {{- $ogImgType := "image/png" -}}
+    {{- with .Params.image -}}
+      {{- $imgPath := strings.TrimPrefix "/" . -}}
+      {{- $img := resources.Get $imgPath -}}
+      {{- if $img -}}
+        {{- $processed := $img.Resize "1200x" -}}
+        {{- $ogImgURL = $processed.Permalink -}}
+        {{- $ogImgWidth = $processed.Width -}}
+        {{- $ogImgHeight = $processed.Height -}}
+        {{- $ogImgType = $processed.MediaType.Type -}}
+      {{- else -}}
+        {{- $ogImgURL = . | absURL -}}
+      {{- end -}}
+    {{- end -}}
+
     <!-- Primary Meta Tags -->
-    <title>{{ .Title }}</title>
-    <meta name="title" content="{{ .Title }} by funinkina" />
-    <meta name="description"
-      content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
+    <meta name="title" content="{{ $ogTitle }}" />
+    <meta name="description" content="{{ $desc }}" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
     <meta property="og:url" content="{{ .Permalink }}" />
-    <meta property="og:title" content="{{ .Title }} by funinkina" />
-    <meta property="og:description"
-      content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
-    <meta property="og:image"
-      content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.co.in/default-header.png{{ end }}" />
+    <meta property="og:title" content="{{ $ogTitle }}" />
+    <meta property="og:description" content="{{ $desc }}" />
+    <meta property="og:image" content="{{ $ogImgURL }}" />
+    <meta property="og:image:width" content="{{ $ogImgWidth }}" />
+    <meta property="og:image:height" content="{{ $ogImgHeight }}" />
+    <meta property="og:image:type" content="{{ $ogImgType }}" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="{{ .Permalink }}" />
-    <meta property="twitter:title" content="{{ .Title }} by funinkina" />
-    <meta property="twitter:description"
-      content="{{ with .Description }}{{ . }}{{ else }}A collection of blogs, projects, and insights by funinkina.{{ end }}" />
-    <meta property="twitter:image"
-      content="{{ with .Params.image }}{{ . | absURL }}{{ else }}https://funinkina.co.in/default-header.png{{ end }}" />
+    <meta property="twitter:title" content="{{ $ogTitle }}" />
+    <meta property="twitter:description" content="{{ $desc }}" />
+    <meta property="twitter:image" content="{{ $ogImgURL }}" />
     <meta property="twitter:site" content="@funinkina" />
     <meta property="twitter:creator" content="@funinkina" />
 
