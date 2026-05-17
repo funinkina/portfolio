@@ -14,8 +14,7 @@ toc: false
 I'm a final-year **Computer Science** undergrad who builds backend systems that are fast, boring to operate, and interesting to build.  
 Most of my time goes writing code and shipping straight to production.
 
-What I work with:
-
+**What I work with:**
 - Backend Systems
 - Linux & Systems Programming
 - LLMs, TTS and Voice/AI Agents
