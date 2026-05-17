@@ -3,7 +3,7 @@
 }
 
 .menu a:visited {
-  color: var(--link);
+  color: var(--complimentary);
 }
 
 .menu a:hover {
@@ -142,10 +142,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-.nav-bar h1 a:hover>img {
-  scale: 1.2;
-}
-
 @media (max-width: 1149px) {
   .nav-bar.has-mobile-toc .mobile-toc-toggle {
     display: inline-flex;
@@ -173,7 +169,7 @@
   align-items: center;
   background-color: transparent;
   border: none;
-  color: var(--link);
+  color: var(--complimentary);
   cursor: pointer;
   display: inline-flex;
   height: 2rem;
@@ -184,7 +180,7 @@
 }
 
 .theme-toggle:hover {
-  color: var(--complimentary);
+  color: var(--link);
 }
 
 .theme-toggle .material-symbols-outlined {
