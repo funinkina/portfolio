@@ -40,6 +40,12 @@
   font-weight: 300;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
 .nav-bar li {
   line-height: 2;
 }
@@ -77,7 +83,7 @@
   .nav-bar {
     flex-wrap: wrap;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     column-gap: 0;
   }
 
@@ -85,18 +91,16 @@
     flex: 1;
   }
 
-  .nav-bar ul {
-    column-gap: 1.1rem;
-  }
-
-  .menu {
+  .nav-actions {
     width: 100%;
+    order: 1;
+    justify-content: space-between;
     margin-top: 5px;
     margin-bottom: 5px;
-    padding: 0;
   }
 
   .nav-bar ul {
+    column-gap: 1.1rem;
     font-size: 1rem;
     white-space: nowrap;
     flex-wrap: wrap;
@@ -143,7 +147,6 @@
   .mobile-toc-toggle.is-visible {
     display: inline-flex;
     flex: 0 0 auto;
-    margin-left: auto;
   }
 }
 

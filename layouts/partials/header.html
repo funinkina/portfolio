@@ -119,29 +119,31 @@
           funinkina&apos;s blogs
           {{- end -}}
         </a></h1>
-      <ul class="menu">
-        {{ range .Site.Menus.main }}
-        <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{
-            safeHTML .Name }}</a></li>
-        {{ end }}
-        {{ if and .IsPage .Params.toc }}
+      <div class="nav-actions">
+        <ul class="menu">
+          {{ range .Site.Menus.main }}
+          <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{
+              safeHTML .Name }}</a></li>
+          {{ end }}
+        </ul>
         <button
-          class="mobile-toc-toggle"
+          class="theme-toggle"
           type="button"
-          aria-label="Open table of contents"
-          aria-controls="tableOfContentContainer"
-          aria-expanded="false">
-          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+          aria-label="Toggle color scheme"
+          title="Toggle color scheme">
+          <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
         </button>
-        {{ end }}
-      </ul>
+      </div>
+      {{ if and .IsPage .Params.toc }}
       <button
-        class="theme-toggle"
+        class="mobile-toc-toggle"
         type="button"
-        aria-label="Toggle color scheme"
-        title="Toggle color scheme">
-        <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+        aria-label="Open table of contents"
+        aria-controls="tableOfContentContainer"
+        aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
+      {{ end }}
     </nav>
     {{ end }}
 
