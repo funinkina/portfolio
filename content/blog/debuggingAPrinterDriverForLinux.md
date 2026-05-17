@@ -43,10 +43,10 @@ usb.transfer_type == 0x03 && usb.endpoint_address.direction == 0
 ```
 $ tshark -r ricoh.pcap -Y "usb.transfer_type == 0x03 && usb.endpoint_address.direction == 0"
 
-  19  58.923040  host → 1.3.1  USB 65563 URB_BULK out
-  20  59.151066  1.3.1 → host  USB    27 URB_BULK out
-  21  59.151359  host → 1.3.1  USB 59703 URB_BULK out
-  22  59.189228  1.3.1 → host  USB    27 URB_BULK out
+  19  58.923040  host -> 1.3.1  USB 65563 URB_BULK out
+  20  59.151066  1.3.1 -> host  USB    27 URB_BULK out
+  21  59.151359  host -> 1.3.1  USB 59703 URB_BULK out
+  22  59.189228  1.3.1 -> host  USB    27 URB_BULK out
 ```
 
 Frames **20** and **22** are the printer's ACK responses (27-byte URB headers, no data). The real action is in frames **19** and **21**: **two bulk OUT transfers, 65,536 and 59,676 bytes** of actual payload, respectively. One page of printing produces about 125 KB of data over USB.
@@ -96,23 +96,23 @@ This is a much better starting point than I expected. No proprietary binary form
 
 Working through the commands one by one:
 
-| Command                         | Meaning                                             |
-| ------------------------------- | --------------------------------------------------- |
-| `ESC%-12345X@PJL\r\n`           | UEL + enter PJL mode                                |
-| `TIMESTAMP=2026/05/14 12:54:44` | Job timestamp                                       |
-| `FILENAME=...pdf`               | Source filename                                     |
-| `COMPRESS=JBIG`                 | Compression format used for image data              |
-| `USERNAME=archputer`            | Submitting user                                     |
-| `COVER=OFF`, `HOLD=OFF`         | Job options (cover sheet, secure hold)              |
-| `PAGESTATUS=START`              | Begin page 1                                        |
-| `COPIES=1`                      | Print one copy                                      |
-| `MEDIASOURCE=TRAY1`             | Paper from tray 1                                   |
-| `MEDIATYPE=PLAINRECYCLE`        | Media type                                          |
-| `PAPER=A4`                      | Paper size name                                     |
-| `PAPERWIDTH=4961`               | Width in pixels at 600 dpi (A4 = 210 mm → 4961 px)  |
-| `PAPERLENGTH=7016`              | Height in pixels at 600 dpi (A4 = 297 mm → 7016 px) |
-| `RESOLUTION=600`                | 600 dpi                                             |
-| `IMAGELEN=65556`                | Compressed image data size that follows             |
+| Command                         | Meaning                                              |
+| ------------------------------- | ---------------------------------------------------- |
+| `ESC%-12345X@PJL\r\n`           | UEL + enter PJL mode                                 |
+| `TIMESTAMP=2026/05/14 12:54:44` | Job timestamp                                        |
+| `FILENAME=...pdf`               | Source filename                                      |
+| `COMPRESS=JBIG`                 | Compression format used for image data               |
+| `USERNAME=archputer`            | Submitting user                                      |
+| `COVER=OFF`, `HOLD=OFF`         | Job options (cover sheet, secure hold)               |
+| `PAGESTATUS=START`              | Begin page 1                                         |
+| `COPIES=1`                      | Print one copy                                       |
+| `MEDIASOURCE=TRAY1`             | Paper from tray 1                                    |
+| `MEDIATYPE=PLAINRECYCLE`        | Media type                                           |
+| `PAPER=A4`                      | Paper size name                                      |
+| `PAPERWIDTH=4961`               | Width in pixels at 600 dpi (A4 = 210 mm -> 4961 px)  |
+| `PAPERLENGTH=7016`              | Height in pixels at 600 dpi (A4 = 297 mm -> 7016 px) |
+| `RESOLUTION=600`                | 600 dpi                                              |
+| `IMAGELEN=65556`                | Compressed image data size that follows              |
 
 The `COMPRESS=JBIG` line was the key discovery. **[JBIG](https://en.wikipedia.org/wiki/JBIG)** (Joint Bi-level Image Experts Group) is an international standard for compressing binary images - ITU-T T.82, finalized in 1993. It's designed precisely for this: monochrome laser printer output at high resolution. I had initially guessed the printer might use **HBPL2** (used by many other Ricoh printers in foo2zjs), but grepping for `HBPL` in the raw stream finds nothing. This is pure PJL + JBIG1.
 
@@ -212,7 +212,7 @@ Now I had enough context to start writing.
 Armed with the protocol understanding, I started writing a CUPS filter. A CUPS filter reads a raster page stream from stdin (provided by CUPS) and writes the printer's native format to stdout. The filter chain is:
 
 ```
-PDF/PostScript → ghostscript → CUPS raster → [our filter] → PJL+JBIG1 → USB
+PDF/PostScript -> ghostscript -> CUPS raster -> [our filter] -> PJL+JBIG1 -> USB
 ```
 
 The filter needs:
@@ -418,12 +418,12 @@ I went back to the Windows VM and printed a two-page document, this time capturi
 $ tshark -r ricoh_capture.pcap \
     -Y "usb.transfer_type == 0x03 && usb.endpoint_address.direction == 0"
 
-  19  10.184667  host → 1.3.1  USB 65563 URB_BULK out
-  20  10.429456  1.3.1 → host  USB    27 URB_BULK out
-  21  10.430073  host → 1.3.1  USB 65563 URB_BULK out
-  22  10.481597  1.3.1 → host  USB    27 URB_BULK out
-  23  10.482111  host → 1.3.1  USB 24937 URB_BULK out
-  24  10.504719  1.3.1 → host  USB    27 URB_BULK out
+  19  10.184667  host -> 1.3.1  USB 65563 URB_BULK out
+  20  10.429456  1.3.1 -> host  USB    27 URB_BULK out
+  21  10.430073  host -> 1.3.1  USB 65563 URB_BULK out
+  22  10.481597  1.3.1 -> host  USB    27 URB_BULK out
+  23  10.482111  host -> 1.3.1  USB 24937 URB_BULK out
+  24  10.504719  1.3.1 -> host  USB    27 URB_BULK out
 ```
 
 Three bulk OUT transfers (frames 19, 21, 23), each followed by a printer ACK. The single-page job used two transfers totalling ~125 KB. This two-page job uses three transfers: **65,536 + 65,536 + 24,910 = 155,982 bytes**.
@@ -509,7 +509,7 @@ For page 1, the Windows driver sends two separate `IMAGELEN` blocks: one of 65,5
 
 This is chunking. The Windows driver splits any JBIG stream that would exceed the USB bulk transfer limit into consecutive `@PJL SET IMAGELEN` blocks, each followed by that exact number of bytes of JBIG data. All blocks before the next `PAGESTATUS=END` belong to the same page.
 
-The 65,536-byte (65,508 usable after USB framing overhead) limit is the USB full-speed bulk transfer maximum that the Windows driver appears to respect. Page 1 needed 79,007 bytes → chunk 1 is 65,556 bytes → chunk 2 is the remaining 13,451 bytes.
+The 65,536-byte (65,508 usable after USB framing overhead) limit is the USB full-speed bulk transfer maximum that the Windows driver appears to respect. Page 1 needed 79,007 bytes -> chunk 1 is 65,556 bytes -> chunk 2 is the remaining 13,451 bytes.
 
 My Linux filter produces smaller JBIG streams which is typically small enough to fit in a single chunk, but the firmware accepts both chunked and unchunked delivery as long as the framing is correct.
 
@@ -941,7 +941,7 @@ The five bugs discovered along the way, in order:
 | --- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
 | 1   | Silent job drop        | Missing bare `@PJL\r\n` after UEL                                                                           |
 | 2   | Motor runs, no paper   | Missing `@PJL SET PAPERLENGTH`                                                                              |
-| 3   | Blank page out         | Wrong JBIG options byte (`0x08` → `0x48`)                                                                   |
+| 3   | Blank page out         | Wrong JBIG options byte (`0x08` -> `0x48`)                                                                  |
 | 4   | Scrambled image        | CUPS delivering 8-bit grayscale, filter assuming 1-bit packed                                               |
 | 5   | Only first page prints | Missing `PAGESTATUS=END` / `PAGESTATUS=START` per page, no `DOTCOUNT`, wrong stride from manual calculation |
 
