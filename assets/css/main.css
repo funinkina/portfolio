@@ -19,7 +19,7 @@
   --table-tr: #161616;
   --toc-background: #1a1a1a;
   --toc-border: #1e1e1e;
-  --background: #0a0a0a;
+  --background: #1c1c1c;
   --background-rgb: 7, 7, 7;
   --card-bg: #161616;
   --accent: #222;
@@ -85,7 +85,7 @@ html {
   background-repeat: repeat, no-repeat, no-repeat;
   background-position: top left, bottom left calc(100% - 50px), right 10px top 300px;
   background-attachment: scroll, scroll, scroll;
-  background-size: 10%, 7%, 80px;
+  background-size: 10%, 10%, 80px;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
@@ -653,8 +653,8 @@ main ul {
 @media (max-width: 768px) {
 
   html {
-    background-position: top left, bottom right 30px, right top 300px;
-    background-size: 80%, 20%, 12%;
+    background-position: top left, bottom right 30px, right top 160px;
+    background-size: 15%, 20%, 10%;
   }
 
   .blog-row {

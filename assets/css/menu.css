@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   column-gap: 1.5rem;
-  background-color: rgba(var(--background-rgb), 0.2);
+  background-color: var(--card-bg);
   background-image: image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png'));
   background-size: 7%;
   background-attachment: scroll;
