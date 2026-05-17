@@ -67,6 +67,9 @@
   justify-content: center;
   padding: 0px;
   width: 2rem;
+  transform: scale(0);
+  transform-origin: center;
+  transition: transform 200ms ease;
 }
 
 .mobile-toc-toggle .material-symbols-outlined {
@@ -144,9 +147,13 @@
 }
 
 @media (max-width: 1149px) {
-  .mobile-toc-toggle.is-visible {
+  .nav-bar.has-mobile-toc .mobile-toc-toggle {
     display: inline-flex;
     flex: 0 0 auto;
+  }
+
+  .mobile-toc-toggle.is-visible {
+    transform: scale(1);
   }
 }
 
@@ -184,4 +191,11 @@
   font-size: 1.6rem;
   line-height: 1;
   padding-bottom: 0;
+  display: inline-block;
+  transform-origin: center;
+  transition: transform 150ms ease;
+}
+
+.theme-toggle.is-swapping .material-symbols-outlined {
+  transform: scale(0);
 }

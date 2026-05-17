@@ -13,6 +13,9 @@
       dark: 'Theme: dark (click for system)'
     };
     var NEXT = { system: 'light', light: 'dark', dark: 'system' };
+    var SWAP_MS = 150;
+    var initialized = false;
+    var swapTimer = null;
 
     function getSetting() {
       var stored = localStorage.getItem('theme');
@@ -24,15 +27,31 @@
       return setting;
     }
 
+    function setIcon(name) {
+      if (!icon) return;
+      if (!initialized || icon.innerText === name) {
+        icon.innerText = name;
+        return;
+      }
+      if (swapTimer) clearTimeout(swapTimer);
+      btn.classList.add('is-swapping');
+      swapTimer = setTimeout(function() {
+        icon.innerText = name;
+        btn.classList.remove('is-swapping');
+        swapTimer = null;
+      }, SWAP_MS);
+    }
+
     function applySetting(setting) {
       localStorage.setItem('theme', setting);
       document.documentElement.setAttribute('data-theme', resolve(setting));
-      if (icon) icon.innerText = ICONS[setting];
+      setIcon(ICONS[setting]);
       btn.setAttribute('title', LABELS[setting]);
       btn.setAttribute('aria-label', LABELS[setting]);
     }
 
     applySetting(getSetting());
+    initialized = true;
 
     btn.addEventListener('click', function() {
       applySetting(NEXT[getSetting()]);
