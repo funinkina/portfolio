@@ -3,7 +3,7 @@ title : 'Reverse Engineering A Printer Driver For Linux'
 subtitle: 'How I made a printer whose driver was exclusively for windows work on Linux.'
 date : '2026-05-17T02:40:34+05:30'
 draft : true
-tags : []
+tags : ['linux', 'reverse engineering', 'driver development']
 toc: true
 next: true
 image: '/blog-assets/printer_driver_header.png'
@@ -26,13 +26,13 @@ A signed, packaged Windows driver might be obfuscated, and decompiling a large d
 
 ## Capturing the Traffic
 
-On Windows, there's a tool called **USBPcap** that hooks into the USB stack and captures all transfers to and from a selected device. It's CLI-based: run it, pick the USB host controller that your printer is on, start capture, print something, stop. It hands you a `.pcap` file that Wireshark understands natively.
+On Windows, there's a tool called **USBPcap** that hooks into the USB stack and captures all transfers to and from a selected device. It's CLI-based: run it, pick the USB host controller that your printer is on, start capturing, print something, stop capturing. It hands you a `.pcap` file that Wireshark understands natively.
 
-I booted the Windows VM, attached the printer, installed USBPcap, and printed a single-page PDF. (My own resume). Then I pulled the capture file over to my Linux machine and opened it in Wireshark.
+I booted the Windows VM, attached the printer, installed USBPcap, and printed a single-page PDF. Then I pulled the capture file over to my Linux machine and opened it in Wireshark.
 
 ## First Look: The Single-Page Capture
 
-The raw capture has a lot of noise like USB control transfers, device enumeration, interrupt transfers for status polling. I only care about bulk transfers going *to* the printer (host → device direction). In Wireshark's filter bar:
+The raw capture has a lot of noise like USB control transfers, device enumeration, interrupt transfers for status polling. I only care about bulk transfers going *to* the printer (host -> device direction). In Wireshark's filter bar:
 
 ```
 usb.transfer_type == 0x03 && usb.endpoint_address.direction == 0
@@ -49,7 +49,7 @@ $ tshark -r ricoh.pcap -Y "usb.transfer_type == 0x03 && usb.endpoint_address.dir
   22  59.189228  1.3.1 → host  USB    27 URB_BULK out
 ```
 
-Frames 20 and 22 are the printer's ACK responses (27-byte URB headers, no data). The real action is in frames **19** and **21**: **two bulk OUT transfers, 65,536 and 59,676 bytes** of actual payload, respectively. One page of printing produces about 125 KB of data over USB.
+Frames **20** and **22** are the printer's ACK responses (27-byte URB headers, no data). The real action is in frames **19** and **21**: **two bulk OUT transfers, 65,536 and 59,676 bytes** of actual payload, respectively. One page of printing produces about 125 KB of data over USB.
 
 ## Decoding the First Packet
 
@@ -64,7 +64,7 @@ $ tshark -r ricoh.pcap \
 
 Output (printable strings extracted from binary):
 
-```
+```text
 %-12345X@PJL
 @PJL SET TIMESTAMP=2026/05/14 12:54:44
 @PJL SET FILENAME=Aryan Kushwaha Resume - AryanKushwaha_Resume.pdf
@@ -88,7 +88,7 @@ Output (printable strings extracted from binary):
 %-12345X
 ```
 
-That's immediately recognizable. `%-12345X` is the **Universal Exit Language (UEL)** sequence, as referenced from [PJL Quick Reference](https://ujr.github.io/pracc/doc/pjl-qref.html). It's the standard "wake up the printer" prefix used by HP-derived print protocols. `@PJL` is **Printer Job Language**, a text-based meta-layer that wraps print data and carries job settings. The printer is speaking PJL.
+That's immediately recognizable. `%-12345X` is the **Universal Exit Language (UEL)** sequence, as referenced from [PJL Quick Reference](https://ujr.github.io/pracc/doc/pjl-qref.html). It's the standard "wake up the printer" prefix used by HP-derived print protocols. `@PJL` is **Printer Job Language**, a text-based meta-layer that wraps print data and carries job settings. The printer is speaking **PJL**.
 
 This is a much better starting point than I expected. No proprietary binary format, no obfuscation, just text commands followed by compressed image data.
 
@@ -96,23 +96,23 @@ This is a much better starting point than I expected. No proprietary binary form
 
 Working through the commands one by one:
 
-| Command | Meaning |
-|---|---|
-| `ESC%-12345X@PJL\r\n` | UEL + enter PJL mode |
-| `TIMESTAMP=2026/05/14 12:54:44` | Job timestamp |
-| `FILENAME=...pdf` | Source filename |
-| `COMPRESS=JBIG` | Compression format used for image data |
-| `USERNAME=archputer` | Submitting user |
-| `COVER=OFF`, `HOLD=OFF` | Job options (cover sheet, secure hold) |
-| `PAGESTATUS=START` | Begin page 1 |
-| `COPIES=1` | Print one copy |
-| `MEDIASOURCE=TRAY1` | Paper from tray 1 |
-| `MEDIATYPE=PLAINRECYCLE` | Media type |
-| `PAPER=A4` | Paper size name |
-| `PAPERWIDTH=4961` | Width in pixels at 600 dpi (A4 = 210 mm → 4961 px) |
-| `PAPERLENGTH=7016` | Height in pixels at 600 dpi (A4 = 297 mm → 7016 px) |
-| `RESOLUTION=600` | 600 dpi |
-| `IMAGELEN=65556` | Compressed image data size that follows |
+| Command                         | Meaning                                             |
+| ------------------------------- | --------------------------------------------------- |
+| `ESC%-12345X@PJL\r\n`           | UEL + enter PJL mode                                |
+| `TIMESTAMP=2026/05/14 12:54:44` | Job timestamp                                       |
+| `FILENAME=...pdf`               | Source filename                                     |
+| `COMPRESS=JBIG`                 | Compression format used for image data              |
+| `USERNAME=archputer`            | Submitting user                                     |
+| `COVER=OFF`, `HOLD=OFF`         | Job options (cover sheet, secure hold)              |
+| `PAGESTATUS=START`              | Begin page 1                                        |
+| `COPIES=1`                      | Print one copy                                      |
+| `MEDIASOURCE=TRAY1`             | Paper from tray 1                                   |
+| `MEDIATYPE=PLAINRECYCLE`        | Media type                                          |
+| `PAPER=A4`                      | Paper size name                                     |
+| `PAPERWIDTH=4961`               | Width in pixels at 600 dpi (A4 = 210 mm → 4961 px)  |
+| `PAPERLENGTH=7016`              | Height in pixels at 600 dpi (A4 = 297 mm → 7016 px) |
+| `RESOLUTION=600`                | 600 dpi                                             |
+| `IMAGELEN=65556`                | Compressed image data size that follows             |
 
 The `COMPRESS=JBIG` line was the key discovery. **[JBIG](https://en.wikipedia.org/wiki/JBIG)** (Joint Bi-level Image Experts Group) is an international standard for compressing binary images - ITU-T T.82, finalized in 1993. It's designed precisely for this: monochrome laser printer output at high resolution. I had initially guessed the printer might use **HBPL2** (used by many other Ricoh printers in foo2zjs), but grepping for `HBPL` in the raw stream finds nothing. This is pure PJL + JBIG1.
 
@@ -135,23 +135,23 @@ After the `\r\n` terminator of the IMAGELEN command, the 20-byte **JBIG1 BIE (Bi
 
 [The JBIG1 BIE header format](https://github.com/ImageMagick/jbig/blob/main/libjbig/jbig.doc) (ITU-T T.82, §6.2.1):
 
-| Bytes | Value | Field | Meaning |
-|---|---|---|---|
-| 0 | `00` | DL | Lowest resolution layer = 0 |
-| 1 | `00` | D | Number of differential layers = 0 (direct single-resolution) |
-| 2 | `01` | P | Number of image planes = 1 (monochrome) |
-| 3 | `00` | — | Reserved |
-| 4–7 | `00 00 13 61` | Xd | Image width = **4961 px** (A4 at 600 dpi) |
-| 8–11 | `00 00 1b 68` | Yd | Image height = **7016 px** (A4 at 600 dpi) |
-| 12–15 | `00 00 00 80` | L0 | Stripe height = **128 lines** |
-| 16 | `00` | Mx | Adaptive template pixel offset = 0 |
-| 17 | `00` | Dmax | Maximum number of differential layers = 0 |
-| 18 | `03` | order | JBIG ordering flags |
-| 19 | `48` | options | JBIG encoding options |
+| Bytes | Value         | Field   | Meaning                                                      |
+| ----- | ------------- | ------- | ------------------------------------------------------------ |
+| 0     | `00`          | DL      | Lowest resolution layer = 0                                  |
+| 1     | `00`          | D       | Number of differential layers = 0 (direct single-resolution) |
+| 2     | `01`          | P       | Number of image planes = 1 (monochrome)                      |
+| 3     | `00`          | —       | Reserved                                                     |
+| 4–7   | `00 00 13 61` | Xd      | Image width = **4961 px** (A4 at 600 dpi)                    |
+| 8–11  | `00 00 1b 68` | Yd      | Image height = **7016 px** (A4 at 600 dpi)                   |
+| 12–15 | `00 00 00 80` | L0      | Stripe height = **128 lines**                                |
+| 16    | `00`          | Mx      | Adaptive template pixel offset = 0                           |
+| 17    | `00`          | Dmax    | Maximum number of differential layers = 0                    |
+| 18    | `03`          | order   | JBIG ordering flags                                          |
+| 19    | `48`          | options | JBIG encoding options                                        |
 
 I initially assumed those 20 bytes were a proprietary Ricoh header on top of the JBIG stream. They're not, it's a completely standard BIE header. The 4961 and 7016 values confirmed it: A4 paper at 600 dpi is exactly 210 mm × (600/25.4) = 4961 pixels wide, and 297 mm × (600/25.4) = 7016 pixels tall.
 
-Bytes 18 and 19: the `order` and `options` flags, turned out to be important later. I noted their exact values: `0x03` and `0x48`.
+Bytes `18` and `19`: the `order` and `options` flags, turned out to be important later. I noted their exact values: `0x03` and `0x48`.
 
 ## My Initial Hypothesis Was Wrong
 
@@ -164,7 +164,7 @@ $ tshark -r ricoh.pcap -T fields -e usb.capdata | xxd -r -p | grep -a "HBPL"
 (no output)
 ```
 
-Nothing. And searching the jbigkit source, the JBIG compression algorithm is documented in ITU-T T.82, a public standard with publicly available implementations. The `jbigkit` library (`libjbig`) implements it exactly. So I had a complete picture: **PJL header → JBIG1 BIE → implement with jbigkit → done**. Or so I thought.
+Nothing. And searching the jbigkit source, the JBIG compression algorithm is documented in ITU-T T.82, a public standard with publicly available implementations. The `jbigkit` library (`libjbig`) implements it exactly. So I had a basic overview: **PJL header -> JBIG1 BIE -> implement with jbigkit -> done**. Or so I thought.
 
 ## Building the First Driver
 
@@ -203,7 +203,7 @@ The printer made no sound whatsoever. No motor spin, no LED activity. The job si
 
 ## Bug 1: The Missing Bare `@PJL` Line
 
-I stared at the hex dump of my driver's output versus the captured Windows driver output for a while before spotting the difference. My driver emitted:
+I rematched at the hex dump of my driver's output against the captured Windows driver output for a while before spotting the difference. My driver emitted:
 
 ```
 ESC%-12345X@PJL SET TIMESTAMP=...
@@ -258,24 +258,39 @@ jbg_enc_options(&enc, order, options, l0, mx, dmax);
 jbg_enc_out(&enc);
 ```
 
-Looking at the captured BIE header: byte 18 = `0x03` (order), byte 19 = `0x48` (options). My first attempt had used `jbg_enc_options(&enc, 0x03, 0x08, 128, 0, 0)`, guessing `0x08` for options because that's a common JBIG option for "no TPDON" (typical prediction disabled).
+Looking at the captured BIE header: byte 18 = `0x03` (order), byte 19 = `0x48` (options). My first attempt had used `jbg_enc_options(&enc, 0x03, 0x08, 128, 0, 0)`, guessing `0x08` as a common JBIG option for TPDON (typical prediction for differential layers).
 
-The jbigkit 2.1 source reveals that `jbg_enc_options()` stores the `options` argument **directly** into BIE byte 19, with no bit translation. So whatever value I pass for options is what appears verbatim in the BIE header. Passing `0x08` produces byte 19 = `0x08`. The Windows driver produces `0x48`.
+A blank page. The jbigkit 2.1 source then revealed something important: `jbg_enc_options()` stores the `options` argument **directly** into BIE byte 19, with no bit translation. So whatever I pass is what appears verbatim in the header. I was encoding with `0x08` and declaring `0x08`. But the Windows capture showed `0x48`.
 
-`0x48` in binary is `0100 1000`. The JBIG1 options byte bits are:
-- Bit 6 (`0x40`): `LRLTWO`: use two-line template for low-resolution layer
-- Bit 3 (`0x08`): `TPDON`: typical prediction for differential layers
+My first attempt at fixing this was wrong in a subtle way: I patched BIE byte 19 manually to `0x48` *after* jbigkit had already encoded the stream. I thought the byte just told the printer which options to expect. like a capability flag. So changing the declared value without re-encoding seemed fine.
 
-The Windows driver uses `LRLTWO | TPDON = 0x40 | 0x08 = 0x48`. My driver was sending `0x08` (TPDON only, no LRLTWO). The printer's decoder expected `0x48` and produced no output when the options byte didn't match what it anticipated.
+The result was a **completely black page**.
 
-Fix:
+Adding debug logging to count the black pixels before encoding showed the issue clearly:
+
+```
+Filter invoked!
+--- page 1 ---
+  Width=4961  Height=7016  DPI=600
+  ColorSpace=3  BitsPerColor=1  BitsPerPixel=1
+  page 1 encoded and sent
+
+Done. Total pages=1  total_dots=9585
+```
+
+`total_dots=9585`: correct for a page with a few lines of text on an otherwise white sheet. The bitmap going into `jbigkit` was right. The problem was entirely in the JBIG stream the printer was decoding.
+
+The real issue: `0x48` vs `0x08` isn't a metadata flag, it changes the actual **compression algorithm**. The bit in question is `LRLTWO` (`0x40`). When set, the encoder uses a two-line prediction template for the lowest resolution layer; when clear, it uses a three-line template. These two templates produce completely different bitstreams.
+
+By patching the header byte to `0x48` while leaving the encoded data generated with `0x08` (the three-line template), I told the printer's decoder to expect a two-line template but fed it data encoded with the three-line template. The decoder applied the wrong prediction context to every pixel, producing maximum decoding errors, which manifests as a fully black page.
+
+The correct fix: pass `0x48` to `jbg_enc_options` so that both the encoding *and* the declared header are consistent:
 
 ```c
 jbg_enc_options(&enc, 0x03, 0x48, 128, 0, 0);
 ```
 
-After the fix: the printer produced a page with *something* on it, but the image was scrambled — misaligned stripes, random black bands. Wrong data, not wrong format.
-// this was black page, need to fix this
+After the fix: the page came out with actual content — no longer all-black — but the image was garbled. Wrong pixels, wrong proportions. The stream structure was valid; the pixel data feeding into it was not.
 
 ## Bug 4: CUPS Delivering 8-bit Grayscale Instead of 1-bit Packed
 
@@ -339,6 +354,8 @@ $ tshark -r ricoh_capture.pcap \
     -T fields -e usb.capdata \
     | while read hex; do echo "$hex" | xxd -r -p | strings -n 6; done
 ```
+
+Formatted: 
 
 ```
 %-12345X@PJL
@@ -633,12 +650,12 @@ drvinst/        ← driver install tool
 
 Key files in `DISK1/`:
 
-| File | Type |
-|---|---|
-| `GOEGGDIM.inf` | Windows INF (plain text) |
-| `GOEG_GDIM.ini` | Config (plain text) |
+| File             | Type                                            |
+| ---------------- | ----------------------------------------------- |
+| `GOEGGDIM.inf`   | Windows INF (plain text)                        |
+| `GOEG_GDIM.ini`  | Config (plain text)                             |
 | `*.dl_`, `*.ex_` | LZ-compressed DLLs/EXEs (Microsoft SZDD format) |
-| `*.xm_` | LZ-compressed XML configs |
+| `*.xm_`          | LZ-compressed XML configs                       |
 
 The `.xm_` files looked promising, compressed XML configs are exactly where a Windows driver would store its paper geometry.
 
@@ -750,7 +767,7 @@ $ grep -i -E "imageable|margin|A4|letter|papersize|offset" \
     /tmp/goeg_gdimsfpacfg.xml
 ```
 
-The hit that mattered:
+The relevant output:
 
 ```xml
 <MediaSizeRecord ID="A4" ClassifyingID="iso_a4_210x297mm"
@@ -795,10 +812,10 @@ The PPD `ImageableArea` format is `llx lly urx ury`: lower-left and upper-right 
 
 Comparing old vs new:
 
-| Paper | Old | New | What was wrong |
-|---|---|---|---|
-| A4 | `10 10 585 832` | `13.1 13.1 581.9 828.9` | All four margins were ~3.5 mm instead of the correct 4.6 mm |
-| Letter | `0 0 603 783` | `13.1 13.1 598.9 778.9` | Left and bottom margins were 0 — physically impossible — right and top were ~9 pt, causing prints to drift toward the bottom-left corner |
+| Paper  | Old             | New                     | What was wrong                                                                                                                           |
+| ------ | --------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| A4     | `10 10 585 832` | `13.1 13.1 581.9 828.9` | All four margins were ~3.5 mm instead of the correct 4.6 mm                                                                              |
+| Letter | `0 0 603 783`   | `13.1 13.1 598.9 778.9` | Left and bottom margins were 0 — physically impossible — right and top were ~9 pt, causing prints to drift toward the bottom-left corner |
 
 The fix was two lines in the PPD:
 
@@ -836,13 +853,13 @@ The Ricoh SP 200 speaks a completely standard protocol: **PJL (Printer Job Langu
 
 The five bugs discovered along the way, in order:
 
-| Bug | Symptom | Root Cause |
-|---|---|---|
-| 1 | Silent job drop | Missing bare `@PJL\r\n` after UEL |
-| 2 | Motor runs, no paper | Missing `@PJL SET PAPERLENGTH` |
-| 3 | Blank page out | Wrong JBIG options byte (`0x08` → `0x48`) |
-| 4 | Scrambled image | CUPS delivering 8-bit grayscale, filter assuming 1-bit packed |
-| 5 | Only first page prints | Missing `PAGESTATUS=END` / `PAGESTATUS=START` per page, no `DOTCOUNT`, wrong stride from manual calculation |
+| Bug | Symptom                | Root Cause                                                                                                  |
+| --- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| 1   | Silent job drop        | Missing bare `@PJL\r\n` after UEL                                                                           |
+| 2   | Motor runs, no paper   | Missing `@PJL SET PAPERLENGTH`                                                                              |
+| 3   | Blank page out         | Wrong JBIG options byte (`0x08` → `0x48`)                                                                   |
+| 4   | Scrambled image        | CUPS delivering 8-bit grayscale, filter assuming 1-bit packed                                               |
+| 5   | Only first page prints | Missing `PAGESTATUS=END` / `PAGESTATUS=START` per page, no `DOTCOUNT`, wrong stride from manual calculation |
 
 Bugs 1–4 were found by comparing my driver's output byte-for-byte against the single-page capture. Bug 5 required a second capture specifically of a multi-page job, the single-page capture gave no hint of the page lifecycle protocol that the firmware required.
 
