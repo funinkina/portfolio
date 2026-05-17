@@ -14,7 +14,7 @@
   padding-bottom: 0px;
   text-align: left;
   opacity: 80%;
-  color: white;
+  color: var(--text);
 }
 
 .single-image-wrapper {

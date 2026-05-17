@@ -1,3 +1,30 @@
+<!-- Theme toggle. -->
+<script defer>
+  (function() {
+    var btn = document.querySelector('.theme-toggle');
+    var icon = btn && btn.querySelector('.material-symbols-outlined');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (icon) {
+        icon.innerText = theme === 'dark' ? 'light_mode' : 'dark_mode';
+      }
+      btn && btn.setAttribute('title', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    if (btn) {
+      var current = localStorage.getItem('theme') || 'dark';
+      applyTheme(current);
+
+      btn.addEventListener('click', function() {
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+      });
+    }
+  })();
+</script>
+
 <!-- Shortcuts. -->
 <script defer>
   document.addEventListener("keydown", function (e) {

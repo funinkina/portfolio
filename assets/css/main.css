@@ -28,6 +28,37 @@
   --border: #333;
 }
 
+[data-theme="light"] {
+  --complimentary: #4a6a9a;
+  --text: #1a1a1a;
+  --code: #2d2d2d;
+  --text-dim: #404040;
+  --link: #1a56db;
+  --link-visited: #6d28d9;
+  --code-background: #f5f5f5;
+  --code-border: #d0d0d0;
+  --code-hl: #e8e8e8;
+  --border-general: #d0d0d0;
+  --table-th: #6889b640;
+  --table-tr: #f5f5f5;
+  --toc-background: #f0f0f0;
+  --toc-border: #9b9b9b;
+  --background: #ffffff;
+  --background-rgb: 255, 255, 255;
+  --card-bg: #f0f0f0;
+  --accent: #e8e8e8;
+  --border: #d0d0d0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    url(/Rectangle.png),
+    url(/footer-bg.svg),
+    url(/waves.svg);
+  background-repeat: no-repeat, repeat, no-repeat, no-repeat;
+  background-position: top left, top left, bottom left calc(100% - 50px), right 10px top 300px;
+  background-attachment: fixed, fixed, scroll, scroll;
+  background-size: 100% 100%, 10%, 7%, 80px;
+}
+
 ::selection {
   background-color: var(--complimentary);
 }

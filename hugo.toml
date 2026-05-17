@@ -1,4 +1,7 @@
 baseURL = 'https://funinkina.co.in/'
+
+[markup.highlight]
+noClasses = false
 locale = 'en-us'
 title = "funinkina's corner"
 
@@ -36,7 +39,3 @@ weight = 1
 name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>deployed_code</span> PROJECTS"
 url = "/projects/"
 weight = 2
-[[menu.main]]
-name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>rss_feed</span> RSS FEED"
-url = "/index.xml"
-weight = 3

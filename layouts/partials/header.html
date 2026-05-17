@@ -79,6 +79,13 @@
     <title>{{ .Title }} by funinkina | {{ .Site.Title }} by funinkina</title>
     {{ end }}
 
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
     {{ $CSS := slice
     (resources.Get "css/main.css")
     (resources.Get "css/menu.css")
@@ -100,20 +107,18 @@
     {{ if not .Params.nomenu }}
     <nav
       class="nav-bar{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}">
-      <div class="nav-title-row">
-        <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
-              src="/favicon.ico" alt>
-            {{- if .IsHome -}}
-            funinkina&apos;s corner
-            {{- else if eq .Section "blog" -}}
-            funinkina&apos;s blogs
-            {{- else if eq .Section "projects" -}}
-            funinkina&apos;s projects
-            {{- else -}}
-            funinkina&apos;s blogs
-            {{- end -}}
-          </a></h1>
-      </div>
+      <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
+            src="/favicon.ico" alt>
+          {{- if .IsHome -}}
+          funinkina&apos;s corner
+          {{- else if eq .Section "blog" -}}
+          funinkina&apos;s blogs
+          {{- else if eq .Section "projects" -}}
+          funinkina&apos;s projects
+          {{- else -}}
+          funinkina&apos;s blogs
+          {{- end -}}
+        </a></h1>
       <ul class="menu">
         {{ range .Site.Menus.main }}
         <li><a tabindex="-1" class="menu-link" href="{{ .URL | relURL }}">{{
@@ -130,6 +135,13 @@
         </button>
         {{ end }}
       </ul>
+      <button
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle color scheme"
+        title="Toggle color scheme">
+        <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+      </button>
     </nav>
     {{ end }}
 

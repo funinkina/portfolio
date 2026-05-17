@@ -12,14 +12,14 @@
 
 .nav-bar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  column-gap: 1.5rem;
   background-color: rgba(var(--background-rgb), 0.2);
   background-image: url(/Rectangle.png);
   background-size: 7%;
   background-attachment: fixed;
   margin-bottom: 20px;
-  padding: 10px 20px;
+  padding: 5px 15px;
   border: 1px solid var(--toc-border);
   border-radius: 5px;
   position: sticky;
@@ -40,16 +40,15 @@
   font-weight: 300;
 }
 
+.nav-bar li {
+  line-height: 2;
+}
+
 .nav-bar .material-symbols-outlined {
   font-size: 1rem;
   padding-top: 3px;
 }
 
-.nav-title-row {
-  align-items: center;
-  display: flex;
-  gap: 0.6rem;
-}
 
 .mobile-toc-toggle {
   align-items: center;
@@ -70,35 +69,35 @@
   padding-bottom: 0px;
 }
 
+.mobile-toc-toggle:hover {
+  color: var(--complimentary);
+}
+
 @media (max-width: 819px) {
   .nav-bar {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
     padding-top: 10px;
+    padding-bottom: 10px;
+    column-gap: 0;
+  }
+
+  .nav-bar>h1 {
+    flex: 1;
   }
 
   .nav-bar ul {
     column-gap: 1.1rem;
   }
 
-  .nav-bar.has-mobile-toc .nav-title-row {
-    padding-right: 2.6rem;
-  }
-
-  .nav-title-row {
-    width: 100%;
-  }
-
   .menu {
-    margin-top: 10px;
-    margin-bottom: 10px;
     width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding: 0;
   }
 
   .nav-bar ul {
     font-size: 1rem;
-    margin-top: 10px;
     white-space: nowrap;
     flex-wrap: wrap;
   }
@@ -110,6 +109,7 @@
   font-weight: 200;
   padding: 0;
   margin: 0;
+  flex: 1;
 }
 
 .nav-bar h1 img {
@@ -143,14 +143,7 @@
   .mobile-toc-toggle.is-visible {
     display: inline-flex;
     flex: 0 0 auto;
-  }
-}
-
-@media (max-width: 1000px) {
-  .mobile-toc-toggle.is-visible {
-    position: absolute;
-    right: 20px;
-    top: 10px;
+    margin-left: auto;
   }
 }
 
@@ -158,4 +151,34 @@
   .nav-bar h1 {
     font-size: 1.35rem;
   }
+}
+
+[data-theme="light"] .nav-bar {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    url(/Rectangle.png);
+}
+
+.theme-toggle {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  padding: 0;
+  width: 2rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.theme-toggle:hover {
+  color: var(--complimentary);
+}
+
+.theme-toggle .material-symbols-outlined {
+  font-size: 1.6rem;
+  line-height: 1;
+  padding-bottom: 0;
 }
