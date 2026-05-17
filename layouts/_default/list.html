@@ -52,7 +52,7 @@
 
         <div class="blog-list-clean">
             {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
-            {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
+            {{ partial "blog_row.html" (dict "Page" $p "Index" (add $i 1)) }}
             {{ end }}
         </div>
         {{ if gt (len .RegularPages) 5 }}

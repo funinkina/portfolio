@@ -2,7 +2,7 @@
 {{- $index := .Index | default 99 -}}
 {{- $loading := "lazy" -}}
 {{- $priority := "" -}}
-{{- if lt $index 2 -}}{{- $loading = "eager" -}}{{- $priority = "high" -}}{{- end -}}
+{{- if le $index 2 -}}{{- $loading = "eager" -}}{{- $priority = "high" -}}{{- end -}}
 <div class="blog-row" data-title="{{ $page.Title | lower }}" data-description="{{ $page.Description | default $page.Summary | plainify | lower }}">
     {{ if $page.Params.image }}
     <div class="blog-row-image">
