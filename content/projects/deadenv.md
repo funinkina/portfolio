@@ -7,6 +7,7 @@ tags : ['go', 'security', 'cli', 'devtools']
 toc: true
 next: true
 image: '/blog-assets/deadenv_header.png'
+github: 'funinkina/deadenv'
 ---
 
 Every developer I know has a `.env` file they shouldn't. Maybe it has a production API key. Maybe it's tracked in git with a `.gitignore` entry that someone forgot to add. Maybe it's just sitting there, world-readable, on a shared dev machine. We all know it's bad. We keep doing it anyway because there's no real alternative that doesn't add significant friction.

@@ -7,6 +7,7 @@ tags : ['linux', 'gnome', 'javascript', 'extension']
 toc: true
 next: true
 image: ''
+github: 'funinkina/weekly-commits'
 ---
 # Weekly Commits GNOME Extension — Visualize Your GitHub Activity Right from the Top Bar
 

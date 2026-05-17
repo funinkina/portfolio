@@ -7,6 +7,7 @@ tags : ['machine learning', 'research paper']
 toc: true
 next: true
 image: '/blog-assets/dem-1.png'
+github: 'funinkina/DEM-Super-Resolution'
 ---
 
 ## Project Description

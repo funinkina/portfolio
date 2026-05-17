@@ -1,18 +1,31 @@
-<div class="project-card" data-title="{{ .Title | lower }}" data-description="{{ .Description | default .Summary | plainify | lower }}">
+<div class="project-card" data-title="{{ .Title | lower }}"
+    data-description="{{ .Description | default .Summary | plainify | lower }}">
     <a href="{{ .RelPermalink }}">
-    <div class="project-image-container">
-        {{ if .Params.image }}
-        {{ partial "processed-image.html" (dict "path" .Params.image "width" 600 "alt" .Title "class" "project-image" "loading" "lazy") }}
-        {{ else }}
-        <div class="project-placeholder">
-            <span>{{ .Title }}</span>
+        <div class="project-image-container">
+            {{ if .Params.github }}
+            <img
+                src="https://opengraph.github.com/repo/{{ .Params.github }}"
+                alt="{{ .Title }}"
+                class="project-image"
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="600">
+            {{ else if .Params.image }}
+            {{ partial "processed-image.html" (dict "path" .Params.image "width"
+            600 "alt" .Title "class" "project-image" "loading" "lazy") }}
+            {{ else }}
+            <div class="project-placeholder">
+                <span>{{ .Title }}</span>
+            </div>
+            {{ end }}
         </div>
-        {{ end }}
-    </div>
     </a>
     <div class="project-details">
-        <h3 class="project-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <p class="project-description">{{ .Description | default .Summary | plainify }}</p>
+        <h3 class="project-title"><a href="{{ .RelPermalink }}">{{ .Title
+                }}</a></h3>
+        <p class="project-description">{{ .Description | default .Summary |
+            plainify }}</p>
         <div class="project-tags">
             {{ range .Params.tags }}
             <span class="tech-tag">{{ . }}</span>

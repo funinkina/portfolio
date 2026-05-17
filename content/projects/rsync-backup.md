@@ -7,6 +7,7 @@ tags : ['shell scripting', 'linux']
 toc: true
 next: true
 image: ''
+github: 'funinkina/rsync-backup-script'
 ---
 
 This is a simple, customizable shell script designed to help users back up specific parts of their home directory to an external drive. It leverages the power of the `rsync` command for efficient file synchronization.
