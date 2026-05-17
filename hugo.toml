@@ -2,12 +2,12 @@ baseURL = 'https://funinkina.co.in/'
 title = "funinkina's corner"
 
 [minify]
-  minifyOutput = true
+minifyOutput = true
 
 [caches]
-  [caches.getresource]
-    dir = ":resourceDir/_gen"
-    maxAge = "168h"
+[caches.getresource]
+dir = ":resourceDir/_gen"
+maxAge = "168h"
 
 [markup.highlight]
 noClasses = false
@@ -19,7 +19,7 @@ filename = "sitemap.xml"
 priority = 0.5
 
 [params]
-author = "Aryan Kushwaha"
+author = "Aryan K."
 subtitle = "23 • Systems and Backend Engineer • ENGLISH / हिंदी"
 location = "Bangalore, India"
 avatar = "avatar.jpg"

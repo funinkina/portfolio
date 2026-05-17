@@ -146,11 +146,6 @@
     {{- end -}}
     {{- end -}}
     {{- if .IsHome -}}
-    {{- $avRes := resources.Get "avatar.jpg" -}}
-    {{- if $avRes -}}
-    {{- $avWebp1x := $avRes.Resize "160x160 webp" -}}
-    <link rel="preload" as="image" href="{{ $avWebp1x.RelPermalink }}" type="image/webp" fetchpriority="high">
-    {{- end -}}
     {{- $blog := .Site.GetPage "section" "blog" -}}
     {{- with $blog -}}
     {{- range first 2 .RegularPages.ByDate.Reverse -}}
