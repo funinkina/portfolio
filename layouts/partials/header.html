@@ -108,21 +108,26 @@
       })();
     </script>
 
-    {{ $CSS := slice
+    {{ $coreCSS := slice
     (resources.Get "css/main.css")
     (resources.Get "css/menu.css")
-    (resources.Get "css/toc.css")
     (resources.Get "css/images.css")
-    (resources.Get "css/post_meta.css")
     (resources.Get "css/search.css")
-    (resources.Get "css/code.css")
     (resources.Get "css/box.css")
     (resources.Get "css/tables.css")
     (resources.Get "css/misc.css")
-    | resources.Concat "style.css" | minify | fingerprint }}
-    <link rel="preload" href="{{ $CSS.RelPermalink }}" as="style">
-    <link rel="stylesheet" type="text/css" href="{{ $CSS.RelPermalink }}"
-      media="all">
+    | resources.Concat "core.css" | minify | fingerprint }}
+    <link rel="preload" href="{{ $coreCSS.RelPermalink }}" as="style">
+    <link rel="stylesheet" type="text/css" href="{{ $coreCSS.RelPermalink }}" media="all">
+    {{- if .IsPage -}}
+    {{ $articleCSS := slice
+    (resources.Get "css/code.css")
+    (resources.Get "css/post_meta.css")
+    (resources.Get "css/toc.css")
+    | resources.Concat "article.css" | minify | fingerprint }}
+    <link rel="preload" href="{{ $articleCSS.RelPermalink }}" as="style">
+    <link rel="stylesheet" type="text/css" href="{{ $articleCSS.RelPermalink }}" media="all">
+    {{- end -}}
     {{- if and .IsPage .Params.image -}}
       {{- $heroPath := strings.TrimPrefix "/" .Params.image -}}
       {{- $heroImg := resources.Get $heroPath -}}

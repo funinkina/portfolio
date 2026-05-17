@@ -17,7 +17,7 @@
   background-color: rgba(var(--background-rgb), 0.2);
   background-image: url(/Rectangle.png);
   background-size: 7%;
-  background-attachment: fixed;
+  background-attachment: scroll;
   margin-bottom: 20px;
   padding: 5px 15px;
   border: 1px solid var(--toc-border);
