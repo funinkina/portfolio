@@ -62,11 +62,17 @@
 
 .single-meta-content {
   display: flex;
-  align-items: start;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.single-meta-subtitle-row {
+  display: flex;
+  align-items: center;
   gap: 20px;
 }
 
-.single-meta-left {
+.single-meta-subtitle-row #subtitle {
   flex: 1;
   min-width: 0;
 }
@@ -96,6 +102,18 @@
   font-size: 90%;
 }
 
+.datesub {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.datesub .material-symbols-outlined {
+  padding-top: 4px;
+  font-size: 1em;
+  line-height: 1;
+}
+
 #single-meta {
   margin-top: 0;
   margin-bottom: 0px;
@@ -109,8 +127,8 @@
 }
 
 #subtitle {
-  margin-top: -4px;
-  margin-bottom: 0.3em;
+  margin-top: 0;
+  margin-bottom: 0;
   font-size: 1.4em;
   color: var(--text-dim);
   font-weight: 300;
@@ -151,8 +169,8 @@
 
 @media (max-width: 600px) {
   .single-share-button {
-    height: 2rem;
-    width: 2rem;
+    height: 3rem;
+    width: 3rem;
   }
 
   #single-header h1 {

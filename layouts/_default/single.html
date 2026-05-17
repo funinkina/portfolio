@@ -12,33 +12,49 @@
   {{ end }}
   <div id="single-meta">
     <div class="single-meta-content">
-      <div class="single-meta-left">
-        {{ if .Params.subtitle }}
+      {{ if .Params.subtitle }}
+      <div class="single-meta-subtitle-row">
         <p id="subtitle">{{ .Params.subtitle }}</p>
-        {{ end }}
-        <div class="single-meta-row">
-          {{ if .Params.date }}
-          <span class="datesub">
-            {{ .Date.Format "Jan 2, 2006" }}
-            {{- if .GitInfo -}}
-            &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
-            {{- end -}}
-          </span>
-          {{ end }}
-          {{ partial "tags.html" .}}
-        </div>
+        <button
+          class="single-share-button"
+          type="button"
+          aria-label="Share this page"
+          title="Share this page"
+          data-share-title="{{ .Title }}"
+          data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
+          data-share-url="{{ .Permalink }}">
+          <span class="material-symbols-outlined" aria-hidden="true">share</span>
+          <p>Tell others about it!</p>
+        </button>
       </div>
-      <button
-        class="single-share-button"
-        type="button"
-        aria-label="Share this page"
-        title="Share this page"
-        data-share-title="{{ .Title }}"
-        data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
-        data-share-url="{{ .Permalink }}">
-        <span class="material-symbols-outlined" aria-hidden="true">share</span>
-        <p>Tell others about it!</p>
-      </button>
+      {{ else }}
+      <div class="single-meta-subtitle-row">
+        <div></div>
+        <button
+          class="single-share-button"
+          type="button"
+          aria-label="Share this page"
+          title="Share this page"
+          data-share-title="{{ .Title }}"
+          data-share-text="{{ .Title }}"
+          data-share-url="{{ .Permalink }}">
+          <span class="material-symbols-outlined" aria-hidden="true">share</span>
+          <p>Tell others about it!</p>
+        </button>
+      </div>
+      {{ end }}
+      <div class="single-meta-row">
+        {{ if .Params.date }}
+        <span class="datesub">
+          <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+          {{ .Date.Format "Jan 2, 2006" }}
+          {{- if .GitInfo -}}
+          &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
+          {{- end -}}
+        </span>
+        {{ end }}
+        {{ partial "tags.html" .}}
+      </div>
     </div>
   </div>
 </div>
