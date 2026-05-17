@@ -51,11 +51,13 @@
 }
 
 .single-share-button:hover {
+  color: var(--card-bg);
   background-color: var(--complimentary);
   gap: 6px;
 }
 
 .single-share-button:hover>p {
+  color: var(--card-bg);
   max-width: 12rem;
   opacity: 1;
 }
