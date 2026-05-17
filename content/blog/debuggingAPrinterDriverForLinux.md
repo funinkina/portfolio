@@ -602,6 +602,211 @@ const char *paper = (hdr.PageSize[0] > 610) ? "LETTER" : "A4";
 
 Letter's width in points (612) is above the 610 threshold; A4's (595) is below it.
 
+## Getting the Margins Right
+
+The driver was printing correctly at this point, but there was one minor issue, the pages printed had had no margins on the top and left side. Which is caused by the `ImageableArea` entries in the PPD and since they were guesses. I had written:
+
+```ppd
+*ImageableArea A4/A4:     "10 10 585 832"
+*ImageableArea Letter/Letter: "0 0 603 783"
+```
+
+The A4 values were plausible round numbers. The Letter row was visibly wrong - `0 0` as the lower-left corner means the printer can print all the way to the physical edge of the paper, which no laser printer can do. I'd just copied something and moved on. The right thing to do was find the actual hardware margin from the manufacturer.
+
+Ricoh doesn't publish a Linux PPD for the SP 200, but they do publish the Windows driver installer: `r74156en.exe`. Windows driver installers often contain an INF or PPD that documents the imageable area. Time to crack it open.
+
+### Step 1: Extract the Installer
+
+```bash
+$ mkdir -p /tmp/ricoh_driver
+$ 7z x r74156en.exe -o/tmp/ricoh_driver -y
+```
+
+86 files extracted, ~12 MB total. `7z` identified the embedded container as a Zip archive with a small trailing "tail", which is normal for self-extractors. The interesting files landed in two places:
+
+```
+DISK1/          ← actual printer driver payload
+INSTDLL/        ← installer UI helpers
+NETDLL64/       ← network monitor DLLs
+drvinst/        ← driver install tool
+```
+
+Key files in `DISK1/`:
+
+| File | Type |
+|---|---|
+| `GOEGGDIM.inf` | Windows INF (plain text) |
+| `GOEG_GDIM.ini` | Config (plain text) |
+| `*.dl_`, `*.ex_` | LZ-compressed DLLs/EXEs (Microsoft SZDD format) |
+| `*.xm_` | LZ-compressed XML configs |
+
+The `.xm_` files looked promising, compressed XML configs are exactly where a Windows driver would store its paper geometry.
+
+### Step 2: First Attempt: Grep the Plain-Text Files
+
+My first instinct was to search the INF and INI files directly:
+
+```bash
+$ grep -i -E "paper|page|margin|imageable|letter|A4|size|area|dimension" \
+    /tmp/ricoh_driver/DISK1/GOEGGDIM.inf
+```
+
+No output. Windows INF files for PostScript drivers usually embed paper data, but this is a DDST/GDI driver-host-based rendering, where the printer is essentially a dumb pixel receiver. The INF handles only install metadata. A wider sweep across everything:
+
+```bash
+$ grep -r -i -E "imageable|PaperSize|margin|A4|letter|595|842|612|792" \
+    /tmp/ricoh_driver/ \
+    --include="*.ini" --include="*.txt" --include="*.xml" --include="*.inf"
+```
+
+Two trivial hits: `P_ACCPaperSize=3` in a network config INI. Nothing useful. The geometry data wasn't in any plain-text file.
+
+### Step 3: Identify the Compressed Format
+
+Running `file` on one of the `.xm_` files:
+
+```bash
+$ file /tmp/ricoh_driver/DISK1/goeg_gdimsfpacfg.xm_
+goeg_gdimsfpacfg.xm_: MS Compress archive data, SZDD variant,
+  l is last character of original name, original size: 225540 bytes
+```
+
+**SZDD**: Microsoft's old `compress.exe`/`expand.exe` format from the early 90s, still used in some driver packages. It's a simple LZ77 variant. The original filename was `goeg_gdimsfpacfg.xml` (the `_` replaces the last character, `l`). Running `strings` on the compressed file confirmed the contents were XML — the beginning of the decompressed stream leaked through:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<DeviceCapabilities ...
+```
+
+225,540 bytes of device-capabilities XML, compressed into the `.xm_` file.
+
+### Step 4: First Attempt to Decompress: The Wrong `expand`
+
+The obvious move was:
+
+```bash
+$ expand /tmp/ricoh_driver/DISK1/goeg_gdimsfpacfg.xm_ /tmp/goeg_gdimsfpacfg.xml
+```
+
+This didn't go as expected. **GNU `expand` converts tabs to spaces.** It has nothing to do with Microsoft's `expand.exe` decompressor, same name, completely unrelated programs. It just dumped the binary file unchanged.
+
+The correct Linux tools would be `cabextract -s` or `msexpand`. Instead of installing new packages, I wrote a decompressor inline (with the help of claude) as the SZDD format is small and fully documented.
+
+### Step 5: SZDD Decompressor in Python
+
+SZDD is straightforward: a 14-byte header followed by an LZ77 bitstream with a 4096-byte sliding window:
+
+```python
+import struct, sys
+
+def szdd_decompress(data):
+    magic = b'SZDD\x88\xf0\x27\x33'
+    assert data[:8] == magic, "Not SZDD"
+    # header: [8] compress_type, [9] last_char, [10:14] orig_size (LE)
+    orig_size = struct.unpack_from('<I', data, 10)[0]
+
+    window = bytearray(b' ' * 4096)  # initialized with spaces
+    wpos = 4096 - 16                  # write position in window
+    out = bytearray()
+    i = 14                            # skip header
+
+    while i < len(data):
+        ctrl = data[i]; i += 1
+        for bit in range(8):
+            if i >= len(data):
+                break
+            if ctrl & (1 << bit):    # literal byte
+                b = data[i]; i += 1
+                out.append(b)
+                window[wpos] = b
+                wpos = (wpos + 1) % 4096
+            else:                     # back-reference
+                lo = data[i]; i += 1
+                hi = data[i]; i += 1
+                offset = lo | ((hi & 0xf0) << 4)
+                length = (hi & 0x0f) + 3
+                for _ in range(length):
+                    b = window[offset % 4096]
+                    out.append(b)
+                    window[wpos] = b
+                    wpos = (wpos + 1) % 4096
+                    offset += 1
+    return bytes(out)
+
+with open(sys.argv[1], 'rb') as f:
+    data = f.read()
+result = szdd_decompress(data)
+sys.stdout.buffer.write(result)
+```
+
+Running this on `goeg_gdimsfpacfg.xm_` produced 225,540 bytes of clean XML. Exactly the size the SZDD header advertised.
+
+### Step 6: Search the Decompressed XML
+
+The decompressed file is a **UPDF (Universal Printer Description Format)** device-capabilities XML. The Windows driver's internal description of everything the printer can do. Grepping for margin-related terms:
+
+```bash
+$ grep -i -E "imageable|margin|A4|letter|papersize|offset" \
+    /tmp/goeg_gdimsfpacfg.xml
+```
+
+The hit that mattered:
+
+```xml
+<MediaSizeRecord ID="A4" ClassifyingID="iso_a4_210x297mm"
+  HardwareMargins="margins_left-0.182_top-0.182_right-0.182_bottom-0.182in"
+  StringID="PAPERSIZE_3009" />
+<MediaSizeRecord ID="Letter" ClassifyingID="na_letter_8.5x11in"
+  HardwareMargins="margins_left-0.182_top-0.182_right-0.182_bottom-0.182in"
+  StringID="PAPERSIZE_3001" />
+```
+
+Every paper size in the entire XML carries the same hardware margin string: **0.182 inches on all four sides**. This is the SP 200's physical unprintable border. It's a property of the transport mechanism, not a per-paper setting.
+
+There was also a separate element in the XML:
+
+```xml
+<mti:DefaultPaperOffsets Left="24.0" Top="24.0" Right="24.0" Bottom="24.0" />
+```
+
+I considered whether `24.0` could be the margin in some unit as 24 mm would be far too large (nearly an inch), and 24/100 mm would be far smaller than the explicit `0.182in`. The `HardwareMargins` attribute is explicit, named, and declares its unit (`in`). The `DefaultPaperOffsets` are likely rendering-pipeline offsets in the driver's internal coordinate system. I trusted `HardwareMargins`.
+
+### Step 7: Convert to PostScript Points
+
+PPD files use PostScript points (1 inch = 72 pt):
+
+```
+0.182 in × 72 pt/in = 13.104 pt ≈ 13.1
+```
+
+The PPD `ImageableArea` format is `llx lly urx ury`: lower-left and upper-right corners in points, measured from the bottom-left of the physical paper sheet:
+
+**A4** (PaperDimension 595 × 842 pt):
+- `llx` = 13.1 (left margin)
+- `lly` = 13.1 (bottom margin)
+- `urx` = 595 − 13.1 = 581.9
+- `ury` = 842 − 13.1 = 828.9
+
+**Letter** (PaperDimension 612 × 792 pt):
+- `llx` = 13.1
+- `lly` = 13.1
+- `urx` = 612 − 13.1 = 598.9
+- `ury` = 792 − 13.1 = 778.9
+
+Comparing old vs new:
+
+| Paper | Old | New | What was wrong |
+|---|---|---|---|
+| A4 | `10 10 585 832` | `13.1 13.1 581.9 828.9` | All four margins were ~3.5 mm instead of the correct 4.6 mm |
+| Letter | `0 0 603 783` | `13.1 13.1 598.9 778.9` | Left and bottom margins were 0 — physically impossible — right and top were ~9 pt, causing prints to drift toward the bottom-left corner |
+
+The fix was two lines in the PPD:
+
+```ppd
+*ImageableArea A4/A4:         "13.1 13.1 581.9 828.9"
+*ImageableArea Letter/Letter: "13.1 13.1 598.9 778.9"
+```
+
 ## Installation and Testing
 
 ```bash
@@ -641,4 +846,6 @@ The five bugs discovered along the way, in order:
 
 Bugs 1–4 were found by comparing my driver's output byte-for-byte against the single-page capture. Bug 5 required a second capture specifically of a multi-page job, the single-page capture gave no hint of the page lifecycle protocol that the firmware required.
 
-The complete source is on GitHub. If you have a Ricoh SP 200 and have been running a Windows VM just to print, you no longer have to.
+The margins were a separate research step entirely: not a bug that produced a wrong output, but a gap that would have made the driver subtly incorrect at the edges. Getting them right required cracking open the Windows installer, navigating a compressed XML format, and learning that GNU `expand` and Microsoft `expand.exe` share a name and nothing else.
+
+The complete source is on [GitHub](https://github.com/funinkina/Ricoh-SP200-Linux). If you have a Ricoh SP 200 and have been running a Windows VM just to print, you no longer have to.
