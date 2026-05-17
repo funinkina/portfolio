@@ -81,7 +81,11 @@
 
     <script>
       (function() {
-        var theme = localStorage.getItem('theme') || 'dark';
+        var setting = localStorage.getItem('theme') || 'system';
+        var theme = setting;
+        if (setting === 'system') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
@@ -131,7 +135,8 @@
           type="button"
           aria-label="Toggle color scheme"
           title="Toggle color scheme">
-          <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+          <span class="material-symbols-outlined"
+            aria-hidden="true">contrast</span>
         </button>
       </div>
       {{ if and .IsPage .Params.toc }}

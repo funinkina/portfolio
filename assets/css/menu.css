@@ -166,7 +166,7 @@
   align-items: center;
   background-color: transparent;
   border: none;
-  color: var(--text);
+  color: var(--link);
   cursor: pointer;
   display: inline-flex;
   height: 2rem;
