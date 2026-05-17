@@ -15,7 +15,7 @@ I have this **Ricoh SP 200** printer, a simple and cheap black-and-white laser p
 
 My only option was a Windows VM with USB passthrough, which worked but required booting into a VM just to print something. So I decided to take matters into my own hands and write the driver myself. How hard could it be?
 
-## The Approach
+## The approach
 
 Since the printer only connects over USB, I had two paths:
 
@@ -24,13 +24,13 @@ Since the printer only connects over USB, I had two paths:
 
 A signed, packaged Windows driver might be obfuscated, and decompiling a large driver binary is a significant effort. USB traffic, on the other hand, is plaintext on the wire and the printer speaks some protocol, and the driver is just sending bytes. I decided to start with capture.
 
-## Capturing the Traffic
+## Capturing the traffic
 
 On Windows, there's a tool called **USBPcap** that hooks into the USB stack and captures all transfers to and from a selected device. It's CLI-based: run it, pick the USB host controller that your printer is on, start capturing, print something, stop capturing. It hands you a `.pcap` file that Wireshark understands natively.
 
 I booted the Windows VM, attached the printer, installed USBPcap, and printed a single-page PDF. Then I pulled the capture file over to my Linux machine and opened it in Wireshark.
 
-## First Look: The Single-Page Capture
+## First look: the single-page capture
 
 The raw capture has a lot of noise like USB control transfers, device enumeration, interrupt transfers for status polling. I only care about bulk transfers going *to* the printer (host -> device direction). In Wireshark's filter bar:
 
@@ -51,7 +51,7 @@ $ tshark -r ricoh.pcap -Y "usb.transfer_type == 0x03 && usb.endpoint_address.dir
 
 Frames **20** and **22** are the printer's ACK responses (27-byte URB headers, no data). The real action is in frames **19** and **21**: **two bulk OUT transfers, 65,536 and 59,676 bytes** of actual payload, respectively. One page of printing produces about 125 KB of data over USB.
 
-## Decoding the First Packet
+## Decoding the first packet
 
 The first thing to do with an unknown binary format is run `strings` on it and see what comes out. Extracting the raw payloads from both transfers:
 
@@ -92,7 +92,7 @@ That's immediately recognizable. `%-12345X` is the **Universal Exit Language (UE
 
 This is a much better starting point than I expected. No proprietary binary format, no obfuscation, just text commands followed by compressed image data.
 
-## What the PJL Header Tells Us
+## What the PJL header tells us
 
 Working through the commands one by one:
 
@@ -114,9 +114,9 @@ Working through the commands one by one:
 | `RESOLUTION=600`                | 600 dpi                                              |
 | `IMAGELEN=65556`                | Compressed image data size that follows              |
 
-The `COMPRESS=JBIG` line was the key discovery. **[JBIG](https://en.wikipedia.org/wiki/JBIG)** (Joint Bi-level Image Experts Group) is an international standard for compressing binary images - ITU-T T.82, finalized in 1993. It's designed precisely for this: monochrome laser printer output at high resolution. I had initially guessed the printer might use **HBPL2** (used by many other Ricoh printers in foo2zjs), but grepping for `HBPL` in the raw stream finds nothing. This is pure PJL + JBIG1.
+The `COMPRESS=JBIG` line was the find that mattered. **[JBIG](https://en.wikipedia.org/wiki/JBIG)** (Joint Bi-level Image Experts Group) is an international standard for compressing binary images - ITU-T T.82, finalized in 1993. It's designed precisely for this: monochrome laser printer output at high resolution. I had initially guessed the printer might use **HBPL2** (used by many other Ricoh printers in foo2zjs), but grepping for `HBPL` in the raw stream finds nothing. This is pure PJL + JBIG1.
 
-## The JBIG BIE Header
+## The JBIG BIE header
 
 Immediately after the `IMAGELEN=65556\r\n` text, the binary image data begins. Looking at those bytes in the hex dump:
 
@@ -153,7 +153,7 @@ I initially assumed those 20 bytes were a proprietary Ricoh header on top of the
 
 Bytes `18` and `19`: the `order` and `options` flags, turned out to be important later. I noted their exact values: `0x03` and `0x48`.
 
-## My Initial Hypothesis Was Wrong
+## My initial hypothesis was wrong
 
 My first assumption before even looking at the capture was that this printer used the same protocol as other Ricoh/Gestetner printers supported by foo2zjs - specifically the **HBPL2** (Host-Based Printer Language 2) format. HBPL2 is what `foo2hbpl2` implements.
 
@@ -207,7 +207,7 @@ So concretely, we need to produce two files:
 
 Now I had enough context to start writing.
 
-## Building the First Driver
+## Building the first driver
 
 Armed with the protocol understanding, I started writing a CUPS filter. A CUPS filter reads a raster page stream from stdin (provided by CUPS) and writes the printer's native format to stdout. The filter chain is:
 
@@ -242,9 +242,9 @@ I registered the printer with CUPS using `lpadmin`, set up a minimal PPD file, a
 
 The printer made no sound whatsoever. No motor spin, no LED activity. The job silently disappeared.
 
-## Bug 1: The Missing Bare `@PJL` Line
+## Bug 1: the missing bare `@PJL` line
 
-I rematched at the hex dump of my driver's output against the captured Windows driver output for a while before spotting the difference. My driver emitted:
+I diffed my driver's hex output against the captured Windows driver output for a while before spotting the difference. My driver emitted:
 
 ```
 ESC%-12345X@PJL SET TIMESTAMP=...
@@ -270,7 +270,7 @@ fputs("\x1b%-12345X@PJL\r\n", stdout);
 
 After the fix: the printer's motor spun up, the LED flashed, the page feed mechanism started... and then stopped. The printer initialised but never pulled the paper.
 
-## Bug 2: The Missing `PAPERLENGTH`
+## Bug 2: the missing `PAPERLENGTH`
 
 I went back to the hex dump. My driver's PJL header included `PAPERWIDTH=4961`, I had that. But I had omitted `PAPERLENGTH=7016`, thinking width alone would be enough to define A4.
 
@@ -287,7 +287,7 @@ Fix: emit both dimensions every page.
 
 After the fix: the motor ran, the paper fed all the way through, and I got a page out of the printer. It was completely blank.
 
-## Bug 3: The Wrong JBIG Options Byte
+## Bug 3: the wrong JBIG options byte
 
 A blank output page means the printer received and understood the job structure, but the image data itself was malformed or misinterpreted. I had my JBIG encoding wrong somewhere.
 
@@ -299,15 +299,15 @@ jbg_enc_options(&enc, order, options, l0, mx, dmax);
 jbg_enc_out(&enc);
 ```
 
-To understand the fix, it's worth spending a moment on how JBIG compression actually works, because the bug only makes sense once you understand that the options byte isn't metadata, it's a choice of algorithm.
+The fix only makes sense once you understand how JBIG actually encodes pixels — specifically, that the options byte isn't metadata, it's a choice of algorithm.
 
-### How JBIG Encodes Pixels
+### How JBIG encodes pixels
 
 JBIG1 is a lossless compressor for binary (1-bit) images. The core idea is **context-based arithmetic coding**. To encode a pixel, the encoder looks at a set of already-encoded neighboring pixels, called the **prediction context** or **template**, and uses their values to estimate the probability that the current pixel is black or white. A pixel that's likely white (e.g., surrounded by white neighbors in a mostly-blank area) gets a short code; a pixel that's unlikely (e.g., a black pixel in a white field) gets a longer code. Arithmetic coding exploits these probabilities to produce a compact bitstream.
 
 The critical part: **the encoder and decoder must agree on exactly which neighboring pixels to use as context**. The template defines the shape of the context window, that is which pixel positions, relative to the current pixel, contribute to the prediction. If the encoder builds contexts using one set of pixel offsets and the decoder decodes using a different set, they are operating on fundamentally different data, and the output will be garbage.
 
-### The Options Byte Bitfield
+### The options byte bitfield
 
 BIE byte 19 is the options field. In jbigkit 2.1 (from `jbig.h`):
 
@@ -321,7 +321,7 @@ BIE byte 19 is the options field. In jbigkit 2.1 (from `jbig.h`):
 
 `0x48` is `JBG_LRLTWO | JBG_TPDON`. My initial guess of `0x08` was `JBG_TPDON` alone — missing `JBG_LRLTWO`.
 
-### What `LRLTWO` Actually Does
+### What `LRLTWO` actually does
 
 The lowest-resolution layer uses a 10-pixel context window. The `LRLTWO` flag selects between two different shapes for that window:
 
@@ -342,7 +342,7 @@ The lowest-resolution layer uses a 10-pixel context window. The `LRLTWO` flag se
 
 Both use 10 context pixels, but from different spatial positions. The encoder uses these 10 bits as an index into a probability table: 2^10 = 1024 entries. That it updates adaptively as it scans the image. The decoder has its own copy of the same 1024-entry table and must build the same 10-bit index from the same pixel positions to look up the same probabilities.
 
-### Why Mismatching Templates Produces All-Black
+### Why mismatching templates produces all-black
 
 A blank page. The jbigkit 2.1 source then revealed something important: `jbg_enc_options()` stores the `options` argument **directly** into BIE byte 19, with no bit translation. So whatever I pass is what appears verbatim in the header. I was encoding with `0x08` and declaring `0x08`. But the Windows capture showed `0x48`.
 
@@ -376,7 +376,7 @@ Now the encoder selects the two-line context shape, produces a bitstream built f
 
 After the fix: the page came out with actual content, no longer all-black. But the image was garbled. Wrong pixels, wrong proportions. The stream structure was valid; the pixel data feeding into it was not.
 
-## Bug 4: CUPS Delivering 8-bit Grayscale Instead of 1-bit Packed
+## Bug 4: CUPS delivering 8-bit grayscale instead of 1-bit packed
 
 My PPD file at this point was minimal, just enough to register the printer. It didn't tell CUPS what pixel format to deliver to my filter. CUPS defaulted to **8-bit grayscale** (one byte per pixel).
 
@@ -398,7 +398,7 @@ After adding the PPD directives and fixing the stride:
 
 I sent a test page with `echo "Hello from Linux" | lpr -P Ricoh_SP_200_DDST` and watched a printed page come out. A single page. Now let me try a multi-page document.
 
-## The Multi-Page Problem
+## The multi-page problem
 
 I printed a two-page PDF. The first page came out fine. The second page never arrived. The printer sat idle, then eventually printed nothing and went back to ready. Job complete according to CUPS, but only one page on the tray.
 
@@ -410,7 +410,7 @@ My second assumption: maybe the loop wasn't iterating for page 2. I added a `fpr
 
 The problem had to be in the *protocol*; something in the PJL framing between pages. I needed another capture.
 
-## Second Capture: A Multi-Page Job
+## Second capture: a multi-page job
 
 I went back to the Windows VM and printed a two-page document, this time capturing with USBPcap from the start. Importing the capture and running the same tshark filter:
 
@@ -428,7 +428,7 @@ $ tshark -r ricoh_capture.pcap \
 
 Three bulk OUT transfers (frames 19, 21, 23), each followed by a printer ACK. The single-page job used two transfers totalling ~125 KB. This two-page job uses three transfers: **65,536 + 65,536 + 24,910 = 155,982 bytes**.
 
-## Extracting the Full Multi-Page Protocol
+## Extracting the full multi-page protocol
 
 Running the same strings extraction on the three-frame sequence reveals the complete two-page protocol, with binary JBIG data replaced by `[... N bytes JBIG ...]` for readability:
 
@@ -481,11 +481,11 @@ Formatted:
 %-12345X
 ```
 
-This was the missing puzzle. My single-page driver was fundamentally wrong in its understanding of the page lifecycle. Let me walk through what the capture reveals.
+This was what I'd been missing. My single-page driver had the page lifecycle completely wrong.
 
-## What the Multi-Page Capture Taught Me
+## What the multi-page capture taught me
 
-### Discovery 1: `PAGESTATUS=END` Is the Page Eject Trigger
+### Discovery 1: `PAGESTATUS=END` is the page eject trigger
 
 The most critical finding: `@PJL SET PAGESTATUS=END` is what tells the firmware to eject the page. Without it, the printer keeps the current page open, waiting for more `IMAGELEN` chunks.
 
@@ -503,7 +503,7 @@ Looking at how the DOTCOUNT and PAGESTATUS sequence work:
 
 `PAGESTATUS=END` closes page 1. Only then does the firmware feed the paper through and return ready for page 2.
 
-### Discovery 2: Multiple `IMAGELEN` Chunks Per Page
+### Discovery 2: multiple `IMAGELEN` chunks per page
 
 For page 1, the Windows driver sends two separate `IMAGELEN` blocks: one of 65,556 bytes and one of 13,451 bytes. Total JBIG stream for page 1: **79,007 bytes**.
 
@@ -511,9 +511,9 @@ This is chunking. The Windows driver splits any JBIG stream that would exceed th
 
 The 65,536-byte (65,508 usable after USB framing overhead) limit is the USB full-speed bulk transfer maximum that the Windows driver appears to respect. Page 1 needed 79,007 bytes -> chunk 1 is 65,556 bytes -> chunk 2 is the remaining 13,451 bytes.
 
-My Linux filter produces smaller JBIG streams which is typically small enough to fit in a single chunk, but the firmware accepts both chunked and unchunked delivery as long as the framing is correct.
+My Linux filter produces smaller JBIG streams, small enough to fit in a single chunk, but the firmware accepts both chunked and unchunked delivery as long as the framing is correct.
 
-### Discovery 3: Every Page Except the First Gets Its Own Full Header
+### Discovery 3: every page except the first gets its own full header
 
 Looking at what comes between `PAGESTATUS=END` for page 1 and the first `IMAGELEN` for page 2:
 
@@ -534,7 +534,7 @@ Every page from page 2 onwards needs its own `PAGESTATUS=START` plus the full me
 
 My driver omitted all of this for pages after the first. Without `PAGESTATUS=START`, the firmware apparently doesn't initialise its page buffer for the next page, so the incoming JBIG data has nowhere to go.
 
-### Discovery 4: `DOTCOUNT` Is Required Per Page
+### Discovery 4: `DOTCOUNT` is required per page
 
 `@PJL SET DOTCOUNT=N` appears immediately before every `PAGESTATUS=END`. It reports the total number of black pixels on the page. The printer uses this for toner life estimation. It tracks how many dots it has printed to estimate when toner will run out.
 
@@ -544,7 +544,7 @@ Looking at the values from the capture:
 
 My driver was sending no `DOTCOUNT` at all. From testing, omitting `DOTCOUNT` in some cases causes the firmware to reject the `PAGESTATUS=END` that follows it, leaving the page open indefinitely.
 
-## Bug 5: `cupsBytesPerLine` vs Manual Stride Calculation
+## Bug 5: `cupsBytesPerLine` vs manual stride calculation
 
 While fixing the multi-page protocol, I also hit a subtler bug. My filter calculated the row stride as:
 
@@ -564,7 +564,7 @@ unsigned stride = hdr.cupsBytesPerLine;  // not (bpp * w + 7) / 8
 
 CUPS guarantees that `cupsBytesPerLine` bytes per row are in the stream regardless of actual pixel data width. Trust the header.
 
-## The Complete Protocol Structure
+## The complete protocol structure
 
 With all five bugs found and fixed, the complete PJL+JBIG1 protocol for the Ricoh SP 200 is:
 
@@ -604,9 +604,9 @@ ESC%-12345X@PJL\r\n
 ESC%-12345X\r\n
 ```
 
-Every line is terminated with `\r\n` (CRLF). The printer is strict about this `\n` alone breaks parsing on some firmware versions.
+Every line is terminated with `\r\n` (CRLF). The printer is strict about this; `\n` alone breaks parsing on some firmware versions.
 
-## Building the CUPS Filter
+## Building the CUPS filter
 
 The final filter (`rastertoricohjbig.c`) is about 200 lines of C. The core page-encoding function:
 
@@ -669,7 +669,7 @@ static unsigned long count_dots(const unsigned char *bmp, unsigned w, unsigned h
 }
 ```
 
-## The PPD File
+## The PPD file
 
 The PPD (PostScript Printer Description) tells CUPS how to handle this printer. The key directives:
 
@@ -703,7 +703,7 @@ const char *paper = (hdr.PageSize[0] > 610) ? "LETTER" : "A4";
 
 Letter's width in points (612) is above the 610 threshold; A4's (595) is below it.
 
-## Getting the Margins Right
+## Getting the margins right
 
 The driver was printing correctly at this point, but there was one minor issue, the pages printed had had no margins on the top and left side. Which is caused by the `ImageableArea` entries in the PPD and since they were guesses. I had written:
 
@@ -716,7 +716,7 @@ The A4 values were plausible round numbers. The Letter row was visibly wrong - `
 
 Ricoh doesn't publish a Linux PPD for the SP 200, but they do publish the Windows driver installer: `r74156en.exe`. Windows driver installers often contain an INF or PPD that documents the imageable area. Time to crack it open.
 
-### Step 1: Extract the Installer
+### Step 1: extract the installer
 
 ```bash
 $ mkdir -p /tmp/ricoh_driver
@@ -743,7 +743,7 @@ Key files in `DISK1/`:
 
 The `.xm_` files looked promising, compressed XML configs are exactly where a Windows driver would store its paper geometry.
 
-### Step 2: First Attempt: Grep the Plain-Text Files
+### Step 2: first attempt: grep the plain-text files
 
 My first instinct was to search the INF and INI files directly:
 
@@ -762,7 +762,7 @@ $ grep -r -i -E "imageable|PaperSize|margin|A4|letter|595|842|612|792" \
 
 Two trivial hits: `P_ACCPaperSize=3` in a network config INI. Nothing useful. The geometry data wasn't in any plain-text file.
 
-### Step 3: Identify the Compressed Format
+### Step 3: identify the compressed format
 
 Running `file` on one of the `.xm_` files:
 
@@ -781,7 +781,7 @@ goeg_gdimsfpacfg.xm_: MS Compress archive data, SZDD variant,
 
 225,540 bytes of device-capabilities XML, compressed into the `.xm_` file.
 
-### Step 4: First Attempt to Decompress: The Wrong `expand`
+### Step 4: first attempt to decompress: the wrong `expand`
 
 The obvious move was:
 
@@ -793,7 +793,7 @@ This didn't go as expected. **GNU `expand` converts tabs to spaces.** It has not
 
 The correct Linux tools would be `cabextract -s` or `msexpand`. Instead of installing new packages, I wrote a decompressor inline (with the help of claude) as the SZDD format is small and fully documented.
 
-### Step 5: SZDD Decompressor in Python
+### Step 5: SZDD decompressor in Python
 
 SZDD is straightforward: a 14-byte header followed by an LZ77 bitstream with a 4096-byte sliding window:
 
@@ -842,7 +842,7 @@ sys.stdout.buffer.write(result)
 
 Running this on `goeg_gdimsfpacfg.xm_` produced 225,540 bytes of clean XML. Exactly the size the SZDD header advertised.
 
-### Step 6: Search the Decompressed XML
+### Step 6: search the decompressed XML
 
 The decompressed file is a **UPDF (Universal Printer Description Format)** device-capabilities XML. The Windows driver's internal description of everything the printer can do. Grepping for margin-related terms:
 
@@ -872,7 +872,7 @@ There was also a separate element in the XML:
 
 I considered whether `24.0` could be the margin in some unit as 24 mm would be far too large (nearly an inch), and 24/100 mm would be far smaller than the explicit `0.182in`. The `HardwareMargins` attribute is explicit, named, and declares its unit (`in`). The `DefaultPaperOffsets` are likely rendering-pipeline offsets in the driver's internal coordinate system. I trusted `HardwareMargins`.
 
-### Step 7: Convert to PostScript Points
+### Step 7: convert to PostScript points
 
 PPD files use PostScript points (1 inch = 72 pt):
 
@@ -908,7 +908,7 @@ The fix was two lines in the PPD:
 *ImageableArea Letter/Letter: "13.1 13.1 598.9 778.9"
 ```
 
-## Installation and Testing
+## Installation and testing
 
 ```bash
 # Compile
