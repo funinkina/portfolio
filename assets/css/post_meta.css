@@ -51,7 +51,7 @@
 }
 
 .single-share-button:hover {
-  background-color: #6889b6;
+  background-color: var(--complimentary);
   gap: 6px;
 }
 

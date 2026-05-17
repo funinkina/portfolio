@@ -6,12 +6,8 @@
   box-sizing: border-box;
 }
 
-::selection {
-  background-color: #6889b6;
-}
-
 :root {
-  --complimentary: #a0a0a0;
+  --complimentary: #6889b6;
   --text: #e4e4e4;
   --code: #dcdcdc;
   --text-dim: #c1c1c1;
@@ -21,15 +17,19 @@
   --code-border: #3a3a3a;
   --code-hl: #3d3d3d;
   --border-general: #333;
-  --table-th: #33302a;
-  --table-tr: #2c2924;
+  --table-th: #6889b691;
+  --table-tr: #161616;
   --toc-background: #1a1a1a;
-  --toc-border: #333;
+  --toc-border: #1e1e1e;
   --background: #0a0a0a;
   --background-rgb: 7, 7, 7;
   --card-bg: #161616;
   --accent: #222;
   --border: #333;
+}
+
+::selection {
+  background-color: var(--complimentary);
 }
 
 #gitinfo-date {
@@ -50,6 +50,7 @@ html {
   color: var(--text);
   background-color: var(--background);
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   background-image: url(/Rectangle.png), url(/footer-bg.svg), url(/waves.svg);
   background-repeat: repeat, no-repeat, no-repeat;
   background-position: top left, bottom left calc(100% - 50px), right 10px top 300px;
@@ -116,7 +117,7 @@ main {
 }
 
 .social-btn:hover {
-  background-color: #6889b6;
+  background-color: var(--complimentary);
   transform: translateY(-2px);
 }
 
@@ -236,9 +237,14 @@ ul {
 }
 
 main ul {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 200;
 }
+
+/* .toc ul {
+  padding-left: 1rem;
+  margin: 0.3rem 0 0;
+} */
 
 
 /* MISC */

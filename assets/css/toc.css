@@ -85,7 +85,8 @@
 }
 
 .active-toc {
-  font-weight: bold;
+  /* font-weight: bold; */
+  color: var(--complimentary) !important;
   transition-duration: 50ms;
 }
 
