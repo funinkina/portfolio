@@ -12,7 +12,9 @@
             {{- $avFallback1x := $avRes.Resize "160x160" -}}
             {{- $avFallback2x := $avRes.Resize "320x320" -}}
             <picture>
-                <source srcset="{{ $avWebp1x.RelPermalink }} 1x, {{ $avWebp2x.RelPermalink }} 2x" type="image/webp">
+                <source
+                    srcset="{{ $avWebp1x.RelPermalink }} 1x, {{ $avWebp2x.RelPermalink }} 2x"
+                    type="image/webp">
                 <img src="{{ $avFallback1x.RelPermalink }}"
                     srcset="{{ $avFallback1x.RelPermalink }} 1x, {{ $avFallback2x.RelPermalink }} 2x"
                     alt="{{ .Site.Params.author }}"
@@ -26,7 +28,10 @@
             <div class="profile-text">
                 <h1 class="profile-name">{{
                     .Site.Params.author }}</h1>
-                <p class="profile-subtitle"><span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1em; margin-top:2px;">info</span> {{ .Site.Params.subtitle }}</p>
+                <p class="profile-subtitle"><span
+                        class="material-symbols-outlined"
+                        style="vertical-align: middle; font-size: 1em; margin-top:2px;">info</span>
+                    {{ .Site.Params.subtitle }}</p>
                 {{ with .Site.Params.location }}
                 <p class="profile-location"><span
                         class="material-symbols-outlined"
@@ -43,12 +48,19 @@
     <!-- Blog Section -->
     {{ with .Site.GetPage "section" "blog" }}
     <div class="section-block">
-        <h2 class="section-heading">Latest Blog Posts</h2>
+        <h2 class="section-heading"><span class="material-symbols-outlined">newsmode</span> Latest Blog Posts</h2>
+
         <div class="blog-list-clean">
             {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
             {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
             {{ end }}
         </div>
+        {{ if gt (len .RegularPages) 5 }}
+        <div class="see-more-row">
+            <a href="{{ .RelPermalink }}" class="see-more-btn">See all posts
+                <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        {{ end }}
     </div>
     {{ end }}
 
@@ -56,13 +68,18 @@
     {{ with .Site.GetPage "section" "projects" }}
     <div class="section-block">
         <div style="height: 70px;"></div>
-        <h2 class="section-heading">Building & Learning</h2>
+        <h2 class="section-heading"><span class="material-symbols-outlined">construction</span> Building & Learning</h2>
         <div class="project-grid">
-            {{ range .RegularPages }}
+            {{ range first 5 .RegularPages }}
             {{ partial "project_card.html" . }}
             {{ end }}
-
         </div>
+        {{ if gt (len .RegularPages) 5 }}
+        <div class="see-more-row">
+            <a href="{{ .RelPermalink }}" class="see-more-btn">See all projects
+                <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        {{ end }}
     </div>
     {{ end }}
 </div>

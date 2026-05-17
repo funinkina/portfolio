@@ -82,4 +82,4 @@ What I work with:
 
 - **Amazon ML Summer School 2024** — Selected from over **1,000,000 applicants** nationwide. Competitive ML program, non-trivial acceptance rate.
 
-## {{< icon "search" >}} Stuff that I have written
+<!-- ## {{< icon "search" >}} Stuff that I have written -->
