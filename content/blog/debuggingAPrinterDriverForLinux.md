@@ -2,7 +2,7 @@
 title : 'Reverse Engineering A Printer Driver For Linux'
 subtitle: 'How I made a printer whose driver was exclusively for windows work on Linux.'
 date : '2026-05-17T02:40:34+05:30'
-draft : true
+draft : false
 tags : ['linux', 'reverse engineering', 'driver development']
 toc: true
 next: true
