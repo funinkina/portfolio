@@ -166,6 +166,47 @@ $ tshark -r ricoh.pcap -T fields -e usb.capdata | xxd -r -p | grep -a "HBPL"
 
 Nothing. And searching the jbigkit source, the JBIG compression algorithm is documented in ITU-T T.82, a public standard with publicly available implementations. The `jbigkit` library (`libjbig`) implements it exactly. So I had a basic overview: **PJL header -> JBIG1 BIE -> implement with jbigkit -> done**. Or so I thought.
 
+## A little bit about CUPS
+
+Before writing any code, I needed to understand what I was building into. **CUPS** (Common Unix Printing System) is the printing subsystem on Linux (and macOS). When you send a document to a printer, CUPS is the thing that takes it from "file on disk" to "bytes going down USB". It does this through a **filter chain**, a series of programs that progressively transform the document from its source format into whatever language the printer speaks.
+
+A typical CUPS print job flows like this:
+
+```
+Application
+    ↓  (PDF, PostScript, image, text)
+CUPS scheduler
+    ↓
+ghostscript / pdftoraster   ← converts the document to a generic raster image
+    ↓
+CUPS raster stream          ← format-neutral: one page at a time, raw pixels
+    ↓
+[printer-specific filter]   ← converts raster to the printer's native format
+    ↓
+USB / network               ← bytes to the physical device
+```
+
+The piece we need to write is the **printer-specific filter**: a small program that reads the CUPS raster stream from stdin and writes the printer's native wire format to stdout. CUPS invokes it automatically whenever a job is sent to the printer.
+
+A CUPS filter is invoked with five arguments:
+
+```
+filter  job-id  user  title  copies  options
+```
+
+It reads raw pixel data from stdin (one row at a time via `cupsRasterReadPixels`) and writes whatever the printer expects to stdout. It knows the page dimensions, resolution, and color space from the per-page header (`cups_page_header2_t`) that CUPS prepends to each page's raster data.
+
+The second piece is the **PPD file** (PostScript Printer Description). PPD is an old Adobe format that CUPS still uses to describe a printer's capabilities: which paper sizes it supports, what resolution, and most importantly - which filter program to call and in what pixel format to deliver the raster data. The PPD is what tells CUPS "for this printer, run `rastertoricohjbig` and give it 1-bit monochrome raster".
+
+So concretely, we need to produce two files:
+
+| File                | Role                                                                  |
+| ------------------- | --------------------------------------------------------------------- |
+| `rastertoricohjbig` | CUPS filter — reads raster pages, emits PJL+JBIG1                     |
+| `ricoh-sp200.ppd`   | PPD — declares paper sizes, resolution, and points CUPS to the filter |
+
+Now I had enough context to start writing.
+
 ## Building the First Driver
 
 Armed with the protocol understanding, I started writing a CUPS filter. A CUPS filter reads a raster page stream from stdin (provided by CUPS) and writes the printer's native format to stdout. The filter chain is:
@@ -176,7 +217,7 @@ PDF/PostScript → ghostscript → CUPS raster → [our filter] → PJL+JBIG1 �
 
 The filter needs:
 1. `libcups` / `libcupsimage`: to read the CUPS raster stream
-2. `libjbig` (jbigkit):to JBIG-encode each page's raster bitmap
+2. `libjbig` (jbigkit): to JBIG-encode each page's raster bitmap
 
 The basic structure:
 
@@ -258,15 +299,58 @@ jbg_enc_options(&enc, order, options, l0, mx, dmax);
 jbg_enc_out(&enc);
 ```
 
-Looking at the captured BIE header: byte 18 = `0x03` (order), byte 19 = `0x48` (options). My first attempt had used `jbg_enc_options(&enc, 0x03, 0x08, 128, 0, 0)`, guessing `0x08` as a common JBIG option for TPDON (typical prediction for differential layers).
+To understand the fix, it's worth spending a moment on how JBIG compression actually works, because the bug only makes sense once you understand that the options byte isn't metadata, it's a choice of algorithm.
+
+### How JBIG Encodes Pixels
+
+JBIG1 is a lossless compressor for binary (1-bit) images. The core idea is **context-based arithmetic coding**. To encode a pixel, the encoder looks at a set of already-encoded neighboring pixels, called the **prediction context** or **template**, and uses their values to estimate the probability that the current pixel is black or white. A pixel that's likely white (e.g., surrounded by white neighbors in a mostly-blank area) gets a short code; a pixel that's unlikely (e.g., a black pixel in a white field) gets a longer code. Arithmetic coding exploits these probabilities to produce a compact bitstream.
+
+The critical part: **the encoder and decoder must agree on exactly which neighboring pixels to use as context**. The template defines the shape of the context window, that is which pixel positions, relative to the current pixel, contribute to the prediction. If the encoder builds contexts using one set of pixel offsets and the decoder decodes using a different set, they are operating on fundamentally different data, and the output will be garbage.
+
+### The Options Byte Bitfield
+
+BIE byte 19 is the options field. In jbigkit 2.1 (from `jbig.h`):
+
+```c
+#define JBG_LRLTWO  0x40  /* use two-line template for lowest-resolution layer */
+#define JBG_TPDON   0x08  /* typical prediction for differential layers */
+#define JBG_TPBON   0x04  /* typical prediction for bottom-up coding */
+#define JBG_DPON    0x02  /* deterministic prediction */
+#define JBG_DPPRIV  0x01  /* use private deterministic prediction table */
+```
+
+`0x48` is `JBG_LRLTWO | JBG_TPDON`. My initial guess of `0x08` was `JBG_TPDON` alone — missing `JBG_LRLTWO`.
+
+### What `LRLTWO` Actually Does
+
+The lowest-resolution layer uses a 10-pixel context window. The `LRLTWO` flag selects between two different shapes for that window:
+
+**Three-line template** (`LRLTWO` not set, `0x08`):
+
+```
+  . X X X X     ← two rows above current pixel
+  X X X X .     ← one row above
+  X X [?]       ← current row (? = pixel being encoded)
+```
+
+**Two-line template** (`LRLTWO` set, `0x48`):
+
+```
+  X X X X X X   ← one row above current pixel
+  X X X X [?]   ← current row
+```
+
+Both use 10 context pixels, but from different spatial positions. The encoder uses these 10 bits as an index into a probability table: 2^10 = 1024 entries. That it updates adaptively as it scans the image. The decoder has its own copy of the same 1024-entry table and must build the same 10-bit index from the same pixel positions to look up the same probabilities.
+
+### Why Mismatching Templates Produces All-Black
 
 A blank page. The jbigkit 2.1 source then revealed something important: `jbg_enc_options()` stores the `options` argument **directly** into BIE byte 19, with no bit translation. So whatever I pass is what appears verbatim in the header. I was encoding with `0x08` and declaring `0x08`. But the Windows capture showed `0x48`.
 
-My first attempt at fixing this was wrong in a subtle way: I patched BIE byte 19 manually to `0x48` *after* jbigkit had already encoded the stream. I thought the byte just told the printer which options to expect. like a capability flag. So changing the declared value without re-encoding seemed fine.
+My first attempt at fixing this was wrong in a subtle way: I patched BIE byte 19 manually to `0x48` *after* jbigkit had already encoded the stream. I thought the byte was a capability flag which just tells the printer which mode to expect, so changing the declared value without re-encoding seemed harmless.
 
 The result was a **completely black page**.
 
-Adding debug logging to count the black pixels before encoding showed the issue clearly:
+Adding debug logging to count the black pixels before encoding confirmed the bitmap itself was correct:
 
 ```
 Filter invoked!
@@ -278,19 +362,19 @@ Filter invoked!
 Done. Total pages=1  total_dots=9585
 ```
 
-`total_dots=9585`: correct for a page with a few lines of text on an otherwise white sheet. The bitmap going into `jbigkit` was right. The problem was entirely in the JBIG stream the printer was decoding.
+`total_dots=9585` — correct for a page with a few lines of text. The input was fine. The problem was the JBIG stream the printer was decoding.
 
-The real issue: `0x48` vs `0x08` isn't a metadata flag, it changes the actual **compression algorithm**. The bit in question is `LRLTWO` (`0x40`). When set, the encoder uses a two-line prediction template for the lowest resolution layer; when clear, it uses a three-line template. These two templates produce completely different bitstreams.
+**What had happened**: the stream was encoded using the three-line context template (`0x08`), but the header I patched now declared the two-line template (`0x48`). The printer's decoder initialised its 1024-entry probability table for the two-line template shape and started reading context pixels from the two-line positions. The contexts it computed had nothing to do with the contexts the encoder used to produce those bits. The arithmetic coder started with a flat 50/50 probability distribution; without the correct contexts, every decoded pixel drifted toward the wrong value. The errors also cascade, each wrongly decoded pixel becomes part of the context for the next pixel. So, a single initial mismatch compounds across the entire image. The decoder effectively assigned maximum surprise to almost every pixel, producing solid black.
 
-By patching the header byte to `0x48` while leaving the encoded data generated with `0x08` (the three-line template), I told the printer's decoder to expect a two-line template but fed it data encoded with the three-line template. The decoder applied the wrong prediction context to every pixel, producing maximum decoding errors, which manifests as a fully black page.
-
-The correct fix: pass `0x48` to `jbg_enc_options` so that both the encoding *and* the declared header are consistent:
+The fix: pass `0x48` to `jbg_enc_options` so that both the encoding *and* the declared header use the two-line template consistently:
 
 ```c
 jbg_enc_options(&enc, 0x03, 0x48, 128, 0, 0);
 ```
 
-After the fix: the page came out with actual content — no longer all-black — but the image was garbled. Wrong pixels, wrong proportions. The stream structure was valid; the pixel data feeding into it was not.
+Now the encoder selects the two-line context shape, produces a bitstream built from two-line contexts, and the header correctly declares `0x48`. The decoder initialises for the two-line template, reads contexts from the same pixel positions the encoder used, and reconstructs the image correctly.
+
+After the fix: the page came out with actual content, no longer all-black. But the image was garbled. Wrong pixels, wrong proportions. The stream structure was valid; the pixel data feeding into it was not.
 
 ## Bug 4: CUPS Delivering 8-bit Grayscale Instead of 1-bit Packed
 
