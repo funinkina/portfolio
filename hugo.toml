@@ -1,9 +1,12 @@
 baseURL = 'https://funinkina.co.in/'
+title = "funinkina's corner"
+
+[minify]
+  minifyOutput = true
 
 [markup.highlight]
 noClasses = false
 locale = 'en-us'
-title = "funinkina's corner"
 
 [sitemap]
 changefreq = "weekly"

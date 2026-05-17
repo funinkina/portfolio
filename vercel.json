@@ -1,6 +1,15 @@
 {
   "headers": [
     {
+      "source": "/style.min.:hash.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/css/:path*",
       "headers": [
         {

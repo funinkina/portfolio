@@ -102,6 +102,7 @@
 {{ if not .Site.Params.noSearch }}
 {{ partial "search-form.html" . }}
 <ul id="results"></ul>
+{{ partial "search-index.html" . }}
 {{ end }}
 
 <div class="sections-container">
