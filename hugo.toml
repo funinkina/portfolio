@@ -4,6 +4,11 @@ title = "funinkina's corner"
 [minify]
   minifyOutput = true
 
+[caches]
+  [caches.getresource]
+    dir = ":resourceDir/_gen"
+    maxAge = "168h"
+
 [markup.highlight]
 noClasses = false
 locale = 'en-us'

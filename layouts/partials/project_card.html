@@ -2,23 +2,33 @@
     data-description="{{ .Description | default .Summary | plainify | lower }}">
     <a href="{{ .RelPermalink }}">
         <div class="project-image-container">
-            {{ if .Params.github }}
-            <img
-                src="https://opengraph.github.com/repo/{{ .Params.github }}"
-                alt="{{ .Title }}"
-                class="project-image"
-                loading="lazy"
-                decoding="async"
-                width="1200"
-                height="600">
-            {{ else if .Params.image }}
+            {{- if .Params.github -}}
+            {{- $result := try (resources.GetRemote (printf
+            "https://opengraph.github.com/repo/%s" .Params.github)) -}}
+            {{- if and (not $result.Err) $result.Value -}}
+            {{- $ghImg := $result.Value -}}
+            {{- $webp := $ghImg.Resize "600x webp" -}}
+            {{- $fallback := $ghImg.Resize "600x" -}}
+            <picture>
+                <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+                <img src="{{ $fallback.RelPermalink }}"
+                    alt="{{ .Title }}"
+                    class="project-image"
+                    loading="lazy"
+                    decoding="async">
+            </picture>
+            {{- else if .Params.image -}}
             {{ partial "processed-image.html" (dict "path" .Params.image "width"
             600 "alt" .Title "class" "project-image" "loading" "lazy") }}
-            {{ else }}
-            <div class="project-placeholder">
-                <span>{{ .Title }}</span>
-            </div>
-            {{ end }}
+            {{- else -}}
+            <div class="project-placeholder"><span>{{ .Title }}</span></div>
+            {{- end -}}
+            {{- else if .Params.image -}}
+            {{ partial "processed-image.html" (dict "path" .Params.image "width"
+            600 "alt" .Title "class" "project-image" "loading" "lazy") }}
+            {{- else -}}
+            <div class="project-placeholder"><span>{{ .Title }}</span></div>
+            {{- end }}
         </div>
     </a>
     <div class="project-details">
