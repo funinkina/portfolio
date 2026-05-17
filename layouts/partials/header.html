@@ -8,36 +8,43 @@
     <meta name="googlebot"
       content="index, follow, max-snippet:-1, max-image-preview:large" />
 
-    <link rel="icon" type="image/x-icon" href="{{ relURL "favicon.ico" }}">
-    <link rel="icon" href="{{ "favicon.ico" | absURL }}" sizes="32x32"
-      type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
     <link rel="manifest" href="{{ relURL "site.webmanifest" }}">
     <link rel="canonical" href="{{ .Permalink }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"></noscript>
+    <link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"></noscript>
 
     {{- $desc := or .Description .Params.subtitle .Site.Params.description -}}
-    {{- $ogTitle := cond .IsHome .Site.Title (printf "%s by funinkina" .Title) -}}
+    {{- $ogTitle := cond .IsHome .Site.Title (printf "%s by funinkina" .Title)
+    -}}
     {{- $ogImgURL := absURL "default-header.png" -}}
     {{- $ogImgWidth := 1200 -}}
     {{- $ogImgHeight := 627 -}}
     {{- $ogImgType := "image/png" -}}
     {{- with .Params.image -}}
-      {{- $imgPath := strings.TrimPrefix "/" . -}}
-      {{- $img := resources.Get $imgPath -}}
-      {{- if $img -}}
-        {{- $processed := $img.Resize "1200x" -}}
-        {{- $ogImgURL = $processed.Permalink -}}
-        {{- $ogImgWidth = $processed.Width -}}
-        {{- $ogImgHeight = $processed.Height -}}
-        {{- $ogImgType = $processed.MediaType.Type -}}
-      {{- else -}}
-        {{- $ogImgURL = . | absURL -}}
-      {{- end -}}
+    {{- $imgPath := strings.TrimPrefix "/" . -}}
+    {{- $img := resources.Get $imgPath -}}
+    {{- if $img -}}
+    {{- $processed := $img.Resize "1200x" -}}
+    {{- $ogImgURL = $processed.Permalink -}}
+    {{- $ogImgWidth = $processed.Width -}}
+    {{- $ogImgHeight = $processed.Height -}}
+    {{- $ogImgType = $processed.MediaType.Type -}}
+    {{- else -}}
+    {{- $ogImgURL = . | absURL -}}
+    {{- end -}}
     {{- end -}}
 
     <!-- Primary Meta Tags -->
@@ -45,7 +52,8 @@
     <meta name="description" content="{{ $desc }}" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+    <meta property="og:type"
+      content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
     <meta property="og:url" content="{{ .Permalink }}" />
     <meta property="og:title" content="{{ $ogTitle }}" />
     <meta property="og:description" content="{{ $desc }}" />
@@ -118,7 +126,8 @@
     (resources.Get "css/misc.css")
     | resources.Concat "core.css" | minify | fingerprint }}
     <link rel="preload" href="{{ $coreCSS.RelPermalink }}" as="style">
-    <link rel="stylesheet" type="text/css" href="{{ $coreCSS.RelPermalink }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ $coreCSS.RelPermalink }}"
+      media="all">
     {{- if .IsPage -}}
     {{ $articleCSS := slice
     (resources.Get "css/code.css")
@@ -126,15 +135,17 @@
     (resources.Get "css/toc.css")
     | resources.Concat "article.css" | minify | fingerprint }}
     <link rel="preload" href="{{ $articleCSS.RelPermalink }}" as="style">
-    <link rel="stylesheet" type="text/css" href="{{ $articleCSS.RelPermalink }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ $articleCSS.RelPermalink }}"
+      media="all">
     {{- end -}}
     {{- if and .IsPage .Params.image -}}
-      {{- $heroPath := strings.TrimPrefix "/" .Params.image -}}
-      {{- $heroImg := resources.Get $heroPath -}}
-      {{- if $heroImg -}}
-        {{- $heroWebp := $heroImg.Resize "1200x webp" -}}
-        <link rel="preload" as="image" href="{{ $heroWebp.RelPermalink }}" type="image/webp" fetchpriority="high">
-      {{- end -}}
+    {{- $heroPath := strings.TrimPrefix "/" .Params.image -}}
+    {{- $heroImg := resources.Get $heroPath -}}
+    {{- if $heroImg -}}
+    {{- $heroWebp := $heroImg.Resize "1200x webp" -}}
+    <link rel="preload" as="image" href="{{ $heroWebp.RelPermalink }}"
+      type="image/webp" fetchpriority="high">
+    {{- end -}}
     {{- end -}}
   </head>
 
