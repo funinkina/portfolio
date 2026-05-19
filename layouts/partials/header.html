@@ -68,6 +68,13 @@
     <meta property="twitter:image" content="{{ $ogImgURL }}" />
     <meta property="twitter:site" content="@funinkina" />
     <meta property="twitter:creator" content="@funinkina" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="{{ .Permalink }}" />
+    <meta name="twitter:title" content="{{ $ogTitle }}" />
+    <meta name="twitter:description" content="{{ $desc }}" />
+    <meta name="twitter:image" content="{{ $ogImgURL }}" />
+    <meta name="twitter:site" content="@funinkina" />
+    <meta name="twitter:creator" content="@funinkina" />
 
     <!-- PWA support -->
     <meta name="theme-color" content="#ffffff" />
@@ -154,7 +161,8 @@
     {{- $img := resources.Get $imgPath -}}
     {{- if $img -}}
     {{- $webp := $img.Resize "480x webp" -}}
-    <link rel="preload" as="image" href="{{ $webp.RelPermalink }}" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ $webp.RelPermalink }}"
+      type="image/webp" fetchpriority="high">
     {{- end -}}
     {{- end -}}
     {{- end -}}
