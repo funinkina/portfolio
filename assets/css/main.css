@@ -26,6 +26,10 @@
   --border: #333;
 }
 
+[data-theme="light"] ::selection {
+  background-color: #4a6a9a;
+}
+
 [data-theme="light"] {
   --complimentary: #4a6a9a;
   --text: #1a1a1a;
