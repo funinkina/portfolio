@@ -31,6 +31,15 @@ favicon = "favicon.ico"
 [params.vercel_analytics]
 enable = true
 
+[related]
+threshold = 80
+includeNewer = true
+toLower = true
+
+[[related.indices]]
+name = "tags"
+weight = 100
+
 [permalinks]
 blog = "/blog/:slug/"
 

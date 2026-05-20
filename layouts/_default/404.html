@@ -1,5 +1,29 @@
 {{ partial "header.html" . }}
 
-404 NOT FOUND
+<div class="notfound-container">
+  <div class="notfound-terminal">
+    <div class="notfound-titlebar">
+      <div class="notfound-dots">
+        <span class="notfound-dot notfound-dot-red"></span>
+        <span class="notfound-dot notfound-dot-yellow"></span>
+        <span class="notfound-dot notfound-dot-green"></span>
+      </div>
+      <span class="notfound-titlebar-text">bash — 80×24</span>
+    </div>
+    <div class="notfound-body">
+      <p><span class="notfound-prompt">funinkina@corner:~$</span> cd {{ .RelPermalink }}</p>
+      <p class="notfound-error">bash: cd: {{ .RelPermalink }}: No such file or directory</p>
+      <p class="notfound-dim"># maybe try one of these:</p>
+      <p><span class="notfound-prompt">funinkina@corner:~$</span> ls /</p>
+      <p class="notfound-ls">
+        <a href="/">~/</a>&nbsp;&nbsp;&nbsp;
+        <a href="/blog/">blog/</a>&nbsp;&nbsp;&nbsp;
+        <a href="/projects/">projects/</a>&nbsp;&nbsp;&nbsp;
+        <a href="/tags/">tags/</a>
+      </p>
+      <p class="notfound-cursor-line"><span class="notfound-prompt">funinkina@corner:~$</span> <span class="notfound-cursor">█</span></p>
+    </div>
+  </div>
+</div>
 
 {{ partial "footer.html" . }}

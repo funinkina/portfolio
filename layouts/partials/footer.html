@@ -1,8 +1,37 @@
 <br>
 
 <footer>
+  <p class="footer-shortcuts">h · home &nbsp;|&nbsp; i · search &nbsp;|&nbsp; ` · terminal</p>
 {{ partial "footer_scripts.html" . }}
 </footer>
+
+{{ if .IsPage }}
+<div id="reading-progress" aria-hidden="true"></div>
+{{ end }}
+
+<button id="back-to-top" aria-label="Back to top" title="Back to top">
+  <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
+</button>
+
+<div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true">
+  <div id="terminal-window">
+    <div id="terminal-titlebar">
+      <div class="terminal-dots">
+        <button class="terminal-dot terminal-dot-close" id="terminal-close-btn" aria-label="Close terminal" title="Close"></button>
+        <span class="terminal-dot terminal-dot-min"></span>
+        <span class="terminal-dot terminal-dot-max"></span>
+      </div>
+      <span id="terminal-title">funinkina@corner — bash</span>
+    </div>
+    <div id="terminal-body">
+      <div id="terminal-output"></div>
+      <div id="terminal-input-line">
+        <span class="terminal-prompt">funinkina@corner:~$&nbsp;</span>
+        <input type="text" id="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" aria-label="Terminal input">
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

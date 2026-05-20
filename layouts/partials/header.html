@@ -19,10 +19,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,arrow_upward,calendar_today,check,close,code,construction,content_copy,dark_mode,deployed_code,emoji_events,error,graph_8,info,light_mode,location_on,menu,newsmode,rocket_launch,routine,school,search,share,star,work"
       media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"></noscript>
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,arrow_upward,calendar_today,check,close,code,construction,content_copy,dark_mode,deployed_code,emoji_events,error,graph_8,info,light_mode,location_on,menu,newsmode,rocket_launch,routine,school,search,share,star,work"></noscript>
 
     {{- $desc := or .Description .Params.subtitle .Site.Params.description -}}
     {{- $ogTitle := cond .IsHome .Site.Title (printf "%s by funinkina" .Title)
@@ -153,6 +153,7 @@
     {{- end -}}
     {{- end -}}
     {{- if .IsHome -}}
+    <link rel="preload" as="image" href="/{{ .Site.Params.avatar }}" fetchpriority="high">
     {{- $blog := .Site.GetPage "section" "blog" -}}
     {{- with $blog -}}
     {{- range first 2 .RegularPages.ByDate.Reverse -}}

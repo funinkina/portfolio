@@ -23,7 +23,8 @@
           data-share-title="{{ .Title }}"
           data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
           data-share-url="{{ .Permalink }}">
-          <span class="material-symbols-outlined" aria-hidden="true">share</span>
+          <span class="material-symbols-outlined"
+            aria-hidden="true">share</span>
           <p>Tell others about it!</p>
         </button>
       </div>
@@ -38,7 +39,8 @@
           data-share-title="{{ .Title }}"
           data-share-text="{{ .Title }}"
           data-share-url="{{ .Permalink }}">
-          <span class="material-symbols-outlined" aria-hidden="true">share</span>
+          <span class="material-symbols-outlined"
+            aria-hidden="true">share</span>
           <p>Tell others about it!</p>
         </button>
       </div>
@@ -46,7 +48,8 @@
       <div class="single-meta-row">
         {{ if .Params.date }}
         <span class="datesub">
-          <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+          <span class="material-symbols-outlined"
+            aria-hidden="true">calendar_today</span>
           {{ .Date.Format "Jan 2, 2006" }}
           {{- if .GitInfo -}}
           &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
@@ -71,6 +74,21 @@
 {{ end }}
 
 <main>{{ .Content }}</main>
+
+{{ if and (eq .Section "blog") .Params.tags }}
+{{ $related := where (site.RegularPages.Related .) "Section" "blog" | first 3 }}
+{{ if $related }}
+<hr>
+<div class="related-posts">
+  <h3>Related Posts</h3>
+  <div class="related-list">
+    {{ range $related }}
+    {{ partial "blog_row.html" (dict "Page" . "Index" 99) }}
+    {{ end }}
+  </div>
+</div>
+{{ end }}
+{{ end }}
 
 <br>
 <hr>

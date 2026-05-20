@@ -390,7 +390,27 @@ main ul {
   margin-bottom: 12px;
   line-height: 1.2;
   font-weight: 100;
+  transition: font-weight 0.2s ease;
 }
+
+@media (hover: hover) {
+  .profile-name:hover {
+    font-weight: 400;
+  }
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
 
 .profile-subtitle {
   color: var(--text);
