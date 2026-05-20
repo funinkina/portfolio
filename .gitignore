@@ -1,7 +1,6 @@
 node_modules/
 *.pdf
 # Hugo Generated Files
-/resources/
 hugo_stats.json
 # Static File Cache
 /.hugo_build.lock
