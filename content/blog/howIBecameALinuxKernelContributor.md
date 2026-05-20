@@ -594,3 +594,8 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
 ```
 
 At the time of writing this blog, the patch has not been merged yet, I'll update this post once I hear back from the maintainers.
+
+## Update #1:
+The patch has been **merged** into mainline Linux Kernel on Sat, 16 May 2026
+
+View it on [Kernel Lore](https://lore.kernel.org/all/87jyt1es3s.wl-tiwai@suse.de/)
