@@ -74,6 +74,54 @@
 
 <main>{{ .Content }}</main>
 
+{{ if or (and (eq .Section "blog") .Params.tags) (eq .Section "projects") }}
+<hr>
+<h2 style="border: none; font-weight:500; font-size:2rem; margin-top:0">Share
+  your thoughts
+  and
+  opinions!</h2>
+<div class="giscus"></div>
+
+<script>
+(function () {
+  var base = window.location.origin;
+  function themeUrl() {
+    var s = localStorage.getItem('theme');
+    var dark = s === 'dark' || (s !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return dark ? 'dark_dimmed' : 'light';
+    }
+    return base + (dark ? '/css/giscus-dark.css' : '/css/giscus-light.css');
+  }
+  var el = document.createElement('script');
+  el.src = 'https://giscus.app/client.js';
+  el.dataset.repo = 'funinkina/portfolio';
+  el.dataset.repoId = 'R_kgDOKulnRA';
+  el.dataset.category = 'Announcements';
+  el.dataset.categoryId = 'DIC_kwDOKulnRM4C9flS';
+  el.dataset.mapping = 'pathname';
+  el.dataset.strict = '0';
+  el.dataset.reactionsEnabled = '1';
+  el.dataset.emitMetadata = '0';
+  el.dataset.inputPosition = 'bottom';
+  el.dataset.theme = themeUrl();
+  el.dataset.lang = 'en';
+  el.dataset.loading = 'lazy';
+  el.crossOrigin = 'anonymous';
+  el.async = true;
+  document.body.appendChild(el);
+  new MutationObserver(function (ml) {
+    for (var i = 0; i < ml.length; i++) {
+      if (ml[i].attributeName === 'data-theme') {
+        var frame = document.querySelector('iframe.giscus-frame');
+        if (frame) frame.contentWindow.postMessage({ giscus: { setConfig: { theme: themeUrl() } } }, 'https://giscus.app');
+        break;
+      }
+    }
+  }).observe(document.documentElement, { attributes: true });
+})();
+</script>
+
 {{ if and (eq .Section "blog") .Params.tags }}
 {{ $related := where (site.RegularPages.Related .) "Section" "blog" | first 3 }}
 {{ if $related }}
@@ -87,6 +135,8 @@
   </div>
 </div>
 {{ end }}
+{{ end }}
+
 {{ end }}
 
 <br>
