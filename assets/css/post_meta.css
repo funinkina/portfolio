@@ -20,6 +20,9 @@
 .single-image-wrapper {
   position: relative;
   margin: none;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .single-share-button {

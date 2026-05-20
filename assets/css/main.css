@@ -615,6 +615,7 @@ main ul {
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--border);
+  background-color: var(--card-bg);
 }
 
 .blog-row-image a {

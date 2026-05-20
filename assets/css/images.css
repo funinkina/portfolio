@@ -3,6 +3,11 @@ img {
   margin: 0.8em 0;
 }
 
+main img {
+  background-color: var(--card-bg);
+  border-radius: 4px;
+}
+
 .imgp {
   margin: auto;
   text-align: center;
