@@ -1,7 +1,7 @@
 <br>
 
 <footer>
-  <p class="footer-shortcuts">h · home &nbsp;|&nbsp; b · blog &nbsp;|&nbsp; p · projects &nbsp;|&nbsp; i · search &nbsp;|&nbsp; ` · terminal</p>
+  <p class="footer-shortcuts">h · home &nbsp;|&nbsp; b · blog &nbsp;|&nbsp; p · projects &nbsp;|&nbsp; i · search &nbsp;|&nbsp; ` · terminal &nbsp;|&nbsp; / · shortcuts</p>
 {{ partial "footer_scripts.html" . }}
 </footer>
 
@@ -41,6 +41,23 @@
         <input type="text" id="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" aria-label="Terminal input">
       </div>
     </div>
+  </div>
+</div>
+
+<div id="shortcuts-modal" class="shortcuts-modal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
+  <div class="shortcuts-modal-content" tabindex="-1">
+    <div class="shortcuts-modal-header">
+      <h2>Keyboard shortcuts</h2>
+      <button class="shortcuts-modal-close" aria-label="Close shortcuts">&times;</button>
+    </div>
+    <dl class="shortcuts-list">
+      <div><dt><kbd>h</kbd></dt><dd>Home</dd></div>
+      <div><dt><kbd>b</kbd></dt><dd>Blog</dd></div>
+      <div><dt><kbd>p</kbd></dt><dd>Projects</dd></div>
+      <div><dt><kbd>i</kbd></dt><dd>Focus search</dd></div>
+      <div><dt><kbd>`</kbd></dt><dd>Toggle terminal</dd></div>
+      <div><dt><kbd>/</kbd></dt><dd>Show this panel</dd></div>
+    </dl>
   </div>
 </div>
 
