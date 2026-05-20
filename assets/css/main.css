@@ -688,6 +688,7 @@ main ul {
   html {
     background-position: top left, bottom right 30px, right top 160px;
     background-size: 15%, 20%, 10%;
+    scroll-padding-top: 110px;
   }
 
   .blog-row {
