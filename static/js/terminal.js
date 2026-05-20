@@ -1,13 +1,13 @@
 (function () {
   var PROJECTS = [
     { name: 'spectacle-ocr-screenshot', desc: 'C++/Qt OCR & QR tool for KDE · ⭐89' },
-    { name: 'deadenv',                  desc: 'Go CLI secrets manager, AES-256-GCM · ⭐15' },
-    { name: 'weekly-commits',           desc: 'GNOME top-bar GitHub activity · ⭐27' },
-    { name: 'bloop',                    desc: 'WhatsApp chat analyzer' },
-    { name: 'query-md',                 desc: 'Markdown query engine' },
-    { name: 'dem-super-resolution',     desc: 'Deep learning super-resolution' },
-    { name: 'gnome-ocr-screenshot',     desc: 'GNOME OCR screenshot integration' },
-    { name: 'rsync-backup',             desc: 'Automated rsync backup utility' },
+    { name: 'deadenv', desc: 'Go CLI secrets manager, AES-256-GCM · ⭐15' },
+    { name: 'weekly-commits', desc: 'GNOME top-bar GitHub activity · ⭐27' },
+    { name: 'bloop', desc: 'WhatsApp chat analyzer' },
+    { name: 'query-md', desc: 'Markdown query engine' },
+    { name: 'dem-super-resolution', desc: 'Deep learning super-resolution' },
+    { name: 'gnome-ocr-screenshot', desc: 'GNOME OCR screenshot integration' },
+    { name: 'rsync-backup', desc: 'Automated rsync backup utility' },
   ];
 
   var BLOG = [
@@ -36,7 +36,7 @@
         '  ls blog         — recent posts',
         '  skills          — tech stack',
         '  cat resume      — work experience',
-        '  open <path>     — navigate  (e.g. open /blog)',
+        '  open <path>     — navigate   (e.g. open /blog)',
         '  clear           — clear terminal',
         '  exit  /  q      — close'
       );
@@ -108,20 +108,20 @@
       return lines('navigating to ' + dest + ' ...');
     },
 
-    clear:  function () { return '__CLEAR__'; },
-    exit:   function () { return '__EXIT__'; },
-    q:      function () { return '__EXIT__'; },
+    clear: function () { return '__CLEAR__'; },
+    exit: function () { return '__EXIT__'; },
+    q: function () { return '__EXIT__'; },
   };
 
-  var overlay   = document.getElementById('terminal-overlay');
-  var input     = document.getElementById('terminal-input');
-  var output    = document.getElementById('terminal-output');
-  var closeBtn  = document.getElementById('terminal-close-btn');
+  var overlay = document.getElementById('terminal-overlay');
+  var input = document.getElementById('terminal-input');
+  var output = document.getElementById('terminal-output');
+  var closeBtn = document.getElementById('terminal-close-btn');
 
   if (!overlay || !input || !output || !closeBtn) return;
 
   var cmdHistory = [];
-  var histIdx    = -1;
+  var histIdx = -1;
 
   function openTerminal() {
     overlay.classList.add('open');
@@ -171,7 +171,7 @@
     appendCommand(cmd);
 
     var handler = null;
-    var arg     = '';
+    var arg = '';
 
     if (cmd === 'cat resume') {
       handler = COMMANDS.resume;
@@ -191,9 +191,9 @@
     }
 
     var result = handler(arg);
-    if (result === '__EXIT__')  { closeTerminal(); return; }
+    if (result === '__EXIT__') { closeTerminal(); return; }
     if (result === '__CLEAR__') { output.innerHTML = ''; return; }
-    if (Array.isArray(result))  { appendLines(result.concat([''])); }
+    if (Array.isArray(result)) { appendLines(result.concat([''])); }
   }
 
   input.addEventListener('keydown', function (e) {
