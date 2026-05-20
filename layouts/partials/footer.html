@@ -5,13 +5,24 @@
 {{ partial "footer_scripts.html" . }}
 </footer>
 
-{{ if .IsPage }}
-<div id="reading-progress" aria-hidden="true"></div>
-{{ end }}
-
 <button id="back-to-top" aria-label="Back to top" title="Back to top">
   <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
 </button>
+<script>
+(function () {
+  var btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  function onScroll() {
+    var y = window.scrollY !== undefined ? window.scrollY : (window.pageYOffset || document.documentElement.scrollTop || 0);
+    btn.classList.toggle('visible', y > 400);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
 
 <div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true">
   <div id="terminal-window">

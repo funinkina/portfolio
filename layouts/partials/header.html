@@ -214,7 +214,23 @@
         <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
       {{ end }}
+      {{ if .IsPage }}<div id="reading-progress" aria-hidden="true"></div>{{ end }}
     </nav>
+    {{ if .IsPage }}
+    <script>
+    (function () {
+      var bar = document.getElementById('reading-progress');
+      if (!bar) return;
+      function update() {
+        var scrolled = window.scrollY !== undefined ? window.scrollY : (window.pageYOffset || 0);
+        var total = document.body.scrollHeight - window.innerHeight;
+        bar.style.width = (total > 0 ? Math.min(100, (scrolled / total) * 100) : 0) + '%';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      document.addEventListener('scroll', update, { passive: true });
+    })();
+    </script>
+    {{ end }}
     {{ end }}
 
     <!-- https://hugo-dead-simple.netlify.app/post/hugo-dead-simple/ -->

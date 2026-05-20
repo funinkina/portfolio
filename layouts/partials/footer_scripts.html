@@ -490,37 +490,6 @@
 })();
 </script>
 
-<!-- Reading progress bar (single pages only). -->
-{{ if .IsPage }}
-<script defer>
-(function () {
-  var bar = document.getElementById('reading-progress');
-  if (!bar) return;
-  function update() {
-    var scrolled = window.scrollY || window.pageYOffset;
-    var total = document.body.scrollHeight - window.innerHeight;
-    bar.style.width = (total > 0 ? Math.min(100, (scrolled / total) * 100) : 0) + '%';
-  }
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
-</script>
-{{ end }}
-
-<!-- Back to top button. -->
-<script defer>
-(function () {
-  var btn = document.getElementById('back-to-top');
-  if (!btn) return;
-  window.addEventListener('scroll', function () {
-    btn.classList.toggle('visible', window.scrollY > 400);
-  }, { passive: true });
-  btn.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-</script>
-
 <!-- Scroll-triggered reveal animations. -->
 <script defer>
 (function () {
