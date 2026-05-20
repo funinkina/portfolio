@@ -25,16 +25,16 @@ Most of my time goes writing code and shipping straight to production.
 - **Backend Engineer Intern** at [SuperDash](https://superdash.ai/)  
   *Bengaluru, Karnataka · June 2025 – Present*  
 
-  Building the voice agent backbone, Go services, WebSocket plumbing, TTS optimization. Cut call latency by 80% and shaved cloud costs by 60%. The kind of work where the best outcome is that nobody notices anything changed.
+  Owning voice agent infrastructure end-to-end — edge ML models for interruption detection, de-noising, and forced alignment; self-hosted TTS at sub-200ms; WebSocket refactor that cut call latency by 80%. Also designed and shipped an event-driven automation pipeline as a core product feature, from client co-design through production rollout.
 
 ## {{< icon "work" >}} Experiences so far
 
 - **Backend Engineer Intern** at [Superdash](https://superdash.ai/)  
   *Bengaluru, Karnataka · June 2025 – Present*
 
-  - Refactored the WebSocket layer for voice calls in **Go**, cutting end-to-end latency from **500ms → 100ms** (80% reduction).
-  - Migrated the message queue from **AWS SQS to EventBridge**, dropping cloud infrastructure costs by **60%**; without touching uptime.
-  - Deployed and tuned self-hosted **TTS models** in production, achieving a **5× inference speedup** (1000ms → sub-200ms) through GPU/CPU resource optimization.
+  - Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls.
+  - Engineered **scalable voice agent backend systems** in **Go and Python**, owning full lifecycle from API design through production deployment; refactored WebSocket layer to cut **voice call latency by 80% (500ms → 100ms)**.
+  - Designed and shipped an **event-driven automation pipeline** (akin to n8n) as a core product feature, fully owning the initiative from client co-design and architecture through testing and production rollout; directly drove **new client acquisition and revenue growth**.
 
 - **Python Developer Intern** at [Weya.ai](https://weya.ai)  
   *Noida, Uttar Pradesh · Dec 2024 – Feb 2025*
