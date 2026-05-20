@@ -713,3 +713,36 @@ main ul {
     margin-bottom: 5rem;
   }
 }
+
+.github-contrib-block {
+  margin-top: 2.5rem;
+}
+
+.github-calendar-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.github-calendar-loading {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.github-calendar-footer {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+}
+
+#github-calendar-container svg {
+  /* margin: auto; */
+  width: 100%;
+  display: block;
+  height: auto;
+}
+
+#github-calendar-container rect {
+  cursor: default;
+}

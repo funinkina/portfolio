@@ -45,10 +45,50 @@
         </div>
     </div>
 
+    {{- $ghContribs := slice -}}
+    {{- $ghTotal := 0 -}}
+    {{- $ghOpts := dict "headers" (dict "X-Requested-With" "XMLHttpRequest"
+    "Referer" "https://github.com/funinkina" "User-Agent"
+    "Mozilla/5.0 (compatible; Hugo)") -}}
+    {{- $ghResult := try (resources.GetRemote
+    "https://github.com/users/funinkina/contributions" $ghOpts) -}}
+    {{- if not $ghResult.Err -}}
+    {{- $html := $ghResult.Value.Content -}}
+    {{- range findRE `data-date="\d{4}-\d{2}-\d{2}"[^>]*data-level="[0-4]"`
+    $html -}}
+    {{- $d := . | replaceRE `.*data-date="(\d{4}-\d{2}-\d{2})".*` "$1" -}}
+    {{- $l := . | replaceRE `.*data-level="([0-4])".*` "$1" | int -}}
+    {{- $ghContribs = $ghContribs | append (dict "d" $d "l" $l) -}}
+    {{- end -}}
+    {{- with findRE `\d+\s*contributions\s*in the last year` $html -}}
+    {{- $ghTotal = index (findRE `\d+` (index . 0)) 0 | int -}}
+    {{- end -}}
+    {{- end -}}
+    <div id="gh-data" data-entries="{{ $ghContribs | jsonify }}"
+        data-total="{{ $ghTotal }}" hidden></div>
+
+    <!-- GitHub Contributions Section -->
+    <div class="section-block github-contrib-block">
+        <h2 class="section-heading"><span
+                class="material-symbols-outlined">graph_8</span> GitHub
+            Contributions</h2>
+        <div class="github-calendar-wrapper">
+            <div id="github-calendar-container"></div>
+            <p class="github-calendar-footer">
+                <span id="github-contrib-total"></span> contributions in the
+                last year by
+                <a href="https://github.com/funinkina" target="_blank"
+                    rel="noopener">@funinkina</a>
+            </p>
+        </div>
+    </div>
+
     <!-- Blog Section -->
     {{ with .Site.GetPage "section" "blog" }}
     <div class="section-block">
-        <h2 class="section-heading"><span class="material-symbols-outlined">newsmode</span> Latest Blog Posts</h2>
+        <h2 class="section-heading"><span
+                class="material-symbols-outlined">newsmode</span> Latest Blog
+            Posts</h2>
 
         <div class="blog-list-clean">
             {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
@@ -68,7 +108,9 @@
     {{ with .Site.GetPage "section" "projects" }}
     <div class="section-block">
         <div style="height: 70px;"></div>
-        <h2 class="section-heading"><span class="material-symbols-outlined">construction</span> Building & Learning</h2>
+        <h2 class="section-heading"><span
+                class="material-symbols-outlined">construction</span> Building &
+            Learning</h2>
         <div class="project-grid">
             {{ range first 5 .RegularPages }}
             {{ partial "project_card.html" . }}
