@@ -3,7 +3,8 @@
   {{ if .Params.image }}
   <div class="post-image">
     <a href="{{ .RelPermalink }}">
-      {{ partial "processed-image.html" (dict "path" .Params.image "width" 480 "alt" .Title "loading" "lazy") }}
+      {{ partial "processed-image.html" (dict "path" .Params.image "width" 480
+      "alt" .Title "loading" "lazy") }}
     </a>
   </div>
   {{ end }}

@@ -1,6 +1,21 @@
-{{- $isDuplicateHeader := and (eq .Text "Header") (.Page.Params.image) (eq .Destination .Page.Params.image) -}}
-{{- if not $isDuplicateHeader -}}
-<p class="imgp">
-  <img loading="lazy" decoding="async" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}"{{ end }} />
-</p>
+{{- $src  := .Destination -}}
+{{- $alt  := .PlainText -}}
+{{- $title := .Title -}}
+{{- $path := strings.TrimPrefix "/" $src -}}
+{{- $img  := resources.Get $path -}}
+{{- if $img -}}
+  {{- $ext := path.Ext $path | lower -}}
+  {{- if or (eq $ext ".svg") (eq $ext ".gif") (eq $ext ".webp") -}}
+<img src="{{ $img.RelPermalink }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy">
+  {{- else -}}
+    {{- $webp     := $img.Resize "800x webp" -}}
+    {{- $fallback := $img.Resize "800x" -}}
+<picture>
+  <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+  <img src="{{ $fallback.RelPermalink }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }}
+       width="{{ $webp.Width }}" height="{{ $webp.Height }}" loading="lazy" decoding="async">
+</picture>
+  {{- end -}}
+{{- else -}}
+<img src="{{ $src | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} loading="lazy">
 {{- end -}}

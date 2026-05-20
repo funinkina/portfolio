@@ -1,21 +1,22 @@
 {{- $path := strings.TrimPrefix "/" .path -}}
 {{- $img := resources.Get $path -}}
 {{- if $img -}}
-  {{- $webp := $img.Resize (printf "%dx webp" .width) -}}
-  {{- $fallback := $img.Resize (printf "%dx" .width) -}}
-  <picture>
-    <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
-    <img src="{{ $fallback.RelPermalink }}"
-         alt="{{ .alt }}"
-         width="{{ $webp.Width }}"
-         height="{{ $webp.Height }}"
-         {{- with .class }} class="{{ . }}"{{ end }}
-         loading="{{ .loading | default "lazy" }}"
-         {{- with .fetchpriority }} fetchpriority="{{ . }}"{{ end }}
-         decoding="{{ if eq (.loading | default "lazy") "eager" }}sync{{ else }}async{{ end }}">
-  </picture>
+{{- $webp := $img.Resize (printf "%dx webp" .width) -}}
+{{- $fallback := $img.Resize (printf "%dx" .width) -}}
+<picture>
+  <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+  <img src="{{ $fallback.RelPermalink }}"
+    alt="{{ .alt }}"
+    width="{{ $webp.Width }}"
+    height="{{ $webp.Height }}"
+    {{- with .class }} class="{{ . }}" {{ end }}
+    loading="{{ .loading | default "lazy" }}"
+    {{- with .fetchpriority }} fetchpriority="{{ . }}" {{ end }}
+    decoding="{{ if eq (.loading | default "lazy") "eager" }}sync{{ else
+    }}async{{ end }}">
+</picture>
 {{- else -}}
-  <img src="{{ .path | relURL }}" alt="{{ .alt }}"
-       {{- with .class }} class="{{ . }}"{{ end }}
-       loading="{{ .loading | default "lazy" }}">
+<img src="{{ .path | relURL }}" alt="{{ .alt }}"
+  {{- with .class }} class="{{ . }}" {{ end }}
+  loading="{{ .loading | default "lazy" }}">
 {{- end -}}

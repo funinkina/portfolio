@@ -153,7 +153,8 @@
     {{- end -}}
     {{- end -}}
     {{- if .IsHome -}}
-    <link rel="preload" as="image" href="/{{ .Site.Params.avatar }}" fetchpriority="high">
+    <link rel="preload" as="image" href="/{{ .Site.Params.avatar }}"
+      fetchpriority="high">
     {{- $blog := .Site.GetPage "section" "blog" -}}
     {{- with $blog -}}
     {{- range first 2 .RegularPages.ByDate.Reverse -}}

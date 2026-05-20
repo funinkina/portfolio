@@ -2,12 +2,11 @@
 
 <h1>{{ .Title }}</h1>
 <ul class="post-list">
-    {{ range .Pages }}
+  {{ range .Pages }}
 
-    {{ partial "post_row.html" . }}
+  {{ partial "post_row.html" . }}
 
-    {{ end }}
-  </ul>
-
+  {{ end }}
+</ul>
 
 {{ partial "footer.html" . }}

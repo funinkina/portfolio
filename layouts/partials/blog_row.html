@@ -2,20 +2,27 @@
 {{- $index := .Index | default 99 -}}
 {{- $loading := "lazy" -}}
 {{- $priority := "" -}}
-{{- if le $index 2 -}}{{- $loading = "eager" -}}{{- $priority = "high" -}}{{- end -}}
-<div class="blog-row" data-title="{{ $page.Title | lower }}" data-description="{{ $page.Description | default $page.Summary | plainify | lower }}">
+{{- if le $index 2 -}}{{- $loading = "eager" -}}{{- $priority = "high" -}}{{-
+end -}}
+<div class="blog-row" data-title="{{ $page.Title | lower }}"
+    data-description="{{ $page.Description | default $page.Summary | plainify | lower }}">
     {{ if $page.Params.image }}
     <div class="blog-row-image">
         <a href="{{ $page.RelPermalink }}">
-            {{ partial "processed-image.html" (dict "path" $page.Params.image "width" 480 "alt" $page.Title "loading" $loading "fetchpriority" $priority) }}
+            {{ partial "processed-image.html" (dict "path" $page.Params.image
+            "width" 480 "alt" $page.Title "loading" $loading "fetchpriority"
+            $priority) }}
         </a>
     </div>
     {{ end }}
     <div class="blog-row-content">
         <div class="blog-row-header">
-            <h3 class="blog-row-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
-            <span class="blog-row-date">{{ $page.Date.Format "January 2, 2006" }}</span>
+            <h3 class="blog-row-title"><a href="{{ $page.RelPermalink }}">{{
+                    $page.Title }}</a></h3>
+            <span class="blog-row-date">{{ $page.Date.Format "January 2, 2006"
+                }}</span>
         </div>
-        <p class="blog-row-description">{{ $page.Description | default $page.Summary | plainify }}</p>
+        <p class="blog-row-description">{{ $page.Description | default
+            $page.Summary | plainify }}</p>
     </div>
 </div>
