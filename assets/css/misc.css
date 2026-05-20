@@ -535,6 +535,15 @@
   }
 }
 
+/* TOUCH DEVICE: hide keyboard-only UI */
+@media (hover: none), (pointer: coarse) {
+  .footer-shortcuts,
+  .shortcuts-modal,
+  .shortcuts-toast {
+    display: none !important;
+  }
+}
+
 /* PRINT STYLES */
 @media print {
 

@@ -522,6 +522,7 @@
 <!-- Shortcuts modal + first-visit hint. -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var modal = document.getElementById('shortcuts-modal');
   if (!modal) return;
 
