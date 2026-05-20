@@ -19,7 +19,7 @@
   --table-tr: #161616;
   --toc-background: #1a1a1a;
   --toc-border: #1e1e1e;
-  --background: #1c1c1c;
+  --background: #141414;
   --background-rgb: 7, 7, 7;
   --card-bg: #161616;
   --accent: #222;
@@ -51,14 +51,12 @@
   --accent: #e8e8e8;
   --border: #d0d0d0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
-    image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')),
     url(/footer-bg-light.svg),
-    url(/waves-light.svg);
-  background-repeat: no-repeat, repeat, no-repeat, no-repeat;
-  background-position: top left, top left, bottom left calc(100% - 50px), right 10px top 300px;
-  background-attachment: scroll, scroll, scroll, scroll;
-  background-size: 100% 100%, 10%, 7%, 80px;
+    url(/waves.svg);
+  background-repeat: no-repeat, no-repeat;
+  background-position: bottom left calc(100% - 50px), right 10px top 300px;
+  background-attachment: scroll, scroll;
+  background-size: 7%, 80px;
 }
 
 ::selection {
@@ -83,13 +81,13 @@ html {
   color: var(--text);
   background-color: var(--background);
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 70px;
   min-height: 100vh;
-  background-image: image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')), url(/footer-bg.svg), url(/waves.svg);
-  background-repeat: repeat, no-repeat, no-repeat;
-  background-position: top left, bottom left calc(100% - 50px), right 10px top 300px;
-  background-attachment: scroll, scroll, scroll;
-  background-size: 8%, 10%, 80px;
+  background-image: url(/footer-bg.svg), url(/waves.svg);
+  background-repeat: no-repeat, no-repeat;
+  background-position: bottom left calc(100% - 50px), right 10px top 300px;
+  background-attachment: scroll, scroll;
+  background-size: 10%, 80px;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
