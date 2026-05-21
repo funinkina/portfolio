@@ -99,6 +99,15 @@
     <script defer src="/_vercel/insights/script.js"></script>
     {{ end }}
 
+    <!-- Vercel Speed Insights -->
+    {{ if and (eq hugo.Environment "production")
+    (site.Params.vercel_speed_insights.enable) }}
+    <script>
+      window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+    {{ end }}
+
     {{ with .OutputFormats.Get "rss" -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel
     .MediaType.Type .Permalink $.Site.Title | safeHTML }}
