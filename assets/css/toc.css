@@ -22,6 +22,8 @@
     font-weight: 500;
     color: var(--complimentary);
     opacity: 1;
+    border-bottom: solid 1px var(--text-dim);
+    width: 80%;
   }
 
   #TableOfContents {
@@ -41,7 +43,6 @@
   border-radius: 5px;
   width: full;
   display: table;
-  font-size: 90%;
   margin-bottom: 1em;
   padding: 0.4em 1.5em 0.4em 0.2em;
   margin-top: auto;
@@ -75,6 +76,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.75rem;
   }
 }
 
@@ -132,6 +134,20 @@
 }
 
 @media screen and (max-width: 1149px) {
+  #tableOfContentContainer {
+    margin-top: 30px;
+  }
+
+  #tableOfContentContainer h3 {
+    /* font-size: 1.1rem; */
+    /* margin-bottom: 0px; */
+    font-weight: 500;
+    color: var(--complimentary);
+    opacity: 1;
+    border-bottom: solid 1px var(--text-dim);
+    /* width: 80%; */
+  }
+
   #tableOfContentContainer.is-mobile-drawer {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     display: none;

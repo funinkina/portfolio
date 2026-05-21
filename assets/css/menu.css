@@ -1,5 +1,6 @@
 .menu a {
   text-decoration: none;
+  transition: font-weight 0.2s ease;
 }
 
 .menu a:visited {
@@ -7,7 +8,7 @@
 }
 
 .menu a:hover {
-  text-decoration: underline;
+  font-weight: 600;
 }
 
 .nav-bar {
@@ -133,10 +134,11 @@
   display: flex;
   justify-items: center;
   align-items: center;
+  transition: font-weight 0.2s ease;
 }
 
 .nav-bar h1 a:hover {
-  text-decoration: underline;
+  font-weight: 500;
 }
 
 .nav-bar h1 a>img {
