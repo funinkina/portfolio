@@ -52,10 +52,10 @@ blog = "/blog/:slug/"
 # url = "/"
 # weight = 1
 [[menu.main]]
-name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>newsmode</span> BLOGS"
+name = "Blogs"
 url = "/blog/"
 weight = 1
 [[menu.main]]
-name = "<span class='material-symbols-outlined' style='vertical-align: middle;'>deployed_code</span> PROJECTS"
+name = "Projects"
 url = "/projects/"
 weight = 2

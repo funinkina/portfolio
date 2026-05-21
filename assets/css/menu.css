@@ -8,27 +8,35 @@
 }
 
 .menu a:hover {
-  font-weight: 600;
+  color: var(--link);
 }
 
 .nav-bar {
   display: flex;
   align-items: center;
   column-gap: 1.5rem;
-  background-color: #111111;
+  /* background-color: var(--background); */
+  justify-content: space-between;
   /* background-image: image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')); */
   /* background-size: 7%; */
   /* background-attachment: scroll; */
   margin-bottom: 20px;
   padding: 5px 15px;
-  border: 1px solid var(--toc-border);
+  border: 1px solid var(--border);
   border-radius: 5px;
   position: sticky;
   top: 10px;
   z-index: 1000;
-  /* backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   overflow: hidden;
+}
+
+[data-theme="light"] .nav-bar {
+  background-color: var(--background);
+  /* background-image:
+    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+    image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')); */
 }
 
 .nav-bar ul {
@@ -50,10 +58,11 @@
 
 .nav-bar li {
   line-height: 2;
+  font-size: 1.25rem;
 }
 
 .nav-bar .material-symbols-outlined {
-  font-size: 1rem;
+  font-size: 1.25rem;
   padding-top: 3px;
 }
 
@@ -118,7 +127,7 @@
   font-weight: 200;
   padding: 0;
   margin: 0;
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 .nav-bar h1 img {
@@ -138,7 +147,7 @@
 }
 
 .nav-bar h1 a:hover {
-  font-weight: 500;
+  color: var(--text-dim);
 }
 
 .nav-bar h1 a>img {
@@ -162,13 +171,6 @@
   }
 }
 
-[data-theme="light"] .nav-bar {
-  background-color: #f6f6f6;
-  /* background-image:
-    linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
-    image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')); */
-}
-
 .theme-toggle {
   align-items: center;
   background-color: transparent;
@@ -188,7 +190,7 @@
 }
 
 .theme-toggle .material-symbols-outlined {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   line-height: 1;
   padding-bottom: 0;
   display: inline-block;
