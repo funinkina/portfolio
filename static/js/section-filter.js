@@ -28,4 +28,35 @@
     if (e.key === 'Enter') filter();
     if (e.key === 'Escape') clear();
   });
+
+  // --- Sort ---
+  var sortRadios = document.querySelectorAll('input[name="section-sort"]');
+  var container  = document.querySelector('.blog-list-clean, .project-grid');
+
+  if (sortRadios.length && container) {
+    function applySort(mode) {
+      var items = Array.prototype.filter.call(container.children, function (el) {
+        return el.matches('.blog-row, .project-card');
+      });
+      items.sort(function (a, b) {
+        if (mode === 'title-asc' || mode === 'title-desc') {
+          var cmp = (a.dataset.title || '').localeCompare(b.dataset.title || '');
+          return mode === 'title-asc' ? cmp : -cmp;
+        }
+        var da = parseInt(a.dataset.date || '0', 10);
+        var db = parseInt(b.dataset.date || '0', 10);
+        return mode === 'date-asc' ? da - db : db - da;
+      });
+      items.forEach(function (it) { container.appendChild(it); });
+    }
+
+    sortRadios.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        if (radio.checked) applySort(radio.value);
+      });
+    });
+
+    var checked = document.querySelector('input[name="section-sort"]:checked');
+    if (checked) applySort(checked.value);
+  }
 })();

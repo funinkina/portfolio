@@ -11,3 +11,23 @@
         <p>FIND</p>
     </button>
 </div>
+
+<div class="section-sort" role="radiogroup" aria-label="Sort {{ .Section }}">
+    <span class="section-sort-label">Sort:</span>
+    <label class="sort-option">
+        <input type="radio" name="section-sort" value="date-desc" checked>
+        <span>Newest</span>
+    </label>
+    <label class="sort-option">
+        <input type="radio" name="section-sort" value="date-asc">
+        <span>Oldest</span>
+    </label>
+    <label class="sort-option">
+        <input type="radio" name="section-sort" value="title-asc">
+        <span>Title A&ndash;Z</span>
+    </label>
+    <label class="sort-option">
+        <input type="radio" name="section-sort" value="title-desc">
+        <span>Title Z&ndash;A</span>
+    </label>
+</div>

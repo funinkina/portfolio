@@ -15,7 +15,7 @@
     {{- $icons = union $icons (partial "material_icons_scan.html" $path) -}}
   {{- else if and (ne .Name "material_icons_scan.html") (or (strings.HasSuffix .Name ".html") (strings.HasSuffix .Name ".md")) -}}
     {{- $c := os.ReadFile $path -}}
-    {{- range findRESubmatch `class="material-symbols-outlined"[^>]*>\s*([a-z0-9_]+)\s*<` $c -}}
+    {{- range findRESubmatch `class="material-symbols-outlined[^"]*"[^>]*>\s*([a-z0-9_]+)\s*<` $c -}}
       {{- $icons = $icons | append (index . 1) -}}
     {{- end -}}
     {{- range findRESubmatch `\{\{[<%]\s*icon\s+"?([a-z0-9_]+)` $c -}}

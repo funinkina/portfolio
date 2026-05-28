@@ -1,4 +1,5 @@
 <div class="project-card" data-title="{{ .Title | lower }}"
+    data-date="{{ .Date.Unix }}"
     data-description="{{ .Description | default .Summary | plainify | lower }}">
     <a href="{{ .RelPermalink }}">
         <div class="project-image-container">
