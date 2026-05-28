@@ -1,0 +1,26 @@
+{{- /*
+  Recursively scan a directory for Material Symbols icon names used in source.
+  Detects two forms:
+    1. <span class="material-symbols-outlined" ...>icon_name</span>
+    2. {{< icon "icon_name" >}} shortcode calls
+  Returns a slice of icon-name strings (may contain duplicates; caller dedups).
+  Icons injected only by JS string literals (theme toggle) can't be detected
+  here -> list those in site.Params.extraMaterialIcons.
+*/ -}}
+{{- $dir := . -}}
+{{- $icons := slice -}}
+{{- range (os.ReadDir $dir) -}}
+  {{- $path := printf "%s/%s" $dir .Name -}}
+  {{- if .IsDir -}}
+    {{- $icons = union $icons (partial "material_icons_scan.html" $path) -}}
+  {{- else if and (ne .Name "material_icons_scan.html") (or (strings.HasSuffix .Name ".html") (strings.HasSuffix .Name ".md")) -}}
+    {{- $c := os.ReadFile $path -}}
+    {{- range findRESubmatch `class="material-symbols-outlined"[^>]*>\s*([a-z0-9_]+)\s*<` $c -}}
+      {{- $icons = $icons | append (index . 1) -}}
+    {{- end -}}
+    {{- range findRESubmatch `\{\{[<%]\s*icon\s+"?([a-z0-9_]+)` $c -}}
+      {{- $icons = $icons | append (index . 1) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $icons -}}

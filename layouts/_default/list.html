@@ -124,6 +124,8 @@
         {{ end }}
     </div>
     {{ end }}
+
+    {{ partial "rss_subscribe.html" . }}
 </div>
 {{ else }}
 <div class="home-content">{{ .Content }}</div>
@@ -135,6 +137,7 @@
     {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
     {{ end }}
 </div>
+{{ partial "rss_subscribe.html" . }}
 <script defer src="{{ relURL "/js/section-filter.js" }}"></script>
 {{ else if eq .Section "projects" }}
 {{ partial "section-search.html" . }}
@@ -143,6 +146,7 @@
     {{ partial "project_card.html" . }}
     {{ end }}
 </div>
+{{ partial "rss_subscribe.html" . }}
 <script defer src="{{ relURL "/js/section-filter.js" }}"></script>
 {{ else }}
 {{ if not .Site.Params.noSearch }}

@@ -1,0 +1,11 @@
+{{- /*
+  Returns the deduped, sorted, comma-joined list of Material Symbols icon
+  names used across the site, for the Google Fonts icon_names= subset param.
+  Result is cached for the build via partialCached in the caller.
+*/ -}}
+{{- $icons := partial "material_icons_scan.html" "layouts" -}}
+{{- $icons = union $icons (partial "material_icons_scan.html" "content") -}}
+{{- with site.Params.extraMaterialIcons -}}
+  {{- $icons = union $icons . -}}
+{{- end -}}
+{{- return (delimit ($icons | uniq | sort) ",") -}}

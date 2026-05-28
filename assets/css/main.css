@@ -505,6 +505,36 @@ main ul {
   padding-bottom: 0;
 }
 
+/* RSS Subscribe Button */
+.rss-subscribe-row {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0 1rem;
+}
+
+.rss-subscribe-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.rss-subscribe-btn:hover {
+  color: #ff7839;
+  border-color: #ff7839;
+  text-decoration: none;
+}
+
+.rss-subscribe-btn .material-symbols-outlined {
+  font-size: 1.1rem;
+  padding-bottom: 0;
+}
+
 /* Project Grid */
 .project-grid {
   display: grid;
