@@ -7,7 +7,7 @@ minifyOutput = true
 [caches]
 [caches.getresource]
 dir = ":resourceDir/_gen"
-maxAge = -1
+maxAge = "1h"
 
 [markup.highlight]
 noClasses = false

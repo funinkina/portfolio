@@ -2,6 +2,8 @@ node_modules/
 *.pdf
 # Hugo Generated Files
 hugo_stats.json
+# Hugo remote-fetch cache — must NOT be committed, else builds serve stale GitHub graph data
+resources/_gen/getresource/
 # Static File Cache
 /.hugo_build.lock
 
