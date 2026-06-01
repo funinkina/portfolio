@@ -135,8 +135,8 @@ main {
 
 .social-btn {
   background-color: var(--card-bg);
-  border: 1px solid var(--border);
-  color: var(--text);
+  border: 1px solid var(--complimentary);
+  color: var(--complimentary);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -149,8 +149,8 @@ main {
 }
 
 .social-btn:hover {
-  color: var(--complimentary);
-  border-color: var(--complimentary);
+  color: var(--text);
+  border-color: var(--text);
   text-decoration: none;
 }
 
@@ -165,11 +165,11 @@ main {
 }
 
 .social-btn:visited {
-  color: var(--text);
+  color: var(--complimentary);
 }
 
 .social-btn:visited:hover {
-  color: var(--complimentary);
+  color: var(--text);
 }
 
 .social-btn .icon svg {
@@ -533,6 +533,72 @@ main ul {
 .rss-subscribe-btn .material-symbols-outlined {
   font-size: 1.1rem;
   padding-bottom: 0;
+}
+
+/* Linux Webring */
+.webring-row {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 1rem;
+}
+
+.webring-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 1.1rem;
+}
+
+.webring-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.webring-label .material-symbols-outlined {
+  padding-bottom: 3px;
+  font-size: 1.1rem;
+}
+
+.webring-random .material-symbols-outlined {
+  /* padding-top: 5px; */
+  font-size: 1.1rem;
+  padding-bottom: 0px !important;
+}
+
+.webring-random {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-dim);
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--border);
+  transition: color 0.2s ease;
+}
+
+.webring-random:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+
+@media (max-width: 500px) {
+  .webring-box {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .webring-random {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 0.5rem;
+  }
 }
 
 /* Project Grid */
