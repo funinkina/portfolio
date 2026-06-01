@@ -172,6 +172,33 @@ main {
   color: var(--text);
 }
 
+.social-btn--highlight {
+  background-color: var(--complimentary);
+  border-color: var(--complimentary);
+  color: var(--background);
+  font-weight: 400;
+}
+
+.social-btn--highlight .material-symbols-outlined {
+  font-size: 1rem;
+  padding-bottom: 1px;
+}
+
+.social-btn--highlight:hover {
+  opacity: 0.85;
+  color: var(--text);
+  border-color: var(--text);
+  background-color: var(--text);
+}
+
+.social-btn--highlight:visited {
+  color: var(--background);
+}
+
+.social-btn--highlight:visited:hover {
+  color: var(--background);
+}
+
 .social-btn .icon svg {
   width: 1.2em;
   height: 1.2em;

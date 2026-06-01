@@ -1,8 +1,10 @@
-<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="social-btn">
+<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="social-btn{{ if .Get "highlight" }} social-btn--highlight{{ end }}">
     <span class="icon">
         {{ if .Get "icon" }}
             {{ with resources.Get (printf "icons/%s.svg" (.Get "icon")) }}
                 {{ .Content | safeHTML }}
+            {{ else }}
+                <span class="material-symbols-outlined">{{ $.Get "icon" }}</span>
             {{ end }}
         {{ else }}
             {{ .Inner | safeHTML }}
