@@ -186,7 +186,7 @@ main {
 
 .social-btn--highlight:hover {
   opacity: 0.85;
-  color: var(--text);
+  color: var(--complimentary);
   border-color: var(--text);
   background-color: var(--text);
 }
