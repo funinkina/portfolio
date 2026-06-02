@@ -190,7 +190,8 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  width: 100%;
+  width: 98.3%;
+  left: 7px;
   box-sizing: border-box;
   margin: 0 0 100px;
   padding: 0.6rem 1rem;
