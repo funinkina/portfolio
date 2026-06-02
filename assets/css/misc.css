@@ -536,7 +536,9 @@
 }
 
 /* TOUCH DEVICE: hide keyboard-only UI */
-@media (hover: none), (pointer: coarse) {
+@media (hover: none),
+(pointer: coarse) {
+
   .footer-shortcuts,
   .shortcuts-modal,
   .shortcuts-toast {

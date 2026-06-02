@@ -1,7 +1,7 @@
 ---
 title: "Aryan Kushwaha"
 subtitle: "Backend & Systems Engineer"
-toc: true
+type: "resume"
 date: '2026-06-01T00:00:00+05:30'
 draft: false
 ---

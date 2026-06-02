@@ -1,0 +1,190 @@
+.resume-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.resume-print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  background: var(--card-bg);
+  border: 1px solid var(--complimentary);
+  color: var(--complimentary);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.resume-print-btn:hover {
+  background: var(--accent);
+  color: var(--text);
+  border-color: var(--text);
+}
+
+.resume-print-btn .material-symbols-outlined {
+  font-size: 1rem;
+  padding-bottom: 0;
+}
+
+.resume-paper {
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 48px 52px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 4px 24px rgba(0, 0, 0, 0.28);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+}
+
+.resume-header {
+  margin-bottom: 0.25rem;
+}
+
+.resume-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.1rem;
+  color: #1a1a1a;
+  border: none;
+  text-align: left;
+}
+
+.resume-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.resume-paper a {
+  color: #2a6099;
+  text-decoration: underline;
+}
+
+.resume-paper a:visited {
+  color: #2a6099;
+}
+
+/* Contact line — first paragraph inside content */
+.resume-content>p:first-child {
+  font-size: 0.82rem;
+  color: #444;
+  margin: 0.5rem 0 0.25rem;
+  line-height: 1.6;
+}
+
+.resume-paper hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 0.5rem 0;
+}
+
+.resume-paper h2 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #1a1a1a;
+  border-bottom: 1.5px solid #bbb;
+  margin: 1.5rem 0 0.6rem;
+  padding-bottom: 0.25rem;
+}
+
+.resume-paper h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 1rem 0 0.1rem;
+  color: #1a1a1a;
+  padding-bottom: 0;
+}
+
+.resume-paper p,
+.resume-paper li {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #222;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.resume-paper em {
+  color: #555;
+  font-style: italic;
+}
+
+.resume-paper ul {
+  margin: 0.25rem 0 0.5rem;
+  padding-left: 1.3rem;
+}
+
+.resume-paper li {
+  margin-bottom: 0.2rem;
+}
+
+.resume-paper strong {
+  font-weight: 600;
+  color: #111;
+}
+
+.resume-paper code {
+  background: #f0f0f0;
+  color: #2d2d2d;
+  border: 1px solid #d0d0d0;
+}
+
+.resume-paper pre {
+  background: #f5f5f5 !important;
+  border: 1px solid #d0d0d0;
+  color: #2d2d2d;
+}
+
+.resume-paper pre code {
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 16mm;
+  }
+
+  body {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .resume-toolbar,
+  .announcement-banner {
+    display: none !important;
+  }
+
+  .resume-paper {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  /* suppress URL-after-link from misc.css */
+  a[href]::after {
+    content: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .resume-paper {
+    padding: 24px 18px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,21 @@
+{{ partial "header.html" . }}
+
+{{ $css := resources.Get "css/resume.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+
+<div class="resume-toolbar">
+  <button onclick="window.print()" class="resume-print-btn" type="button">
+    <span class="material-symbols-outlined" aria-hidden="true">print</span>
+    Print / Save as PDF
+  </button>
+</div>
+
+<article class="resume-paper">
+  <header class="resume-header">
+    <h1 class="resume-name">{{ .Title }}</h1>
+    {{ with .Params.subtitle }}<p class="resume-subtitle">{{ . }}</p>{{ end }}
+  </header>
+  <div class="resume-content">{{ .Content }}</div>
+</article>
+
+{{ partial "footer.html" . }}
