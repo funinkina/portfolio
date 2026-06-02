@@ -9,8 +9,9 @@ toc: false
 {{< social-button url="https://www.linkedin.com/in/funinkina" text="in/funinkina" icon="linkedin" >}}{{< /social-button >}}
 {{< social-button url="mailto:hello@funinkina.co.in" text="hello@funinkina.co.in" icon="email" >}}{{< /social-button >}}
 {{< social-button url="https://www.buymeacoffee.com/funinkina" text="Buy Me A Coffee" icon="coffee" >}}{{< /social-button >}}
-{{< social-button url="/hire-me/" text="hire me in blr" highlight="true" icon="work">}}{{< /social-button >}}
 {{< /social-links >}}
+
+{{< announcement >}}
 
 I'm a final-year **Computer Science** undergrad who builds backend systems that are fast, boring to operate, and interesting to build.  
 Most of my time goes writing code and shipping straight to production.

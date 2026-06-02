@@ -1,4 +1,4 @@
-<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="social-btn{{ if .Get "highlight" }} social-btn--highlight{{ end }}">
+<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="social-btn">
     <span class="icon">
         {{ if .Get "icon" }}
             {{ with resources.Get (printf "icons/%s.svg" (.Get "icon")) }}

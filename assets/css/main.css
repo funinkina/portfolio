@@ -119,6 +119,7 @@ body {
   overflow-x: hidden;
   max-width: 840px;
   width: 100%;
+  text-align: justify;
 }
 
 main {
@@ -131,6 +132,11 @@ main {
   gap: 0.5rem;
   align-items: center;
   margin-bottom: 100px;
+  justify-content: space-evenly;
+}
+
+.social-links-container:has(+ .announcement-banner) {
+  margin-bottom: 0.75rem;
 }
 
 .social-btn {
@@ -151,6 +157,7 @@ main {
 .social-btn:hover {
   color: var(--text);
   border-color: var(--text);
+  background-color: var(--accent);
   text-decoration: none;
 }
 
@@ -172,31 +179,82 @@ main {
   color: var(--text);
 }
 
-.social-btn--highlight {
+@property --announcement-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.announcement-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 100px;
+  padding: 0.6rem 1rem;
   background-color: var(--complimentary);
-  border-color: var(--complimentary);
   color: var(--background);
-  font-weight: 400;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
-.social-btn--highlight .material-symbols-outlined {
-  font-size: 1rem;
-  padding-bottom: 1px;
+.announcement-banner::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border-radius: 7px;
+  background: conic-gradient(from var(--announcement-angle),
+      var(--complimentary),
+      color-mix(in srgb, var(--complimentary), #fff 70%),
+      var(--complimentary),
+      color-mix(in srgb, var(--complimentary), #fff 70%),
+      var(--complimentary));
+  animation: announcement-border-spin 3s linear infinite;
 }
 
-.social-btn--highlight:hover {
-  opacity: 0.85;
+@keyframes announcement-border-spin {
+  to {
+    --announcement-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-banner::before {
+    animation: none;
+  }
+}
+
+.announcement-banner:hover,
+.announcement-banner:visited {
   color: var(--background);
-  border-color: var(--text);
+}
+
+.announcement-banner:hover {
   background-color: var(--text);
+  text-decoration: none;
 }
 
-.social-btn--highlight:visited {
-  color: var(--background);
+.announcement-text {
+  flex: 1;
 }
 
-.social-btn--highlight:visited:hover {
-  color: var(--background);
+.announcement-arrow {
+  transition: transform 0.2s ease;
+}
+
+.announcement-banner:hover .announcement-arrow {
+  transform: translateX(3px);
+}
+
+.announcement-banner .material-symbols-outlined {
+  font-size: 1.2rem;
+  padding-bottom: 0;
 }
 
 .social-btn .icon svg {
@@ -210,6 +268,16 @@ main {
 @media (max-width: 768px) {
   .social-links-container {
     justify-content: center;
+  }
+
+  .announcement-banner {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    gap: 0.4rem;
+  }
+
+  .announcement-banner .material-symbols-outlined {
+    font-size: 1rem;
   }
 }
 
@@ -725,7 +793,7 @@ main ul {
 
 .tech-tag {
   background: var(--accent);
-  padding: 4px 8px;
+  padding: 1px 8px;
   border-radius: 4px;
   font-size: 0.75rem;
   color: var(--text-dim);
