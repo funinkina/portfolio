@@ -30,7 +30,7 @@ favicon = "favicon.ico"
 showAnnouncement = true
 # Material Symbols icons that are injected only via JS string literals (theme
 # toggle), so they can't be auto-detected from the template/content source.
-extraMaterialIcons = ["light_mode", "dark_mode"]
+extraMaterialIcons = ["light_mode", "dark_mode", "keyboard"]
 
 [params.vercel_analytics]
 enable = true
