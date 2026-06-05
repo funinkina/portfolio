@@ -13,14 +13,17 @@ toc: false
 
 {{< announcement >}}
 
-I'm a final-year **Computer Science** undergrad who builds backend systems that are fast, boring to operate, and interesting to build.  
-Most of my time goes writing code and shipping straight to production.
+I'm a final-year **Computer Science** undergrad and a backend & systems engineer working in **Go, Python, and C/C++**. I like building systems that are fast, boring to operate, and interesting to build, and most of my time goes writing code and shipping straight to production.
+
+Lately that means **real-time LLM infrastructure** and **voice agent backends**, though I'm just as comfortable low in the stack with **device drivers** and **Linux kernel** work, including a patch merged into mainline. Along the way: an 80% cut in voice latency, a 5× inference speedup, and 60% in cost savings.
+
+When I'm not shipping, I write about **Linux**, **open source**, and **computer science** for 1000+ readers a month. You can [read my blogs here](/blog).
 
 **What I work with:**
-- Backend Systems
+- Backend Systems & Distributed Architecture
 - Linux & Systems Programming
 - LLMs, TTS and Voice/AI Agents
-- AWS, GCP
+- AWS, GCP, Docker & CI/CD
 
 ## {{< icon "rocket_launch" >}} What I'm Up To
 

@@ -131,7 +131,7 @@ main {
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 100px;
+  margin-bottom: 10rem;
   justify-content: space-evenly;
 }
 
@@ -144,7 +144,7 @@ main {
   border: 1px solid var(--complimentary);
   color: var(--complimentary);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+
   font-size: 0.9rem;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -197,7 +197,7 @@ main {
   padding: 0.6rem 1rem;
   background-color: var(--complimentary);
   color: var(--background);
-  border-radius: 5px;
+
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
@@ -209,7 +209,7 @@ main {
   position: absolute;
   inset: -5px;
   z-index: -1;
-  border-radius: 7px;
+
   background: conic-gradient(from var(--announcement-angle),
       var(--complimentary),
       color-mix(in srgb, var(--complimentary), #fff 70%),
@@ -348,6 +348,10 @@ li {
   font-weight: 300;
 }
 
+li::marker {
+  color: var(--complimentary);
+}
+
 hr {
   border-style: dashed;
   color: var(--text-dim);
@@ -414,7 +418,7 @@ main ul {
 .post-image img {
   width: 290px;
   max-height: 160px;
-  border-radius: 5px;
+
   object-fit: cover;
 }
 
@@ -491,7 +495,7 @@ main ul {
   align-items: center;
   gap: 1.5rem;
   margin-bottom: 1rem;
-  margin-top: 100px;
+  margin-top: 10rem;
 }
 
 .profile-header picture {
@@ -596,7 +600,7 @@ main ul {
   border: none;
   line-height: 1;
   color: var(--text-dim);
-  border-radius: 6px;
+
   margin-bottom: 2rem;
   /* margin-top: 4rem; */
   font-weight: 400;
@@ -615,7 +619,7 @@ main ul {
   color: var(--text-dim);
   font-size: 0.9rem;
   border: 1px solid var(--border);
-  border-radius: 6px;
+
   padding: 0.4rem 0.9rem;
   transition: all 0.2s ease;
 }
@@ -645,7 +649,7 @@ main ul {
   color: var(--text-dim);
   font-size: 0.9rem;
   border: 1px solid var(--border);
-  border-radius: 6px;
+
   padding: 0.5rem 1.1rem;
   transition: all 0.2s ease;
 }
@@ -675,7 +679,7 @@ main ul {
   font-size: 0.9rem;
   color: var(--text-dim);
   border: 1px solid var(--border);
-  border-radius: 6px;
+
   padding: 0.5rem 1.1rem;
 }
 
@@ -749,7 +753,7 @@ main ul {
 
 .project-image-container {
   background: var(--card-bg);
-  border-radius: 8px;
+
   overflow: hidden;
   margin-bottom: 1rem;
   display: flex;
@@ -823,11 +827,12 @@ main ul {
 }
 
 .tech-tag {
-  background: var(--accent);
+  background: var(--table-th);
   padding: 1px 8px;
-  border-radius: 4px;
+  padding-top: 2px;
+
   font-size: 0.75rem;
-  color: var(--text-dim);
+  color: var(--text);
   border: 1px solid var(--border);
 }
 
@@ -849,7 +854,7 @@ main ul {
   flex-shrink: 0;
   width: 240px;
   aspect-ratio: 16/9;
-  border-radius: 6px;
+
   overflow: hidden;
   border: 1px solid var(--border);
   background-color: var(--card-bg);
@@ -1013,7 +1018,7 @@ main ul {
   display: block;
 }
 
-.gh-legend > span {
+.gh-legend>span {
   margin: 0 2px;
 }
 

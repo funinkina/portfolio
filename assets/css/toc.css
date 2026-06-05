@@ -44,7 +44,7 @@
   animation-duration: 0.4s;
   background: var(--toc-background) none repeat scroll 0 0;
   border: 1px solid var(--toc-border);
-  border-radius: 5px;
+
   width: full;
   display: table;
   margin-bottom: 1em;

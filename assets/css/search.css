@@ -11,7 +11,7 @@
     padding: 9px 14px;
     border: 1px solid var(--border-general);
     border-right: none;
-    border-radius: 4px 0 0 4px;
+    border-radius: 0px 0 0 4px;
     background-color: var(--background);
     color: var(--text);
     font-size: 1rem;
@@ -83,7 +83,7 @@
     align-items: center;
     padding: 3px 12px;
     border: 1px solid var(--border-general);
-    border-radius: 5px;
+
     background-color: var(--accent);
     color: var(--text);
     font-size: 0.9rem;
@@ -146,7 +146,7 @@ input {
     background-color: var(--background);
     color: var(--text);
     border-color: var(--border-general);
-    border-radius: 4px;
+
 }
 
 #results {

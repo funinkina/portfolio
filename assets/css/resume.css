@@ -12,7 +12,7 @@
   background: var(--card-bg);
   border: 1px solid var(--complimentary);
   color: var(--complimentary);
-  border-radius: 4px;
+
   font-size: 0.875rem;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;

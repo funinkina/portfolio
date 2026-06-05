@@ -32,7 +32,6 @@
   top: 16px;
   width: 14px;
   height: 14px;
-  border-radius: 50%;
   background: var(--complimentary);
   box-shadow: 0 0 0 4px var(--background);
 }
@@ -91,7 +90,7 @@
   width: 45px;
   height: 45px;
   flex-shrink: 0;
-  border-radius: 8px;
+
   background: var(--card-bg);
   border: 1px solid var(--border);
   display: flex;
@@ -104,7 +103,7 @@
   width: 30px;
   height: 30px;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .exp-logo .material-symbols-outlined {
@@ -187,10 +186,6 @@
   color: var(--text-dim);
   line-height: 1.55;
   margin-bottom: 0.5rem;
-}
-
-.exp-resp li::marker {
-  color: var(--complimentary);
 }
 
 /* tech chips reuse .tech-tag */
