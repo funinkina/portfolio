@@ -1,0 +1,212 @@
+/* Experiences timeline (home page) */
+
+.exp-timeline {
+  position: relative;
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* vertical line */
+.exp-timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--border);
+}
+
+.exp-item {
+  position: relative;
+  padding-left: 2.25rem;
+}
+
+.exp-item:not(:last-child) {
+  margin-bottom: 2.75rem;
+}
+
+/* dot on the line */
+.exp-dot {
+  position: absolute;
+  left: 1px;
+  top: 16px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--complimentary);
+  box-shadow: 0 0 0 4px var(--background);
+}
+
+/* "currently" variant: no line, live glowing dot */
+.exp-timeline--current::before {
+  display: none;
+}
+
+.exp-timeline--current .exp-dot {
+  animation: exp-pulse 2s ease-out infinite;
+}
+
+@keyframes exp-pulse {
+  0% {
+    box-shadow: 0 0 0 4px var(--background),
+      0 0 0 0 color-mix(in srgb, var(--complimentary) 60%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 4px var(--background),
+      0 0 0 12px color-mix(in srgb, var(--complimentary) 0%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 4px var(--background),
+      0 0 0 0 color-mix(in srgb, var(--complimentary) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-timeline--current .exp-dot {
+    animation: none;
+    box-shadow: 0 0 0 4px var(--background),
+      0 0 0 5px color-mix(in srgb, var(--complimentary) 35%, transparent);
+  }
+}
+
+/* header: identity left, meta right */
+.exp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.exp-id {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.exp-logo {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.exp-logo img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.exp-logo .material-symbols-outlined {
+  font-size: 22px;
+  color: var(--text-dim);
+}
+
+.exp-id-text {
+  min-width: 0;
+}
+
+.exp-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.exp-company {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.exp-company:hover {
+  color: var(--link);
+}
+
+.exp-badge {
+  font-size: 0.7rem;
+  padding: 0.5px 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.exp-role {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  /* margin-top: 2px; */
+}
+
+.exp-meta {
+  text-align: right;
+  flex-shrink: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.exp-location {
+  opacity: 0.8;
+}
+
+/* uppercase section labels */
+.exp-section-label {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  color: var(--text-dim);
+  margin: 1.25rem 0 0.6rem;
+}
+
+.exp-summary {
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0.9rem 0 0;
+}
+
+.exp-resp {
+  margin-top: 0.9rem;
+  padding-left: 1.2rem;
+}
+
+.exp-resp li {
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-bottom: 0.5rem;
+}
+
+.exp-resp li::marker {
+  color: var(--complimentary);
+}
+
+/* tech chips reuse .tech-tag */
+.exp-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .exp-head {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .exp-meta {
+    text-align: left;
+  }
+}

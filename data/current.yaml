@@ -1,0 +1,8 @@
+- company: SuperDash
+  role: Backend Engineer Intern
+  type: Internship
+  url: https://superdash.ai/
+  location: Bengaluru, Karnataka
+  dateRange: June 2025 – Present
+  logo: ""
+  summary: "Owning voice agent infrastructure end-to-end — edge ML models for interruption detection, de-noising, and forced alignment; self-hosted TTS at sub-200ms; WebSocket refactor that cut call latency by 80%. Also designed and shipped an event-driven automation pipeline as a core product feature, from client co-design through production rollout."

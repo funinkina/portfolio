@@ -1,0 +1,52 @@
+- company: Superdash
+  role: Backend Engineer Intern
+  type: Internship
+  url: https://superdash.ai/
+  location: Bengaluru, Karnataka
+  dateRange: June 2025 – Present
+  logo: ""
+  responsibilities:
+    - "Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls."
+    - "Engineered **scalable voice agent backend systems** in **Go and Python**, owning full lifecycle from API design through production deployment; refactored WebSocket layer to cut **voice call latency by 80% (500ms → 100ms)**."
+    - "Designed and shipped an **event-driven automation pipeline** (akin to n8n) as a core product feature, fully owning the initiative from client co-design and architecture through testing and production rollout; directly drove **new client acquisition and revenue growth**."
+  tech:
+    - Go
+    - Python
+    - WebAssembly
+    - vLLM
+    - ONNX Runtime
+    - WebSockets
+
+- company: Weya.ai
+  role: Python Developer Intern
+  type: Internship
+  url: https://weya.ai
+  location: Noida, Uttar Pradesh
+  dateRange: Dec 2024 – Feb 2025
+  logo: ""
+  responsibilities:
+    - "Built a real-time voice agent backend using **FastAPI and WebSockets**, scaling to **100+ concurrent connections** with stable p99 latency under load."
+    - "Profiled 10+ system metrics across LLM inference and speech pipelines to track down bottlenecks and improved streaming responsiveness and reduced end-to-end latency meaningfully."
+    - "Added integrations for Calendar, Meet, WhatsApp, and Twilio. Also built a microservice to convert **S3 documents into embeddings**."
+  tech:
+    - Python
+    - FastAPI
+    - WebSockets
+    - AWS S3
+    - Twilio
+
+- company: NIT Jalandhar
+  role: Summer Research Intern
+  type: Internship
+  url: https://www.nitj.ac.in/
+  location: Jalandhar, Punjab
+  dateRange: May 2024 – July 2024
+  logo: ""
+  responsibilities:
+    - "Designed, trained, and evaluated neural network models to predict waterborne diseases from 20+ real-time water quality parameters that hit **~95% predictive accuracy** through systematic hyperparameter tuning and feature engineering."
+    - "Co-authored a **peer-reviewed research paper** on the model architecture, training pipeline, and experimental results, also got accepted and published in an indexed journal."
+  tech:
+    - Python
+    - TensorFlow
+    - Neural Networks
+    - Research

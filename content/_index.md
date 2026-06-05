@@ -24,32 +24,11 @@ Most of my time goes writing code and shipping straight to production.
 
 ## {{< icon "rocket_launch" >}} What I'm Up To
 
-- **Backend Engineer Intern** at [SuperDash](https://superdash.ai/)  
-  *Bengaluru, Karnataka · June 2025 – Present*  
-
-  Owning voice agent infrastructure end-to-end — edge ML models for interruption detection, de-noising, and forced alignment; self-hosted TTS at sub-200ms; WebSocket refactor that cut call latency by 80%. Also designed and shipped an event-driven automation pipeline as a core product feature, from client co-design through production rollout.
+{{< experiences "current" >}}
 
 ## {{< icon "work" >}} Experiences so far
 
-- **Backend Engineer Intern** at [Superdash](https://superdash.ai/)  
-  *Bengaluru, Karnataka · June 2025 – Present*
-
-  - Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls.
-  - Engineered **scalable voice agent backend systems** in **Go and Python**, owning full lifecycle from API design through production deployment; refactored WebSocket layer to cut **voice call latency by 80% (500ms → 100ms)**.
-  - Designed and shipped an **event-driven automation pipeline** (akin to n8n) as a core product feature, fully owning the initiative from client co-design and architecture through testing and production rollout; directly drove **new client acquisition and revenue growth**.
-
-- **Python Developer Intern** at [Weya.ai](https://weya.ai)  
-  *Noida, Uttar Pradesh · Dec 2024 – Feb 2025*
-
-  - Built a real-time voice agent backend using **FastAPI and WebSockets**, scaling to **100+ concurrent connections** with stable p99 latency under load.
-  - Profiled 10+ system metrics across LLM inference and speech pipelines to track down bottlenecks and improved streaming responsiveness and reduced end-to-end latency meaningfully.
-  - Added integrations for Calendar, Meet, WhatsApp, and Twilio. Also built a microservice to convert **S3 documents into embeddings**.
-
-- **Summer Research Intern** at [NIT Jalandhar](https://www.nitj.ac.in/)  
-  *Jalandhar, Punjab · May 2024 – July 2024*
-
-  - Designed, trained, and evaluated neural network models to predict waterborne diseases from 20+ real-time water quality parameters that hit **~95% predictive accuracy** through systematic hyperparameter tuning and feature engineering.
-  - Co-authored a **peer-reviewed research paper** on the model architecture, training pipeline, and experimental results, also got accepted and published in an indexed journal.
+{{< experiences >}}
 
 ## {{< icon "code" >}} Highlighted Projects
 

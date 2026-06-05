@@ -1,0 +1,78 @@
+{{- $key := .Get 0 | default "experiences" -}}
+{{- $experiences := index hugo.Data $key -}}
+<div class="exp-timeline exp-timeline--{{ $key }}">
+  {{- range $e := $experiences -}}
+  <div class="exp-item">
+    <span class="exp-dot"></span>
+    <div class="exp-head">
+      <div class="exp-id">
+        <div class="exp-logo">
+          {{- $img := "" -}}
+          {{- with $e.url -}}
+          {{- $favURL := printf
+          "https://www.google.com/s2/favicons?domain=%s&sz=64" . -}}
+          {{- $res := try (resources.GetRemote $favURL) -}}
+          {{- if and (not $res.Err) $res.Value (eq $res.Value.MediaType.MainType
+          "image") -}}
+          {{- $img = $res.Value -}}
+          {{- end -}}
+          {{- end -}}
+          {{- if $img -}}
+          {{- $sized := $img.Resize "48x48" -}}
+          <img src="{{ $sized.RelPermalink }}" alt="{{ $e.company }} logo"
+            width="24"
+            height="24" loading="lazy" decoding="async">
+          {{- else if $e.logo -}}
+          {{- with resources.Get $e.logo -}}
+          <img src="{{ .RelPermalink }}" alt="{{ $e.company }} logo" width="24"
+            height="24"
+            loading="lazy" decoding="async">
+          {{- end -}}
+          {{- else -}}
+          <span class="material-symbols-outlined">business</span>
+          {{- end -}}
+        </div>
+        <div class="exp-id-text">
+          <div class="exp-title-row">
+            {{- if $e.url -}}
+            <a class="exp-company" href="{{ $e.url }}" target="_blank"
+              rel="noopener">{{ $e.company }}</a>
+            {{- else -}}
+            <span class="exp-company">{{ $e.company }}</span>
+            {{- end -}}
+            {{/* {{- with $e.type }}<span class="exp-badge">{{ . }}</span>{{ end
+            -}} */}}
+          </div>
+          <div class="exp-role">{{ $e.role }}</div>
+        </div>
+      </div>
+      <div class="exp-meta">
+        {{- with $e.dateRange }}<div class="exp-date">{{ . }}</div>{{ end -}}
+        {{- with $e.location }}<div class="exp-location">{{ . }}</div>{{ end -}}
+      </div>
+    </div>
+
+    {{- with $e.summary }}
+    <p class="exp-summary">{{ . | markdownify }}</p>
+    {{- end }}
+
+    {{- with $e.responsibilities }}
+    {{/* <div class="exp-section-label">Key Responsibilities</div> */}}
+    <ul class="exp-resp">
+      {{- range . }}
+      <li>{{ . | markdownify }}</li>
+      {{- end }}
+    </ul>
+    {{- end }}
+
+    {{- with $e.tech }}
+    <div class="exp-section-label">Technology Used</div>
+    <div class="exp-tags">
+      {{- range . }}
+      <span class="tech-tag">{{ . }}</span>
+      {{- end }}
+    </div>
+    {{- end }}
+  </div>
+  {{- end -}}
+</div>

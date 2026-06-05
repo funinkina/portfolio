@@ -152,6 +152,7 @@
     (resources.Get "css/box.css")
     (resources.Get "css/tables.css")
     (resources.Get "css/misc.css")
+    (resources.Get "css/experiences.css")
     | resources.Concat "core.css" | minify | fingerprint }}
     <link rel="preload" href="{{ $coreCSS.RelPermalink }}" as="style">
     <link rel="stylesheet" type="text/css" href="{{ $coreCSS.RelPermalink }}"
