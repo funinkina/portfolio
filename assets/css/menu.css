@@ -30,12 +30,12 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   overflow: hidden;
-  transition: top 0.25s ease;
+  transition: top 0.25s ease, margin 0.25s ease, border-color 0.25s ease;
 }
 
 /* flush to top of viewport when scrolling up */
 .nav-bar.nav-flush {
-  border-top: none;
+  border-top-color: transparent;
   top: 0;
 }
 
@@ -125,6 +125,15 @@
     font-size: 1rem;
     white-space: nowrap;
     flex-wrap: wrap;
+  }
+
+  /* full-bleed, borderless when flush (scrolled down) */
+  .nav-bar.nav-flush {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
   }
 }
 
