@@ -52,11 +52,26 @@
     "https://github.com/users/funinkina/contributions" $ghOpts) -}}
     {{- if not $ghResult.Err -}}
     {{- $html := $ghResult.Value.Content -}}
-    {{- range findRE `data-date="\d{4}-\d{2}-\d{2}"[^>]*data-level="[0-4]"`
+    {{- $ghCounts := dict -}}
+    {{- range findRE
+    `<tool-tip[^>]*for="contribution-day-component-\d+-\d+"[^>]*>[^<]*</tool-tip>`
+    $html -}}
+    {{- $id := . | replaceRE
+    `.*for="(contribution-day-component-\d+-\d+)".*` "$1" -}}
+    {{- $txt := . | replaceRE `.*<tool-tip[^>]*>([^<]*)</tool-tip>.*` "$1" -}}
+    {{- $cnt := 0 -}}
+    {{- with findRE `^\d+` $txt -}}{{- $cnt = index . 0 | int -}}{{- end -}}
+    {{- $ghCounts = merge $ghCounts (dict $id $cnt) -}}
+    {{- end -}}
+    {{- range findRE
+    `data-date="\d{4}-\d{2}-\d{2}"[^>]*id="contribution-day-component-\d+-\d+"[^>]*data-level="[0-4]"`
     $html -}}
     {{- $d := . | replaceRE `.*data-date="(\d{4}-\d{2}-\d{2})".*` "$1" -}}
+    {{- $id := . | replaceRE
+    `.*id="(contribution-day-component-\d+-\d+)".*` "$1" -}}
     {{- $l := . | replaceRE `.*data-level="([0-4])".*` "$1" | int -}}
-    {{- $ghContribs = $ghContribs | append (dict "d" $d "l" $l) -}}
+    {{- $c := index $ghCounts $id | default 0 -}}
+    {{- $ghContribs = $ghContribs | append (dict "d" $d "l" $l "c" $c) -}}
     {{- end -}}
     {{- with findRE `\d+\s*contributions\s*in the last year` $html -}}
     {{- $ghTotal = index (findRE `\d+` (index . 0)) 0 | int -}}
@@ -73,10 +88,12 @@
         <div class="github-calendar-wrapper">
             <div id="github-calendar-container"></div>
             <p class="github-calendar-footer">
-                <span id="github-contrib-total"></span> contributions in the
-                last year by
-                <a href="https://github.com/funinkina" target="_blank"
-                    rel="noopener">@funinkina</a>
+                <span><span id="github-contrib-total"></span> total
+                    contributions by
+                    <a href="https://github.com/funinkina" target="_blank"
+                        rel="noopener">@funinkina</a> (excluding private and work
+                    related commits)</span>
+                <span id="github-contrib-legend"></span>
             </p>
         </div>
     </div>

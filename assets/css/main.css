@@ -995,6 +995,26 @@ main ul {
   font-size: 0.85rem;
   margin-top: 0.6rem;
   margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.gh-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.gh-legend-sq {
+  display: block;
+}
+
+.gh-legend > span {
+  margin: 0 2px;
 }
 
 #github-calendar-container svg {

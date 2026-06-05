@@ -33,8 +33,8 @@
         var ds = cur.getFullYear() + '-' +
           (cur.getMonth() < 9 ? '0' : '') + (cur.getMonth() + 1) + '-' +
           (cur.getDate() < 10 ? '0' : '') + cur.getDate();
-        var c = map[ds] || { intensity: 0 };
-        week.push({ date: ds, intensity: c.intensity });
+        var c = map[ds] || { intensity: 0, count: 0 };
+        week.push({ date: ds, intensity: c.intensity, count: c.count || 0 });
         cur.setDate(cur.getDate() + 1);
       }
       weeks.push(week);
@@ -64,15 +64,26 @@
       for (var d = 0; d < week.length; d++) {
         var day = week[d];
         var x = w * STEP, y = d * STEP + LABEL_H;
+        var n = day.count;
+        var label = (n > 0 ? n + (n === 1 ? ' contribution' : ' contributions') : 'No contributions') + ' on ' + day.date;
         out += '<rect x="' + x + '" y="' + y + '" width="' + CELL + '" height="' + CELL +
-          '" rx="2" ry="2" fill="' + colors[day.intensity] + '">' +
-          '<title>' + LEVEL_LABEL[day.intensity] + ' on ' + day.date + '</title>' +
-          '</rect>';
+          '" rx="2" ry="2" fill="' + colors[day.intensity] + '" data-label="' + label + '"></rect>';
       }
     }
 
     out += '</svg>';
     return out;
+  }
+
+  function renderLegend(theme) {
+    var colors = COLORS[theme];
+    var s = '<span class="gh-legend"><span>Less</span>';
+    for (var i = 0; i < colors.length; i++) {
+      s += '<svg width="11" height="11" class="gh-legend-sq"><rect width="11" height="11" rx="2" ry="2" fill="' +
+        colors[i] + '" data-label="' + LEVEL_LABEL[i] + '"></rect></svg>';
+    }
+    s += '<span>More</span></span>';
+    return s;
   }
 
   var ghDiv = document.getElementById('gh-data');
@@ -84,21 +95,65 @@
   }
 
   var cachedWeeks = null;
+  var tip = null;
+
+  function ensureTip() {
+    if (tip) return tip;
+    tip = document.createElement('div');
+    tip.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;' +
+      'background:#1b1f23;color:#fff;font-size:12px;line-height:1.4;' +
+      'padding:5px 8px;border-radius:6px;white-space:nowrap;opacity:0;' +
+      'transition:opacity .1s;box-shadow:0 1px 4px rgba(0,0,0,.3)';
+    document.body.appendChild(tip);
+    return tip;
+  }
+
+  function attachTip(container) {
+    container.addEventListener('mouseover', function (e) {
+      var t = e.target;
+      if (!t || t.tagName !== 'rect') return;
+      var label = t.getAttribute('data-label');
+      if (!label) return;
+      var el = ensureTip();
+      el.textContent = label;
+      el.style.opacity = '1';
+      var r = t.getBoundingClientRect();
+      el.style.left = (r.left + r.width / 2 - el.offsetWidth / 2) + 'px';
+      el.style.top = (r.top - el.offsetHeight - 6) + 'px';
+    });
+    container.addEventListener('mouseout', function (e) {
+      if (e.target && e.target.tagName === 'rect' && tip) tip.style.opacity = '0';
+    });
+  }
 
   function draw() {
     if (!cachedWeeks) return;
     var svg = renderSVG(cachedWeeks, getTheme());
     var container = document.getElementById('github-calendar-container');
-    if (container) container.innerHTML = svg;
+    if (container) {
+      container.innerHTML = svg;
+      if (!container.dataset.tipBound) {
+        attachTip(container);
+        container.dataset.tipBound = '1';
+      }
+    }
     var totalEl = document.getElementById('github-contrib-total');
     if (totalEl) totalEl.textContent = cachedTotal.toLocaleString();
+    var legendEl = document.getElementById('github-contrib-legend');
+    if (legendEl) {
+      legendEl.innerHTML = renderLegend(getTheme());
+      if (!legendEl.dataset.tipBound) {
+        attachTip(legendEl);
+        legendEl.dataset.tipBound = '1';
+      }
+    }
   }
 
   if (!raw.length) {
     var el = document.getElementById('github-calendar-container');
     if (el) el.innerHTML = '<p style="color:var(--text-dim);font-size:.9rem;margin:0">Could not load contributions.</p>';
   } else {
-    cachedWeeks = buildWeeks(raw.map(function (c) { return { date: c.d, intensity: c.l }; }));
+    cachedWeeks = buildWeeks(raw.map(function (c) { return { date: c.d, intensity: c.l, count: c.c || 0 }; }));
     draw();
     new MutationObserver(function (ms) {
       ms.forEach(function (m) { if (m.attributeName === 'data-theme') draw(); });
