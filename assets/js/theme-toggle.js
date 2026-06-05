@@ -13,8 +13,20 @@
   };
   var NEXT = { system: 'light', light: 'dark', dark: 'system' };
   var SWAP_MS = 150;
+  var TRANSITION_MS = 350;
   var initialized = false;
   var swapTimer = null;
+  var transitionTimer = null;
+
+  function enableTransition() {
+    var root = document.documentElement;
+    root.classList.add('theme-transition');
+    if (transitionTimer) clearTimeout(transitionTimer);
+    transitionTimer = setTimeout(function () {
+      root.classList.remove('theme-transition');
+      transitionTimer = null;
+    }, TRANSITION_MS);
+  }
 
   function getSetting() {
     return window.themeUtil.getSetting();
@@ -41,7 +53,12 @@
 
   function applySetting(setting) {
     localStorage.setItem('theme', setting);
-    document.documentElement.setAttribute('data-theme', resolve(setting));
+    var resolved = resolve(setting);
+    var root = document.documentElement;
+    if (initialized && root.getAttribute('data-theme') !== resolved) {
+      enableTransition();
+    }
+    root.setAttribute('data-theme', resolved);
     setIcon(ICONS[setting]);
     btn.setAttribute('title', LABELS[setting]);
     btn.setAttribute('aria-label', LABELS[setting]);

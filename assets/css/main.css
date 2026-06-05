@@ -63,6 +63,30 @@
   background-color: var(--complimentary);
 }
 
+/* Smooth color-mode swap. Class toggled by theme-toggle.js only during a theme
+   change, so element-specific hover/interaction transitions stay unaffected. */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
+
 #gitinfo-date {
   color: var(--text-dim);
   filter: opacity(40%);
@@ -834,6 +858,25 @@ main ul {
   font-size: 0.75rem;
   color: var(--text);
   border: 1px solid var(--border);
+}
+
+.project-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0.5rem;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+.project-meta .material-symbols-outlined {
+  font-size: 1.2em;
+  padding-top: 5px;
+  line-height: 1;
+}
+
+.blog-row-readtime {
+  color: var(--text-dim);
 }
 
 /* Blog List Clean */

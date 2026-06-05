@@ -42,5 +42,10 @@
             <span class="tech-tag">{{ . }}</span>
             {{ end }}
         </div>
+        <div class="project-meta">
+            <span class="material-symbols-outlined"
+                aria-hidden="true">hourglass_top</span>
+            {{ or .ReadingTime 1 }} min read
+        </div>
     </div>
 </div>

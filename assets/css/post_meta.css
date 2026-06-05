@@ -131,6 +131,10 @@
   line-height: 1;
 }
 
+.readtime {
+  margin-left: 0.85rem;
+}
+
 #single-meta {
   margin-top: 0;
   margin-bottom: 0px;

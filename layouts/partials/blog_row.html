@@ -1,5 +1,6 @@
 {{- $page := .Page | default . -}}
 {{- $index := .Index | default 99 -}}
+{{- $readTime := or $page.ReadingTime 1 -}}
 {{- $loading := "lazy" -}}
 {{- $priority := "" -}}
 {{- if le $index 2 -}}{{- $loading = "eager" -}}{{- $priority = "high" -}}{{-
@@ -21,7 +22,7 @@ end -}}
             <h3 class="blog-row-title"><a href="{{ $page.RelPermalink }}">{{
                     $page.Title }}</a></h3>
             <span class="blog-row-date">{{ $page.Date.Format "January 2, 2006"
-                }}</span>
+                }} <span class="blog-row-readtime">·&nbsp;{{ $readTime }}&nbsp;min&nbsp;read</span></span>
         </div>
         <p class="blog-row-description">{{ $page.Description | default
             $page.Summary | plainify }}</p>
