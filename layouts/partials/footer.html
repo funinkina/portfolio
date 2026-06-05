@@ -29,6 +29,26 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
+
+(function () {
+  var nav = document.querySelector('.nav-bar');
+  if (!nav) return;
+  var lastY = window.scrollY || 0;
+  var ticking = false;
+  function update() {
+    var y = window.scrollY || 0;
+    if (y > lastY + 2) {
+      nav.classList.add('nav-flush');
+    } else if (y < lastY - 2) {
+      nav.classList.remove('nav-flush');
+    }
+    lastY = y <= 0 ? 0 : y;
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+})();
 </script>
 
 <div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true">

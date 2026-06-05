@@ -30,6 +30,13 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   overflow: hidden;
+  transition: top 0.25s ease;
+}
+
+/* flush to top of viewport when scrolling up */
+.nav-bar.nav-flush {
+  border-top: none;
+  top: 0;
 }
 
 [data-theme="light"] .nav-bar {
