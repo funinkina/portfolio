@@ -3,7 +3,7 @@
   type: Internship
   url: https://superdash.ai/
   location: Bangalore, Karnataka
-  dateRange: June 2025 – Present
+  dateRange: June 2025 - Present
   logo: ""
   responsibilities:
     - "Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls."
@@ -22,7 +22,7 @@
   type: Internship
   url: https://weya.ai
   location: Noida, Uttar Pradesh
-  dateRange: Dec 2024 – Feb 2025
+  dateRange: Dec 2024 - Feb 2025
   logo: ""
   responsibilities:
     - "Built a real-time voice agent backend using **FastAPI and WebSockets**, scaling to **100+ concurrent connections** with stable p99 latency under load."
@@ -40,7 +40,7 @@
   type: Internship
   url: https://www.nitj.ac.in/
   location: Jalandhar, Punjab
-  dateRange: May 2024 – July 2024
+  dateRange: May 2024 - July 2024
   logo: ""
   responsibilities:
     - "Designed, trained, and evaluated neural network models to predict waterborne diseases from 20+ real-time water quality parameters that hit **~95% predictive accuracy** through systematic hyperparameter tuning and feature engineering."
