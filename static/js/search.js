@@ -37,7 +37,7 @@ if (query) {
       this.add({
         id: key,
         title: window.store[key].title,
-        tags: window.store[key].category,
+        tags: window.store[key].tags,
         content: window.store[key].content
       })
     }

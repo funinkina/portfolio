@@ -446,6 +446,26 @@ main ul {
   color: white;
 }
 
+.post-title {
+  margin-top: 0;
+  margin-bottom: 0.2rem;
+}
+
+.post-date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+  color: var(--text-dim);
+}
+
+.post-date .material-symbols-outlined {
+  font-size: 20px;
+  line-height: 1;
+  padding-bottom: 0;
+}
+
 .bold-post-in-list {
   font-weight: 600;
 }
@@ -542,6 +562,16 @@ main ul {
   /* max-width: 600px; */
   line-height: 1.6;
   font-size: 1.1rem;
+}
+
+.inline-meta-icon {
+  vertical-align: middle;
+  font-size: 1em;
+  margin-top: 2px;
+}
+
+.section-gap {
+  height: 70px;
 }
 
 /* Section Headings */

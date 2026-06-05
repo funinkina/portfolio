@@ -29,13 +29,11 @@
                 <h1 class="profile-name">{{
                     .Site.Params.author }}</h1>
                 <p class="profile-subtitle"><span
-                        class="material-symbols-outlined"
-                        style="vertical-align: middle; font-size: 1em; margin-top:2px;">info</span>
+                        class="material-symbols-outlined inline-meta-icon">info</span>
                     {{ .Site.Params.subtitle }}</p>
                 {{ with .Site.Params.location }}
                 <p class="profile-location"><span
-                        class="material-symbols-outlined"
-                        style="vertical-align: middle; font-size: 1em; margin-top:2px;">location_on</span>
+                        class="material-symbols-outlined inline-meta-icon">location_on</span>
                     {{ . }}</p>
                 {{ end }}
             </div>
@@ -107,7 +105,7 @@
     <!-- Projects Section -->
     {{ with .Site.GetPage "section" "projects" }}
     <div class="section-block">
-        <div style="height: 70px;"></div>
+        <div class="section-gap"></div>
         <h2 class="section-heading"><span
                 class="material-symbols-outlined">construction</span> Building &
             Learning</h2>
@@ -116,7 +114,7 @@
             {{ partial "project_card.html" . }}
             {{ end }}
         </div>
-        {{ if gt (len .RegularPages) 5 }}
+        {{ if gt (len .RegularPages) 6 }}
         <div class="see-more-row">
             <a href="{{ .RelPermalink }}" class="see-more-btn">See all projects
                 <span class="material-symbols-outlined">arrow_forward</span></a>
@@ -166,19 +164,5 @@
 </div>
 {{ end }}
 {{ end }}
-
-{{/* <div class="webring-row">
-    <div class="webring-box">
-        <span class="webring-label">
-            <span class="material-symbols-outlined">hub</span>
-            Member of <a href="https://webri.ng/webring/tlw">The Linux
-                Webring</a>
-        </span>
-        <a href="https://webri.ng/webring/tlw/random" class="webring-random">
-            Random Site
-            <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
-    </div>
-</div> */}}
 
 {{ partial "footer.html" . }}

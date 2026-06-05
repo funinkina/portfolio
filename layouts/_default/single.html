@@ -21,7 +21,6 @@
           aria-label="Share this page"
           title="Share this page"
           data-share-title="{{ .Title }}"
-          data-share-text="{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Title }}{{ end }}"
           data-share-url="{{ .Permalink }}">
           <span class="material-symbols-outlined"
             aria-hidden="true">share</span>
@@ -37,7 +36,6 @@
           aria-label="Share this page"
           title="Share this page"
           data-share-title="{{ .Title }}"
-          data-share-text="{{ .Title }}"
           data-share-url="{{ .Permalink }}">
           <span class="material-symbols-outlined"
             aria-hidden="true">share</span>
@@ -62,12 +60,12 @@
   </div>
 </div>
 {{ else }}
-<div style="padding-bottom: 1px;"></div>
+<div class="single-header-spacer"></div>
 {{ end }}
 
 {{ if .Params.toc }}
 <aside class="hidden lg:block toc " id="tableOfContentContainer">
-  <h3 style="opacity: 0.6">Table of Contents</h3>
+  <h3 class="toc-heading">Table of Contents</h3>
   {{ .TableOfContents }}
 </aside>
 {{ end }}
@@ -76,18 +74,14 @@
 
 {{ if or (and (eq .Section "blog") .Params.tags) (eq .Section "projects") }}
 <hr>
-<h2 style="border: none; font-weight:500; font-size:2rem; margin-top:0">Share
-  your thoughts
-  and
-  opinions!</h2>
+<h2 class="comments-heading">Share your thoughts and opinions!</h2>
 <div class="giscus"></div>
 
 <script>
 (function () {
   var base = window.location.origin;
   function themeUrl() {
-    var s = localStorage.getItem('theme');
-    var dark = s === 'dark' || (s !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var dark = window.themeUtil.getResolved() === 'dark';
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       return dark ? 'dark_dimmed' : 'light';
     }

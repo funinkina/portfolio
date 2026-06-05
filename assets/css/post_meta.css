@@ -1,3 +1,14 @@
+.single-header-spacer {
+  padding-bottom: 1px;
+}
+
+.comments-heading {
+  border: none;
+  font-weight: 500;
+  font-size: 2rem;
+  margin-top: 0;
+}
+
 #single-header {
   border-bottom: 5px dotted var(--accent);
   min-height: 88dvh;
@@ -27,7 +38,7 @@
 
 .single-share-button {
   align-items: center;
-  background-color: rgba(var(--card-bg), 0.8);
+  background-color: var(--card-bg);
   border: 1px solid var(--toc-border);
   border-radius: 5px;
   color: var(--text);
@@ -111,6 +122,8 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  font-weight: normal;
+  color: var(--text-dim);
 }
 
 .datesub .material-symbols-outlined {
@@ -139,20 +152,12 @@
   font-weight: 300;
 }
 
-.datesub {
-  font-weight: normal;
-  color: var(--text-dim);
-}
-
 #tags {
   font-weight: normal;
   color: var(--text-dim);
 }
 
-#tags a {
-  filter: brightness(80%);
-}
-
+#tags a,
 #tags a:visited {
   filter: brightness(80%);
 }

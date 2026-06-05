@@ -120,17 +120,27 @@
     {{ if .IsHome }}
     <title>{{ .Site.Title }}</title>
     {{ else }}
-    <title>{{ .Title }} by funinkina | {{ .Site.Title }} by funinkina</title>
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
     {{ end }}
 
     <script>
       (function() {
-        var setting = localStorage.getItem('theme') || 'system';
-        var theme = setting;
-        if (setting === 'system') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        function getSetting() {
+          var s = localStorage.getItem('theme');
+          return (s === 'light' || s === 'dark' || s === 'system') ? s : 'system';
         }
-        document.documentElement.setAttribute('data-theme', theme);
+        function resolve(setting) {
+          if (setting === 'system') {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          return setting;
+        }
+        window.themeUtil = {
+          getSetting: getSetting,
+          resolve: resolve,
+          getResolved: function() { return resolve(getSetting()); }
+        };
+        document.documentElement.setAttribute('data-theme', resolve(getSetting()));
       })();
     </script>
 
@@ -193,8 +203,6 @@
             src="/favicon.svg" alt>
           {{- if .IsHome -}}
           funinkina&apos;s corner
-          {{- else if eq .Section "blog" -}}
-          funinkina&apos;s blogs
           {{- else if eq .Section "projects" -}}
           funinkina&apos;s projects
           {{- else -}}

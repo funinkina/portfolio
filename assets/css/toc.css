@@ -1,3 +1,7 @@
+.toc-heading {
+  opacity: 0.6;
+}
+
 .toc a {
   color: var(--text-dim);
 }
