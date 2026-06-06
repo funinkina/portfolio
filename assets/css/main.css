@@ -6,9 +6,9 @@
 
 :root {
   --complimentary: #83a5d5;
-  --text: #e4e4e4;
+  --text: #ededed;
   --code: #dcdcdc;
-  --text-dim: #c1c1c1;
+  --text-dim: #d3d3d3;
   --link: #88b0ff;
   --link-visited: #b388ff;
   --code-background: #161616;
@@ -316,6 +316,24 @@ p {
   color: var(--text);
 }
 
+/* All headings & titles use Instrument Serif italic */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title,
+.profile-name,
+.post-title,
+.project-title,
+.blog-row-title,
+.section-heading,
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+}
+
 h1 {
   font-weight: 300;
   margin-bottom: 0px;
@@ -325,11 +343,11 @@ h1 {
 
 h2 {
   border-bottom: 1px solid;
-  border-color: var(--text-dim);
+  border-color: var(--text);
   margin-bottom: 0.5em;
   margin-top: 1.2em;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 }
 
 h3 {
@@ -345,7 +363,7 @@ h4 {
   margin-top: 0.2em;
   margin-bottom: 0;
   padding-bottom: 0;
-  font-style: oblique;
+  font-style: italic;
   font-weight: 400;
 }
 
@@ -879,6 +897,19 @@ main ul {
   color: var(--text-dim);
 }
 
+.blog-row-readtime,
+.blog-row-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.blog-row-readtime .material-symbols-outlined,
+.blog-row-date .material-symbols-outlined {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
 /* Blog List Clean */
 .blog-list-clean {
   display: flex;
@@ -928,22 +959,34 @@ main ul {
   flex-direction: column;
 }
 
-.blog-row-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.5rem;
-}
-
 .blog-row-title {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+
+.blog-row-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.blog-row-meta .blog-row-date::before {
+  content: "·\00a0";
 }
 
 .blog-row-title a {
   color: var(--text);
+  font-size: 1.4rem;
   text-decoration: none;
+}
+
+.blog-row-meta .material-symbols-outlined {
+  margin-top: 4px;
 }
 
 .blog-row-title a:hover {
@@ -955,12 +998,12 @@ main ul {
   color: var(--text-dim);
   font-size: 0.9rem;
   white-space: nowrap;
-  margin-left: 1rem;
 }
 
 .blog-row-description {
   color: var(--text-dim);
   margin: 0;
+  margin-bottom: 1.2rem;
   font-size: 1rem;
   line-height: 1.6;
   display: -webkit-box;
@@ -996,9 +1039,7 @@ main ul {
   }
 
   .blog-row-date {
-    margin-left: 0;
     font-size: 0.85rem;
-    margin-bottom: 0.5rem;
   }
 
   .profile-header {

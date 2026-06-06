@@ -21,10 +21,14 @@ end -}}
         <div class="blog-row-header">
             <h3 class="blog-row-title"><a href="{{ $page.RelPermalink }}">{{
                     $page.Title }}</a></h3>
-            <span class="blog-row-date">{{ $page.Date.Format "January 2, 2006"
-                }} <span class="blog-row-readtime">·&nbsp;{{ $readTime }}&nbsp;min&nbsp;read</span></span>
         </div>
-        <p class="blog-row-description">{{ $page.Description | default
+        <p class="blog-row-description">{{ or $page.Description $page.Params.subtitle
             $page.Summary | plainify }}</p>
+        <span class="blog-row-meta">
+            <span class="blog-row-readtime"><span class="material-symbols-outlined"
+                    aria-hidden="true">hourglass_top</span>{{ $readTime }}&nbsp;min&nbsp;read</span>
+            <span class="blog-row-date"><span class="material-symbols-outlined"
+                    aria-hidden="true">calendar_today</span>{{ $page.Date.Format "January 2, 2006" }}</span>
+        </span>
     </div>
 </div>
