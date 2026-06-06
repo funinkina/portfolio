@@ -44,6 +44,11 @@
       </div>
       {{ end }}
       <div class="single-meta-row">
+        <span class="datesub readtime">
+          <span class="material-symbols-outlined"
+            aria-hidden="true">hourglass_top</span>
+          {{ or .ReadingTime 1 }} min read
+        </span>
         {{ if .Params.date }}
         <span class="datesub">
           <span class="material-symbols-outlined"
@@ -54,11 +59,6 @@
           {{- end -}}
         </span>
         {{ end }}
-        <span class="datesub readtime">
-          <span class="material-symbols-outlined"
-            aria-hidden="true">hourglass_top</span>
-          {{ or .ReadingTime 1 }} min read
-        </span>
         {{ partial "tags.html" .}}
       </div>
     </div>

@@ -987,6 +987,7 @@ main ul {
 
 .blog-row-meta .material-symbols-outlined {
   margin-top: 4px;
+  font-size: 1rem;
 }
 
 .blog-row-title a:hover {

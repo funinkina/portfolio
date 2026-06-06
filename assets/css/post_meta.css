@@ -96,6 +96,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
 .single-share-button .material-symbols-outlined {
@@ -127,12 +128,12 @@
 
 .datesub .material-symbols-outlined {
   padding-top: 4px;
-  font-size: 1em;
+  font-size: 1.1em;
   line-height: 1;
 }
 
-.readtime {
-  margin-left: 0.85rem;
+.readtime+.datesub::before {
+  content: "·\00a0";
 }
 
 #single-meta {
