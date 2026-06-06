@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/resume",
+      "destination": "https://drive.google.com/file/d/162eb_11k35YPObsDN0rnWPBMSxc_YoCw/view?usp=drive_link",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/style.min.:hash.css",
