@@ -21,7 +21,7 @@ priority = 0.5
 [params]
 author = "Aryan K."
 subtitle = "23 • Systems and Backend Engineer • ENGLISH / हिंदी"
-location = "Bangalore, India"
+location = "Bangalore ↔ New Delhi, India"
 avatar = "avatar.jpg"
 description = "A collection of blogs, projects and opinions by funinkina."
 ShowReadingTime = true
@@ -36,6 +36,8 @@ extraMaterialIcons = [
     "keyboard",
     "content_copy",
     "check",
+    "article",
+    "deployed_code",
 ]
 
 [params.vercel_analytics]
@@ -62,10 +64,10 @@ blog = "/blog/:slug/"
 # url = "/"
 # weight = 1
 [[menu.main]]
-name = "Blogs"
+name = "blogs"
 url = "/blog/"
 weight = 1
 [[menu.main]]
-name = "Projects"
+name = "projects"
 url = "/projects/"
 weight = 2

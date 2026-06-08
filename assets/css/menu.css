@@ -73,6 +73,13 @@
   padding-top: 3px;
 }
 
+.menu-link .menu-icon {
+  font-size: 1.3rem;
+  vertical-align: -0.2em;
+  margin-right: 0.3rem;
+  padding-top: 0;
+}
+
 
 .mobile-toc-toggle {
   align-items: center;
@@ -160,6 +167,8 @@
   justify-items: center;
   align-items: center;
   transition: font-weight 0.2s ease;
+  font-family: 'Inter';
+  font-style: normal;
 }
 
 .nav-bar h1 a:hover {

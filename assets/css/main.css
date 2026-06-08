@@ -548,7 +548,7 @@ main ul {
 
 .profile-avatar {
   /* name (4.5rem × line-height 1.2) + margin-bottom 10px + subtitle (1.1rem × line-height 1.2) */
-  height: 8.8rem;
+  height: 10rem;
   width: auto;
   aspect-ratio: 1 / 1;
   border-radius: 50%;

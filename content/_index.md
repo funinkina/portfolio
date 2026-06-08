@@ -13,7 +13,7 @@ toc: false
 
 {{< announcement >}}
 
-I'm a final-year **Computer Science** undergrad and a backend & systems engineer working in **Go, Python, and C/C++**. I like building systems that are fast, boring to operate, and interesting to build, and most of my time goes writing code and shipping straight to production.
+I'm a recent graduate, with ~2 years of experience engineering backend & systems at production level, working in **Go, Python, and C/C++**. I like building systems that are fast, boring to operate, and interesting to build, and most of my time goes writing code and shipping straight to production.
 
 Lately that means **real-time LLM infrastructure** and **voice agent backends**, though I'm just as comfortable low in the stack with **device drivers** and **Linux kernel** work, including a patch merged into mainline. Along the way: an 80% cut in voice latency, a 5× inference speedup, and 60% in cost savings.
 
