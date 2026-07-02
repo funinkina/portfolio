@@ -141,6 +141,12 @@
     {{ end }}
 
     {{ partial "rss_subscribe.html" . }}
+
+    <p class="built-with">Built with
+      <a href="https://gohugo.io" target="_blank" rel="noopener" aria-label="Hugo">
+        <img src="{{ "hugo-logo.svg" | relURL }}" alt="Hugo" class="hugo-logo" width="76" height="20" loading="lazy" decoding="async">
+      </a>
+    </p>
 </div>
 {{ else }}
 <div class="home-content">{{ .Content }}</div>

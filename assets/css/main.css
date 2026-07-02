@@ -1108,6 +1108,23 @@ main ul {
   gap: 0.5rem 1rem;
 }
 
+.built-with {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.hugo-logo {
+  height: 1.15em;
+  width: auto;
+  vertical-align: middle;
+}
+
 .gh-legend {
   display: inline-flex;
   align-items: center;
