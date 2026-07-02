@@ -63,6 +63,8 @@ When I'm not shipping, I write about **Linux**, **open source**, and **computer 
 
 ## {{< icon "emoji_events" >}} Achievements
 
+- **Linux Kernel Contributor (ALSA/HDA subsystem):** Diagnosed a hardware mute LED bug by manually probing **Realtek COEF registers** with `hda-verb`, then submitted a [patch merged into mainline Linux](https://lore.kernel.org/all/20260516144436.35022-1-aryankushwaha3101@gmail.com/) adding the missing PCI quirk for the machine.
+
 - **Amazon ML Summer School 2024** Got selected from over **1,000,000 applicants** nationwide. Competitive ML program, non-trivial acceptance rate.
 
 <!-- ## {{< icon "search" >}} Stuff that I have written -->
