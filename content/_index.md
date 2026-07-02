@@ -35,16 +35,16 @@ When I'm not shipping, I write about **Linux**, **open source**, and **computer 
 
 ## {{< icon "code" >}} Highlighted Projects
 
-*{{< icon "star" >}} 250+ stars across GitHub - here are a few worth calling out.*
+*{{< icon "star" >}} 75+ stars, 2K+ users across GitHub - here are a few worth calling out.*
 
-- **[Spectacle OCR Screenshot](https://github.com/funinkina/spectacle-ocr-screenshot)** {{< icon "star" >}} 89  
-  A **C++/Qt** desktop utility for Linux that integrates **Tesseract OCR** and **ZXing** for low-latency text extraction and QR decoding giving native-performance system integration, no Electron in sight.
+- **[OpenEffects](https://github.com/funinkina/openeffects)** {{< icon "star" >}} 60 • 2K+ users • Linux-native webcam effects engine in **Rust**  
+  A **GTK4/libadwaita** GUI over a headless daemon (`openeffectsd`, `openeffectsctl`) with a **PipeWire/GStreamer** media pipeline. Inference runs through **ONNX Runtime** with automatic **CUDA/ROCm/Vulkan** dispatch for sub-50ms latency — portrait blur, center stage auto-tracking, studio light, background replacement, and gesture-triggered reaction effects, published as a **Flatpak** on Flathub.
 
 - **[DeadEnv](https://github.com/funinkina/deadenv)** {{< icon "star" >}} 15 • Cross-platform CLI secrets manager in **Go**  
   Replaces plaintext `.env` files with OS-native keychain storage (cgo/macOS, libsecret/Linux, WinCred/Windows) behind biometric auth. Encrypted exports use **AES-256-GCM + Argon2id**, with deliberate error collapsing to prevent oracle attacks and a git audit log baked in.
 
-- **[Weekly commits](https://github.com/funinkina/weekly-commits)** {{< icon "star" >}} 27 • GNOME Extension to visualise your weekly GitHub commits in the top bar.  
-  Weekly Commits transforms your GitHub activity into a beautiful visual representation directly in your GNOME Shell top bar. Stay motivated and track your coding consistency at a glance!
+- **[Ricoh SP 200 Linux Driver](https://github.com/funinkina/Ricoh-SP200-Linux)** • Native print driver for a printer with no official Linux support  
+  Reverse-engineered the Ricoh SP 200's proprietary USB print protocol by capturing and decoding traffic from the Windows driver, then wrote a native **CUPS filter in C** (libcups, libcupsimage, **JBIG1/ITU-T T.82** compression) to reconstruct the full print job lifecycle and enable multi-page printing.
 
 → *[Explore more on GitHub](https://github.com/funinkina)*
 

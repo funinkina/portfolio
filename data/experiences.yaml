@@ -1,9 +1,25 @@
+- company: Zyka AI
+  role: Backend AI Intern
+  type: Internship
+  url: https://zyka.ai/
+  location: Remote
+  dateRange: April 2026 - July 2026
+  logo: ""
+  responsibilities:
+    - "Built and designed an **audio/image annotation platform** (**Next.js, React**) for annotators to tag large-scale multimedia datasets, architecting the **UX/UI** for high-throughput tagging workflows."
+    - "Developed an **API aggregator backend** unifying multiple **LLM inference providers**, implementing **credit-based usage metering**, request routing, and rate limiting for cost-tracked inference access."
+  tech:
+    - Next.js
+    - React
+    - LLM Infrastructure
+    - API Design
+
 - company: Superdash.ai
   role: Backend Engineer Intern
   type: Internship
   url: https://superdash.ai/
   location: Bangalore, Karnataka
-  dateRange: June 2025 - Present
+  dateRange: June 2025 - April 2026
   logo: ""
   responsibilities:
     - "Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls."

@@ -14,8 +14,14 @@ Backend and systems engineer in **Go, Python, and C/C++**, with production exper
 
 ## Experience
 
+### Backend AI Intern — Zyka AI
+*Remote · April 2026 – July 2026*
+
+- Built and designed an **audio/image annotation platform** (**Next.js, React**) for annotators to tag large-scale multimedia datasets, architecting the **UX/UI** for high-throughput tagging workflows.
+- Developed an **API aggregator backend** unifying multiple **LLM inference providers**, implementing **credit-based usage metering**, request routing, and rate limiting for cost-tracked inference access.
+
 ### Backend Engineer Intern — Superdash
-*Bengaluru (Onsite) · June 2025 – Present*
+*Bengaluru (Onsite) · June 2025 – April 2026*
 
 - Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls.
 - Engineered **scalable voice agent backend systems** in **Go and Python**, owning full lifecycle from API design through production deployment; refactored WebSocket layer to cut **voice call latency by 80% (500ms → 100ms)**.
@@ -33,14 +39,15 @@ Backend and systems engineer in **Go, Python, and C/C++**, with production exper
 
 ## Projects
 
+### [OpenEffects](https://github.com/funinkina/openeffects) ★ 60 · 2K+ users
+
+- Built a **Linux-native webcam effects engine in Rust** with a **GTK4/libadwaita GUI**, a **headless daemon architecture** (`openeffectsd`, `openeffectsctl`, CLI), and a **PipeWire/GStreamer** media pipeline; inference via **ONNX Runtime** with automatic hardware dispatch (**CUDA, ROCm, Vulkan**) achieving **sub-50ms latency**.
+- Published as a **Flatpak** on Flathub with **systemd**-managed daemon lifecycle and **D-Bus IPC**, bringing macOS-like **portrait blur**, **center stage** auto-tracking, **studio light**, **background replacement**, and gesture-triggered **reaction effects** to any Wayland Linux desktop.
+
 ### [DeadEnv](https://github.com/funinkina/dead-env)
 
 - Built a **cross-platform CLI secrets manager in Go** replacing plaintext `.env` files with **OS-native keychain storage** (cgo on macOS, libsecret on Linux, WinCred on Windows) behind biometric authentication.
 - Designed an **AES-256-GCM + Argon2id** encrypted export format with deliberate wrong-password/tamper error collapsing to prevent oracle attacks; backed by a **git audit log** and interface-driven architecture enabling full unit and fuzz test coverage.
-
-### [Spectacle OCR Screenshot](https://github.com/funinkina/spectacle-ocr-screenshot) ★ 90
-
-- Developed a **C++/Qt desktop utility** integrating **Tesseract OCR** and **ZXing** for low-latency **text extraction** and **QR decoding**; achieved native-performance **system integration** on Linux.
 
 ### [Ricoh SP 200 Linux Driver](https://github.com/funinkina/Ricoh-SP200-Linux)
 
@@ -50,7 +57,7 @@ Backend and systems engineer in **Go, Python, and C/C++**, with production exper
 ## Skills
 
 - **Languages:** Python, Go, TypeScript, C, C++, Rust, Bash
-- **Frameworks & Tools:** FastAPI, Node.js, WebSockets, REST APIs, Qt, Textual, WebAssembly
+- **Frameworks & Tools:** FastAPI, Node.js, Next.js, React, WebSockets, REST APIs, Qt, Textual, WebAssembly
 - **Cloud & DevOps:** AWS (EC2, S3, SQS, EventBridge), GCP APIs, Docker, GitHub Actions, CI/CD, Linux, Git
 - **Core Expertise:** Distributed Systems, Backend Architecture, Systems Programming, LLM Systems, Machine Learning
 
