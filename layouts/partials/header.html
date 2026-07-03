@@ -146,18 +146,14 @@
       })();
     </script>
 
-    {{ $coreCSS := slice
-    (resources.Get "css/main.css")
-    (resources.Get "css/menu.css")
-    (resources.Get "css/images.css")
-    (resources.Get "css/search.css")
-    (resources.Get "css/box.css")
-    (resources.Get "css/tables.css")
-    (resources.Get "css/misc.css")
-    (resources.Get "css/experiences.css")
-    | resources.Concat "core.css" | minify | fingerprint }}
-    <link rel="preload" href="{{ $coreCSS.RelPermalink }}" as="style">
-    <link rel="stylesheet" type="text/css" href="{{ $coreCSS.RelPermalink }}"
+    {{/* Core bundle: Tailwind utilities + the retained hand-written CSS, which
+    app.css pulls in via @import ... layer(base). Replaces the old core.css
+    concat (main/menu/images/search/box/tables/misc/experiences). */}}
+    {{ $tw := resources.Get "css/app.css" | css.TailwindCSS (dict "minify"
+    hugo.IsProduction) }}
+    {{ if hugo.IsProduction }}{{ $tw = $tw | fingerprint }}{{ end }}
+    <link rel="preload" href="{{ $tw.RelPermalink }}" as="style">
+    <link rel="stylesheet" type="text/css" href="{{ $tw.RelPermalink }}"
       media="all">
     {{- if .IsPage -}}
     {{ $articleCSS := slice
@@ -201,7 +197,7 @@
   <body>
     {{ if not .Params.nomenu }}
     <nav
-      class="nav-bar{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}">
+      class="nav-bar flex items-center justify-between z-1000 backdrop-blur-[20px] overflow-hidden{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}">
       <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
             src="/favicon.svg" alt>
           {{- if .IsHome -}}

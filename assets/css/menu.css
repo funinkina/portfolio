@@ -12,24 +12,18 @@
 }
 
 .nav-bar {
-  display: flex;
-  align-items: center;
+  /* display / align-items / justify-content / z-index / backdrop-filter /
+     overflow are inline utilities in header.html. These stay in the base layer
+     because the ≤819px query (column-gap, padding) and the JS-toggled
+     .nav-flush state (top, border, margin) override them, and under cascade
+     layers an inline utility would otherwise beat a base-layer override. */
   column-gap: 1.5rem;
-  /* background-color: var(--background); */
-  justify-content: space-between;
-  /* background-image: image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')); */
-  /* background-size: 7%; */
-  /* background-attachment: scroll; */
   margin-bottom: 20px;
   padding: 5px 15px;
   border: 1px solid var(--border);
 
   position: sticky;
   top: 10px;
-  z-index: 1000;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  overflow: hidden;
   transition: top 0.25s ease, margin 0.25s ease, border-color 0.25s ease;
 }
 

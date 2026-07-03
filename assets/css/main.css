@@ -342,7 +342,6 @@ h6,
 .site-title,
 .profile-name,
 .post-title,
-.project-title,
 .blog-row-title,
 .section-heading,
 .section-title {
@@ -851,38 +850,8 @@ main ul {
   font-size: 0.9rem;
 }
 
-.project-title {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.project-title a {
-  color: var(--text);
-  text-decoration: none;
-}
-
-.project-description {
-  color: var(--text-dim);
-  font-size: 0.95rem;
-  font-weight: 300;
-  margin-bottom: 0.2rem;
-  margin-top: 0.2rem;
-  line-height: 1.5;
-  flex-grow: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.project-tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
+/* .project-title / .project-description / .project-tags → inline utilities in
+   project_card.html (Tailwind migration). */
 
 .tech-tag {
   background: var(--table-th);
@@ -894,20 +863,7 @@ main ul {
   border: 1px solid var(--border);
 }
 
-.project-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 0.5rem;
-  color: var(--text-dim);
-  font-size: 0.8rem;
-}
-
-.project-meta .material-symbols-outlined {
-  font-size: 1.2em;
-  padding-top: 5px;
-  line-height: 1;
-}
+/* .project-meta (+ its icon) → inline utilities in project_card.html. */
 
 .blog-row-readtime {
   color: var(--text-dim);
