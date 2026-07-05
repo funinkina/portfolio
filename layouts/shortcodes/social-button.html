@@ -1,5 +1,6 @@
-<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="social-btn">
-    <span class="icon">
+<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer"
+    class="bg-card border border-complementary text-complementary py-2 px-4 text-[0.9rem] transition-all duration-200 ease-[ease] inline-flex items-center no-underline gap-2 leading-none visited:text-complementary hover:text-text hover:border-text hover:bg-accent hover:no-underline">
+    <span class="icon flex items-center justify-center">
         {{ if .Get "icon" }}
             {{ with resources.Get (printf "icons/%s.svg" (.Get "icon")) }}
                 {{ .Content | safeHTML }}

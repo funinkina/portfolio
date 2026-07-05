@@ -182,44 +182,14 @@ main {
   margin-bottom: 0.75rem;
 }
 
-.social-btn {
-  background-color: var(--card-bg);
-  border: 1px solid var(--complimentary);
-  color: var(--complimentary);
-  padding: 0.5rem 1rem;
-
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  gap: 0.5rem;
-  line-height: 1;
-}
-
-.social-btn:hover {
-  color: var(--text);
-  border-color: var(--text);
-  background-color: var(--accent);
-  text-decoration: none;
-}
-
-.social-btn:hover>a {
-  color: var(--complimentary);
-}
-
-.social-btn .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.social-btn:visited {
-  color: var(--complimentary);
-}
-
-.social-btn:visited:hover {
-  color: var(--text);
+/* .social-btn (+ its hover/visited and .icon wrapper) → inline utilities in
+   social-button.html. Only the injected-SVG sizing stays retained (raw SVG file
+   content has no element to put utilities on); .icon is kept as its hook. */
+.icon svg {
+  width: 1.2em;
+  height: 1.2em;
+  fill: currentColor;
+  overflow: visible;
 }
 
 @property --announcement-angle {
@@ -297,13 +267,6 @@ main {
   padding-bottom: 0;
 }
 
-.social-btn .icon svg {
-  width: 1.2em;
-  height: 1.2em;
-  fill: currentColor;
-  overflow: visible;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .social-links-container {
@@ -339,7 +302,6 @@ h4,
 h5,
 h6,
 .site-title,
-.post-title,
 .section-heading,
 .section-title {
   font-family: 'Instrument Serif', serif;
@@ -454,79 +416,11 @@ main ul {
   font-weight: 600;
 }
 
-.post-list {
-  color: var(--complimentary);
-}
-
-.post-item {
-  display: flex;
-  align-items: center;
-}
-
-.post-image {
-  scale: 1;
-  transition: all 0.2s ease-in-out;
-  margin-right: 20px;
-}
-
-.post-image img {
-  width: 290px;
-  max-height: 160px;
-
-  object-fit: cover;
-}
-
-@media screen and (max-width: 760px) {
-  .post-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .post-image {
-    margin-right: 0;
-    margin-bottom: 15px;
-    width: 100%;
-  }
-
-  .post-image img {
-    width: 100%;
-    max-height: 200px;
-  }
-}
-
-.post-item:has(:hover)>.post-image {
-  scale: 1.1;
-}
-
-.post-details a {
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: white;
-}
-
-.post-title {
-  margin-top: 0;
-  margin-bottom: 0.2rem;
-}
-
-.post-date {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-size: 0.9em;
-  color: var(--text-dim);
-}
-
-.post-date .material-symbols-outlined {
-  font-size: 20px;
-  line-height: 1;
-  padding-bottom: 0;
-}
-
-.bold-post-in-list {
-  font-weight: 600;
-}
+/* .post-list / .post-item / .post-image / .post-details / .post-title /
+   .post-date → inline utilities in post_row.html (+ post_list.html /
+   taxonomy.html wrappers). .post-item:has(:hover) hover-zoom became group +
+   group-hover:scale-110. .bold-post-in-list was dead CSS (no template/JS ever
+   set it). */
 
 @media screen and (max-width: 760px) {
   .katex {

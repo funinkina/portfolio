@@ -1,22 +1,25 @@
-<div class="post-item">
+<div class="group flex items-center max-tbl:flex-col max-tbl:items-start">
   <!-- Left side: Image -->
   {{ if .Params.image }}
-  <div class="post-image">
+  <div
+    class="scale-100 transition-all duration-200 ease-in-out mr-5 group-hover:scale-110 max-tbl:mr-0 max-tbl:mb-3.75 max-tbl:w-full">
     <a href="{{ .RelPermalink }}">
       {{ partial "processed-image.html" (dict "path" .Params.image "width" 480
-      "alt" .Title "loading" "lazy") }}
+      "alt" .Title "loading" "lazy" "class"
+      "w-[290px] max-h-40 object-cover max-tbl:w-full max-tbl:max-h-[200px]") }}
     </a>
   </div>
   {{ end }}
 
   <!-- Right side: Title and Date -->
-  <div class="post-details">
-    <h3 class="post-title">
-      <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
+  <div>
+    <h3 class="font-serif italic mt-0 mb-[0.2rem]">
+      <a href="{{ .RelPermalink }}" class="text-[1.4rem] font-light text-white">{{ .Title | markdownify }}</a>
     </h3>
     {{ if not .CurrentSection.Params.nodate }}
-    <span class="post-date">
-      <span class="material-symbols-outlined" aria-hidden="true">calendar_today</span>
+    <span class="flex items-center gap-2.5 mb-5 text-[0.9em] text-text-dim">
+      <span class="material-symbols-outlined text-[20px] leading-none pb-0"
+        aria-hidden="true">calendar_today</span>
       {{ .Date.Format "Jan 2, 2006" }}
     </span>
     {{ end }}

@@ -1,16 +1,8 @@
-.menu a {
-  text-decoration: none;
-  transition: font-weight 0.2s ease;
-}
-
-.menu a:visited {
-  color: var(--complimentary);
-}
-
-.menu a:hover {
-  color: var(--link);
-}
-
+/* .menu a (links), .nav-bar ul, .nav-actions, .nav-bar li, .menu-link .menu-icon
+   → inline utilities in header.html. Retained below: the .nav-bar container
+   (state/responsive-coupled), the site-title <h1> (Instrument-Serif-vs-Inter
+   font override tangle), the shared .nav-bar .material-symbols-outlined base,
+   and the JS-animated .theme-toggle / .mobile-toc-toggle controls. */
 .nav-bar {
   /* display / align-items / justify-content / z-index / backdrop-filter /
      overflow are inline utilities in header.html. These stay in the base layer
@@ -40,40 +32,10 @@
     image-set(url('/Rectangle.avif') type('image/avif'), url('/Rectangle.webp') type('image/webp'), url('/Rectangle.png')); */
 }
 
-.nav-bar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  column-gap: 1.5rem;
-  font-size: 1rem;
-  font-weight: 300;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  column-gap: 1.5rem;
-}
-
-.nav-bar li {
-  line-height: 2;
-  font-size: 1.25rem;
-}
-
 .nav-bar .material-symbols-outlined {
   font-size: 1.25rem;
   padding-top: 3px;
 }
-
-.menu-link .menu-icon {
-  font-size: 1.3rem;
-  vertical-align: -0.2em;
-  margin-right: 0.3rem;
-  padding-top: 0;
-}
-
 
 .mobile-toc-toggle {
   align-items: center;
@@ -113,20 +75,8 @@
     flex: 1;
   }
 
-  .nav-actions {
-    width: 100%;
-    order: 1;
-    justify-content: space-between;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  .nav-bar ul {
-    column-gap: 1.1rem;
-    font-size: 1rem;
-    white-space: nowrap;
-    flex-wrap: wrap;
-  }
+  /* .nav-actions / .nav-bar ul responsive overrides → max-nav: utilities in
+     header.html. */
 
   /* full-bleed, borderless when flush (scrolled down) */
   .nav-bar.nav-flush {

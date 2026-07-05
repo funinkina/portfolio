@@ -1,35 +1,10 @@
-.resume-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 1rem;
-}
-
-.resume-print-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.9rem;
-  background: var(--card-bg);
-  border: 1px solid var(--complimentary);
-  color: var(--complimentary);
-
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  font-family: inherit;
-}
-
-.resume-print-btn:hover {
-  background: var(--accent);
-  color: var(--text);
-  border-color: var(--text);
-}
-
-.resume-print-btn .material-symbols-outlined {
-  font-size: 1rem;
-  padding-bottom: 0;
-}
-
+/* .resume-toolbar / .resume-print-btn / .resume-header / .resume-name /
+   .resume-subtitle → inline utilities in resume/single.html. Retained below:
+   .resume-paper + its markdown-content descendants (.resume-paper h2/p/li/…),
+   .resume-content:first-child, and the print @page block. This file is still
+   loaded as its own <link> in resume/single.html; the inlined elements have no
+   remaining rule here, so app.css utilities apply with no competitor. NOTE: the
+   resume template is currently unused (no content sets layout/type: resume). */
 .resume-paper {
   background: #ffffff;
   color: #1a1a1a;
