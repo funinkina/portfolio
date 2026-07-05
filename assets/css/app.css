@@ -26,6 +26,7 @@
 @import "./assets/css/tables.css" layer(base);
 @import "./assets/css/misc.css" layer(base);
 @import "./assets/css/experiences.css" layer(base);
+@import "./assets/css/post_meta.css" layer(base);
 
 /* Scan the templates directly for utility class names. css.TailwindCSS resolves
    @source from the project root, so the path is "./"-prefixed (a bare or

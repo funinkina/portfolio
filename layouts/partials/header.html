@@ -16,7 +16,6 @@
     <link rel="manifest" href="{{ relURL "site.webmanifest" }}">
     <link rel="canonical" href="{{ .Permalink }}" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="/fonts/InterVariable.woff2" as="font"
       type="font/woff2" crossorigin>
@@ -24,11 +23,23 @@
     {{- $fontsURL := printf
     "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=%s"
     $iconNames -}}
+    {{- $ua := dict "headers" (dict "User-Agent"
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")
+    -}}
+    {{- $fontsRes := try (resources.GetRemote $fontsURL $ua) -}}
+    {{- if and (not $fontsRes.Err) $fontsRes.Value -}}
+    {{- $fontsCSS := replaceRE `\.material-symbols-outlined\s*\{[^}]*\}` ""
+    ($fontsRes.Value | minify).Content -}}
+    {{- $st := "style" -}}
+    {{- printf "<%s>%s</%s>" $st $fontsCSS $st | safeHTML -}}
+    {{- else -}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet"
       href="{{ $fontsURL }}"
       media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet"
         href="{{ $fontsURL }}"></noscript>
+    {{- end -}}
 
     {{- $desc := or .Description .Params.subtitle .Site.Params.description -}}
     {{- $ogTitle := cond .IsHome .Site.Title (printf "%s by funinkina" .Title)
@@ -158,7 +169,6 @@
     {{- if .IsPage -}}
     {{ $articleCSS := slice
     (resources.Get "css/code.css")
-    (resources.Get "css/post_meta.css")
     (resources.Get "css/toc.css")
     | resources.Concat "article.css" | minify | fingerprint }}
     <link rel="preload" href="{{ $articleCSS.RelPermalink }}" as="style">

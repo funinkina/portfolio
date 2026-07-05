@@ -1,20 +1,25 @@
 {{ partial "header.html" . }}
 
 {{ if not .Params.notitle }}
-<div id="single-header">
-  <h1>{{ .Title | markdownify }}</h1>
+<div id="single-header"
+  class="flex flex-col justify-center gap-3 min-h-[88dvh] border-b-[5px] border-dotted border-accent">
+  <h1
+    class="text-[5rem] font-extralight leading-[normal] pb-0 text-left text-text max-[600px]:text-[3.5rem]">{{
+    .Title | markdownify }}</h1>
   {{ if and .Params.image (ne .Params.image "") }}
-  <div class="single-image-wrapper">
+  <div class="relative bg-card overflow-hidden">
     {{ partial "processed-image.html" (dict "path" .Params.image "width" 1200
     "alt" .Title "class" "single-header-image" "loading" "eager" "fetchpriority"
     "high") }}
   </div>
   {{ end }}
-  <div id="single-meta">
-    <div class="single-meta-content">
+  <div id="single-meta" class="mt-0 mb-0 pt-0 text-[0.9em]">
+    <div class="flex flex-col gap-1">
       {{ if .Params.subtitle }}
-      <div class="single-meta-subtitle-row">
-        <p id="subtitle">{{ .Params.subtitle }}</p>
+      <div class="flex items-center gap-5">
+        <p id="subtitle"
+          class="mt-0 mb-0 text-[1.4em] text-text-dim font-light flex-1 min-w-0">{{
+          .Params.subtitle }}</p>
         <button
           class="single-share-button"
           type="button"
@@ -28,7 +33,7 @@
         </button>
       </div>
       {{ else }}
-      <div class="single-meta-subtitle-row">
+      <div class="flex items-center gap-5">
         <div></div>
         <button
           class="single-share-button"
@@ -43,9 +48,9 @@
         </button>
       </div>
       {{ end }}
-      <div class="single-meta-row">
+      <div class="flex items-center flex-wrap gap-[0.6rem]">
         <span class="datesub readtime">
-          <span class="material-symbols-outlined"
+          <span class="material-symbols-outlined text-red-600"
             aria-hidden="true">hourglass_top</span>
           {{ or .ReadingTime 1 }} min read
         </span>
@@ -65,7 +70,7 @@
   </div>
 </div>
 {{ else }}
-<div class="single-header-spacer"></div>
+<div class="pb-px"></div>
 {{ end }}
 
 {{ if .Params.toc }}
@@ -79,7 +84,8 @@
 
 {{ if or (and (eq .Section "blog") .Params.tags) (eq .Section "projects") }}
 <hr>
-<h2 class="comments-heading">Share your thoughts and opinions!</h2>
+<h2 class="border-none font-medium text-[2rem] mt-0">Share your thoughts and
+  opinions!</h2>
 <div class="giscus"></div>
 
 <script>
@@ -140,7 +146,8 @@
 
 <br>
 <hr>
-<div class="single-footer-row">
+<div
+  class="single-footer-row flex items-center justify-between gap-4 text-text-dim text-[0.95rem] mt-4 mx-0 mb-0 max-[600px]:flex-col max-[600px]:items-start">
   <div>
     {{ if .Params.Next }}
     {{ with .PrevInSection }}
@@ -148,7 +155,8 @@
     {{ end }}
     {{ end }}
   </div>
-  <div class="single-footer-copyright">© 2026 funinkina</div>
+  <div class="text-right whitespace-nowrap max-[600px]:text-left">© 2026
+    funinkina</div>
 </div>
 
 {{ if .Params.math }}

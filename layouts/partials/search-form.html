@@ -2,6 +2,7 @@
     action='{{ with .GetPage "/" }}{{.Permalink}}{{end}}' method="get">
     <label hidden for="search-input">Search site</label>
     <input tabindex="-1" type="text" id="search-input" name="query"
+        class="p-1.5 w-[72%] min-[900px]:w-[42%] toc:w-[33%] border border-solid border-[#9f9f9f] focus:border-[#dadada] active:text-[#dddddd]"
         placeholder="search [i] ...">
     <!-- <input tabindex="-1" type="submit" value="search"> -->
 </form>

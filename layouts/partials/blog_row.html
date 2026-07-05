@@ -17,18 +17,26 @@ end -}}
         </a>
     </div>
     {{ end }}
-    <div class="blog-row-content">
+    <div class="grow flex flex-col">
         <div class="blog-row-header">
-            <h3 class="blog-row-title"><a href="{{ $page.RelPermalink }}">{{
+            <h3
+                class="font-serif italic m-0 text-[1.2rem] font-semibold flex-1 min-w-0"><a
+                    href="{{ $page.RelPermalink }}"
+                    class="text-text text-[1.4rem] no-underline hover:underline hover:decoration-text-dim">{{
                     $page.Title }}</a></h3>
         </div>
-        <p class="blog-row-description">{{ or $page.Description $page.Params.subtitle
+        <p
+            class="text-text-dim mt-0 mb-[1.2rem] text-base leading-[1.6] line-clamp-3">{{
+            or $page.Description $page.Params.subtitle
             $page.Summary | plainify }}</p>
         <span class="blog-row-meta">
-            <span class="blog-row-readtime"><span class="material-symbols-outlined"
-                    aria-hidden="true">hourglass_top</span>{{ $readTime }}&nbsp;min&nbsp;read</span>
+            <span class="blog-row-readtime"><span
+                    class="material-symbols-outlined text-small"
+                    aria-hidden="true">hourglass_top</span>{{ $readTime
+                }}&nbsp;min&nbsp;read</span>
             <span class="blog-row-date"><span class="material-symbols-outlined"
-                    aria-hidden="true">calendar_today</span>{{ $page.Date.Format "January 2, 2006" }}</span>
+                    aria-hidden="true">calendar_today</span>{{ $page.Date.Format
+                "January 2, 2006" }}</span>
         </span>
     </div>
 </div>

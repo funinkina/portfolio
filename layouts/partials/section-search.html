@@ -1,33 +1,45 @@
-<div class="section-search">
+<div class="flex w-full my-8">
     <input type="text" id="section-search-input"
+        class="flex-1 px-3.5 py-2.25 border border-solid border-r-0 rounded-bl-sm bg-background text-text text-[1rem] font-[inherit]"
         placeholder="Search among {{ .Section }}..."
         aria-label="Search {{ .Section }}">
     <button type="button" id="section-search-clear" aria-label="Clear search"
         title="Clear">
         <span class="material-symbols-outlined">close</span>
     </button>
-    <button type="button" id="section-search-btn" aria-label="Search">
-        <span class="material-symbols-outlined">search</span>
-        <p>FIND</p>
+    <button type="button" id="section-search-btn" aria-label="Search"
+        class="px-3.5 py-2.25 border border-solid rounded-r-sm bg-accent cursor-pointer flex items-center justify-center transition-[color,border-color] duration-150 ease-[ease]">
+        <span
+            class="material-symbols-outlined text-xl leading-none pb-0">search</span>
+        <p class="my-0 mr-0 ml-2.5 p-0 text-[1rem]">FIND</p>
     </button>
 </div>
 
-<div class="section-sort" role="radiogroup" aria-label="Sort {{ .Section }}">
-    <span class="section-sort-label">Sort:</span>
-    <label class="sort-option">
-        <input type="radio" name="section-sort" value="date-desc" checked>
+<div class="flex flex-wrap items-center justify-end gap-2 -mt-4 mx-0 mb-8"
+    role="radiogroup" aria-label="Sort {{ .Section }}">
+    <span class="text-text-dim text-[0.95rem] mr-0.5">Sort:</span>
+    <label
+        class="sort-option inline-flex items-center px-3 py-0.75 border border-solid bg-accent text-[0.9rem] cursor-pointer select-none transition-[color,border-color,background-color] duration-150 ease-[ease]">
+        <input type="radio" name="section-sort" value="date-desc"
+            class="absolute opacity-0 w-0 h-0" checked>
         <span>Newest</span>
     </label>
-    <label class="sort-option">
-        <input type="radio" name="section-sort" value="date-asc">
+    <label
+        class="sort-option inline-flex items-center px-3 py-0.75 border border-solid bg-accent text-[0.9rem] cursor-pointer select-none transition-[color,border-color,background-color] duration-150 ease-[ease]">
+        <input type="radio" name="section-sort" value="date-asc"
+            class="absolute opacity-0 w-0 h-0">
         <span>Oldest</span>
     </label>
-    <label class="sort-option">
-        <input type="radio" name="section-sort" value="title-asc">
+    <label
+        class="sort-option inline-flex items-center px-3 py-0.75 border border-solid bg-accent text-[0.9rem] cursor-pointer select-none transition-[color,border-color,background-color] duration-150 ease-[ease]">
+        <input type="radio" name="section-sort" value="title-asc"
+            class="absolute opacity-0 w-0 h-0">
         <span>Title A&ndash;Z</span>
     </label>
-    <label class="sort-option">
-        <input type="radio" name="section-sort" value="title-desc">
+    <label
+        class="sort-option inline-flex items-center px-3 py-0.75 border border-solid bg-accent text-[0.9rem] cursor-pointer select-none transition-[color,border-color,background-color] duration-150 ease-[ease]">
+        <input type="radio" name="section-sort" value="title-desc"
+            class="absolute opacity-0 w-0 h-0">
         <span>Title Z&ndash;A</span>
     </label>
 </div>

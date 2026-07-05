@@ -1,18 +1,21 @@
 <div class="image-gallery-container">
-  <ul class="image-gallery-img three-image-gallery">
-    {{ range $i, $path := slice (index .Params 0) (index .Params 1) (index .Params 2) }}
+  <ul
+    class="image-gallery-img list-none flex flex-wrap justify-center gap-2.5 pl-0 mx-0 mt-0 mb-[2.6rem]">
+    {{ range $i, $path := slice (index .Params 0) (index .Params 1) (index
+    .Params 2) }}
     {{- $imgPath := strings.TrimPrefix "/" $path -}}
     {{- $img := resources.Get $imgPath -}}
-    <li>
+    <li class="basis-72.5">
       {{- if $img -}}
-        {{- $processed := $img.Resize "290x" -}}
-        <a target="_blank" href="{{ $processed.RelPermalink }}">
-          {{ partial "processed-image.html" (dict "path" $path "width" 290 "alt" "" "loading" "lazy") }}
-        </a>
+      {{- $processed := $img.Resize "290x" -}}
+      <a target="_blank" href="{{ $processed.RelPermalink }}">
+        {{ partial "processed-image.html" (dict "path" $path "width" 290 "alt"
+        "" "loading" "lazy") }}
+      </a>
       {{- else -}}
-        <a target="_blank" href="{{ $path }}">
-          <img loading="lazy" decoding="async" src="{{ $path }}" />
-        </a>
+      <a target="_blank" href="{{ $path }}">
+        <img loading="lazy" decoding="async" src="{{ $path }}" />
+      </a>
       {{- end -}}
     </li>
     {{ end }}

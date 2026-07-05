@@ -149,6 +149,9 @@ b {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
   padding-bottom: 5px;
 }
 
@@ -281,10 +284,6 @@ main {
   text-decoration: none;
 }
 
-.announcement-text {
-  flex: 1;
-}
-
 .announcement-arrow {
   transition: transform 0.2s ease;
 }
@@ -340,9 +339,7 @@ h4,
 h5,
 h6,
 .site-title,
-.profile-name,
 .post-title,
-.blog-row-title,
 .section-heading,
 .section-title {
   font-family: 'Instrument Serif', serif;
@@ -541,55 +538,10 @@ main ul {
   margin-top: 60px;
 }
 
-/* Profile Section */
-.profile-section {
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-}
-
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-  margin-top: 10rem;
-}
-
-.profile-header picture {
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-}
-
-.profile-avatar {
-  /* name (4.5rem × line-height 1.2) + margin-bottom 10px + subtitle (1.1rem × line-height 1.2) */
-  height: 10rem;
-  width: auto;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.profile-header picture img {
-  margin: 0;
-  padding: 0;
-}
-
-.profile-name {
-  font-size: 4.5rem;
-  margin-bottom: 20px;
-  /* margin-top: -10px; */
-  line-height: 1;
-  font-weight: 100;
-  transition: font-weight 0.2s ease;
-}
-
-@media (hover: hover) {
-  .profile-name:hover {
-    cursor: default;
-    font-weight: 400;
-  }
-}
+/* Profile section, section-gap, see-more/rss buttons, built-with, blog-row text
+   and github footer → inline Tailwind utilities (list.html / blog_row.html /
+   rss_subscribe.html). Retained here: .reveal (JS scroll-reveal), .section-heading
+   (base <h2> border interaction). */
 
 /* SCROLL REVEAL */
 .reveal {
@@ -603,37 +555,6 @@ main ul {
   transform: none;
 }
 
-
-.profile-subtitle {
-  color: var(--text);
-  margin: 0;
-  font-size: 1rem;
-  cursor: default;
-}
-
-.profile-location {
-  color: var(--text);
-  margin: 0;
-  font-size: 1rem;
-  cursor: default;
-}
-
-.profile-bio {
-  color: var(--text-dim);
-  /* max-width: 600px; */
-  line-height: 1.6;
-  font-size: 1.1rem;
-}
-
-.inline-meta-icon {
-  vertical-align: middle;
-  font-size: 1em;
-  margin-top: 2px;
-}
-
-.section-gap {
-  height: 70px;
-}
 
 /* Section Headings */
 
@@ -661,65 +582,6 @@ main ul {
   margin-bottom: 2rem;
   /* margin-top: 4rem; */
   font-weight: 400;
-}
-
-.see-more-row {
-  margin-top: 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.see-more-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  border: 1px solid var(--border);
-
-  padding: 0.4rem 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.see-more-btn:hover {
-  color: var(--text);
-  border-color: var(--text-dim);
-  text-decoration: none;
-}
-
-.see-more-btn .material-symbols-outlined {
-  font-size: 1rem;
-  padding-bottom: 0;
-}
-
-/* RSS Subscribe Button */
-.rss-subscribe-row {
-  display: flex;
-  justify-content: center;
-  margin: 3rem 0 1rem;
-}
-
-.rss-subscribe-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  border: 1px solid var(--border);
-
-  padding: 0.5rem 1.1rem;
-  transition: all 0.2s ease;
-}
-
-.rss-subscribe-btn:hover {
-  color: #ff7839;
-  border-color: #ff7839;
-  text-decoration: none;
-}
-
-.rss-subscribe-btn .material-symbols-outlined {
-  font-size: 1.1rem;
-  padding-bottom: 0;
 }
 
 /* Linux Webring */
@@ -925,20 +787,6 @@ main ul {
   transform: scale(1.05);
 }
 
-.blog-row-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.blog-row-title {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  flex: 1;
-  min-width: 0;
-}
-
 .blog-row-meta {
   display: flex;
   flex-direction: row;
@@ -951,40 +799,15 @@ main ul {
   content: "·\00a0";
 }
 
-.blog-row-title a {
-  color: var(--text);
-  font-size: 1.4rem;
-  text-decoration: none;
-}
-
 .blog-row-meta .material-symbols-outlined {
   margin-top: 4px;
   font-size: 1rem;
-}
-
-.blog-row-title a:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--text-dim);
 }
 
 .blog-row-date {
   color: var(--text-dim);
   font-size: 0.9rem;
   white-space: nowrap;
-}
-
-.blog-row-description {
-  color: var(--text-dim);
-  margin: 0;
-  margin-bottom: 1.2rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 @media (max-width: 768px) {
@@ -1015,70 +838,15 @@ main ul {
     font-size: 0.85rem;
   }
 
-  .profile-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-    margin-top: 5rem;
-  }
-
-  .profile-avatar {
-    width: 120px;
-    height: 120px;
-    margin: 0;
-  }
-
-  .profile-name {
-    font-size: 3.3rem;
-  }
-
   .social-links-container {
     margin-bottom: 5rem;
   }
-}
-
-.github-contrib-block {
-  margin-top: 2.5rem;
-}
-
-.github-calendar-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .github-calendar-loading {
   color: var(--text-dim);
   font-size: 0.9rem;
   margin: 0;
-}
-
-.github-calendar-footer {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  margin-top: 0.6rem;
-  margin-bottom: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-}
-
-.built-with {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  text-align: center;
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-}
-
-.hugo-logo {
-  height: 1.15em;
-  width: auto;
-  vertical-align: middle;
 }
 
 .gh-legend {
