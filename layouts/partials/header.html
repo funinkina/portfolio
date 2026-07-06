@@ -219,7 +219,7 @@
           {{- end -}}
         </a></h1>
       <div
-        class="flex items-center gap-x-6 max-nav:w-full max-nav:order-1 max-nav:justify-between max-nav:my-[5px]">
+        class="flex items-center gap-x-6 max-nav:w-full max-nav:order-1 max-nav:justify-between max-nav:my-1.25">
         <ul
           class="menu list-none p-0 m-0 flex flex-row gap-x-6 text-base font-light max-nav:gap-x-[1.1rem] max-nav:whitespace-nowrap max-nav:flex-wrap">
           {{ range .Site.Menus.main }}
@@ -229,11 +229,11 @@
           {{- else if eq .Name "projects" -}}
           {{- $icon = "deployed_code" -}}
           {{- end -}}
-          <li class="leading-[2] text-[1.25rem]"><a tabindex="-1"
+          <li class="leading-loose text-xl"><a tabindex="-1"
               class="no-underline transition-[font-weight] duration-200 ease-[ease] visited:text-complementary hover:text-link"
               href="{{ .URL | relURL }}">{{
               if $icon }}<span
-                class="material-symbols-outlined text-[1.3rem] align-[-0.2em] mr-[0.3rem] pt-0"
+                class="material-symbols-outlined text-xl align-[-0.2em] mr-[0.3rem] pt-0"
                 aria-hidden="true">{{ $icon }}</span>{{ end }}{{
               safeHTML .Name }}</a></li>
           {{ end }}

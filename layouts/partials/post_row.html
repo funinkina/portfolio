@@ -14,10 +14,12 @@
   <!-- Right side: Title and Date -->
   <div>
     <h3 class="font-serif italic mt-0 mb-[0.2rem]">
-      <a href="{{ .RelPermalink }}" class="text-[1.4rem] font-light text-white">{{ .Title | markdownify }}</a>
+      <a href="{{ .RelPermalink }}"
+        class="text-2xl font-light text-white">{{ .Title | markdownify
+        }}</a>
     </h3>
     {{ if not .CurrentSection.Params.nodate }}
-    <span class="flex items-center gap-2.5 mb-5 text-[0.9em] text-text-dim">
+    <span class="flex items-center gap-2.5 mb-5 text-base text-text-dim">
       <span class="material-symbols-outlined text-[20px] leading-none pb-0"
         aria-hidden="true">calendar_today</span>
       {{ .Date.Format "Jan 2, 2006" }}

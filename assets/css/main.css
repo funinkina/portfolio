@@ -103,20 +103,6 @@ html.theme-transition *::after {
   }
 }
 
-#gitinfo-date {
-  color: var(--text-dim);
-  filter: opacity(40%);
-  font-style: italic;
-  font-size: 0.9em;
-  white-space: nowrap;
-}
-
-@media screen and (min-width: 760px) {
-  #gitinfo-date {
-    margin-left: 30px;
-  }
-}
-
 html {
   color: var(--text);
   background-color: var(--background);
@@ -302,8 +288,7 @@ h4,
 h5,
 h6,
 .site-title,
-.section-heading,
-.section-title {
+.section-heading {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
 }
@@ -409,13 +394,6 @@ main ul {
 } */
 
 
-/* MISC */
-.section-title {
-  border: 0;
-  font-size: 2rem;
-  font-weight: 600;
-}
-
 /* .post-list / .post-item / .post-image / .post-details / .post-title /
    .post-date → inline utilities in post_row.html (+ post_list.html /
    taxonomy.html wrappers). .post-item:has(:hover) hover-zoom became group +
@@ -478,86 +456,7 @@ main ul {
   font-weight: 400;
 }
 
-/* Linux Webring */
-.webring-row {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0 1rem;
-}
-
-.webring-box {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-  font-size: 0.9rem;
-  color: var(--text-dim);
-  border: 1px solid var(--border);
-
-  padding: 0.5rem 1.1rem;
-}
-
-.webring-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.webring-label .material-symbols-outlined {
-  padding-bottom: 3px;
-  font-size: 1.1rem;
-}
-
-.webring-random .material-symbols-outlined {
-  /* padding-top: 5px; */
-  font-size: 1.1rem;
-  padding-bottom: 0px !important;
-}
-
-.webring-random {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--text-dim);
-  padding-left: 0.9rem;
-  border-left: 1px solid var(--border);
-  transition: color 0.2s ease;
-}
-
-.webring-random:hover {
-  color: var(--text);
-  text-decoration: none;
-}
-
-
-@media (max-width: 500px) {
-  .webring-box {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-  }
-
-  .webring-random {
-    border-left: none;
-    border-top: 1px solid var(--border);
-    padding-left: 0;
-    padding-top: 0.5rem;
-  }
-}
-
-/* Project Grid */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-  margin-top: 3em;
-}
-
-.home-container .project-grid,
-.home-container .blog-list-clean {
-  margin-top: 0;
-}
-
+/* Project Cards */
 .project-card {
   background: transparent;
   display: flex;
@@ -636,14 +535,6 @@ main ul {
 .blog-row-date .material-symbols-outlined {
   font-size: 1.05em;
   line-height: 1;
-}
-
-/* Blog List Clean */
-.blog-list-clean {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  margin-top: 1em;
 }
 
 .blog-row {
@@ -735,12 +626,6 @@ main ul {
   .social-links-container {
     margin-bottom: 5rem;
   }
-}
-
-.github-calendar-loading {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  margin: 0;
 }
 
 .gh-legend {

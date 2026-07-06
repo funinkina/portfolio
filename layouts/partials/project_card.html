@@ -33,12 +33,12 @@
         </div>
     </a>
     <div class="project-details">
-        <h3 class="font-serif italic m-0 text-[1.2rem] font-semibold"><a
+        <h3 class="font-serif italic m-0 text-xl font-semibold"><a
                 href="{{ .RelPermalink }}" class="text-text no-underline">{{
                 .Title
                 }}</a></h3>
         <p
-            class="text-text-dim text-[0.95rem] font-light mt-[0.2rem] mb-[0.2rem] leading-normal grow line-clamp-3">
+            class="text-text-dim text-base font-light mt-[0.2rem] mb-[0.2rem] leading-normal grow line-clamp-3">
             {{ .Description | default .Summary | plainify }}</p>
         <div class="flex gap-2 flex-wrap">
             {{ range .Params.tags }}
@@ -46,9 +46,9 @@
             {{ end }}
         </div>
         <div
-            class="inline-flex items-center gap-1 mt-2 text-text-dim text-[0.8rem]">
+            class="inline-flex items-center gap-1 mt-2 text-text-dim text-sm">
             <span
-                class="material-symbols-outlined text-[1.2em] pt-1.25 leading-none"
+                class="material-symbols-outlined text-xl pt-1.25 leading-none"
                 aria-hidden="true">hourglass_top</span>
             {{ or .ReadingTime 1 }} min read
         </div>

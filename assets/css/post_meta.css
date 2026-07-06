@@ -51,12 +51,6 @@
 
 }
 
-.date {
-  color: var(--text-dim);
-  padding-top: 0.1em;
-  font-size: 90%;
-}
-
 .datesub {
   display: inline-flex;
   align-items: center;

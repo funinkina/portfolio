@@ -112,28 +112,6 @@
   line-height: 1;
 }
 
-/* RELATED POSTS */
-.related-posts {
-  margin-top: 2rem;
-}
-
-.related-posts h3 {
-  font-size: 1.3rem;
-  color: var(--text-dim);
-  margin-bottom: 1rem;
-}
-
-.related-posts .section-heading h2 {
-  margin-bottom: 1.5rem;
-}
-
-.related-list {
-  gap: 18px;
-  display: flex;
-  flex-direction: column;
-}
-
-
 /* SHORTCUTS MODAL (content/header/list inlined in footer.html; JS .open state,
    overlay bg/backdrop, and the .shortcuts-modal-close ease-timed transition kept) */
 .shortcuts-modal {

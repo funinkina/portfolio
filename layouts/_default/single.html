@@ -2,9 +2,9 @@
 
 {{ if not .Params.notitle }}
 <div id="single-header"
-  class="flex flex-col justify-center gap-3 min-h-[88dvh] border-b-[5px] border-dotted border-accent">
+  class="flex flex-col justify-center gap-3 min-h-[88dvh]">
   <h1
-    class="text-[5rem] font-extralight leading-[normal] pb-0 text-left text-text max-[600px]:text-[3.5rem]">{{
+    class="text-7xl font-extralight leading-none pb-0 text-left text-text max-[600px]:text-5xl">{{
     .Title | markdownify }}</h1>
   {{ if and .Params.image (ne .Params.image "") }}
   <div class="relative bg-card overflow-hidden">
@@ -13,12 +13,12 @@
     "high") }}
   </div>
   {{ end }}
-  <div id="single-meta" class="mt-0 mb-0 pt-0 text-[0.9em]">
+  <div id="single-meta" class="mt-0 mb-0 pt-0 text-base">
     <div class="flex flex-col gap-1">
       {{ if .Params.subtitle }}
       <div class="flex items-center gap-5">
         <p id="subtitle"
-          class="mt-0 mb-0 text-[1.4em] text-text-dim font-light flex-1 min-w-0">{{
+          class="mt-0 mb-0 text-2xl text-text-dim font-light flex-1 min-w-0">{{
           .Params.subtitle }}</p>
         <button
           class="single-share-button"
@@ -48,9 +48,9 @@
         </button>
       </div>
       {{ end }}
-      <div class="flex items-center flex-wrap gap-[0.6rem]">
+      <div class="flex items-center flex-wrap gap-2">
         <span class="datesub readtime">
-          <span class="material-symbols-outlined text-red-600"
+          <span class="material-symbols-outlined"
             aria-hidden="true">hourglass_top</span>
           {{ or .ReadingTime 1 }} min read
         </span>
@@ -84,7 +84,7 @@
 
 {{ if or (and (eq .Section "blog") .Params.tags) (eq .Section "projects") }}
 <hr>
-<h2 class="border-none font-medium text-[2rem] mt-0">Share your thoughts and
+<h2 class="border-none font-medium text-3xl mt-0">Share your thoughts and
   opinions!</h2>
 <div class="giscus"></div>
 
@@ -131,9 +131,9 @@
 {{ $related := where (site.RegularPages.Related .) "Section" "blog" | first 3 }}
 {{ if $related }}
 <hr>
-<div class="related-posts">
-  <h3>Related Posts</h3>
-  <div class="related-list">
+<div class="related-posts mt-8">
+  <h3 class="text-text-dim mb-4">Related Posts</h3>
+  <div class="flex flex-col gap-4.5">
     {{ range $related }}
     {{ partial "blog_row.html" (dict "Page" . "Index" 99) }}
     {{ end }}
@@ -147,7 +147,7 @@
 <br>
 <hr>
 <div
-  class="single-footer-row flex items-center justify-between gap-4 text-text-dim text-[0.95rem] mt-4 mx-0 mb-0 max-[600px]:flex-col max-[600px]:items-start">
+  class="single-footer-row flex items-center justify-between gap-4 text-text-dim text-base mt-4 mx-0 mb-0 max-[600px]:flex-col max-[600px]:items-start">
   <div>
     {{ if .Params.Next }}
     {{ with .PrevInSection }}

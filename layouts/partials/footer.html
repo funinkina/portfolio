@@ -1,19 +1,19 @@
 <br>
 
 <footer>
-  <p class="footer-shortcuts flex flex-wrap justify-center items-center gap-x-4 gap-y-[0.45rem] text-text-dim text-[0.75rem] font-['Fira_Code',ui-monospace,monospace] text-center mt-2 select-none">
-    <span class="fkey inline-flex items-center gap-[0.4rem]"><kbd class="inline-flex items-center justify-center min-w-[1.4rem] px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-[0.72rem] leading-[1.3] text-text bg-card border border-solid border-border rounded-[5px] shadow-[0_1px_0_var(--border)]">h</kbd> home</span>
-    <span class="fkey inline-flex items-center gap-[0.4rem]"><kbd class="inline-flex items-center justify-center min-w-[1.4rem] px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-[0.72rem] leading-[1.3] text-text bg-card border border-solid border-border rounded-[5px] shadow-[0_1px_0_var(--border)]">b</kbd> blog</span>
-    <span class="fkey inline-flex items-center gap-[0.4rem]"><kbd class="inline-flex items-center justify-center min-w-[1.4rem] px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-[0.72rem] leading-[1.3] text-text bg-card border border-solid border-border rounded-[5px] shadow-[0_1px_0_var(--border)]">p</kbd> projects</span>
-    <span class="fkey inline-flex items-center gap-[0.4rem]"><kbd class="inline-flex items-center justify-center min-w-[1.4rem] px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-[0.72rem] leading-[1.3] text-text bg-card border border-solid border-border rounded-[5px] shadow-[0_1px_0_var(--border)]">i</kbd> search</span>
-    <span class="fkey inline-flex items-center gap-[0.4rem]"><kbd class="inline-flex items-center justify-center min-w-[1.4rem] px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-[0.72rem] leading-[1.3] text-text bg-card border border-solid border-border rounded-[5px] shadow-[0_1px_0_var(--border)]">`</kbd> terminal</span>
-    <span class="fkey inline-flex items-center gap-[0.4rem]"><kbd class="inline-flex items-center justify-center min-w-[1.4rem] px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-[0.72rem] leading-[1.3] text-text bg-card border border-solid border-border rounded-[5px] shadow-[0_1px_0_var(--border)]">/</kbd> shortcuts</span>
+  <p class="footer-shortcuts flex flex-wrap justify-center items-center gap-x-4 gap-y-[0.45rem] text-text-dim text-xs font-['Fira_Code',ui-monospace,monospace] text-center mt-2 select-none">
+    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">h</kbd> home</span>
+    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">b</kbd> blog</span>
+    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">p</kbd> projects</span>
+    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">i</kbd> search</span>
+    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">`</kbd> terminal</span>
+    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">/</kbd> shortcuts</span>
   </p>
 {{ partial "footer_scripts.html" . }}
 </footer>
 
 <button id="back-to-top" aria-label="Back to top" title="Back to top" class="fixed bottom-8 right-6 w-9.5 h-9.5 bg-card border border-solid border-border flex items-center justify-center cursor-pointer text-text-dim z-100 hover:text-text hover:border-text-dim">
-  <span class="material-symbols-outlined text-[1.2rem] p-0 leading-none" aria-hidden="true">arrow_upward</span>
+  <span class="material-symbols-outlined text-xl p-0 leading-none" aria-hidden="true">arrow_upward</span>
 </button>
 <script>
 (function () {
@@ -52,14 +52,14 @@
 </script>
 
 <div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true" class="fixed inset-0 flex items-center justify-center z-10000">
-  <div id="terminal-window" class="w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-[0.85rem] border border-solid border-[#2a2a2a]">
+  <div id="terminal-window" class="w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-sm border border-solid border-[#2a2a2a]">
     <div id="terminal-titlebar" class="bg-[#1a1a1a] pt-1.5 pb-1.5 pr-12.5 pl-3 flex items-center gap-3 [border-bottom:1px_solid_#2a2a2a] shrink-0">
       <div class="terminal-dots flex gap-1.5 items-center">
         <button class="terminal-dot terminal-dot-close w-3 h-3 rounded-full block border-none p-0 shrink-0 cursor-pointer bg-[#ff5f57]" id="terminal-close-btn" aria-label="Close terminal" title="Close"></button>
         <span class="terminal-dot terminal-dot-min w-3 h-3 rounded-full block border-none p-0 shrink-0 cursor-default bg-[#febc2e]"></span>
         <span class="terminal-dot terminal-dot-max w-3 h-3 rounded-full block border-none p-0 shrink-0 cursor-default bg-[#28c840]"></span>
       </div>
-      <span id="terminal-title" class="text-[#666] text-[0.8rem] mx-auto select-none">funinkina@corner — bash</span>
+      <span id="terminal-title" class="text-[#666] text-sm mx-auto select-none">funinkina@corner — bash</span>
     </div>
     <div id="terminal-body" class="flex-1 overflow-y-auto px-4 py-3 flex flex-col scrollbar-thin [scrollbar-color:#333_transparent]">
       <div id="terminal-output" class="flex-1"></div>
@@ -73,17 +73,17 @@
 
 <div id="shortcuts-modal" class="shortcuts-modal fixed inset-0 flex items-center justify-center z-9999" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
   <div class="shortcuts-modal-content bg-card border border-solid border-border p-4 min-w-65 max-w-75 w-[90vw] shadow-[0_20px_60px_rgba(0,0,0,0.5)]" tabindex="-1">
-    <div class="shortcuts-modal-header flex items-center justify-between mb-[1.2rem]">
-      <h2 class="text-[0.8rem] uppercase tracking-[0.08em] text-text-dim m-0 font-medium">Keyboard shortcuts</h2>
+    <div class="shortcuts-modal-header flex items-center justify-between mb-5">
+      <h2 class="text-sm uppercase tracking-[0.08em] text-text-dim m-0 font-medium">Keyboard shortcuts</h2>
       <button class="shortcuts-modal-close" aria-label="Close shortcuts">&times;</button>
     </div>
-    <dl class="shortcuts-list m-0 flex flex-col gap-[0.65rem]">
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-[0.75rem] px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">h</kbd></dt><dd class="m-0 text-text-dim text-[0.9rem]">Home</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-[0.75rem] px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">b</kbd></dt><dd class="m-0 text-text-dim text-[0.9rem]">Blog</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-[0.75rem] px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">p</kbd></dt><dd class="m-0 text-text-dim text-[0.9rem]">Projects</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-[0.75rem] px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">i</kbd></dt><dd class="m-0 text-text-dim text-[0.9rem]">Focus search</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-[0.75rem] px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">`</kbd></dt><dd class="m-0 text-text-dim text-[0.9rem]">Toggle terminal</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-[0.75rem] px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">/</kbd></dt><dd class="m-0 text-text-dim text-[0.9rem]">Show this panel</dd></div>
+    <dl class="shortcuts-list m-0 flex flex-col gap-2">
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">h</kbd></dt><dd class="m-0 text-text-dim text-base">Home</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">b</kbd></dt><dd class="m-0 text-text-dim text-base">Blog</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">p</kbd></dt><dd class="m-0 text-text-dim text-base">Projects</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">i</kbd></dt><dd class="m-0 text-text-dim text-base">Focus search</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">`</kbd></dt><dd class="m-0 text-text-dim text-base">Toggle terminal</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">/</kbd></dt><dd class="m-0 text-text-dim text-base">Show this panel</dd></div>
     </dl>
   </div>
 </div>

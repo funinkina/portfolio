@@ -8,11 +8,6 @@ main img {
 
 }
 
-.imgp {
-  margin: auto;
-  text-align: center;
-}
-
 figure {
   margin: auto;
   text-align: center;
@@ -35,22 +30,8 @@ video {
   max-width: 100%;
 }
 
-/* Image gallery. */
-.image-gallery {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding-left: 0;
-  margin: 0 0 1.2rem 0;
-}
-
-.image-gallery>li {
-  flex-basis: 440px;
-}
-
-.image-gallery li img,
+/* Gallery <img> sizing. The <ul>/<li> layout is inline in twoimg/threeimg.html
+   (.image-gallery-img); only the partial-generated <img> is styled here. */
 .image-gallery-img li img {
   object-fit: cover;
   width: 100%;

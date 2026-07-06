@@ -4,9 +4,11 @@
   {{- range $e := $experiences -}}
   <div class="exp-item relative pl-9 not-last:mb-11">
     <span class="exp-dot"></span>
-    <div class="exp-head flex justify-between items-center gap-4 flex-wrap max-[600px]:gap-[0.4rem]">
+    <div
+      class="exp-head flex justify-between items-center gap-4 flex-wrap max-[600px]:gap-2">
       <div class="exp-id flex items-center gap-3 min-w-0">
-        <div class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden">
+        <div
+          class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden">
           {{- $img := "" -}}
           {{- with $e.url -}}
           {{- $favURL := printf
@@ -19,41 +21,51 @@
           {{- end -}}
           {{- if $img -}}
           {{- $sized := $img.Resize "48x48" -}}
-          <img class="w-7.5 h-7.5 object-contain rounded-[3px]" src="{{ $sized.RelPermalink }}" alt="{{ $e.company }} logo"
+          <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
+            src="{{ $sized.RelPermalink }}" alt="{{ $e.company }} logo"
             width="24"
             height="24" loading="lazy" decoding="async">
           {{- else if $e.logo -}}
           {{- with resources.Get $e.logo -}}
-          <img class="w-7.5 h-7.5 object-contain rounded-[3px]" src="{{ .RelPermalink }}" alt="{{ $e.company }} logo" width="24"
+          <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
+            src="{{ .RelPermalink }}" alt="{{ $e.company }} logo" width="24"
             height="24"
             loading="lazy" decoding="async">
           {{- end -}}
           {{- else -}}
-          <span class="material-symbols-outlined text-[22px] text-text-dim">business</span>
+          <span
+            class="material-symbols-outlined text-xl text-text-dim">business</span>
           {{- end -}}
         </div>
         <div class="exp-id-text min-w-0">
           <div class="exp-title-row flex items-center gap-2 flex-wrap">
             {{- if $e.url -}}
-            <a class="exp-company font-semibold text-[1.05rem] text-text no-underline hover:text-link" href="{{ $e.url }}" target="_blank"
+            <a
+              class="exp-company font-semibold text-base text-text no-underline hover:text-link"
+              href="{{ $e.url }}" target="_blank"
               rel="noopener">{{ $e.company }}</a>
             {{- else -}}
-            <span class="exp-company font-semibold text-[1.05rem] text-text no-underline hover:text-link">{{ $e.company }}</span>
+            <span
+              class="exp-company font-semibold text-base text-text no-underline hover:text-link">{{
+              $e.company }}</span>
             {{- end -}}
             {{/* {{- with $e.type }}<span class="exp-badge">{{ . }}</span>{{ end
             -}} */}}
           </div>
-          <div class="exp-role text-text-dim text-[0.95rem]">{{ $e.role }}</div>
+          <div class="exp-role text-text-dim text-base">{{ $e.role }}</div>
         </div>
       </div>
-      <div class="exp-meta text-right shrink-0 text-text-dim text-[0.9rem] leading-[1.4] max-[600px]:text-left">
+      <div
+        class="exp-meta text-right shrink-0 text-text-dim text-base leading-[1.4] max-[600px]:text-left">
         {{- with $e.dateRange }}<div class="exp-date">{{ . }}</div>{{ end -}}
-        {{- with $e.location }}<div class="exp-location opacity-80">{{ . }}</div>{{ end -}}
+        {{- with $e.location }}<div class="exp-location opacity-80">{{ .
+          }}</div>{{ end -}}
       </div>
     </div>
 
     {{- with $e.summary }}
-    <p class="exp-summary text-text-dim leading-[1.6] mt-[0.9rem]">{{ . | markdownify }}</p>
+    <p class="exp-summary text-text-dim leading-[1.6] mt-[0.9rem]">{{ . |
+      markdownify }}</p>
     {{- end }}
 
     {{- with $e.responsibilities }}
@@ -66,7 +78,9 @@
     {{- end }}
 
     {{- with $e.tech }}
-    <div class="exp-section-label uppercase text-[0.72rem] tracking-[0.08em] font-medium text-text-dim mt-5 mb-[0.6rem]">Technology Used</div>
+    <div
+      class="exp-section-label uppercase text-xs tracking-[0.08em] font-medium text-text-dim mt-5 mb-[0.6rem]">Technology
+      Used</div>
     <div class="exp-tags flex gap-2 flex-wrap">
       {{- range . }}
       <span class="tech-tag">{{ . }}</span>

@@ -20,13 +20,13 @@ end -}}
     <div class="grow flex flex-col">
         <div class="blog-row-header">
             <h3
-                class="font-serif italic m-0 text-[1.2rem] font-semibold flex-1 min-w-0"><a
+                class="font-serif italic m-0 text-xl font-semibold flex-1 min-w-0"><a
                     href="{{ $page.RelPermalink }}"
-                    class="text-text text-[1.4rem] no-underline hover:underline hover:decoration-text-dim">{{
+                    class="text-text text-2xl no-underline hover:underline hover:decoration-text-dim">{{
                     $page.Title }}</a></h3>
         </div>
         <p
-            class="text-text-dim mt-0 mb-[1.2rem] text-base leading-[1.6] line-clamp-3">{{
+            class="text-text-dim mt-0 mb-4 text-base leading-[1.6] line-clamp-3">{{
             or $page.Description $page.Params.subtitle
             $page.Summary | plainify }}</p>
         <span class="blog-row-meta">
