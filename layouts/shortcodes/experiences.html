@@ -7,36 +7,44 @@
     <div
       class="exp-head flex justify-between items-center gap-4 flex-wrap max-[600px]:gap-2">
       <div class="exp-id flex items-center gap-3 min-w-0">
-        <div
-          class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden">
-          {{- $img := "" -}}
-          {{- with $e.url -}}
-          {{- $favURL := printf
-          "https://www.google.com/s2/favicons?domain=%s&sz=64" . -}}
-          {{- $res := try (resources.GetRemote $favURL) -}}
-          {{- if and (not $res.Err) $res.Value (eq $res.Value.MediaType.MainType
-          "image") -}}
-          {{- $img = $res.Value -}}
-          {{- end -}}
-          {{- end -}}
-          {{- if $img -}}
-          {{- $sized := $img.Resize "48x48" -}}
-          <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
-            src="{{ $sized.RelPermalink }}" alt="{{ $e.company }} logo"
-            width="24"
-            height="24" loading="lazy" decoding="async">
-          {{- else if $e.logo -}}
-          {{- with resources.Get $e.logo -}}
-          <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
-            src="{{ .RelPermalink }}" alt="{{ $e.company }} logo" width="24"
-            height="24"
-            loading="lazy" decoding="async">
-          {{- end -}}
+        {{- if $e.url -}}
+        <a
+          class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden cursor-pointer transition-all duration-200 ease-ease hover:bg-accent"
+          href="{{ $e.url }}" target="_blank" rel="noopener"
+          aria-label="{{ $e.company }} website">
           {{- else -}}
-          <span
-            class="material-symbols-outlined text-xl text-text-dim">business</span>
-          {{- end -}}
-        </div>
+          <div
+            class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden">
+            {{- end -}}
+            {{- $img := "" -}}
+            {{- with $e.url -}}
+            {{- $favURL := printf
+            "https://www.google.com/s2/favicons?domain=%s&sz=64" . -}}
+            {{- $res := try (resources.GetRemote $favURL) -}}
+            {{- if and (not $res.Err) $res.Value (eq
+            $res.Value.MediaType.MainType
+            "image") -}}
+            {{- $img = $res.Value -}}
+            {{- end -}}
+            {{- end -}}
+            {{- if $img -}}
+            {{- $sized := $img.Resize "48x48" -}}
+            <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
+              src="{{ $sized.RelPermalink }}" alt="{{ $e.company }} logo"
+              width="24"
+              height="24" loading="lazy" decoding="async">
+            {{- else if $e.logo -}}
+            {{- with resources.Get $e.logo -}}
+            <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
+              src="{{ .RelPermalink }}" alt="{{ $e.company }} logo" width="24"
+              height="24"
+              loading="lazy" decoding="async">
+            {{- end -}}
+            {{- else -}}
+            <span
+              class="material-symbols-outlined text-xl text-text-dim">business</span>
+            {{- end -}}
+            {{- if $e.url }}</a>{{ else }}</div>{{ end -}}
         <div class="exp-id-text min-w-0">
           <div class="exp-title-row flex items-center gap-2 flex-wrap">
             {{- if $e.url -}}

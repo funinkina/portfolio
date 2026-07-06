@@ -47,7 +47,7 @@ When I'm not shipping, I write about **Linux**, **open source**, and **computer 
 ## {{< icon "school" >}} Extra-Curricular
 
 - **Blogger & Backend Developer** at [Let's Code](https://www.lets-code.co.in)  
-  *Remote, Part Time · Feb 2025 – Present*  
+  *Remote, Part Time · Feb 2025 – Oct 2025*  
   Writing technical blogs on backend systems, Linux, and GenAI. Also shipped an AI interview simulator and a resume analyzer that are both live and in use. Writing code and words, occasionally at the same time.
 
 - **AIML Club** · *Google Developer Groups OnCampus*  

@@ -35,11 +35,13 @@
   --table-tr: #161616;
   --toc-background: #1a1a1a;
   --toc-border: #1e1e1e;
-  --background: #141414;
+  --background: #0a0a0a;
   --background-rgb: 7, 7, 7;
   --card-bg: #161616;
   --accent: #222;
   --border: #333;
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --grid-size: 42px;
 }
 
 [data-theme="light"] ::selection {
@@ -66,13 +68,16 @@
   --card-bg: #fefffc;
   --accent: #e8e8e8;
   --border: #dedede;
+  --grid-line: rgba(0, 0, 0, 0.045);
   background-image:
     url(/footer-bg-light.svg),
-    url(/waves.svg);
-  background-repeat: no-repeat, no-repeat;
-  background-position: bottom left calc(100% - 50px), right 10px top 300px;
-  background-attachment: scroll, scroll;
-  background-size: 7%, 80px;
+    url(/waves.svg),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-repeat: no-repeat, no-repeat, repeat, repeat;
+  background-position: bottom left calc(100% - 50px), right 10px top 300px, 0 0, 0 0;
+  background-attachment: scroll, scroll, scroll, scroll;
+  background-size: 7%, 80px, var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
 }
 
 ::selection {
@@ -109,11 +114,15 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 70px;
   min-height: 100vh;
-  background-image: url(/footer-bg.svg), url(/waves.svg);
-  background-repeat: no-repeat, no-repeat;
-  background-position: bottom left calc(100% - 50px), right 10px top 300px;
-  background-attachment: scroll, scroll;
-  background-size: 10%, 80px;
+  background-image:
+    url(/footer-bg.svg),
+    url(/waves.svg),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-repeat: no-repeat, no-repeat, repeat, repeat;
+  background-position: bottom left calc(100% - 50px), right 10px top 300px, 0 0, 0 0;
+  background-attachment: scroll, scroll, scroll, scroll;
+  background-size: 10%, 80px, var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
@@ -168,9 +177,6 @@ main {
   margin-bottom: 0.75rem;
 }
 
-/* .social-btn (+ its hover/visited and .icon wrapper) → inline utilities in
-   social-button.html. Only the injected-SVG sizing stays retained (raw SVG file
-   content has no element to put utilities on); .icon is kept as its hook. */
 .icon svg {
   width: 1.2em;
   height: 1.2em;
@@ -584,8 +590,8 @@ main ul {
 @media (max-width: 768px) {
 
   html {
-    background-position: bottom right 30px, right top 160px;
-    background-size: 20%, 10%;
+    background-position: bottom right 30px, right top 160px, 0 0, 0 0;
+    background-size: 20%, 10%, var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
     scroll-padding-top: 110px;
   }
 
