@@ -1,7 +1,10 @@
 {
   "name": "portfolio",
   "private": true,
-  "description": "Build-time toolchain for funinkina's corner (Tailwind CSS v4 via Hugo's css.Tailwind).",
+  "description": "Build-time toolchain for funinkina's corner.",
+  "engines": {
+    "node": "24.x"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4",
     "tailwindcss": "^4"
