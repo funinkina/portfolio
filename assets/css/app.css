@@ -1,23 +1,7 @@
-/* Tailwind v4 entrypoint, compiled by Hugo's css.TailwindCSS.
-
-   Preflight (Tailwind's reset) is intentionally OMITTED — the site ships its own
-   hand-tuned reset/base in main.css and Preflight would fight it and break strict
-   visual parity. We import only the theme + utilities layers.
-
-   The retained hand-written CSS is pulled into @layer base so that Tailwind
-   utilities (a later layer) reliably win when a component is converted to inline
-   utilities. Without this, un-layered rules like `p{}` / `a:hover{}` would
-   outrank utilities (cascade layers beat specificity). Article-only CSS
-   (code/post_meta/toc) stays in its own un-layered conditional bundle in
-   header.html and is not imported here. */
 @layer theme, base, components, utilities;
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-
-/* Retained core stylesheets — same set/order as the old core.css concat. As each
-   component is migrated to inline utilities, its rules are deleted from these
-   files; a file is dropped from this list once fully absorbed. */
 @import "./assets/css/main.css" layer(base);
 @import "./assets/css/menu.css" layer(base);
 @import "./assets/css/images.css" layer(base);
@@ -28,54 +12,34 @@
 @import "./assets/css/experiences.css" layer(base);
 @import "./assets/css/post_meta.css" layer(base);
 
-/* Scan the templates directly for utility class names. css.TailwindCSS resolves
-   @source from the project root, so the path is "./"-prefixed (a bare or
-   sibling-relative path does not resolve — same rule as the @imports above).
-
-   We scan layouts/ instead of Hugo's hugo_stats.json (buildStats) on purpose:
-   hugo_stats.json is written *after* the CSS is transformed, so it lags one
-   build behind — a freshly added class is missing until the next build (fatal on
-   a single-pass CI/Vercel build). Every utility class here is a literal string in
-   a template (shortcodes included, all under layouts/), so nothing dynamic is
-   missed. If a future template ever builds a utility class name dynamically,
-   re-enable [build.buildStats] in hugo.toml and add `@source "./hugo_stats.json"`. */
 @source "./layouts";
 
-/* Load-bearing breakpoints lifted from the old media queries; the design uses
-   non-Tailwind values. Usable as nav:/max-nav:, toc:/max-toc:, etc.
-   --font-serif is remapped to the headings face (Instrument Serif). */
 @theme {
-  --breakpoint-navsm: 759px;
-  --breakpoint-tbl: 760px;
-  --breakpoint-nav: 819px;
-  --breakpoint-toc: 1150px;
-  --font-serif: 'Instrument Serif', serif;
+   --breakpoint-navsm: 759px;
+   --breakpoint-tbl: 760px;
+   --breakpoint-nav: 819px;
+   --breakpoint-toc: 1150px;
 }
 
-/* Bridge the existing CSS custom properties to Tailwind color utilities.
-   `inline` makes utilities emit `var(--…)` verbatim, so the current
-   :root / [data-theme="light"] cascade keeps driving theming with no dark:/
-   light: rewrites. The token *definitions* stay in main.css. */
 @theme inline {
-  --color-complementary: var(--complimentary);
-  --color-text: var(--text);
-  --color-text-dim: var(--text-dim);
-  --color-code: var(--code);
-  --color-link: var(--link);
-  --color-link-visited: var(--link-visited);
-  --color-background: var(--background);
-  --color-card: var(--card-bg);
-  --color-accent: var(--accent);
-  --color-border: var(--border);
-  --color-border-general: var(--border-general);
-  --color-code-bg: var(--code-background);
-  --color-code-border: var(--code-border);
-  --color-code-hl: var(--code-hl);
-  --color-toc-bg: var(--toc-background);
-  --color-toc-border: var(--toc-border);
-  --color-table-th: var(--table-th);
-  --color-table-tr: var(--table-tr);
+   --color-complementary: var(--complimentary);
+   --color-text: var(--text);
+   --color-text-dim: var(--text-dim);
+   --color-code: var(--code);
+   --color-link: var(--link);
+   --color-link-visited: var(--link-visited);
+   --color-background: var(--background);
+   --color-card: var(--card-bg);
+   --color-accent: var(--accent);
+   --color-border: var(--border);
+   --color-border-general: var(--border-general);
+   --color-code-bg: var(--code-background);
+   --color-code-border: var(--code-border);
+   --color-code-hl: var(--code-hl);
+   --color-toc-bg: var(--toc-background);
+   --color-toc-border: var(--toc-border);
+   --color-table-th: var(--table-th);
+   --color-table-tr: var(--table-tr);
 }
 
-/* Light-only overrides (dark is the default, since the site's :root is dark). */
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));

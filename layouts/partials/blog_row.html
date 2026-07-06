@@ -20,7 +20,7 @@ end -}}
     <div class="grow flex flex-col">
         <div class="blog-row-header">
             <h3
-                class="font-serif italic m-0 text-xl font-semibold flex-1 min-w-0"><a
+                class="m-0 text-xl font-semibold flex-1 min-w-0"><a
                     href="{{ $page.RelPermalink }}"
                     class="text-text text-2xl no-underline hover:underline hover:decoration-text-dim">{{
                     $page.Title }}</a></h3>
@@ -31,10 +31,11 @@ end -}}
             $page.Summary | plainify }}</p>
         <span class="blog-row-meta">
             <span class="blog-row-readtime"><span
-                    class="material-symbols-outlined text-small"
+                    class="material-symbols-outlined text-sm"
                     aria-hidden="true">hourglass_top</span>{{ $readTime
                 }}&nbsp;min&nbsp;read</span>
-            <span class="blog-row-date"><span class="material-symbols-outlined"
+            <span class="blog-row-date"><span
+                    class="material-symbols-outlined text-sm"
                     aria-hidden="true">calendar_today</span>{{ $page.Date.Format
                 "January 2, 2006" }}</span>
         </span>

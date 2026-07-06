@@ -1,8 +1,0 @@
-- company: Zyka AI
-  role: Backend AI Intern
-  type: Internship
-  url: https://zyka.ai/
-  location: Remote
-  dateRange: April 2026 - July 2026
-  logo: ""
-  summary: "Building an audio/image annotation platform for tagging large-scale multimedia datasets and an API aggregator backend unifying multiple LLM inference providers — credit-based usage metering, request routing, and rate limiting for cost-tracked inference access."

@@ -1,8 +1,8 @@
 /* .menu a (links), .nav-bar ul, .nav-actions, .nav-bar li, .menu-link .menu-icon
    → inline utilities in header.html. Retained below: the .nav-bar container
-   (state/responsive-coupled), the site-title <h1> (Instrument-Serif-vs-Inter
-   font override tangle), the shared .nav-bar .material-symbols-outlined base,
-   and the JS-animated .theme-toggle / .mobile-toc-toggle controls. */
+   (state/responsive-coupled), the site-title <h1>, the shared
+   .nav-bar .material-symbols-outlined base, and the JS-animated
+   .theme-toggle / .mobile-toc-toggle controls. */
 .nav-bar {
   /* display / align-items / justify-content / z-index / backdrop-filter /
      overflow are inline utilities in header.html. These stay in the base layer
@@ -111,8 +111,6 @@
   justify-items: center;
   align-items: center;
   transition: font-weight 0.2s ease;
-  font-family: 'Inter';
-  font-style: normal;
 }
 
 .nav-bar h1 a:hover {

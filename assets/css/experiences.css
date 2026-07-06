@@ -11,7 +11,7 @@
   background: var(--border);
 }
 
-/* dot on the line (decorative + animated ring — retained) */
+/* dot on the line (decorative) */
 .exp-dot {
   position: absolute;
   left: 1px;
@@ -20,40 +20,6 @@
   height: 14px;
   background: var(--complimentary);
   box-shadow: 0 0 0 4px var(--background);
-}
-
-/* "currently" variant: no line, live glowing dot */
-.exp-timeline--current::before {
-  display: none;
-}
-
-.exp-timeline--current .exp-dot {
-  animation: exp-pulse 2s ease-out infinite;
-}
-
-@keyframes exp-pulse {
-  0% {
-    box-shadow: 0 0 0 4px var(--background),
-      0 0 0 0 color-mix(in srgb, var(--complimentary) 60%, transparent);
-  }
-
-  70% {
-    box-shadow: 0 0 0 4px var(--background),
-      0 0 0 12px color-mix(in srgb, var(--complimentary) 0%, transparent);
-  }
-
-  100% {
-    box-shadow: 0 0 0 4px var(--background),
-      0 0 0 0 color-mix(in srgb, var(--complimentary) 0%, transparent);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .exp-timeline--current .exp-dot {
-    animation: none;
-    box-shadow: 0 0 0 4px var(--background),
-      0 0 0 5px color-mix(in srgb, var(--complimentary) 35%, transparent);
-  }
 }
 
 /* badge markup is currently commented out in the shortcode; rule retained so

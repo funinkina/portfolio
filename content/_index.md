@@ -25,17 +25,13 @@ When I'm not shipping, I write about **Linux**, **open source**, and **computer 
 - LLMs, TTS and Voice/AI Agents
 - AWS, GCP, Docker & CI/CD
 
-## {{< icon "rocket_launch" >}} What I'm Up To
-
-{{< experiences "current" >}}
-
 ## {{< icon "work" >}} Experiences so far
 
 {{< experiences >}}
 
 ## {{< icon "code" >}} Highlighted Projects
 
-*{{< icon "star" >}} 75+ stars, 2K+ users across GitHub - here are a few worth calling out.*
+*{{< icon "star" >}} 350+ stars, 2K+ users across GitHub - here are a few worth calling out.*
 
 - **[OpenEffects](https://github.com/funinkina/openeffects)** {{< icon "star" >}} 60 • 2K+ users • Linux-native webcam effects engine in **Rust**  
   A **GTK4/libadwaita** GUI over a headless daemon (`openeffectsd`, `openeffectsctl`) with a **PipeWire/GStreamer** media pipeline. Inference runs through **ONNX Runtime** with automatic **CUDA/ROCm/Vulkan** dispatch for sub-50ms latency — portrait blur, center stage auto-tracking, studio light, background replacement, and gesture-triggered reaction effects, published as a **Flatpak** on Flathub.

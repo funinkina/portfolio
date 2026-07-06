@@ -21,7 +21,7 @@
       type="font/woff2" crossorigin>
     {{- $iconNames := partialCached "material_icons.html" . -}}
     {{- $fontsURL := printf
-    "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=%s"
+    "https://fonts.googleapis.com/css2?display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=%s"
     $iconNames -}}
     {{- $ua := dict "headers" (dict "User-Agent"
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")

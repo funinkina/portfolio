@@ -16,7 +16,6 @@ pre {
   position: relative;
   margin: 0px;
   border: 1px solid var(--code-border);
-
   line-height: 1.25;
 }
 
@@ -38,7 +37,6 @@ code {
   font-weight: 600;
   background: var(--code-background);
   font-stretch: normal;
-
   padding: 1px;
   border: 1px solid var(--code-border);
   font-weight: 200;

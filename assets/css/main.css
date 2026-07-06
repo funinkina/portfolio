@@ -280,19 +280,6 @@ p {
   color: var(--text);
 }
 
-/* All headings & titles use Instrument Serif italic */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.site-title,
-.section-heading {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-}
-
 h1 {
   font-weight: 300;
   margin-bottom: 0px;
@@ -322,7 +309,6 @@ h4 {
   margin-top: 0.2em;
   margin-bottom: 0;
   padding-bottom: 0;
-  font-style: italic;
   font-weight: 400;
 }
 
