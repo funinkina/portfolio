@@ -1,0 +1,25 @@
+{{- /*
+  Returns the abbreviated (7-char) hash of the built HEAD commit, read straight
+  from .git so it reflects the deploy build (not per-page .GitInfo). Returns ""
+  if .git is unavailable. Handles loose refs, packed-refs, and detached HEAD.
+*/ -}}
+{{- $hash := "" -}}
+{{- if os.FileExists ".git/HEAD" -}}
+  {{- $head := os.ReadFile ".git/HEAD" | strings.TrimSpace -}}
+  {{- if hasPrefix $head "ref: " -}}
+    {{- $ref := strings.TrimPrefix "ref: " $head -}}
+    {{- $loose := printf ".git/%s" $ref -}}
+    {{- if os.FileExists $loose -}}
+      {{- $hash = os.ReadFile $loose | strings.TrimSpace -}}
+    {{- else if os.FileExists ".git/packed-refs" -}}
+      {{- range (os.ReadFile ".git/packed-refs" | strings.Split "\n") -}}
+        {{- if strings.HasSuffix . (printf " %s" $ref) -}}
+          {{- $hash = index (strings.Split . " ") 0 -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $hash = $head -}}
+  {{- end -}}
+{{- end -}}
+{{- return (substr $hash 0 7) -}}
