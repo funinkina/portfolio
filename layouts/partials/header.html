@@ -160,20 +160,16 @@
     {{/* Core bundle: Tailwind utilities + the retained hand-written CSS, which
     app.css pulls in via @import ... layer(base). Replaces the old core.css
     concat (main/menu/images/search/box/tables/misc/experiences). */}}
+    {{ $st := "style" -}}
     {{ $tw := resources.Get "css/app.css" | css.TailwindCSS (dict "minify"
     hugo.IsProduction) }}
-    {{ if hugo.IsProduction }}{{ $tw = $tw | fingerprint }}{{ end }}
-    <link rel="preload" href="{{ $tw.RelPermalink }}" as="style">
-    <link rel="stylesheet" type="text/css" href="{{ $tw.RelPermalink }}"
-      media="all">
+    {{- printf "<%s>%s</%s>" $st $tw.Content $st | safeHTML -}}
     {{- if .IsPage -}}
     {{ $articleCSS := slice
     (resources.Get "css/code.css")
     (resources.Get "css/toc.css")
-    | resources.Concat "article.css" | minify | fingerprint }}
-    <link rel="preload" href="{{ $articleCSS.RelPermalink }}" as="style">
-    <link rel="stylesheet" type="text/css" href="{{ $articleCSS.RelPermalink }}"
-      media="all">
+    | resources.Concat "article.css" | minify }}
+    {{- printf "<%s>%s</%s>" $st $articleCSS.Content $st | safeHTML -}}
     {{- end -}}
     {{- if and .IsPage .Params.image -}}
     {{- $heroPath := strings.TrimPrefix "/" .Params.image -}}
@@ -185,21 +181,11 @@
     {{- end -}}
     {{- end -}}
     {{- if .IsHome -}}
-    <link rel="preload" as="image" href="/{{ .Site.Params.avatar }}"
-      fetchpriority="high">
-    {{- $blog := .Site.GetPage "section" "blog" -}}
-    {{- with $blog -}}
-    {{- range first 2 .RegularPages.ByDate.Reverse -}}
-    {{- if .Params.image -}}
-    {{- $imgPath := strings.TrimPrefix "/" .Params.image -}}
-    {{- $img := resources.Get $imgPath -}}
-    {{- if $img -}}
-    {{- $webp := $img.Resize "480x webp" -}}
-    <link rel="preload" as="image" href="{{ $webp.RelPermalink }}"
-      type="image/webp" fetchpriority="high">
-    {{- end -}}
-    {{- end -}}
-    {{- end -}}
+    {{- $av := resources.Get "avatar.jpg" -}}
+    {{- with $av -}}
+    {{- $avWebp := .Resize "160x160 webp" -}}
+    <link rel="preload" as="image" type="image/webp"
+      href="{{ $avWebp.RelPermalink }}" fetchpriority="high">
     {{- end -}}
     {{- end -}}
   </head>
