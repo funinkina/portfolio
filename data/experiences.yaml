@@ -1,3 +1,21 @@
+- company: Libra AI
+  role: Software Engineer Intern
+  type: Internship
+  url: https://trylibra.ai/
+  location: HSR Layout, Bangalore
+  dateRange: July 2026 - Present
+  logo: ""
+  responsibilities:
+    - "Building **autonomous AI agent workflows** for Libra's agentic WorkOS (**TypeScript, Node.js**) — **multi-step agent orchestration** that plans and executes tasks across **Slack, Jira, Google Workspace**, and **250+ integrated tools**."
+    - "Developing **MCP (Model Context Protocol) servers** exposing third-party APIs as typed, permission-scoped agent tools, handling **OAuth token lifecycles**, **tool schemas**, and **streaming responses**."
+    - "Working on **backend infrastructure** powering agent execution — **async job queues**, **caching**, and **retrieval pipelines** (**RAG, vector search, embeddings**) for context-aware agent runs."
+  tech:
+    - TypeScript
+    - Node.js
+    - MCP
+    - RAG
+    - Vector Search
+
 - company: Zyka.ai
   role: Backend Development Intern
   type: Internship
@@ -18,7 +36,7 @@
   role: Backend Engineer Intern
   type: Internship
   url: https://superdash.ai/
-  location: Bangalore, Karnataka
+  location: Indiranagar, Bangalore
   dateRange: June 2025 - April 2026
   logo: ""
   responsibilities:
