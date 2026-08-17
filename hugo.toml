@@ -9,6 +9,16 @@ minifyOutput = true
 dir = ":resourceDir/_gen"
 maxAge = -1
 
+[security.exec]
+allow = [
+    '^(dart-)?sass(-embedded)?$',
+    '^go$',
+    '^git$',
+    '^node$',
+    '^postcss$',
+    '^tailwindcss$',
+]
+
 [markup.highlight]
 noClasses = false
 locale = 'en-us'
