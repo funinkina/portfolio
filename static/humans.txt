@@ -1,0 +1,53 @@
+  __           _      _   _
+ / _|_  _ _ _ (_)_ _ | |_(_)_ _  __ _
+|  _| || | ' \| | ' \| / / | ' \/ _` |
+|_|  \_,_|_||_|_|_||_|_\_\_|_||_\__,_|
+
+                    /* TEAM */
+
+    Engineer, writer, person who broke it: Aryan Kushwaha
+    Also answers to: funinkina
+    Contact: hello [at] funinkina.co.in
+    Twitter/X: @funinkina
+    GitHub: github.com/funinkina
+    LinkedIn: linkedin.com/in/funinkina
+    From: Bangalore <-> New Delhi, India
+
+
+                    /* WHAT I DO */
+
+    Backend and systems engineering. Go, Python, C/C++.
+    Real-time LLM infrastructure and voice agent backends by day,
+    Linux internals and device drivers when nobody is watching.
+    One patch merged into mainline Linux (ALSA/HDA), which took
+    considerably longer to get right than this file.
+
+
+                    /* SITE */
+
+    Generator: Hugo (static, no framework, no hydration)
+    Styling: Tailwind CSS + a pile of hand-written CSS
+    Scripts: vanilla JS, no dependencies, no trackers
+    Fonts: Inter, Material Symbols
+    Hosting: Vercel
+    Source: it is a static site — the whole thing is in view-source,
+            help yourself
+
+
+                    /* THINGS TO FIND */
+
+    Press "/" anywhere            keyboard shortcuts
+    Hover above the first job     an opening waiting to be filled
+    /robots.txt                   you probably came from here
+    Somewhere on this site        a terminal that actually works
+
+
+                    /* THANKS */
+
+    To everyone who reported a bug instead of quietly leaving.
+    To the maintainers who reviewed my patches with more patience
+    than the patches deserved.
+    And to you, for scrolling to the bottom of a plaintext file.
+
+    If you are reading this because you are deciding whether to
+    hire me: yes, and hello@funinkina.co.in is the fastest route.

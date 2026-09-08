@@ -1,0 +1,32 @@
+# ------------------------------------------------------------------
+#
+#     __           _      _   _
+#    / _|_  _ _ _ (_)_ _ | |_(_)_ _  __ _
+#   |  _| || | ' \| | ' \| / / | ' \/ _` |
+#   |_|  \_,_|_||_|_|_||_|_\_\_|_||_\__,_|
+#
+#   $ whoami
+#   funinkina
+#
+#   $ cat /etc/motd
+#   You read the robots.txt. That is a very specific kind of
+#   curious, and it is the kind I like working with.
+#
+#   I build backend and systems software - Go, Python, C/C++,
+#   Linux. Currently at Libra AI. Always up for a good problem.
+#
+#   $ contact --me
+#   hello@funinkina.co.in
+#
+#   $ cat /humans.txt
+#   (the rest of the story)
+#
+#   $ exit
+#
+#   Crawlers: carry on, everything below is for you.
+# ------------------------------------------------------------------
+
+User-agent: *
+Allow: /
+
+Sitemap: {{ "sitemap.xml" | absURL }}

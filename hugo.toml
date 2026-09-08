@@ -1,5 +1,6 @@
 baseURL = 'https://funinkina.co.in/'
 title = "funinkina's corner"
+enableRobotsTXT = true
 
 [minify]
 minifyOutput = true
