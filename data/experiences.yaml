@@ -4,7 +4,7 @@
   url: https://trylibra.ai/
   location: HSR Layout, Bangalore
   dateRange: July 2026 - Present
-  logo: ""
+  logo: "logos/libra.png"
   responsibilities:
     - "Building **autonomous AI agent workflows** for Libra's agentic WorkOS (**TypeScript, Node.js**) — **multi-step agent orchestration** that plans and executes tasks across **Slack, Jira, Google Workspace**, and **250+ integrated tools**."
     - "Developing **MCP (Model Context Protocol) servers** exposing third-party APIs as typed, permission-scoped agent tools, handling **OAuth token lifecycles**, **tool schemas**, and **streaming responses**."

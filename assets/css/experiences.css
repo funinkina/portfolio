@@ -33,3 +33,100 @@
   color: var(--text-dim);
   white-space: nowrap;
 }
+
+/* Ghost "your company here" slot above the first experience.
+   Collapsed it is just a 22px hover strip; hover/focus expands it. */
+.exp-ghost {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding-bottom: 22px;
+  color: inherit;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    padding-bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* short handle centred in the collapsed hover strip */
+.exp-ghost::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  width: 40px;
+  height: 2px;
+  background: var(--complimentary);
+  opacity: 0.6;
+  transition: opacity 0.25s ease;
+}
+
+.exp-ghost-inner {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.exp-ghost-dot {
+  background: transparent;
+  border: 2px dashed var(--complimentary);
+  box-shadow: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.exp-ghost-logo {
+  border: 1px dashed var(--border);
+  color: var(--text-dim);
+}
+
+.exp-ghost .exp-company,
+.exp-ghost .exp-role,
+.exp-ghost .exp-date,
+.exp-ghost .exp-location {
+  transition: color 0.2s ease;
+}
+
+.exp-ghost:hover,
+.exp-ghost:focus-visible {
+  grid-template-rows: 1fr;
+  padding-bottom: 0;
+}
+
+.exp-ghost:hover::before,
+.exp-ghost:focus-visible::before {
+  opacity: 0;
+}
+
+.exp-ghost:hover .exp-ghost-inner,
+.exp-ghost:focus-visible .exp-ghost-inner {
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+.exp-ghost:hover .exp-ghost-dot,
+.exp-ghost:focus-visible .exp-ghost-dot {
+  opacity: 1;
+}
+
+.exp-ghost:hover .exp-company,
+.exp-ghost:focus-visible .exp-company,
+.exp-ghost:hover .exp-location,
+.exp-ghost:focus-visible .exp-location {
+  color: var(--complimentary);
+}
+
+/* no hover on touch — the strip would just be dead space */
+@media (hover: none) {
+  .exp-ghost {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .exp-ghost,
+  .exp-ghost::before,
+  .exp-ghost-inner,
+  .exp-ghost-dot {
+    transition: none;
+  }
+}

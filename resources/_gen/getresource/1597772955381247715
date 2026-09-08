@@ -5,17 +5,17 @@ Cache-Control: private, max-age=86400, stale-while-revalidate=604800
 Content-Type: text/css; charset=utf-8
 Cross-Origin-Opener-Policy: same-origin-allow-popups
 Cross-Origin-Resource-Policy: cross-origin
-Date: Mon, 06 Jul 2026 18:17:02 GMT
-Expires: Mon, 06 Jul 2026 18:17:02 GMT
-Last-Modified: Mon, 06 Jul 2026 18:17:02 GMT
+Date: Tue, 08 Sep 2026 05:54:00 GMT
+Expires: Tue, 08 Sep 2026 05:54:00 GMT
+Last-Modified: Tue, 08 Sep 2026 05:54:00 GMT
 Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
 Server: ESF
 Strict-Transport-Security: max-age=31536000
 Timing-Allow-Origin: *
 Vary: Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site
 X-Content-Type-Options: nosniff
-X-Etags-1: 469fa659e801f241a1f0ce84bf1b0051
-X-Etags-2: 469fa659e801f241a1f0ce84bf1b0051
+X-Etags-1: fa1a92e0eb11c09ee94f4ffbc4b41b2f
+X-Etags-2: fa1a92e0eb11c09ee94f4ffbc4b41b2f
 X-Frame-Options: SAMEORIGIN
 X-Xss-Protection: 0
 
@@ -24,7 +24,7 @@ X-Xss-Protection: 0
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/l/font?kit=kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOejdcND80FOurF9-dOV9sS6DuE2biNDA9HuTiHky_4yvXWsHgmt-N02JBYH1FXiJU7kDSh83CGwvP6m1NSXPOMMaV1A2RsIYWhX1_fvQKiq&skey=b8dc2088854b122f&v=v355) format('woff2');
+  src: url(https://fonts.gstatic.com/l/font?kit=kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOejdcND80FOurF9-dOV9sS6DuE2biNDA9HuTiHky_wyvXWsHgmt-N02JBaH1FXiJU7kDSjs2eHclic2Gdg3WnBQY83p6i0YMnzC4Jsv45STBbQ&skey=b8dc2088854b122f&v=v369) format('woff2');
 }
 
 .material-symbols-outlined {

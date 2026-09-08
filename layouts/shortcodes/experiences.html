@@ -1,6 +1,35 @@
 {{- $key := .Get 0 | default "experiences" -}}
 {{- $experiences := index hugo.Data $key -}}
 <div class="exp-timeline exp-timeline--{{ $key }} relative mt-6 mb-2">
+  {{- if eq $key "experiences" -}}
+  <a class="exp-ghost relative pl-9 no-underline"
+    href="mailto:hello@funinkina.co.in?subject=Let%27s%20discuss%20your%20next%20role%20at%20%5Byour%20company%5D&body=Hi%20Aryan%2C%0A%0AI%20saw%20the%20empty%20slot%20at%20the%20top%20of%20your%20timeline%20and%20I%27d%20like%20to%20fill%20it.%0A%0A"
+    aria-label="Hire me — email Aryan about a role">
+    <span class="exp-dot exp-ghost-dot"></span>
+    <div class="exp-ghost-inner">
+      <div
+        class="exp-head flex justify-between items-center gap-4 flex-wrap max-[600px]:gap-2 pb-11">
+        <div class="exp-id flex items-center gap-3 min-w-0">
+          <div
+            class="exp-logo exp-ghost-logo w-12 h-12 shrink-0 flex items-center justify-center">
+            <span class="material-symbols-outlined text-xl">add</span>
+          </div>
+          <div class="exp-id-text min-w-0">
+            <div class="exp-company font-semibold text-base text-text">Your
+              company here</div>
+            <div class="exp-role text-text-dim text-base">Open to work. Let's
+              talk</div>
+          </div>
+        </div>
+        <div
+          class="exp-meta text-right shrink-0 text-text-dim text-base leading-[1.4] max-[600px]:text-left">
+          <div class="exp-date">Now → ?</div>
+          <div class="exp-location opacity-80">Hire me</div>
+        </div>
+      </div>
+    </div>
+  </a>
+  {{- end -}}
   {{- range $e := $experiences -}}
   <div class="exp-item relative pl-9 not-last:mb-11">
     <span class="exp-dot"></span>
@@ -9,17 +38,21 @@
       <div class="exp-id flex items-center gap-3 min-w-0">
         {{- if $e.url -}}
         <a
-          class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden cursor-pointer transition-all duration-200 ease-ease hover:bg-accent"
+          class="exp-logo w-12 h-12 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden cursor-pointer transition-all duration-200 ease-ease hover:bg-accent"
           href="{{ $e.url }}" target="_blank" rel="noopener"
           aria-label="{{ $e.company }} website">
           {{- else -}}
           <div
             class="exp-logo w-11.25 h-11.25 shrink-0 bg-card border border-solid border-border flex items-center justify-center overflow-hidden">
             {{- end -}}
+            {{/* explicit logo wins; remote favicon is the fallback */}}
             {{- $img := "" -}}
-            {{- with $e.url -}}
+            {{- with $e.logo -}}
+            {{- $img = resources.Get . -}}
+            {{- end -}}
+            {{- if and (not $img) $e.url -}}
             {{- $favURL := printf
-            "https://www.google.com/s2/favicons?domain=%s&sz=64" . -}}
+            "https://www.google.com/s2/favicons?domain=%s&sz=64" $e.url -}}
             {{- $res := try (resources.GetRemote $favURL) -}}
             {{- if and (not $res.Err) $res.Value (eq
             $res.Value.MediaType.MainType
@@ -33,13 +66,6 @@
               src="{{ $sized.RelPermalink }}" alt="{{ $e.company }} logo"
               width="24"
               height="24" loading="lazy" decoding="async">
-            {{- else if $e.logo -}}
-            {{- with resources.Get $e.logo -}}
-            <img class="w-7.5 h-7.5 object-contain rounded-[3px]"
-              src="{{ .RelPermalink }}" alt="{{ $e.company }} logo" width="24"
-              height="24"
-              loading="lazy" decoding="async">
-            {{- end -}}
             {{- else -}}
             <span
               class="material-symbols-outlined text-xl text-text-dim">business</span>
