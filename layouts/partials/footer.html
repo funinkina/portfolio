@@ -22,6 +22,13 @@
     <a href="https://github.com/funinkina/portfolio/commit/{{ . }}" target="_blank" rel="noopener" title="Latest commit {{ . }}" class="inline-flex items-center font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-1.5 py-1 bg-card border border-solid border-border rounded-sm text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200">{{ . }}</a>
     {{- end }}
   </p>
+  {{- $pill := "group inline-flex items-center gap-1 font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-3 py-1 bg-card border border-solid border-border rounded-sm text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200" }}
+  <nav aria-label="kanring webring" class="mt-3 flex flex-wrap items-center justify-center gap-2 select-none">
+    <a href="https://ring.kan.sh/members/aryan/prev" rel="prev" title="Previous site in kanring" class="{{ $pill }}">
+      <span class="material-symbols-outlined text-sm leading-none p-0 transition-transform duration-200 group-hover:-translate-x-0.5" aria-hidden="true">arrow_back</span>prev</a>
+    <p class="m-0 px-2 text-xs leading-snug text-text-dim text-center">this site is part of the <a href="https://ring.kan.sh/" target="_blank" rel="noopener" class="text-text-dim hover:text-text underline underline-offset-2">kanring</a> webring</p>
+    <a href="https://ring.kan.sh/members/aryan/next" rel="next" title="Next site in kanring" class="{{ $pill }}">next<span class="material-symbols-outlined text-sm leading-none p-0 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">arrow_forward</span></a>
+  </nav>
 {{ partial "footer_scripts.html" . }}
 </footer>
 
