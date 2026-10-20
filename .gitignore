@@ -39,3 +39,4 @@ public/
 
 # Wrangler local state
 .wrangler/
+.playwright-mcp

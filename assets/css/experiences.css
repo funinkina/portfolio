@@ -60,14 +60,14 @@
 }
 
 .exp-logo {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--glass-2);
   border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 var(--glass-edge);
@@ -80,8 +80,8 @@ a.exp-logo:hover {
 }
 
 .exp-logo img {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   margin: 0;
   border-radius: 4px;
@@ -103,13 +103,22 @@ a.exp-company:hover {
 .exp-role {
   color: var(--text-2);
   font-size: 0.95rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 0.9rem;
 }
 
 .exp-location {
+  margin-left: auto;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding-top: 0.2rem;
+  font-size: 0.9rem;
   color: var(--text-3);
+  white-space: nowrap;
+}
+
+.exp-location .material-symbols-outlined {
+  font-size: 1.05rem;
 }
 
 .exp-resp {
@@ -138,6 +147,18 @@ a.exp-company:hover {
     grid-template-columns: 1fr;
     gap: 0.5rem;
     padding: 1.25rem 0;
+  }
+
+  .exp-head {
+    flex-wrap: wrap;
+    row-gap: 0.3rem;
+  }
+
+  .exp-location {
+    flex-basis: 100%;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    padding: 0 0 0 calc(52px + 0.9rem);
   }
 
   .exp-when {

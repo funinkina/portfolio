@@ -45,23 +45,6 @@
     </div>
 </section>
 
-{{ with .Site.GetPage "section" "projects" }}
-<section class="section" id="projects">
-    <div class="section-head">
-        <h2>Projects</h2>
-        <p>Tools I built because I wanted them, mostly for Linux desktops and terminals.</p>
-    </div>
-    <div class="project-grid">
-        {{ range first 6 .RegularPages }}{{ partial "project_card.html" . }}{{ end }}
-    </div>
-    {{ if gt (len .RegularPages) 6 }}
-    <div class="section-foot">
-        <a href="{{ .RelPermalink }}" class="btn">All {{ len .RegularPages }} projects<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-    </div>
-    {{ end }}
-</section>
-{{ end }}
-
 {{ with .Site.GetPage "section" "blog" }}
 <section class="section" id="writing">
     <div class="section-head">
@@ -76,6 +59,23 @@
     {{ if gt (len .RegularPages) 5 }}
     <div class="section-foot">
         <a href="{{ .RelPermalink }}" class="btn">All {{ len .RegularPages }} posts<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+    </div>
+    {{ end }}
+</section>
+{{ end }}
+
+{{ with .Site.GetPage "section" "projects" }}
+<section class="section" id="projects">
+    <div class="section-head">
+        <h2>Projects</h2>
+        <p>Tools I built because I wanted them, mostly for Linux desktops and terminals.</p>
+    </div>
+    <div class="project-grid">
+        {{ range first 6 .RegularPages }}{{ partial "project_card.html" . }}{{ end }}
+    </div>
+    {{ if gt (len .RegularPages) 6 }}
+    <div class="section-foot">
+        <a href="{{ .RelPermalink }}" class="btn">All {{ len .RegularPages }} projects<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
     </div>
     {{ end }}
 </section>

@@ -20,8 +20,8 @@
         {{- end -}}
         {{- $logo := "" -}}
         {{- if $img -}}
-        {{- $sized := $img.Resize "52x52" -}}
-        {{- $logo = printf `<img src="%s" alt="" width="26" height="26" loading="lazy" decoding="async">` $sized.RelPermalink -}}
+        {{- $sized := $img.Resize "64x64" -}}
+        {{- $logo = printf `<img src="%s" alt="" width="32" height="32" loading="lazy" decoding="async">` $sized.RelPermalink -}}
         {{- else -}}
         {{- $logo = `<span class="material-symbols-outlined" aria-hidden="true">business</span>` -}}
         {{- end -}}
@@ -36,8 +36,11 @@
           {{- else -}}
           <span class="exp-company">{{ $e.company }}</span>
           {{- end }}
-          <div class="exp-role"><span>{{ $e.role }}</span>{{ with $e.location }}<span class="exp-location">{{ . }}</span>{{ end }}</div>
+          <div class="exp-role">{{ $e.role }}</div>
         </div>
+        {{- with $e.location }}
+        <span class="exp-location">{{ . }}<span class="material-symbols-outlined" aria-hidden="true">location_on</span></span>
+        {{- end }}
       </div>
       {{- with $e.summary }}<p class="exp-summary">{{ . | markdownify }}</p>{{ end }}
       {{- with $e.responsibilities }}
