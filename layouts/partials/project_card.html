@@ -1,29 +1,27 @@
 <article class="project-card glass card" data-title="{{ .Title | lower }}"
     data-date="{{ .Date.Unix }}"
     data-description="{{ .Description | default .Summary | plainify | lower }}">
-    <a href="{{ .RelPermalink }}" tabindex="-1" aria-hidden="true">
-        <div class="project-image-container">
-            {{- /* own screenshot first, GitHub's OpenGraph card as fallback */ -}}
-            {{- $done := false -}}
-            {{- with .Params.image -}}{{- if partial "image-resource.html" . -}}
-            {{- $done = true -}}
-            {{ partial "processed-image.html" (dict "path" . "width" 600 "alt" "" "class" "project-image" "loading" "lazy") }}
-            {{- end -}}{{- end -}}
-            {{- if not $done -}}{{- with .Params.github -}}
-            {{- $result := try (resources.GetRemote (printf "https://opengraph.github.com/repo/%s" .)) -}}
-            {{- if and (not $result.Err) $result.Value -}}
-            {{- $done = true -}}
-            {{- $webp := $result.Value.Resize "600x webp" -}}
-            {{- $fallback := $result.Value.Resize "600x" -}}
-            <picture>
-                <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
-                <img src="{{ $fallback.RelPermalink }}" alt="" class="project-image is-og" loading="lazy" decoding="async">
-            </picture>
-            {{- end -}}
-            {{- end -}}{{- end -}}
-            {{- if not $done }}<div class="project-placeholder">{{ .Title }}</div>{{ end }}
-        </div>
-    </a>
+    <div class="project-image-container">
+        {{- /* own screenshot first, GitHub's OpenGraph card as fallback */ -}}
+        {{- $done := false -}}
+        {{- with .Params.image -}}{{- if partial "image-resource.html" . -}}
+        {{- $done = true -}}
+        {{ partial "processed-image.html" (dict "path" . "width" 600 "alt" "" "class" "project-image" "loading" "lazy") }}
+        {{- end -}}{{- end -}}
+        {{- if not $done -}}{{- with .Params.github -}}
+        {{- $result := try (resources.GetRemote (printf "https://opengraph.github.com/repo/%s" .)) -}}
+        {{- if and (not $result.Err) $result.Value -}}
+        {{- $done = true -}}
+        {{- $webp := $result.Value.Resize "600x webp" -}}
+        {{- $fallback := $result.Value.Resize "600x" -}}
+        <picture>
+            <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+            <img src="{{ $fallback.RelPermalink }}" alt="" class="project-image is-og" loading="lazy" decoding="async">
+        </picture>
+        {{- end -}}
+        {{- end -}}{{- end -}}
+        {{- if not $done }}<div class="project-placeholder">{{ .Title }}</div>{{ end }}
+    </div>
     <div class="project-details">
         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         <p>{{ .Description | default .Params.subtitle | default .Summary | plainify }}</p>

@@ -6,7 +6,7 @@ date: '2026-06-01T00:00:00+05:30'
 draft: false
 ---
 
-[funinkina.com](https://funinkina.com) · [hello@funinkina.co.in](mailto:hello@funinkina.co.in) · [github.com/funinkina](https://github.com/funinkina) · [linkedin.com/in/funinkina](https://linkedin.com/in/funinkina)
+[funinkina.com](https://funinkina.com) · [aryankushwaha3101@gmail.com](mailto:aryankushwaha3101@gmail.com) · [github.com/funinkina](https://github.com/funinkina) · [linkedin.com/in/funinkina](https://linkedin.com/in/funinkina)
 
 ---
 

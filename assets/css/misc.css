@@ -112,11 +112,6 @@
   transition: color 0.15s ease, background 0.15s ease;
 }
 
-.shortcuts-modal-close:hover {
-  color: var(--text);
-  background: var(--accent);
-}
-
 /* SHORTCUTS TOAST */
 .shortcuts-toast {
   position: fixed;

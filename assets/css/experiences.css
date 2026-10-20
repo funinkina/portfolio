@@ -75,10 +75,6 @@
   transition: border-color 0.2s ease;
 }
 
-a.exp-logo:hover {
-  border-color: var(--line-strong);
-}
-
 .exp-logo img {
   width: 32px;
   height: 32px;
@@ -92,11 +88,6 @@ a.exp-logo:hover {
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--text);
-  text-decoration: none;
-}
-
-a.exp-company:hover {
-  color: var(--blue);
   text-decoration: none;
 }
 

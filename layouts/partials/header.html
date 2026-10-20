@@ -169,7 +169,10 @@
         {{ end }}
       </ul>
       <div class="nav-right">
-        <span class="nav-social">{{ partialCached "social_links.html" . }}</span>
+        <span class="nav-social">
+          {{- partialCached "social_links.html" . -}}
+          <a href="https://www.buymeacoffee.com/funinkina" target="_blank" rel="noopener" aria-label="Buy me a coffee" title="Buy me a coffee" class="icon-btn">{{ (resources.Get "icons/coffee.svg").Content | safeHTML }}</a>
+        </span>
         {{ if and .IsPage .Params.toc }}
         <button
           class="mobile-toc-toggle"

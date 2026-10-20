@@ -341,12 +341,6 @@ kbd {
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.btn:hover {
-  text-decoration: none;
-  border-color: var(--blue);
-  background-image: var(--aero-gloss-hover);
-}
-
 .btn:active {
   transform: translateY(1px);
 }
@@ -362,6 +356,43 @@ kbd {
   height: 1rem;
   font-size: 1.1rem;
   fill: currentColor;
+}
+
+/* HOVER: one system for every interactive surface.
+   bordered controls brighten their gloss, ghost controls gain glass,
+   cards gain glass; plain text links just underline (see a:hover). */
+.btn:hover,
+.aero:hover,
+.copy-code-button:hover,
+.single-share-button:hover,
+footer .pill:hover,
+#tags a:hover,
+a.exp-logo:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+  background-image: var(--aero-gloss-hover);
+  text-decoration: none;
+}
+
+.btn-quiet:hover,
+.icon-btn:hover,
+.menu a:hover,
+.theme-toggle:hover,
+.mobile-toc-toggle:hover,
+#section-search-clear:hover,
+.shortcuts-modal-close:hover,
+.sort-option:hover {
+  color: var(--text);
+  background-color: var(--glass-2);
+  text-decoration: none;
+}
+
+.highlights .highlight:hover,
+.project-card:hover,
+.blog-row:hover::before {
+  background-color: var(--glass-2);
+  border-color: var(--line-strong);
+  text-decoration: none;
 }
 
 .btn-primary,
@@ -386,11 +417,6 @@ kbd {
   color: var(--text-2);
 }
 
-.btn-quiet:hover {
-  color: var(--text);
-  border-color: var(--line-strong);
-}
-
 .icon-btn {
   display: inline-flex;
   align-items: center;
@@ -400,12 +426,6 @@ kbd {
   border-radius: var(--r-ctl);
   color: var(--text-2);
   transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-.icon-btn:hover {
-  color: var(--text);
-  background: var(--glass-2);
-  text-decoration: none;
 }
 
 .icon-btn svg {
@@ -437,11 +457,6 @@ kbd {
   border-radius: var(--r-ctl);
 }
 
-.aero:hover,
-.copy-code-button:hover,
-.single-share-button:hover {
-  background-image: var(--aero-gloss-hover);
-}
 
 /* SECTION FRAME (home + list pages) */
 .section {
@@ -601,13 +616,7 @@ kbd {
   padding: 1.5rem 1.5rem 1.4rem;
   color: inherit;
   text-decoration: none;
-  transition: border-color 0.2s ease, transform 0.25s ease;
-}
-
-.highlight:hover {
-  text-decoration: none;
-  border-color: var(--line-strong);
-  transform: translateY(-2px);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .highlight:visited {
@@ -662,15 +671,11 @@ kbd {
 }
 
 .project-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: border-color 0.2s ease, transform 0.25s ease;
-}
-
-.project-card:hover {
-  border-color: var(--line-strong);
-  transform: translateY(-2px);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .project-image-container {
@@ -727,6 +732,14 @@ kbd {
 .project-details h3 a,
 .project-details h3 a:visited {
   color: var(--text);
+  text-decoration: none;
+}
+
+/* stretched link: the whole card opens the project */
+.project-details h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 
 .project-details p {
@@ -757,6 +770,26 @@ kbd {
   align-items: center;
   padding: 1.5rem 0;
   border-top: 1px solid var(--line);
+  position: relative;
+  isolation: isolate;
+}
+
+/* hover glass bleeds past the text column so the row's content doesn't move */
+.blog-row::before {
+  content: "";
+  position: absolute;
+  inset: 0.4rem -1rem;
+  z-index: -1;
+  border: 1px solid transparent;
+  border-radius: var(--r-card);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* stretched link: the whole row (same area as the hover glass) opens the post */
+.blog-row-body h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0.4rem -1rem;
 }
 
 .blog-row:last-child {
@@ -777,6 +810,7 @@ kbd {
 .blog-row-body h3 a,
 .blog-row-body h3 a:visited {
   color: var(--text);
+  text-decoration: none;
 }
 
 .blog-row-body p {
@@ -802,7 +836,6 @@ kbd {
   background: var(--glass-2);
 }
 
-.blog-row-image a,
 .blog-row-image picture,
 .blog-row-image img {
   display: block;
@@ -973,11 +1006,6 @@ footer .pill {
   border: 1px solid var(--line);
   color: var(--text-2);
   text-decoration: none;
-}
-
-footer .pill:hover {
-  color: var(--text);
-  border-color: var(--line-strong);
 }
 
 footer .pill .material-symbols-outlined {

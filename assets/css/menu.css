@@ -34,7 +34,7 @@
 }
 
 .nav-bar h1 a:hover {
-  color: var(--text-2);
+  text-decoration: underline;
 }
 
 .nav-bar h1 img {
@@ -76,11 +76,6 @@
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.menu a:hover {
-  color: var(--text);
-  background: var(--glass-2);
-}
-
 .menu a[aria-current="page"] {
   color: var(--text);
   background: var(--glass-2);
@@ -101,12 +96,6 @@
   color: var(--text-2);
   cursor: pointer;
   transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-.theme-toggle:hover,
-.mobile-toc-toggle:hover {
-  color: var(--text);
-  background: var(--glass-2);
 }
 
 .theme-toggle .material-symbols-outlined,

@@ -57,11 +57,6 @@
   display: inline-flex;
 }
 
-#section-search-clear:hover {
-  color: var(--text);
-  background: var(--glass-2);
-}
-
 #section-search-clear .material-symbols-outlined {
   font-size: 1.1rem;
   color: inherit;
@@ -97,10 +92,6 @@
   opacity: 0;
   width: 0;
   height: 0;
-}
-
-.sort-option:hover {
-  color: var(--text);
 }
 
 .sort-option:has(input:checked) {

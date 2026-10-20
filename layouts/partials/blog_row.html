@@ -15,9 +15,7 @@
     </div>
     {{- with $page.Params.image }}
     <div class="blog-row-image">
-        <a href="{{ $page.RelPermalink }}" tabindex="-1" aria-hidden="true">
-            {{ partial "processed-image.html" (dict "path" . "width" 480 "alt" "" "loading" $loading "fetchpriority" $priority) }}
-        </a>
+        {{ partial "processed-image.html" (dict "path" . "width" 480 "alt" "" "loading" $loading "fetchpriority" $priority) }}
     </div>
     {{- end }}
 </article>

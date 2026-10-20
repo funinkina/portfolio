@@ -50,12 +50,6 @@
   color: var(--text-2);
 }
 
-#tags a:hover {
-  color: var(--text);
-  border-color: var(--line-strong);
-  text-decoration: none;
-}
-
 .single-share-button {
   display: inline-flex;
   align-items: center;
@@ -82,8 +76,6 @@
 }
 
 .single-share-button:hover {
-  color: var(--text);
-  border-color: var(--line-strong);
   gap: 0.4rem;
 }
 
