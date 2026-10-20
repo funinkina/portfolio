@@ -31,8 +31,8 @@ priority = 0.5
 
 [params]
 author = "Aryan K."
-subtitle = "23 • Systems and Backend Engineer • ENGLISH / हिंदी"
-location = "Bangalore ↔ New Delhi, India"
+subtitle = "Systems & backend engineer at Libra AI"
+location = "Bangalore, India"
 avatar = "avatar.jpg"
 description = "A collection of blogs, projects and opinions by funinkina."
 ShowReadingTime = true

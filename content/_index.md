@@ -3,27 +3,13 @@ title: "funinkina's corner"
 toc: false
 ---
 
-{{< social-links >}}
-{{< social-button url="https://github.com/funinkina" text="funinkina" icon="github" >}}{{< /social-button >}}
-{{< social-button url="https://x.com/funinkina" text="funinkina" icon="twitter" >}}{{< /social-button >}}
-{{< social-button url="https://www.linkedin.com/in/funinkina" text="in/funinkina" icon="linkedin" >}}{{< /social-button >}}
-{{< social-button url="mailto:hello@funinkina.co.in" text="hello@funinkina.co.in" icon="email" >}}{{< /social-button >}}
-{{< social-button url="https://www.buymeacoffee.com/funinkina" text="Buy Me A Coffee" icon="coffee" >}}{{< /social-button >}}
-{{< /social-links >}}
-
 {{< announcement >}}
 
-I'm a systems and backend engineer with ~2 years of production experience, working in **Go, Python, and C/C++**. I like building systems that are fast, boring to operate, and interesting to build, and most of my time goes writing code and shipping straight to production.
+I build fast, boring-to-operate backends in **Go, Python and C/C++**. Lately that means **real-time LLM infrastructure** and **voice agent backends**, with an 80% cut in voice latency and a 5× inference speedup along the way. Lower in the stack, I write device drivers and have a patch merged into mainline Linux.
 
-Lately that means **real-time LLM infrastructure** and **voice agent backends**, though I'm just as comfortable low in the stack with **device drivers** and **Linux kernel** work, including a patch merged into mainline. Along the way: an 80% cut in voice latency, a 5× inference speedup, and 60% in cost savings.
+I also write about Linux and open source for 1000+ readers a month on [my blog](/blog).
 
-When I'm not shipping, I write about **Linux**, **open source**, and **computer science** for 1000+ readers a month. You can [read my blogs here](/blog).
-
-**What I work with:**
-- Backend Systems & Distributed Architecture
-- Linux & Systems Programming
-- LLMs, TTS and Voice/AI Agents
-- AWS, GCP, Docker & CI/CD
+<!--more-->
 
 ## {{< icon "work" >}} Experiences so far
 

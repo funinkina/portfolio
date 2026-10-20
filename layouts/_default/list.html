@@ -3,48 +3,44 @@
 {{ if .IsHome }}
 <div class="home-container">
     <!-- Profile Section -->
-    <div class="mb-4 mt-8">
-        <div
-            class="flex items-center gap-10 mb-4 mt-40 max-md:flex-col max-md:items-start max-md:gap-0.5 max-md:mt-20">
+    <section class="mt-16 mb-14 text-left max-md:mt-10">
+        <div class="flex items-center gap-5">
             {{- $avRes := resources.Get "avatar.jpg" -}}
-            {{- if $avRes -}}
-            {{- $avWebp1x := $avRes.Resize "160x160 webp" -}}
-            {{- $avWebp2x := $avRes.Resize "320x320 webp" -}}
-            {{- $avFallback1x := $avRes.Resize "160x160" -}}
-            {{- $avFallback2x := $avRes.Resize "320x320" -}}
-            <picture class="m-0 p-0 leading-none">
-                <source
-                    srcset="{{ $avWebp1x.RelPermalink }} 1x, {{ $avWebp2x.RelPermalink }} 2x"
-                    type="image/webp">
-                <img src="{{ $avFallback1x.RelPermalink }}"
-                    srcset="{{ $avFallback1x.RelPermalink }} 1x, {{ $avFallback2x.RelPermalink }} 2x"
-                    alt="{{ .Site.Params.author }}"
-                    class="h-40 w-auto aspect-square rounded-full object-cover m-0 p-0 max-md:w-30 max-md:h-30"
-                    width="160" height="160"
-                    loading="eager" fetchpriority="high">
-            </picture>
-            {{- else -}}
-            <img src="{{ .Site.Params.avatar | default "avatar.jpg" | relURL }}"
+            {{- $av1x := $avRes.Resize "80x80 webp" -}}
+            {{- $av2x := $avRes.Resize "160x160 webp" -}}
+            <img src="{{ $av1x.RelPermalink }}"
+                srcset="{{ $av1x.RelPermalink }} 1x, {{ $av2x.RelPermalink }} 2x"
                 alt="{{ .Site.Params.author }}"
-                class="h-40 w-auto aspect-square rounded-full object-cover max-md:w-30 max-md:h-30 max-md:m-0">
-            {{- end -}}
-            <div class="profile-text">
-                <h1
-                    class="text-7xl mb-5 leading-none max-md:text-5xl font-extralight">
+                class="size-20 rounded-full object-cover m-0 shrink-0 max-md:size-16"
+                width="80" height="80" loading="eager" fetchpriority="high">
+            <div>
+                <h1 class="text-4xl font-medium tracking-tight leading-tight m-0 max-md:text-3xl">
                     {{ .Site.Params.author }}</h1>
-                <p class="m-0 cursor-default"><span
-                        class="material-symbols-outlined leading-none align-middle text-base mt-0.5">info</span>
-                    {{ .Site.Params.subtitle }}</p>
-                {{ with .Site.Params.location }}
-                <p class="m-0 cursor-default"><span
-                        class="material-symbols-outlined leading-none align-middle text-base mt-0.5">location_on</span>
-                    {{ . }}</p>
-                {{ end }}
+                <p class="m-0 mt-1 text-text-dim">{{ .Site.Params.subtitle }}</p>
+                {{ with .Site.Params.location }}<p class="m-0 text-text-dim opacity-80 text-sm">{{ . }}</p>{{ end }}
             </div>
         </div>
-        <div class="text-text-dim leading-[1.6] text-lg">
-            {{ .Content }}
+        <div class="mt-6 [&_p]:leading-[1.6] [&_p]:text-text-dim [&_strong]:font-medium [&_strong]:text-text">
+            {{ .Summary }}
         </div>
+        {{- $icon := "inline-flex items-center justify-center size-9 rounded-[var(--corner-sm)] text-text-dim hover:text-text hover:bg-accent transition-colors duration-200 [&_svg]:size-[18px]" }}
+        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <a href="mailto:hello@funinkina.co.in"
+                class="aero inline-flex items-center gap-2 py-2 px-4 bg-card border border-complementary text-complementary text-sm leading-none no-underline visited:text-complementary hover:text-text hover:border-text hover:no-underline transition-colors duration-200 [&_svg]:size-4">
+                {{ (resources.Get "icons/email.svg").Content | safeHTML }}Email me</a>
+            <a href="/resume" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-0.5 text-sm text-text-dim visited:text-text-dim hover:text-text no-underline">Resume<span
+                    class="material-symbols-outlined text-base leading-none p-0" aria-hidden="true">arrow_outward</span></a>
+            <span class="h-5 w-px bg-border" aria-hidden="true"></span>
+            <nav class="flex items-center gap-1" aria-label="Social links">
+                <a href="https://github.com/funinkina" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub" class="{{ $icon }}">{{ (resources.Get "icons/github.svg").Content | safeHTML }}</a>
+                <a href="https://x.com/funinkina" target="_blank" rel="noopener" aria-label="X (Twitter)" title="X" class="{{ $icon }}">{{ (resources.Get "icons/x.svg").Content | safeHTML }}</a>
+                <a href="https://www.linkedin.com/in/funinkina" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" class="{{ $icon }}">{{ (resources.Get "icons/linkedin.svg").Content | safeHTML }}</a>
+            </nav>
+        </div>
+    </section>
+    <div class="text-text-dim leading-[1.6] text-lg">
+        {{ .ContentWithoutSummary }}
     </div>
 
     {{- $ghContribs := slice -}}

@@ -173,19 +173,6 @@ main {
   hyphens: none;
 }
 
-.social-links-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-  margin-bottom: 10rem;
-  justify-content: space-evenly;
-}
-
-.social-links-container:has(+ .announcement-banner) {
-  margin-bottom: 0.75rem;
-}
-
 .icon svg {
   width: 1.2em;
   height: 1.2em;
@@ -270,10 +257,6 @@ main {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .social-links-container {
-    justify-content: center;
-  }
-
   .announcement-banner {
     font-size: 0.9rem;
     padding: 0.5rem 0.75rem;
@@ -622,10 +605,6 @@ main ul {
 
   .blog-row-date {
     font-size: 0.85rem;
-  }
-
-  .social-links-container {
-    margin-bottom: 5rem;
   }
 }
 
