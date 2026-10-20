@@ -6,9 +6,14 @@
         <h1 class="hero-name">{{ .Site.Params.author }} <span class="hero-alias">funinkina</span></h1>
         <div class="hero-lead">{{ .Summary }}</div>
         <div class="hero-actions">
-            <a href="mailto:aryankushwaha3101@gmail.com"
-                class="btn btn-primary">{{ (resources.Get
-                "icons/email.svg").Content | safeHTML }}Email me</a>
+            <span class="email-group">
+                <a href="mailto:aryankushwaha3101@gmail.com"
+                    class="btn btn-primary">{{ (resources.Get
+                    "icons/email.svg").Content | safeHTML }}Email me</a>
+                <button type="button" class="btn btn-primary copy-email" data-copy="aryankushwaha3101@gmail.com"
+                    aria-label="Copy email address" title="Copy email address"><span
+                        class="material-symbols-outlined" aria-hidden="true">content_copy</span></button>
+            </span>
             <a href="/resume" class="btn" target="_blank" rel="noopener">Resume</a>
             <span class="sep" aria-hidden="true"></span>
             <nav class="flex items-center gap-1" aria-label="Social links">
@@ -26,7 +31,8 @@
     <ul class="hero-meta">
         <li>{{ .Site.Params.subtitle }}<span class="material-symbols-outlined"
                 aria-hidden="true">work</span></li>
-        {{ with .Site.Params.location }}<li>{{ . }}<span
+        {{ with .Site.Params.location }}<li>{{ . }}<time class="local-time"
+                data-tz="{{ $.Site.Params.timezone | default "Asia/Kolkata" }}" hidden></time><span
                 class="material-symbols-outlined"
                 aria-hidden="true">location_on</span></li>{{ end }}
     </ul>
@@ -44,7 +50,7 @@
 <section class="section" id="highlights">
     <div class="section-head">
         <h2>Highlights</h2>
-        <p>{{ hugo.Data.highlights.intro }}</p>
+        <p>{{ hugo.Data.highlights.intro | replaceRE `(\d+)` `<span data-count="$1">$1</span>` | safeHTML }}</p>
     </div>
     {{ partial "highlights.html" . }}
     <div class="section-foot">

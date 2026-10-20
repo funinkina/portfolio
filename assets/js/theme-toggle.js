@@ -4,6 +4,7 @@
   if (!btn) return;
   var icon = btn.querySelector('.material-symbols-outlined');
   var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   var ICONS = { system: 'routine', light: 'light_mode', dark: 'dark_mode' };
   var LABELS = {
@@ -26,6 +27,19 @@
       root.classList.remove('theme-transition');
       transitionTimer = null;
     }, TRANSITION_MS);
+  }
+
+  // new theme spreads out as a circle from the toggle button
+  function reveal(apply) {
+    var r = btn.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    var end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(apply).ready.then(function () {
+      document.documentElement.animate(
+        { clipPath: ['circle(0 at ' + x + 'px ' + y + 'px)', 'circle(' + end + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 450, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' }
+      );
+    });
   }
 
   function getSetting() {
@@ -55,10 +69,13 @@
     localStorage.setItem('theme', setting);
     var resolved = resolve(setting);
     var root = document.documentElement;
-    if (initialized && root.getAttribute('data-theme') !== resolved) {
-      enableTransition();
+    var changing = initialized && root.getAttribute('data-theme') !== resolved;
+    if (changing && document.startViewTransition && !reduce.matches) {
+      reveal(function () { root.setAttribute('data-theme', resolved); });
+    } else {
+      if (changing) enableTransition();
+      root.setAttribute('data-theme', resolved);
     }
-    root.setAttribute('data-theme', resolved);
     setIcon(ICONS[setting]);
     btn.setAttribute('title', LABELS[setting]);
     btn.setAttribute('aria-label', LABELS[setting]);

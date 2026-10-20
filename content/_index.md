@@ -21,9 +21,3 @@ I build fast, boring-to-operate backends in **Go, Python and C/C++**. Lately tha
   - Mentored students in ML, AI and Git, roughly in that order of how often things go wrong.
   - Led workshops on open-source contribution and version control.
   - Ran projects across NLP and finance.
-
-## Achievements
-
-- **Linux kernel contributor (ALSA/HDA):** Diagnosed a hardware mute LED bug by probing Realtek COEF registers with `hda-verb`, then submitted a [patch merged into mainline Linux](https://lore.kernel.org/all/20260516144436.35022-1-aryankushwaha3101@gmail.com/) adding the missing PCI quirk for the machine.
-
-- **Amazon ML Summer School 2024:** Selected from over 1,000,000 applicants nationwide for the competitive ML program.

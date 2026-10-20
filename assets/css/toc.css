@@ -14,7 +14,7 @@
   #tableOfContentContainer {
     position: fixed;
     left: 20px;
-    top: 46px;
+    top: 6rem;
     max-width: 15vw;
     width: 15vw;
   }
@@ -68,7 +68,7 @@
   }
 
   #TableOfContents {
-    max-height: 85vh;
+    max-height: calc(100vh - 9rem);
     overflow-y: auto;
   }
 

@@ -39,7 +39,7 @@ Backend and systems engineer in **Go, Python, and C/C++**, with production exper
 
 ## Projects
 
-### [OpenEffects](https://github.com/funinkina/openeffects) ★ 60 · 2K+ users
+### [OpenEffects](https://openeffects.funinkina.com) ★ 80 · 2K+ users
 
 - Built a **Linux-native webcam effects engine in Rust** with a **GTK4/libadwaita GUI**, a **headless daemon architecture** (`openeffectsd`, `openeffectsctl`, CLI), and a **PipeWire/GStreamer** media pipeline; inference via **ONNX Runtime** with automatic hardware dispatch (**CUDA, ROCm, Vulkan**) achieving **sub-50ms latency**.
 - Published as a **Flatpak** on Flathub with **systemd**-managed daemon lifecycle and **D-Bus IPC**, bringing macOS-like **portrait blur**, **center stage** auto-tracking, **studio light**, **background replacement**, and gesture-triggered **reaction effects** to any Wayland Linux desktop.

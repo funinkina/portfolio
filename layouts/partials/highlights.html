@@ -8,8 +8,8 @@
     <p>{{ .blurb }}</p>
     <div class="meta">
       {{- with .lang }}<span><span class="material-symbols-outlined" aria-hidden="true">code</span>{{ . }}</span>{{ end -}}
-      {{- with .stars }}<span><span class="material-symbols-outlined" aria-hidden="true">star</span>{{ . }} stars</span>{{ end -}}
-      {{- with .users }}<span><span class="material-symbols-outlined" aria-hidden="true">group</span>{{ . }} users</span>{{ end -}}
+      {{- with .stars }}<span><span class="material-symbols-outlined" aria-hidden="true">star</span><span><span data-count="{{ . }}">{{ . }}</span> stars</span></span>{{ end -}}
+      {{- with .users }}<span><span class="material-symbols-outlined" aria-hidden="true">group</span><span>{{ . | replaceRE `(\d+)` `<span data-count="$1">$1</span>` | safeHTML }} users</span></span>{{ end -}}
     </div>
   </a>
   {{- end }}

@@ -1,17 +1,17 @@
-intro: "350+ stars and 2K+ users across GitHub. Three worth calling out."
+intro: "390+ stars and 2K+ users across GitHub. Three worth calling out."
 items:
   - name: OpenEffects
-    url: https://github.com/funinkina/openeffects
+    url: https://openeffects.funinkina.com
     tag: Linux-native webcam effects engine
     lang: Rust
-    stars: 60
+    stars: 80
     users: 2K+
     blurb: "A GTK4 app over a headless daemon with a PipeWire/GStreamer pipeline. ONNX Runtime inference dispatches to CUDA, ROCm or Vulkan for sub-50ms portrait blur, center stage, studio light and background replacement. Shipped as a Flatpak on Flathub."
   - name: DeadEnv
     url: /projects/deadenv/
     tag: CLI secrets manager
     lang: Go
-    stars: 15
+    stars: 16
     blurb: "Replaces plaintext .env files with the OS keychain on macOS, Linux and Windows behind biometric auth. Exports are AES-256-GCM + Argon2id with error collapsing against oracle attacks, plus a git audit log."
   - name: Ricoh SP 200 driver
     url: /blog/reverse-engineering-a-printer-driver-for-linux/
