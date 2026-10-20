@@ -19,10 +19,10 @@
       <span class="material-symbols-outlined text-base leading-none p-0" aria-hidden="true">commit</span><span class="underline-offset-2 group-hover:underline">funinkina/portfolio</span></a>
     {{- $hash := partial "git_commit.html" . -}}
     {{- with $hash }}
-    <a href="https://github.com/funinkina/portfolio/commit/{{ . }}" target="_blank" rel="noopener" title="Latest commit {{ . }}" class="inline-flex items-center font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-1.5 py-1 bg-card border border-solid border-border rounded-sm text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200">{{ . }}</a>
+    <a href="https://github.com/funinkina/portfolio/commit/{{ . }}" target="_blank" rel="noopener" title="Latest commit {{ . }}" class="inline-flex items-center font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-1.5 py-1 aero bg-card border border-solid border-border text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200">{{ . }}</a>
     {{- end }}
   </p>
-  {{- $pill := "group inline-flex items-center gap-1 font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-3 py-1 bg-card border border-solid border-border rounded-sm text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200" }}
+  {{- $pill := "group inline-flex items-center gap-1 font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-3 py-1 aero bg-card border border-solid border-border text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200" }}
   <nav aria-label="kanring webring" class="mt-3 flex flex-wrap items-center justify-center gap-2 select-none">
     <a href="https://ring.kan.sh/members/aryan/prev" rel="prev" title="Previous site in kanring" class="{{ $pill }}">
       <span class="material-symbols-outlined text-sm leading-none p-0 transition-transform duration-200 group-hover:-translate-x-0.5" aria-hidden="true">arrow_back</span>prev</a>
@@ -32,7 +32,7 @@
 {{ partial "footer_scripts.html" . }}
 </footer>
 
-<button id="back-to-top" aria-label="Back to top" title="Back to top" class="fixed bottom-8 right-6 w-9.5 h-9.5 bg-card border border-solid border-border flex items-center justify-center cursor-pointer text-text-dim z-100 hover:text-text hover:border-text-dim">
+<button id="back-to-top" aria-label="Back to top" title="Back to top" class="aero fixed bottom-8 right-6 w-9.5 h-9.5 bg-card border border-solid border-border flex items-center justify-center cursor-pointer text-text-dim z-100 hover:text-text hover:border-text-dim">
   <span class="material-symbols-outlined text-xl p-0 leading-none" aria-hidden="true">arrow_upward</span>
 </button>
 <script>
@@ -72,7 +72,7 @@
 </script>
 
 <div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true" class="fixed inset-0 flex items-center justify-center z-10000">
-  <div id="terminal-window" class="w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-sm border border-solid border-[#2a2a2a]">
+  <div id="terminal-window" class="rounded-[var(--corner)] w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-sm border border-solid border-[#2a2a2a]">
     <div id="terminal-titlebar" class="bg-[#1a1a1a] pt-1.5 pb-1.5 pr-12.5 pl-3 flex items-center gap-3 [border-bottom:1px_solid_#2a2a2a] shrink-0">
       <div class="terminal-dots flex gap-1.5 items-center">
         <button class="terminal-dot terminal-dot-close w-3 h-3 rounded-full block border-none p-0 shrink-0 cursor-pointer bg-[#ff5f57]" id="terminal-close-btn" aria-label="Close terminal" title="Close"></button>
@@ -92,7 +92,7 @@
 </div>
 
 <div id="shortcuts-modal" class="shortcuts-modal fixed inset-0 flex items-center justify-center z-9999" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
-  <div class="shortcuts-modal-content bg-card border border-solid border-border p-4 min-w-65 max-w-75 w-[90vw] shadow-[0_20px_60px_rgba(0,0,0,0.5)]" tabindex="-1">
+  <div class="shortcuts-modal-content rounded-[var(--corner)] bg-card border border-solid border-border p-4 min-w-65 max-w-75 w-[90vw] shadow-[0_20px_60px_rgba(0,0,0,0.5)]" tabindex="-1">
     <div class="shortcuts-modal-header flex items-center justify-between mb-5">
       <h2 class="text-sm uppercase tracking-[0.08em] text-text-dim m-0 font-medium">Keyboard shortcuts</h2>
       <button class="shortcuts-modal-close" aria-label="Close shortcuts">&times;</button>

@@ -42,6 +42,12 @@
   --border: #333;
   --grid-line: rgba(255, 255, 255, 0.035);
   --grid-size: 42px;
+  --corner: 10px;
+  --corner-sm: 6px;
+  --corner-xs: 4px;
+  --aero-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025) 48%, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0.02));
+  --aero-gloss-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.01) 52%, rgba(255, 255, 255, 0.04));
+  --aero-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="light"] ::selection {
@@ -69,6 +75,9 @@
   --accent: #e8e8e8;
   --border: #dedede;
   --grid-line: rgba(0, 0, 0, 0.045);
+  --aero-gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.5) 48%, rgba(255, 255, 255, 0) 52%, rgba(0, 0, 0, 0.02));
+  --aero-gloss-hover: linear-gradient(180deg, rgb(255, 255, 255), rgba(255, 255, 255, 0.7) 48%, rgba(255, 255, 255, 0.15) 52%, rgba(255, 255, 255, 0.3));
+  --aero-shadow: inset 0 1px 0 rgb(255, 255, 255), 0 1px 2px rgba(0, 0, 0, 0.08);
   background-image:
     url(/footer-bg-light.svg),
     url(/waves.svg),
@@ -645,3 +654,88 @@ main ul {
 #github-calendar-container rect {
   cursor: default;
 }
+
+/* SHAPE + AERO
+   One place for corner radii and the glossy button finish. Buttons in templates
+   opt in with the plain `aero` class; CSS-built controls are listed here. */
+.aero,
+#section-search-clear,
+.copy-code-button,
+.single-share-button {
+  background-image: var(--aero-gloss);
+  box-shadow: var(--aero-shadow);
+  border-radius: var(--corner-sm);
+}
+
+.aero:hover,
+#section-search-clear:hover,
+.copy-code-button:hover,
+.single-share-button:hover {
+  background-image: var(--aero-gloss-hover);
+}
+
+.aero:active {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* sits between the search input and FIND, so it stays square */
+#section-search-clear {
+  border-radius: 0;
+}
+
+.nav-bar,
+.project-image-container,
+.blog-row-image,
+.toc,
+.md-tabs,
+.box-shortcode,
+.shortcuts-toast,
+pre,
+.highlight > div {
+  border-radius: var(--corner);
+}
+
+.project-image-container,
+.blog-row-image,
+.md-tabs,
+.box-shortcode {
+  overflow: hidden;
+}
+
+.nav-bar.nav-flush {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+@media (max-width: 819px) {
+  .nav-bar.nav-flush {
+    border-radius: 0;
+  }
+}
+
+main img,
+.exp-logo {
+  border-radius: var(--corner-sm);
+}
+
+.tech-tag,
+code,
+kbd,
+.copy-code-button {
+  border-radius: var(--corner-xs);
+}
+
+pre > code,
+.highlight div pre {
+  border-radius: 0;
+}
+
+@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+  .aero,
+  #section-search-clear,
+  .copy-code-button,
+  .single-share-button {
+    background-image: none;
+  }
+}
+
