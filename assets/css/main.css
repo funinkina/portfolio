@@ -33,8 +33,8 @@
   --text: #e9eef6;
   --text-2: #a9b4c8;
   --text-3: #74819a;
-  --blue: #7fb0ff;
-  --blue-ink: #0b1018;
+  --green: #6cc49a;
+  --green-ink: #0b1018;
   --line: rgba(233, 238, 246, 0.1);
   --line-strong: rgba(233, 238, 246, 0.18);
   --glass: rgba(255, 255, 255, 0.045);
@@ -44,25 +44,28 @@
   --gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02) 55%, rgba(255, 255, 255, 0));
   --dot: rgba(233, 238, 246, 0.09);
 
-  --r-panel: 20px;
-  --r-card: 16px;
-  --r-ctl: 10px;
-  --r-xs: 6px;
+  --hover-bg: color-mix(in srgb, var(--green) 8%, var(--glass-2));
+  --hover-line: color-mix(in srgb, var(--green) 35%, var(--line-strong));
+
+  --r-panel: 4px;
+  --r-card: 4px;
+  --r-ctl: 3px;
+  --r-xs: 2px;
   --page-w: 1040px;
   --article-w: 760px;
 
   /* legacy aliases */
-  --complimentary: var(--blue);
+  --complimentary: var(--green);
   --text-dim: var(--text-2);
-  --link: var(--blue);
-  --link-visited: var(--blue);
+  --link: var(--green);
+  --link-visited: var(--green);
   --code: #dfe6f0;
   --code-background: #0f1622;
   --code-border: var(--line);
-  --code-hl: rgba(127, 176, 255, 0.12);
+  --code-hl: rgba(108, 196, 154, 0.12);
   --border-general: var(--line-strong);
   --border: var(--line);
-  --table-th: rgba(127, 176, 255, 0.14);
+  --table-th: rgba(108, 196, 154, 0.14);
   --table-tr: transparent;
   --toc-background: var(--glass);
   --toc-border: var(--line);
@@ -82,8 +85,9 @@
   --text: #101a2b;
   --text-2: #4b5872;
   --text-3: #7c889f;
-  --blue: #2563e3;
-  --blue-ink: #ffffff;
+  --green: #1f7a4d;
+  --green-ink: #ffffff;
+  --hover-bg: color-mix(in srgb, var(--green) 12%, var(--glass-2));
   --line: rgba(16, 26, 43, 0.09);
   --line-strong: rgba(16, 26, 43, 0.16);
   --glass: rgba(255, 255, 255, 0.55);
@@ -95,14 +99,14 @@
 
   --code: #1f2a3d;
   --code-background: rgba(255, 255, 255, 0.7);
-  --code-hl: rgba(37, 99, 227, 0.1);
-  --table-th: rgba(37, 99, 227, 0.1);
+  --code-hl: rgba(31, 122, 77, 0.1);
+  --table-th: rgba(31, 122, 77, 0.1);
   --aero-gloss-hover: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0.75) 55%, rgba(255, 255, 255, 0.3));
   --aero-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(16, 26, 43, 0.08);
 }
 
 ::selection {
-  background-color: color-mix(in srgb, var(--blue) 35%, transparent);
+  background-color: color-mix(in srgb, var(--green) 35%, transparent);
 }
 
 html.theme-transition,
@@ -195,7 +199,7 @@ h4 {
 }
 
 a {
-  color: var(--blue);
+  color: var(--green);
   text-decoration: none;
 }
 
@@ -205,7 +209,7 @@ a:hover {
 }
 
 a:visited {
-  color: var(--blue);
+  color: var(--green);
 }
 
 ul,
@@ -228,7 +232,7 @@ hr {
 }
 
 blockquote {
-  border-left: 2px solid var(--blue);
+  border-left: 2px solid var(--green);
   margin: 1.6rem 0;
   padding: 0.1rem 0 0.1rem 1.2rem;
   color: var(--text-2);
@@ -244,7 +248,7 @@ details {
 }
 
 mark {
-  background: color-mix(in srgb, var(--blue) 25%, transparent);
+  background: color-mix(in srgb, var(--green) 25%, transparent);
   color: inherit;
   padding: 0 3px;
   border-radius: 3px;
@@ -261,7 +265,7 @@ kbd {
 }
 
 :focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--green);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -354,7 +358,8 @@ footer .pill:hover,
 #tags a:hover,
 a.exp-logo:hover {
   color: var(--text);
-  border-color: var(--line-strong);
+  border-color: var(--hover-line);
+  background-color: var(--hover-bg);
   background-image: var(--aero-gloss-hover);
   text-decoration: none;
 }
@@ -368,26 +373,26 @@ a.exp-logo:hover {
 .shortcuts-modal-close:hover,
 .sort-option:hover {
   color: var(--text);
-  background-color: var(--glass-2);
+  background-color: var(--hover-bg);
   text-decoration: none;
 }
 
 .highlights .highlight:hover,
 .project-card:hover,
 .blog-row:hover::before {
-  background-color: var(--glass-2);
-  border-color: var(--line-strong);
+  background-color: var(--hover-bg);
+  border-color: var(--hover-line);
   text-decoration: none;
 }
 
 .btn-primary,
 .btn-primary:visited,
 .btn-primary:hover {
-  color: var(--blue-ink);
-  background: var(--blue);
+  color: var(--green-ink);
+  background: var(--green);
   border-color: transparent;
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.05) 55%, rgba(255, 255, 255, 0));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 20px -10px var(--blue);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 20px -10px var(--green);
 }
 
 .btn-primary:hover {
@@ -428,7 +433,7 @@ a.exp-logo:hover {
   color: var(--text-2);
   background: var(--glass-2);
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--r-ctl);
   white-space: nowrap;
 }
 
@@ -498,7 +503,7 @@ a.exp-logo:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.2rem;
+  gap: 0.45rem;
   font-size: 0.95rem;
   color: var(--text-2);
   text-align: right;
@@ -507,12 +512,11 @@ a.exp-logo:hover {
 .hero-meta li {
   display: flex;
   align-items: center;
-  /* gap: 0.15rem; */
+  gap: 0.4rem;
 }
 
 .hero-meta .material-symbols-outlined {
   font-size: 1.15rem;
-  color: var(--text-3);
 }
 
 .hero-name {
@@ -565,10 +569,10 @@ a.exp-logo:hover {
 }
 
 .hero-avatar {
-  width: 128px;
-  height: 128px;
+  width: 192px;
+  height: 192px;
   object-fit: cover;
-  border-radius: 28px;
+  border-radius: var(--r-card);
   border: 1px solid var(--glass-edge);
   box-shadow: var(--glass-shadow);
   margin-top: 0.6rem;
@@ -676,7 +680,6 @@ a.exp-logo:hover {
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--glass-2);
-  border-bottom: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -763,7 +766,6 @@ a.exp-logo:hover {
   gap: 1.75rem;
   align-items: center;
   padding: 1.5rem 0;
-  border-top: 1px solid var(--line);
   position: relative;
   isolation: isolate;
 }
@@ -784,10 +786,6 @@ a.exp-logo:hover {
   content: "";
   position: absolute;
   inset: 0.4rem -1rem;
-}
-
-.blog-row:last-child {
-  border-bottom: 1px solid var(--line);
 }
 
 .blog-row.no-image {
@@ -825,7 +823,7 @@ a.exp-logo:hover {
 .blog-row-image {
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--r-card);
   border: 1px solid var(--line);
   background: var(--glass-2);
 }
@@ -995,7 +993,7 @@ footer .pill {
   font-size: 0.72rem;
   line-height: 1;
   padding: 0.35rem 0.7rem;
-  border-radius: 999px;
+  border-radius: var(--r-ctl);
   background: var(--glass-2);
   border: 1px solid var(--line);
   color: var(--text-2);
@@ -1054,9 +1052,9 @@ footer .pill .material-symbols-outlined {
   .hero-avatar {
     order: -2;
     justify-self: start;
-    width: 88px;
-    height: 88px;
-    border-radius: 22px;
+    width: 120px;
+    height: 120px;
+    border-radius: var(--r-card);
     margin: 0;
   }
 

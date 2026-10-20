@@ -9,7 +9,7 @@
             <a href="mailto:aryankushwaha3101@gmail.com"
                 class="btn btn-primary">{{ (resources.Get
                 "icons/email.svg").Content | safeHTML }}Email me</a>
-            <a href="/hire-me/" class="btn">Resume</a>
+            <a href="/resume" class="btn" target="_blank" rel="noopener">Resume</a>
             <span class="sep" aria-hidden="true"></span>
             <nav class="flex items-center gap-1" aria-label="Social links">
                 {{ partialCached "social_links.html" . }}
@@ -17,11 +17,11 @@
         </div>
     </div>
     {{- $av := resources.Get "avatar.jpg" -}}
-    {{- $av1x := $av.Resize "128x128 webp" -}}
-    {{- $av2x := $av.Resize "256x256 webp" -}}
+    {{- $av1x := $av.Resize "192x192 webp" -}}
+    {{- $av2x := $av.Resize "384x384 webp" -}}
     <img class="hero-avatar" src="{{ $av1x.RelPermalink }}"
         srcset="{{ $av1x.RelPermalink }} 1x, {{ $av2x.RelPermalink }} 2x"
-        alt="{{ .Site.Params.author }}" width="128" height="128" loading="eager"
+        alt="{{ .Site.Params.author }}" width="192" height="192" loading="eager"
         fetchpriority="high">
     <ul class="hero-meta">
         <li>{{ .Site.Params.subtitle }}<span class="material-symbols-outlined"

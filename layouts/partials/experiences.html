@@ -1,7 +1,7 @@
 {{- $key := .key | default "experiences" -}}
 <div class="exp-timeline glass panel">
   {{- range $e := index hugo.Data $key }}
-  <div class="exp-item">
+  <div class="exp-item{{ if in $e.dateRange "Present" }} is-current{{ end }}">
     {{- with $e.dateRange }}
     <div class="exp-when">
       {{- range split . " - " -}}

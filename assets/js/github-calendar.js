@@ -1,7 +1,7 @@
 // GitHub contribution calendar (renders from server-injected #gh-data).
 (function () {
   var COLORS = {
-    dark:  ['#1e1e1e', '#0e4429', '#006d32', '#26a641', '#39d353'],
+    dark:  ['#2a3444', '#11643a', '#1a8a4a', '#26a641', '#39d353'],
     light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
   };
 
