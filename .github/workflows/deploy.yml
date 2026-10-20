@@ -1,6 +1,7 @@
 name: Deploy
 
 # Daily cron rebuilds so the build-time GitHub contributions fetch picks up new activity.
+# Plain shell steps only: this repo allows local actions only.
 on:
   push:
     branches: [main]
@@ -10,21 +11,20 @@ on:
 
 concurrency: deploy
 
+env:
+  HUGO_VERSION: 0.168.0
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-      - uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: "0.168.0"
-          extended: true
+      - run: git clone --depth 1 -b "$GITHUB_REF_NAME" "https://x-access-token:${{ github.token }}@github.com/$GITHUB_REPOSITORY" .
+      - run: |
+          curl -fsSLo hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i hugo.deb && rm hugo.deb
       - run: npm install
       - run: hugo --gc --minify
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: npx -y wrangler@4 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
