@@ -1,20 +1,23 @@
 - company: Libra AI
-  role: SWE-1
+  role: Full Stack Engineer
   type: Internship
   url: https://trylibra.ai/
   location: HSR Layout, Bangalore
   dateRange: July 2026 - Present
   logo: "logos/libra.png"
   responsibilities:
-    - "Building **autonomous AI agent workflows** for Libra's agentic WorkOS (**TypeScript, Node.js**) — **multi-step agent orchestration** that plans and executes tasks across **Slack, Jira, Google Workspace**, and **250+ integrated tools**."
-    - "Developing **MCP (Model Context Protocol) servers** exposing third-party APIs as typed, permission-scoped agent tools, handling **OAuth token lifecycles**, **tool schemas**, and **streaming responses**."
-    - "Working on **backend infrastructure** powering agent execution — **async job queues**, **caching**, and **retrieval pipelines** (**RAG, vector search, embeddings**) for context-aware agent runs."
+    - "Shipping core surfaces of Libra's agentic workspace (**TypeScript, React**): the **Tasks** agent UI with live run activity, plan-step navigation and inline doc/slide previews, **generative UI** in chat, an **AI slide deck generator** with 20+ themes, and an onboarding revamp. Migrated the app from React Router to **TanStack Router**."
+    - "Built the **desktop app's meeting stack**: live captions, a meeting transcription bot, in-meeting notes and offline recording; evaluated streaming **STT providers** and added voice-fingerprint **speaker separation**."
+    - "Built and hardened **15+ OAuth integrations** (**Microsoft 365, Salesforce, HubSpot, Stripe, Jira, Confluence, GitHub, Linear, Figma, Workday, Google Workspace**), fixing token lifecycles and short-lived tokens; shipped the M365 connector for an enterprise POC."
+    - "Overhauled the **AI email assistant** and **daily digest**, scaled the **document ingestion pipeline** (file parser + self-hosted **llama.cpp** distiller), and own the marketing site's **SEO/AEO** on **Cloudflare**, plus a **Chrome extension**."
   tech:
     - TypeScript
-    - Node.js
-    - MCP
-    - RAG
-    - Vector Search
+    - React
+    - TanStack Router
+    - Cloudflare
+    - Deepgram
+    - llama.cpp
+    - PostHog
 
 - company: Zyka.ai
   role: Backend Development Intern

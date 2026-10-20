@@ -42,9 +42,7 @@
   --glass-edge: rgba(255, 255, 255, 0.12);
   --glass-shadow: inset 0 1px 0 var(--glass-edge), 0 18px 40px -24px rgba(0, 0, 0, 0.7);
   --gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02) 55%, rgba(255, 255, 255, 0));
-  --blob-1: rgba(60, 120, 255, 0.22);
-  --blob-2: rgba(30, 190, 170, 0.14);
-  --blob-3: rgba(150, 110, 255, 0.14);
+  --dot: rgba(233, 238, 246, 0.09);
 
   --r-panel: 20px;
   --r-card: 16px;
@@ -93,9 +91,7 @@
   --glass-edge: rgba(255, 255, 255, 0.95);
   --glass-shadow: inset 0 1px 0 var(--glass-edge), 0 1px 2px rgba(16, 26, 43, 0.04), 0 18px 40px -24px rgba(16, 26, 43, 0.3);
   --gloss: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4) 55%, rgba(255, 255, 255, 0.1));
-  --blob-1: rgba(90, 150, 255, 0.4);
-  --blob-2: rgba(70, 210, 190, 0.3);
-  --blob-3: rgba(180, 150, 255, 0.28);
+  --dot: rgba(16, 26, 43, 0.12);
 
   --code: #1f2a3d;
   --code-background: rgba(255, 255, 255, 0.7);
@@ -125,6 +121,8 @@ html.theme-transition *::after {
 html {
   color: var(--text);
   background-color: var(--bg);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.5px);
+  background-size: 22px 22px;
   font-family: var(--font);
   font-size: 17px;
   line-height: 1.55;
@@ -146,19 +144,6 @@ body {
 
 body.is-article {
   --page-w: var(--article-w);
-}
-
-/* the aero backdrop: three soft blobs that stay put while the page scrolls */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(55% 45% at 12% -5%, var(--blob-1), transparent 70%),
-    radial-gradient(45% 40% at 92% 8%, var(--blob-2), transparent 70%),
-    radial-gradient(50% 45% at 55% 110%, var(--blob-3), transparent 70%);
 }
 
 main {
@@ -500,7 +485,7 @@ a.exp-logo:hover {
   margin-top: 5rem;
 }
 
-.hero > div {
+.hero>div {
   grid-row: span 2;
 }
 
@@ -522,7 +507,7 @@ a.exp-logo:hover {
 .hero-meta li {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  /* gap: 0.15rem; */
 }
 
 .hero-meta .material-symbols-outlined {
@@ -533,9 +518,18 @@ a.exp-logo:hover {
 .hero-name {
   font-size: clamp(3.2rem, 7vw, 5.5rem);
   font-weight: 200;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.015em;
   line-height: 0.98;
   margin: 0 0 1.4rem;
+}
+
+.hero-alias {
+  margin-left: 0.3rem;
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0;
+  color: var(--text-3);
+  white-space: nowrap;
 }
 
 .hero-lead {
@@ -884,7 +878,7 @@ a.exp-logo:hover {
   white-space: nowrap;
 }
 
-.gh-legend > span {
+.gh-legend>span {
   margin: 0 3px;
 }
 
@@ -905,23 +899,23 @@ a.exp-logo:hover {
   margin: 0;
 }
 
-.home-prose > ul > li {
+.home-prose>ul>li {
   padding: 1.1rem 0;
   border-top: 1px solid var(--line);
   color: var(--text-2);
   margin: 0;
 }
 
-.home-prose > ul > li:last-child {
+.home-prose>ul>li:last-child {
   border-bottom: 1px solid var(--line);
 }
 
-.home-prose > ul > li strong {
+.home-prose>ul>li strong {
   color: var(--text);
   font-weight: 500;
 }
 
-.home-prose > ul > li em {
+.home-prose>ul>li em {
   color: var(--text-3);
   font-style: normal;
 }
@@ -1042,7 +1036,7 @@ footer .pill .material-symbols-outlined {
     margin-top: 2.5rem;
   }
 
-  .hero > div {
+  .hero>div {
     grid-row: auto;
   }
 
@@ -1122,7 +1116,8 @@ footer .pill .material-symbols-outlined {
   }
 }
 
-@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+@media (prefers-reduced-transparency: reduce),
+(forced-colors: active) {
 
   .glass,
   .btn,

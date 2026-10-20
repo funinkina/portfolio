@@ -30,7 +30,7 @@ filename = "sitemap.xml"
 priority = 0.5
 
 [params]
-author = "Aryan K."
+author = "Aryan K"
 subtitle = "Systems & backend engineer at Libra AI"
 location = "Bangalore, India"
 avatar = "avatar.jpg"
