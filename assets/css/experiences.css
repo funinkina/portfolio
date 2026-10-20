@@ -177,9 +177,42 @@
   font-weight: 500;
 }
 
+/* scroll progress: the rail fills green down to the middle of the viewport
+   and nodes light up once read. Pure CSS; browsers without scroll-driven
+   animations just keep the static rail. */
+@supports (animation-timeline: view()) {
+  .exp-item::before {
+    background:
+      linear-gradient(var(--green), var(--green)) top / 100% 0 no-repeat,
+      color-mix(in srgb, var(--text-3) 35%, transparent);
+    animation: exp-fill linear both;
+    animation-timeline: view(block 50% 50%);
+    animation-range: cover 0% cover 100%;
+  }
+
+  .exp-item:not(.is-current)::after {
+    animation: exp-pass linear both;
+    animation-timeline: view(block 50% 50%);
+    animation-range: cover 0% cover 100%;
+  }
+}
+
+@keyframes exp-fill {
+  to {
+    background-size: 100% 100%, auto;
+  }
+}
+
+@keyframes exp-pass {
+  to {
+    border-color: var(--green);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .exp-item.is-current::after {
-    animation: none;
+  .exp-item::before,
+  .exp-item::after {
+    animation: none !important;
   }
 }
 
