@@ -1,10 +1,19 @@
 /* Experiences timeline (home page) */
 
+/* --gutter holds the date column left of the line; 0 on narrow screens */
+.exp-timeline {
+  --gutter: 6.5rem;
+}
+
+.exp-row {
+  padding-left: calc(var(--gutter) + 2.25rem);
+}
+
 /* vertical line (decorative pseudo — retained) */
 .exp-timeline::before {
   content: "";
   position: absolute;
-  left: 7px;
+  left: calc(var(--gutter) + 7px);
   top: 6px;
   bottom: 6px;
   width: 2px;
@@ -14,12 +23,55 @@
 /* dot on the line (decorative) */
 .exp-dot {
   position: absolute;
-  left: 1px;
+  left: calc(var(--gutter) + 1px);
   top: 16px;
   width: 14px;
   height: 14px;
+  border-radius: 50%;
   background: var(--complimentary);
   box-shadow: 0 0 0 4px var(--background);
+}
+
+/* start/end date, right-aligned against the dot */
+.exp-when {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: calc(var(--gutter) - 0.75rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.exp-when span:first-child {
+  color: var(--text);
+}
+
+@media (max-width: 600px) {
+  .exp-timeline {
+    --gutter: 0rem;
+  }
+
+  .exp-when {
+    position: static;
+    width: auto;
+    flex-direction: row;
+    gap: 0.35em;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-when span + span::before {
+    content: "– ";
+  }
+
+  .exp-dot {
+    top: 3px;
+  }
 }
 
 /* badge markup is currently commented out in the shortcode; rule retained so
@@ -80,7 +132,7 @@
 
 .exp-ghost .exp-company,
 .exp-ghost .exp-role,
-.exp-ghost .exp-date,
+.exp-ghost .exp-date span,
 .exp-ghost .exp-location {
   transition: color 0.2s ease;
 }
