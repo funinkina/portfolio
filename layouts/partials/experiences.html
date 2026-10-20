@@ -1,0 +1,51 @@
+{{- $key := .key | default "experiences" -}}
+<div class="exp-timeline glass panel">
+  {{- range $e := index hugo.Data $key }}
+  <div class="exp-item">
+    {{- with $e.dateRange }}
+    <div class="exp-when">
+      {{- range split . " - " -}}
+      {{- $w := split (trim . " ") " " -}}
+      <span>{{ if eq (len $w) 2 }}{{ substr (index $w 0) 0 3 }} {{ index $w 1 }}{{ else }}{{ . }}{{ end }}</span>
+      {{- end -}}
+    </div>
+    {{- end }}
+    <div>
+      <div class="exp-head">
+        {{- $img := "" -}}
+        {{- with $e.logo }}{{ $img = resources.Get . }}{{ end -}}
+        {{- if and (not $img) $e.url -}}
+        {{- $res := try (resources.GetRemote (printf "https://www.google.com/s2/favicons?domain=%s&sz=64" $e.url)) -}}
+        {{- if and (not $res.Err) $res.Value (eq $res.Value.MediaType.MainType "image") }}{{ $img = $res.Value }}{{ end -}}
+        {{- end -}}
+        {{- $logo := "" -}}
+        {{- if $img -}}
+        {{- $sized := $img.Resize "52x52" -}}
+        {{- $logo = printf `<img src="%s" alt="" width="26" height="26" loading="lazy" decoding="async">` $sized.RelPermalink -}}
+        {{- else -}}
+        {{- $logo = `<span class="material-symbols-outlined" aria-hidden="true">business</span>` -}}
+        {{- end -}}
+        {{- if $e.url -}}
+        <a class="exp-logo" href="{{ $e.url }}" target="_blank" rel="noopener" aria-label="{{ $e.company }} website">{{ $logo | safeHTML }}</a>
+        {{- else -}}
+        <div class="exp-logo">{{ $logo | safeHTML }}</div>
+        {{- end }}
+        <div class="min-w-0">
+          {{- if $e.url -}}
+          <a class="exp-company" href="{{ $e.url }}" target="_blank" rel="noopener">{{ $e.company }}</a>
+          {{- else -}}
+          <span class="exp-company">{{ $e.company }}</span>
+          {{- end }}
+          <div class="exp-role"><span>{{ $e.role }}</span>{{ with $e.location }}<span class="exp-location">{{ . }}</span>{{ end }}</div>
+        </div>
+      </div>
+      {{- with $e.summary }}<p class="exp-summary">{{ . | markdownify }}</p>{{ end }}
+      {{- with $e.responsibilities }}
+      <ul class="exp-resp">
+        {{- range . }}<li>{{ . | markdownify }}</li>{{ end }}
+      </ul>
+      {{- end }}
+    </div>
+  </div>
+  {{- end }}
+</div>

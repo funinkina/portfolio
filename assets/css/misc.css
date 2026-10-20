@@ -84,34 +84,6 @@
 /* FOOTER KEYBOARD HINT — fully inlined in footer.html (.footer-shortcuts class kept
    so the touch @media hover:none rule can still hide it) */
 
-/* SECTION FILTER CLEAR BUTTON */
-#section-search-clear {
-  display: none;
-  padding: 9px 10px;
-  border: 1px solid var(--border-general);
-  border-left: none;
-  background: var(--accent);
-  color: var(--text-dim);
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.15s ease;
-}
-
-#section-search-clear.visible {
-  display: flex;
-}
-
-#section-search-clear:hover {
-  color: var(--text);
-}
-
-#section-search-clear .material-symbols-outlined {
-  font-size: 1.1rem;
-  padding: 0;
-  line-height: 1;
-}
-
 /* SHORTCUTS MODAL (content/header/list inlined in footer.html; JS .open state,
    overlay bg/backdrop, and the .shortcuts-modal-close ease-timed transition kept) */
 .shortcuts-modal {
@@ -150,9 +122,11 @@
   position: fixed;
   bottom: 3rem;
   right: 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-
+  background: var(--glass-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-ctl);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   padding: 0.55rem 0.85rem;
   display: flex;
   align-items: center;
@@ -328,7 +302,8 @@
 .md-tabs {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid var(--border-general);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
 
   overflow: hidden;
   display: flex;

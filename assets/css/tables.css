@@ -1,33 +1,35 @@
-/* TABLES */
 table {
   border-collapse: collapse;
   display: block;
   overflow: auto;
+  margin: 1.4rem 0;
+  font-size: 0.95rem;
 }
 
 @media screen and (min-width: 760px) {
   table {
     display: table !important;
+    width: 100%;
   }
-}
-
-table thead th {
-  border: 1px solid var(--border-general);
 }
 
 th,
 td {
-  padding: 4px 8px;
-  border: 1px solid rgb(200, 200, 200);
-  border: 1px solid var(--border-general);
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
 }
 
 th {
   background-color: var(--table-th);
+  font-weight: 500;
 }
 
 tr {
   background-color: var(--table-tr);
 }
 
-
+tbody tr:nth-child(even) {
+  background-color: var(--glass);
+}

@@ -1,0 +1,10 @@
+{{- /* Returns a Hugo image resource for a local asset path or a remote URL,
+       or "" when it can't be fetched. */ -}}
+{{- $img := "" -}}
+{{- if hasPrefix . "http" -}}
+  {{- $r := try (resources.GetRemote .) -}}
+  {{- if and (not $r.Err) $r.Value (eq $r.Value.MediaType.MainType "image") }}{{ $img = $r.Value }}{{ end -}}
+{{- else -}}
+  {{- with resources.Get (strings.TrimPrefix "/" .) }}{{ $img = . }}{{ end -}}
+{{- end -}}
+{{- return $img -}}

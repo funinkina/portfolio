@@ -1,81 +1,49 @@
-<br>
-
 <footer>
-  <p class="footer-shortcuts flex flex-wrap justify-center items-center gap-x-4 gap-y-[0.45rem] text-text-dim text-xs font-['Fira_Code',ui-monospace,monospace] text-center mt-2 select-none">
-    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">h</kbd> home</span>
-    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">b</kbd> blog</span>
-    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">p</kbd> projects</span>
-    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">i</kbd> search</span>
-    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">`</kbd> terminal</span>
-    <span class="fkey inline-flex items-center gap-1.5"><kbd class="inline-flex items-center justify-center min-w-2 px-1.5 py-0.5 font-['Fira_Code',ui-monospace,monospace] text-xs leading-[1.3] bg-card border border-solid border-border rounded-sm shadow-[0_1px_0_var(--border)]">/</kbd> shortcuts</span>
+  <p class="footer-row footer-shortcuts">
+    <span><kbd>h</kbd> home</span>
+    <span><kbd>b</kbd> blog</span>
+    <span><kbd>p</kbd> projects</span>
+    <span><kbd>i</kbd> search</span>
+    <span><kbd>`</kbd> terminal</span>
+    <span><kbd>/</kbd> shortcuts</span>
   </p>
-  <p class="text-text-dim text-sm text-center mt-4 flex items-center justify-center gap-1.5">
-    Built with
-    <a href="https://gohugo.io" target="_blank" rel="noopener" aria-label="Hugo">
-      <img src="{{ "hugo-logo.svg" | relURL }}" alt="Hugo" class="h-4 w-auto align-middle" width="76" height="20" loading="lazy" decoding="async">
+  <p class="footer-row">
+    <span>Built with <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+    <a href="https://github.com/funinkina/portfolio" target="_blank" rel="noopener" class="pill">
+      <span class="material-symbols-outlined" aria-hidden="true">commit</span>funinkina/portfolio
+      {{- with partial "git_commit.html" . }} <span title="Latest commit">{{ . }}</span>{{ end -}}
     </a>
-    ·
-    <a href="https://github.com/funinkina/portfolio" target="_blank" rel="noopener" class="group inline-flex items-center gap-1 text-text-dim hover:text-text no-underline">
-      <span class="material-symbols-outlined text-base leading-none p-0" aria-hidden="true">commit</span><span class="underline-offset-2 group-hover:underline">funinkina/portfolio</span></a>
-    {{- $hash := partial "git_commit.html" . -}}
-    {{- with $hash }}
-    <a href="https://github.com/funinkina/portfolio/commit/{{ . }}" target="_blank" rel="noopener" title="Latest commit {{ . }}" class="inline-flex items-center font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-1.5 py-1 aero bg-card border border-solid border-border text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200">{{ . }}</a>
-    {{- end }}
-    ·
-    <a href="https://www.buymeacoffee.com/funinkina" target="_blank" rel="noopener" class="group inline-flex items-center gap-1 text-text-dim hover:text-text no-underline">
-      <span class="material-symbols-outlined text-base leading-none p-0" aria-hidden="true">coffee</span><span class="underline-offset-2 group-hover:underline">buy me a coffee</span></a>
+    <a href="https://www.buymeacoffee.com/funinkina" target="_blank" rel="noopener" class="pill">
+      <span class="material-symbols-outlined" aria-hidden="true">coffee</span>buy me a coffee</a>
   </p>
-  {{- $pill := "group inline-flex items-center gap-1 font-['Fira_Code',ui-monospace,monospace] text-xs leading-none px-3 py-1 aero bg-card border border-solid border-border text-text-dim no-underline hover:text-text hover:border-text-dim transition-colors duration-200" }}
-  <nav aria-label="kanring webring" class="mt-3 flex flex-wrap items-center justify-center gap-2 select-none">
-    <a href="https://ring.kan.sh/members/aryan/prev" rel="prev" title="Previous site in kanring" class="{{ $pill }}">
-      <span class="material-symbols-outlined text-sm leading-none p-0 transition-transform duration-200 group-hover:-translate-x-0.5" aria-hidden="true">arrow_back</span>prev</a>
-    <p class="m-0 px-2 text-xs leading-snug text-text-dim text-center">this site is part of the <a href="https://ring.kan.sh/" target="_blank" rel="noopener" class="text-text-dim hover:text-text underline underline-offset-2">kanring</a> webring</p>
-    <a href="https://ring.kan.sh/members/aryan/next" rel="next" title="Next site in kanring" class="{{ $pill }}">next<span class="material-symbols-outlined text-sm leading-none p-0 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">arrow_forward</span></a>
+  <nav aria-label="kanring webring" class="footer-row">
+    <a href="https://ring.kan.sh/members/aryan/prev" rel="prev" title="Previous site in kanring" class="pill">
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>prev</a>
+    <span>part of the <a href="https://ring.kan.sh/" target="_blank" rel="noopener">kanring</a> webring</span>
+    <a href="https://ring.kan.sh/members/aryan/next" rel="next" title="Next site in kanring" class="pill">next<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
   </nav>
 {{ partial "footer_scripts.html" . }}
 </footer>
 
-<button id="back-to-top" aria-label="Back to top" title="Back to top" class="aero fixed bottom-8 right-6 w-9.5 h-9.5 bg-card border border-solid border-border flex items-center justify-center cursor-pointer text-text-dim z-100 hover:text-text hover:border-text-dim">
-  <span class="material-symbols-outlined text-xl p-0 leading-none" aria-hidden="true">arrow_upward</span>
+<button id="back-to-top" aria-label="Back to top" title="Back to top" class="btn glass fixed bottom-8 right-6 z-100 w-10 h-10 p-0 justify-center">
+  <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
 </button>
 <script>
 (function () {
   var btn = document.getElementById('back-to-top');
   if (!btn) return;
   function onScroll() {
-    var y = window.scrollY !== undefined ? window.scrollY : (window.pageYOffset || document.documentElement.scrollTop || 0);
-    btn.classList.toggle('visible', y > 400);
+    btn.classList.toggle('visible', (window.scrollY || 0) > 400);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-  document.addEventListener('scroll', onScroll, { passive: true });
   btn.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
-
-(function () {
-  var nav = document.querySelector('.nav-bar');
-  if (!nav) return;
-  var lastY = window.scrollY || 0;
-  var ticking = false;
-  function update() {
-    var y = window.scrollY || 0;
-    if (y > lastY + 2) {
-      nav.classList.add('nav-flush');
-    } else if (y < lastY - 2) {
-      nav.classList.remove('nav-flush');
-    }
-    lastY = y <= 0 ? 0 : y;
-    ticking = false;
-  }
-  window.addEventListener('scroll', function () {
-    if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-  }, { passive: true });
-})();
 </script>
 
 <div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true" class="fixed inset-0 flex items-center justify-center z-10000">
-  <div id="terminal-window" class="rounded-[var(--corner)] w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-sm border border-solid border-[#2a2a2a]">
+  <div id="terminal-window" class="rounded-[var(--r-card)] w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-sm border border-solid border-[#2a2a2a]">
     <div id="terminal-titlebar" class="bg-[#1a1a1a] pt-1.5 pb-1.5 pr-12.5 pl-3 flex items-center gap-3 [border-bottom:1px_solid_#2a2a2a] shrink-0">
       <div class="terminal-dots flex gap-1.5 items-center">
         <button class="terminal-dot terminal-dot-close w-3 h-3 rounded-full block border-none p-0 shrink-0 cursor-pointer bg-[#ff5f57]" id="terminal-close-btn" aria-label="Close terminal" title="Close"></button>
@@ -95,18 +63,18 @@
 </div>
 
 <div id="shortcuts-modal" class="shortcuts-modal fixed inset-0 flex items-center justify-center z-9999" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
-  <div class="shortcuts-modal-content rounded-[var(--corner)] bg-card border border-solid border-border p-4 min-w-65 max-w-75 w-[90vw] shadow-[0_20px_60px_rgba(0,0,0,0.5)]" tabindex="-1">
-    <div class="shortcuts-modal-header flex items-center justify-between mb-5">
-      <h2 class="text-sm uppercase tracking-[0.08em] text-text-dim m-0 font-medium">Keyboard shortcuts</h2>
+  <div class="shortcuts-modal-content glass panel p-5 min-w-65 max-w-75 w-[90vw]" tabindex="-1">
+    <div class="shortcuts-modal-header flex items-center justify-between mb-4">
+      <h2 class="text-base font-medium m-0">Keyboard shortcuts</h2>
       <button class="shortcuts-modal-close" aria-label="Close shortcuts">&times;</button>
     </div>
     <dl class="shortcuts-list m-0 flex flex-col gap-2">
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">h</kbd></dt><dd class="m-0 text-text-dim text-base">Home</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">b</kbd></dt><dd class="m-0 text-text-dim text-base">Blog</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">p</kbd></dt><dd class="m-0 text-text-dim text-base">Projects</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">i</kbd></dt><dd class="m-0 text-text-dim text-base">Focus search</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">`</kbd></dt><dd class="m-0 text-text-dim text-base">Toggle terminal</dd></div>
-      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd class="inline-flex items-center justify-center font-['Fira_Code',ui-monospace,monospace] text-xs px-1.5 py-0.5 border border-solid border-border bg-accent text-text min-w-6 leading-[1.4]">/</kbd></dt><dd class="m-0 text-text-dim text-base">Show this panel</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>h</kbd></dt><dd class="m-0 text-text-dim text-sm">Home</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>b</kbd></dt><dd class="m-0 text-text-dim text-sm">Blog</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>p</kbd></dt><dd class="m-0 text-text-dim text-sm">Projects</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>i</kbd></dt><dd class="m-0 text-text-dim text-sm">Focus search</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>`</kbd></dt><dd class="m-0 text-text-dim text-sm">Toggle terminal</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>/</kbd></dt><dd class="m-0 text-text-dim text-sm">Show this panel</dd></div>
     </dl>
   </div>
 </div>

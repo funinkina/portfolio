@@ -7,7 +7,6 @@
 (resources.Get "js/mobile-toc.js")
 (resources.Get "js/code-copy.js")
 (resources.Get "js/github-calendar.js")
-(resources.Get "js/reveal.js")
 (resources.Get "js/shortcuts-modal.js")
 | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 <script defer src="{{ $bundle.RelPermalink }}"></script>

@@ -18,8 +18,7 @@
     <link rel="canonical" href="{{ .Permalink }}" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="/fonts/InterVariable.woff2" as="font"
-      type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin>
     {{- $iconNames := partialCached "material_icons.html" . -}}
     {{- $fontsURL := printf
     "https://fonts.googleapis.com/css2?display=swap&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=%s"
@@ -63,11 +62,9 @@
     {{- end -}}
     {{- end -}}
 
-    <!-- Primary Meta Tags -->
     <meta name="title" content="{{ $ogTitle }}" />
     <meta name="description" content="{{ $desc }}" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type"
       content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
     <meta property="og:url" content="{{ .Permalink }}" />
@@ -78,14 +75,6 @@
     <meta property="og:image:height" content="{{ $ogImgHeight }}" />
     <meta property="og:image:type" content="{{ $ogImgType }}" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="{{ .Permalink }}" />
-    <meta property="twitter:title" content="{{ $ogTitle }}" />
-    <meta property="twitter:description" content="{{ $desc }}" />
-    <meta property="twitter:image" content="{{ $ogImgURL }}" />
-    <meta property="twitter:site" content="@funinkina" />
-    <meta property="twitter:creator" content="@funinkina" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="{{ .Permalink }}" />
     <meta name="twitter:title" content="{{ $ogTitle }}" />
@@ -94,18 +83,14 @@
     <meta name="twitter:site" content="@funinkina" />
     <meta name="twitter:creator" content="@funinkina" />
 
-    <!-- PWA support -->
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f1f5fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1018" media="(prefers-color-scheme: dark)" />
     <meta name="mobile-web-app-capable" content="yes" />
-
-    <!-- iOS support -->
     <meta name="apple-mobile-web-app-title"
       content="{{ .Site.Title }} by funinkina" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style"
       content="black-translucent" />
-
-    <!-- Accessibility: language already set on <html>, but you can add -->
     <meta http-equiv="Content-Language" content="{{ .Site.Language.Locale }}" />
 
     {{ with .OutputFormats.Get "rss" -}}
@@ -140,9 +125,6 @@
       })();
     </script>
 
-    {{/* Core bundle: Tailwind utilities + the retained hand-written CSS, which
-    app.css pulls in via @import ... layer(base). Replaces the old core.css
-    concat (main/menu/images/search/box/tables/misc/experiences). */}}
     {{ $st := "style" -}}
     {{ $tw := resources.Get "css/app.css" | css.TailwindCSS (dict "minify"
     hugo.IsProduction) }}
@@ -164,49 +146,40 @@
     {{- end -}}
     {{- end -}}
     {{- if .IsHome -}}
-    {{- $av := resources.Get "avatar.jpg" -}}
-    {{- with $av -}}
-    {{- $avWebp := .Resize "160x160 webp" -}}
-    <link rel="preload" as="image" type="image/webp"
-      href="{{ $avWebp.RelPermalink }}" fetchpriority="high">
+    {{- with resources.Get "avatar.jpg" -}}
+    {{- $av1 := .Resize "128x128 webp" -}}
+    {{- $av2 := .Resize "256x256 webp" -}}
+    <link rel="preload" as="image" type="image/webp" href="{{ $av1.RelPermalink }}"
+      imagesrcset="{{ $av1.RelPermalink }} 1x, {{ $av2.RelPermalink }} 2x" fetchpriority="high">
     {{- end -}}
     {{- end -}}
   </head>
 
-  <body>
+  <body class="{{ if .IsPage }}is-article{{ end }}">
     {{ if not .Params.nomenu }}
     <nav
-      class="nav-bar flex items-center justify-between z-1000 backdrop-blur-[20px] overflow-hidden{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}">
+      class="nav-bar{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}"
+      aria-label="Site">
       <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><img
-            src="/favicon.svg" alt>
-          {{- if .IsHome -}}
-          funinkina&apos;s corner
-          {{- else if eq .Section "projects" -}}
-          funinkina&apos;s projects
-          {{- else -}}
-          funinkina&apos;s blogs
-          {{- end -}}
-        </a></h1>
-      <div
-        class="flex items-center gap-x-6 max-nav:w-full max-nav:order-1 max-nav:justify-between max-nav:my-1.25">
-        <ul
-          class="menu list-none p-0 m-0 flex flex-row gap-x-6 text-base font-light max-nav:gap-x-[1.1rem] max-nav:whitespace-nowrap max-nav:flex-wrap">
-          {{ range .Site.Menus.main }}
-          {{- $icon := "" -}}
-          {{- if eq .Name "blogs" -}}
-          {{- $icon = "article" -}}
-          {{- else if eq .Name "projects" -}}
-          {{- $icon = "deployed_code" -}}
-          {{- end -}}
-          <li class="leading-loose text-xl"><a tabindex="-1"
-              class="no-underline transition-[font-weight] duration-200 ease-[ease] visited:text-complementary hover:text-link"
-              href="{{ .URL | relURL }}">{{
-              if $icon }}<span
-                class="material-symbols-outlined text-xl align-[-0.2em] mr-[0.3rem] pt-0"
-                aria-hidden="true">{{ $icon }}</span>{{ end }}{{
-              safeHTML .Name }}</a></li>
-          {{ end }}
-        </ul>
+            src="/favicon.svg" alt=""><span>funinkina<span class="site-suffix">'s {{ index (dict "blog" "blogs" "projects" "projects") .Section | default "corner" }}</span></span></a></h1>
+      <ul class="menu">
+        {{ range .Site.Menus.main }}
+        {{- $active := eq (strings.TrimSuffix "/" .URL) (printf "/%s" $.Section) -}}
+        <li><a href="{{ .URL | relURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+      <div class="nav-right">
+        <span class="nav-social">{{ partialCached "social_links.html" . }}</span>
+        {{ if and .IsPage .Params.toc }}
+        <button
+          class="mobile-toc-toggle"
+          type="button"
+          aria-label="Open table of contents"
+          aria-controls="tableOfContentContainer"
+          aria-expanded="false">
+          <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+        {{ end }}
         <button
           class="theme-toggle"
           type="button"
@@ -216,18 +189,7 @@
             aria-hidden="true">routine</span>
         </button>
       </div>
-      {{ if and .IsPage .Params.toc }}
-      <button
-        class="mobile-toc-toggle"
-        type="button"
-        aria-label="Open table of contents"
-        aria-controls="tableOfContentContainer"
-        aria-expanded="false">
-        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
-      </button>
-      {{ end }}
-      {{ if .IsPage }}<div id="reading-progress" aria-hidden="true"></div>{{ end
-      }}
+      {{ if .IsPage }}<div id="reading-progress" aria-hidden="true"></div>{{ end }}
     </nav>
     {{ if .IsPage }}
     <script>
@@ -235,15 +197,12 @@
       var bar = document.getElementById('reading-progress');
       if (!bar) return;
       function update() {
-        var scrolled = window.scrollY !== undefined ? window.scrollY : (window.pageYOffset || 0);
+        var scrolled = window.scrollY || 0;
         var total = document.body.scrollHeight - window.innerHeight;
         bar.style.width = (total > 0 ? Math.min(100, (scrolled / total) * 100) : 0) + '%';
       }
       window.addEventListener('scroll', update, { passive: true });
-      document.addEventListener('scroll', update, { passive: true });
     })();
     </script>
     {{ end }}
     {{ end }}
-
-    <!-- https://hugo-dead-simple.netlify.app/post/hugo-dead-simple/ -->

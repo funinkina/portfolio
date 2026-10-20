@@ -1,13 +1,11 @@
 {{ partial "header.html" . }}
-
-<h1>{{ .Title }}</h1>
-
-<ul class="terms">
-  {{ range .Data.Terms }}
-  <li>
-    <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> - {{ .Count }}
-  </li>
+<div class="page-head">
+  <h1>{{ .Title }}</h1>
+  <p>Every tag used across posts and projects.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+  {{ range .Data.Terms.ByCount }}
+  <a class="chip" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="text-text-dim ml-1">{{ .Count }}</span></a>
   {{ end }}
-</ul>
-
+</div>
 {{ partial "footer.html" . }}

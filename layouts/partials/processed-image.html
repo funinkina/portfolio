@@ -1,6 +1,9 @@
-{{- $path := strings.TrimPrefix "/" .path -}}
-{{- $img := resources.Get $path -}}
-{{- if $img -}}
+{{- /* Resizes a local asset or a remote URL to .width, emitting webp + fallback.
+       Unprocessable formats (gif, svg) are emitted as-is; unreachable remote
+       images render nothing rather than a broken <img>. */ -}}
+{{- $img := partial "image-resource.html" .path -}}
+{{- $ext := path.Ext .path | lower -}}
+{{- if and $img (not (in (slice ".gif" ".svg") $ext)) -}}
 {{- $webp := $img.Resize (printf "%dx webp" .width) -}}
 {{- $fallback := $img.Resize (printf "%dx" .width) -}}
 <picture>
@@ -12,11 +15,10 @@
     {{- with .class }} class="{{ . }}" {{ end }}
     loading="{{ .loading | default "lazy" }}"
     {{- with .fetchpriority }} fetchpriority="{{ . }}" {{ end }}
-    decoding="{{ if eq (.loading | default "lazy") "eager" }}sync{{ else
-    }}async{{ end }}">
+    decoding="{{ if eq (.loading | default "lazy") "eager" }}sync{{ else }}async{{ end }}">
 </picture>
-{{- else -}}
-<img src="{{ .path | relURL }}" alt="{{ .alt }}"
-  {{- with .class }} class="{{ . }}" {{ end }}
-  loading="{{ .loading | default "lazy" }}">
+{{- else if $img -}}
+<img src="{{ $img.RelPermalink }}" alt="{{ .alt }}"{{ with .class }} class="{{ . }}"{{ end }} loading="{{ .loading | default "lazy" }}">
+{{- else if not (hasPrefix .path "http") -}}
+<img src="{{ .path | relURL }}" alt="{{ .alt }}"{{ with .class }} class="{{ . }}"{{ end }} loading="{{ .loading | default "lazy" }}">
 {{- end -}}

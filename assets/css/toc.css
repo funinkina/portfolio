@@ -20,13 +20,14 @@
   }
 
   #tableOfContentContainer h3 {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     margin-left: -12px;
-    margin-bottom: 0px;
+    margin-bottom: 0.4rem;
     font-weight: 500;
-    color: var(--complimentary);
+    color: var(--text-3);
     opacity: 1;
-    border-bottom: solid 1px var(--text-dim);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.3rem;
     width: 80%;
   }
 
@@ -41,16 +42,14 @@
 }
 
 .toc {
-  animation-duration: 0.4s;
-  background: var(--toc-background) none repeat scroll 0 0;
+  background: var(--toc-background);
   border: 1px solid var(--toc-border);
-
-  width: full;
-  display: table;
-  margin-bottom: 1em;
-  padding: 0.4em 1.5em 0.4em 0.2em;
-  margin-top: auto;
-  font-weight: 400;
+  border-radius: var(--r-card);
+  width: 100%;
+  display: block;
+  margin-bottom: 1.5em;
+  padding: 0.6em 1.5em 0.6em 0.2em;
+  font-size: 0.95rem;
   color: var(--text-dim);
 }
 
@@ -62,12 +61,10 @@
   .toc {
     padding: 0;
     background-color: transparent;
-    font-size: 0.65rem !important;
-    line-height: 1.3;
-    border-right: 0px;
-    border-top: 0px;
-    border-bottom: 0px;
-    border-left: 0px;
+    font-size: 0.7rem !important;
+    line-height: 1.35;
+    border: 0;
+    box-shadow: none;
   }
 
   #TableOfContents {
@@ -110,7 +107,8 @@
 }
 
 .active-toc {
-  font-weight: bold;
+  font-weight: 600;
+  color: var(--text);
   /* color: var(--complimentary) !important; */
   transition-duration: 50ms;
 }
@@ -138,22 +136,27 @@
 }
 
 @media screen and (max-width: 1149px) {
+  /* below the fixed-sidebar breakpoint the TOC lives only in the drawer that
+     the nav button opens */
   #tableOfContentContainer {
-    margin-top: 30px;
+    display: none;
+    margin: 0;
   }
 
   #tableOfContentContainer h3 {
-    /* font-size: 1.1rem; */
-    /* margin-bottom: 0px; */
     font-weight: 500;
-    color: var(--complimentary);
+    font-size: 0.85rem;
+    color: var(--text-3);
     opacity: 1;
-    border-bottom: solid 1px var(--text-dim);
-    /* width: 80%; */
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.3rem;
   }
 
   #tableOfContentContainer.is-mobile-drawer {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    background: var(--glass-2);
     display: none;
     left: 1rem;
     margin: 0;

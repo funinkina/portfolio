@@ -4,23 +4,26 @@ img {
 }
 
 main img {
-  background-color: var(--background);
+  border-radius: var(--r-ctl);
+}
 
+main picture {
+  display: block;
 }
 
 figure {
-  margin: auto;
+  margin: 1.6rem auto;
   text-align: center;
 }
 
 figcaption {
-  color: var(--text-dim);
-  font-size: 0.96rem;
+  color: var(--text-3);
+  font-size: 0.9rem;
   text-align: center;
 }
 
 figcaption h4 {
-  margin-top: 0px;
+  margin-top: 0;
   font-weight: normal;
 }
 
@@ -30,8 +33,6 @@ video {
   max-width: 100%;
 }
 
-/* Gallery <img> sizing. The <ul>/<li> layout is inline in twoimg/threeimg.html
-   (.image-gallery-img); only the partial-generated <img> is styled here. */
 .image-gallery-img li img {
   object-fit: cover;
   width: 100%;

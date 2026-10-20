@@ -1,81 +1,33 @@
 {{ partial "header.html" . }}
 
 {{ if not .Params.notitle }}
-<div id="single-header"
-  class="flex flex-col justify-center gap-3 min-h-[88dvh]">
-  <h1
-    class="text-7xl font-extralight leading-none pb-0 text-left text-text max-[600px]:text-5xl">{{
-    .Title | markdownify }}</h1>
-  {{ if and .Params.image (ne .Params.image "") }}
-  <div class="relative bg-card overflow-hidden">
-    {{ partial "processed-image.html" (dict "path" .Params.image "width" 1200
-    "alt" .Title "class" "single-header-image" "loading" "eager" "fetchpriority"
-    "high") }}
+<header id="single-header" class="post-head">
+  <p class="post-meta">
+    {{ if .Params.date }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ end }}
+    <span>{{ or .ReadingTime 1 }} min read</span>
+    {{ if .GitInfo }}<span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
+  </p>
+  <h1 class="post-title">{{ .Title | markdownify }}</h1>
+  {{ with .Params.subtitle }}<p class="post-sub" id="subtitle">{{ . }}</p>{{ end }}
+  <div id="single-meta" class="post-tools">
+    {{ partial "tags.html" . }}
+    <button class="single-share-button aero" type="button" aria-label="Share this page" title="Share this page"
+      data-share-title="{{ .Title }}" data-share-url="{{ .Permalink }}">
+      <span class="material-symbols-outlined" aria-hidden="true">share</span>
+      <p>Share this post</p>
+    </button>
   </div>
+  {{ with .Params.image }}
+  <figure class="post-cover">
+    {{ partial "processed-image.html" (dict "path" . "width" 1200 "alt" $.Title "loading" "eager" "fetchpriority" "high") }}
+  </figure>
   {{ end }}
-  <div id="single-meta" class="mt-0 mb-0 pt-0 text-base">
-    <div class="flex flex-col gap-1">
-      {{ if .Params.subtitle }}
-      <div class="flex items-center gap-5">
-        <p id="subtitle"
-          class="mt-0 mb-0 text-2xl text-text-dim font-light flex-1 min-w-0">{{
-          .Params.subtitle }}</p>
-        <button
-          class="single-share-button"
-          type="button"
-          aria-label="Share this page"
-          title="Share this page"
-          data-share-title="{{ .Title }}"
-          data-share-url="{{ .Permalink }}">
-          <span class="material-symbols-outlined"
-            aria-hidden="true">share</span>
-          <p>Tell others about it!</p>
-        </button>
-      </div>
-      {{ else }}
-      <div class="flex items-center gap-5">
-        <div></div>
-        <button
-          class="single-share-button"
-          type="button"
-          aria-label="Share this page"
-          title="Share this page"
-          data-share-title="{{ .Title }}"
-          data-share-url="{{ .Permalink }}">
-          <span class="material-symbols-outlined"
-            aria-hidden="true">share</span>
-          <p>Tell others about it!</p>
-        </button>
-      </div>
-      {{ end }}
-      <div class="flex items-center flex-wrap gap-2">
-        <span class="datesub readtime">
-          <span class="material-symbols-outlined"
-            aria-hidden="true">hourglass_top</span>
-          {{ or .ReadingTime 1 }} min read
-        </span>
-        {{ if .Params.date }}
-        <span class="datesub">
-          <span class="material-symbols-outlined"
-            aria-hidden="true">calendar_today</span>
-          {{ .Date.Format "Jan 2, 2006" }}
-          {{- if .GitInfo -}}
-          &nbsp;&nbsp; m. {{ .Lastmod.Format "Jan 2, 2006" }}
-          {{- end -}}
-        </span>
-        {{ end }}
-        {{ partial "tags.html" .}}
-      </div>
-    </div>
-  </div>
-</div>
-{{ else }}
-<div class="pb-px"></div>
+</header>
 {{ end }}
 
 {{ if .Params.toc }}
-<aside class="hidden lg:block toc " id="tableOfContentContainer">
-  <h3 class="toc-heading">Table of Contents</h3>
+<aside class="toc" id="tableOfContentContainer">
+  <h3 class="toc-heading">Contents</h3>
   {{ .TableOfContents }}
 </aside>
 {{ end }}
@@ -83,10 +35,10 @@
 <main>{{ .Content }}</main>
 
 {{ if or (and (eq .Section "blog") .Params.tags) (eq .Section "projects") }}
-<hr>
-<h2 class="border-none font-medium text-3xl mt-0">Share your thoughts and
-  opinions!</h2>
-<div class="giscus"></div>
+<section class="post-end">
+  <h2>Thoughts?</h2>
+  <div class="giscus"></div>
+</section>
 
 <script>
 (function () {
@@ -130,36 +82,22 @@
 {{ if and (eq .Section "blog") .Params.tags }}
 {{ $related := where (site.RegularPages.Related .) "Section" "blog" | first 3 }}
 {{ if $related }}
-<hr>
-<div class="related-posts mt-8">
-  <h3 class="text-text-dim mb-4">Related Posts</h3>
-  <div class="flex flex-col gap-4.5">
-    {{ range $related }}
-    {{ partial "blog_row.html" (dict "Page" . "Index" 99) }}
-    {{ end }}
+<section class="post-end related-posts">
+  <h3>Related posts</h3>
+  <div class="post-rows">
+    {{ range $related }}{{ partial "blog_row.html" (dict "Page" .) }}{{ end }}
   </div>
-</div>
+</section>
+{{ end }}
 {{ end }}
 {{ end }}
 
-{{ end }}
-
-<br>
-<hr>
-<div
-  class="single-footer-row flex items-center justify-between gap-4 text-text-dim text-base mt-4 mx-0 mb-0 max-[600px]:flex-col max-[600px]:items-start">
+<div class="single-footer-row">
   <div>
-    {{ if .Params.Next }}
-    {{ with .PrevInSection }}
-    Next: <a href="{{ .Permalink }}">{{ .Title }}</a>
-    {{ end }}
-    {{ end }}
+    {{ if .Params.Next }}{{ with .PrevInSection }}Next: <a href="{{ .Permalink }}">{{ .Title }}</a>{{ end }}{{ end }}
   </div>
-  <div class="text-right whitespace-nowrap max-[600px]:text-left">© 2026
-    funinkina</div>
+  <div>© {{ now.Year }} funinkina</div>
 </div>
 
-{{ if .Params.math }}
-{{ partial "math.html" . }}
-{{ end }}
+{{ if .Params.math }}{{ partial "math.html" . }}{{ end }}
 {{ partial "footer.html" . }}

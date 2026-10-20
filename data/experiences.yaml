@@ -38,7 +38,7 @@
   url: https://superdash.ai/
   location: Indiranagar, Bangalore
   dateRange: June 2025 - April 2026
-  logo: ""
+  logo: "logos/superdash.png"
   responsibilities:
     - "Optimized and deployed **edge ML models** for voice interruption detection, audio de-noising, and forced word alignment, plus **self-hosted TTS** (5× speedup, 1000ms → sub-200ms); served via **WebAssembly, vLLM, and ONNX Runtime**, sustaining **sub-100ms** inference across concurrent live calls."
     - "Engineered **scalable voice agent backend systems** in **Go and Python**, owning full lifecycle from API design through production deployment; refactored WebSocket layer to cut **voice call latency by 80% (500ms → 100ms)**."

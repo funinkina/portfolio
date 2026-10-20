@@ -1,195 +1,163 @@
 {{ partial "header.html" . }}
 
 {{ if .IsHome }}
-<div class="home-container">
-    <!-- Profile Section -->
-    <section class="mt-16 mb-14 text-left max-md:mt-10">
-        <div class="flex items-center gap-5">
-            {{- $avRes := resources.Get "avatar.jpg" -}}
-            {{- $av1x := $avRes.Resize "80x80 webp" -}}
-            {{- $av2x := $avRes.Resize "160x160 webp" -}}
-            <img src="{{ $av1x.RelPermalink }}"
-                srcset="{{ $av1x.RelPermalink }} 1x, {{ $av2x.RelPermalink }} 2x"
-                alt="{{ .Site.Params.author }}"
-                class="size-20 rounded-full object-cover m-0 shrink-0 max-md:size-16"
-                width="80" height="80" loading="eager" fetchpriority="high">
-            <div>
-                <h1 class="text-4xl font-medium tracking-tight leading-tight m-0 max-md:text-3xl">
-                    {{ .Site.Params.author }}</h1>
-                <p class="m-0 mt-1 text-text-dim">{{ .Site.Params.subtitle }}</p>
-                {{ with .Site.Params.location }}<p class="m-0 text-text-dim opacity-80 text-sm">{{ . }}</p>{{ end }}
-            </div>
-        </div>
-        <div class="mt-6 [&_p]:leading-[1.6] [&_p]:text-text-dim [&_strong]:font-medium [&_strong]:text-text">
-            {{ .Summary }}
-        </div>
-        {{- $icon := "inline-flex items-center justify-center size-9 rounded-[var(--corner-sm)] text-text-dim hover:text-text hover:bg-accent transition-colors duration-200 [&_svg]:size-[18px]" }}
-        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
-            <a href="mailto:hello@funinkina.co.in"
-                class="aero inline-flex items-center gap-2 py-2 px-4 bg-card border border-complementary text-complementary text-sm leading-none no-underline visited:text-complementary hover:text-text hover:border-text hover:no-underline transition-colors duration-200 [&_svg]:size-4">
-                {{ (resources.Get "icons/email.svg").Content | safeHTML }}Email me</a>
-            <a href="/resume" target="_blank" rel="noopener"
-                class="inline-flex items-center gap-0.5 text-sm text-text-dim visited:text-text-dim hover:text-text no-underline">Resume<span
-                    class="material-symbols-outlined text-base leading-none p-0" aria-hidden="true">arrow_outward</span></a>
-            <span class="h-5 w-px bg-border" aria-hidden="true"></span>
+<section class="hero">
+    <div>
+        <h1 class="hero-name">{{ .Site.Params.author }}</h1>
+        <div class="hero-lead">{{ .Summary }}</div>
+        <div class="hero-actions">
+            <a href="mailto:hello@funinkina.co.in" class="btn btn-primary">{{ (resources.Get "icons/email.svg").Content | safeHTML }}Email me</a>
+            <a href="/hire-me/" class="btn">Resume</a>
+            <span class="sep" aria-hidden="true"></span>
             <nav class="flex items-center gap-1" aria-label="Social links">
-                <a href="https://github.com/funinkina" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub" class="{{ $icon }}">{{ (resources.Get "icons/github.svg").Content | safeHTML }}</a>
-                <a href="https://x.com/funinkina" target="_blank" rel="noopener" aria-label="X (Twitter)" title="X" class="{{ $icon }}">{{ (resources.Get "icons/x.svg").Content | safeHTML }}</a>
-                <a href="https://www.linkedin.com/in/funinkina" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" class="{{ $icon }}">{{ (resources.Get "icons/linkedin.svg").Content | safeHTML }}</a>
+                {{ partialCached "social_links.html" . }}
             </nav>
         </div>
-    </section>
-    <div class="text-text-dim leading-[1.6] text-lg">
-        {{ .ContentWithoutSummary }}
     </div>
+    {{- $av := resources.Get "avatar.jpg" -}}
+    {{- $av1x := $av.Resize "128x128 webp" -}}
+    {{- $av2x := $av.Resize "256x256 webp" -}}
+    <img class="hero-avatar" src="{{ $av1x.RelPermalink }}"
+        srcset="{{ $av1x.RelPermalink }} 1x, {{ $av2x.RelPermalink }} 2x"
+        alt="{{ .Site.Params.author }}" width="128" height="128" loading="eager" fetchpriority="high">
+    <ul class="hero-meta">
+        <li>{{ .Site.Params.subtitle }}<span class="material-symbols-outlined" aria-hidden="true">work</span></li>
+        {{ with .Site.Params.location }}<li>{{ . }}<span class="material-symbols-outlined" aria-hidden="true">location_on</span></li>{{ end }}
+    </ul>
+</section>
 
-    {{- $ghContribs := slice -}}
-    {{- $ghTotal := 0 -}}
-    {{- $ghOpts := dict "headers" (dict "X-Requested-With" "XMLHttpRequest"
-    "Referer" "https://github.com/funinkina" "User-Agent"
-    "Mozilla/5.0 (compatible; Hugo)") -}}
-    {{- $ghResult := try (resources.GetRemote
-    "https://github.com/users/funinkina/contributions" $ghOpts) -}}
-    {{- if not $ghResult.Err -}}
-    {{- $html := $ghResult.Value.Content -}}
-    {{- $ghCounts := dict -}}
-    {{- range findRE
-    `<tool-tip[^>]*for="contribution-day-component-\d+-\d+"[^>]*>[^<]*</tool-tip>`
-    $html -}}
-    {{- $id := . | replaceRE
-    `.*for="(contribution-day-component-\d+-\d+)".*` "$1" -}}
-    {{- $txt := . | replaceRE `.*<tool-tip[^>]*>([^<]*)</tool-tip>.*` "$1" -}}
-    {{- $cnt := 0 -}}
-    {{- with findRE `^\d+` $txt -}}{{- $cnt = index . 0 | int -}}{{- end -}}
-    {{- $ghCounts = merge $ghCounts (dict $id $cnt) -}}
-    {{- end -}}
-    {{- range findRE
-    `data-date="\d{4}-\d{2}-\d{2}"[^>]*id="contribution-day-component-\d+-\d+"[^>]*data-level="[0-4]"`
-    $html -}}
-    {{- $d := . | replaceRE `.*data-date="(\d{4}-\d{2}-\d{2})".*` "$1" -}}
-    {{- $id := . | replaceRE
-    `.*id="(contribution-day-component-\d+-\d+)".*` "$1" -}}
-    {{- $l := . | replaceRE `.*data-level="([0-4])".*` "$1" | int -}}
-    {{- $c := index $ghCounts $id | default 0 -}}
-    {{- $ghContribs = $ghContribs | append (dict "d" $d "l" $l "c" $c) -}}
-    {{- end -}}
-    {{- with findRE `\d+\s*contributions\s*in the last year` $html -}}
-    {{- $ghTotal = index (findRE `\d+` (index . 0)) 0 | int -}}
-    {{- end -}}
-    {{- end -}}
-    <div id="gh-data" data-entries="{{ $ghContribs | jsonify }}"
-        data-total="{{ $ghTotal }}" hidden></div>
-
-    <!-- GitHub Contributions Section -->
-    <div class="mt-10">
-        <h2 class="section-heading"><span
-                class="material-symbols-outlined">graph_8</span> GitHub
-            Contributions</h2>
-        <div class="overflow-x-auto [-webkit-overflow-scrolling:touch]">
-            <div id="github-calendar-container"></div>
-            <p
-                class="text-text-dim text-sm mt-2 mb-0 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                <span><span id="github-contrib-total"></span> total
-                    contributions by
-                    <a href="https://github.com/funinkina" target="_blank"
-                        rel="noopener">@funinkina</a> (excluding private and
-                    work
-                    related commits)</span>
-                <span id="github-contrib-legend"></span>
-            </p>
-        </div>
+<section class="section" id="experience">
+    <div class="section-head">
+        <h2>Experience</h2>
+        <p>{{ len hugo.Data.experiences }} roles in two years, mostly voice and LLM backends. Newest first.</p>
     </div>
+    {{ partial "experiences.html" (dict "key" "experiences") }}
+</section>
 
-    <!-- Blog Section -->
-    {{ with .Site.GetPage "section" "blog" }}
-    <div class="section-block">
-        <h2 class="section-heading"><span
-                class="material-symbols-outlined">newsmode</span> Latest Blog
-            Posts</h2>
+<section class="section" id="highlights">
+    <div class="section-head">
+        <h2>Highlights</h2>
+        <p>{{ hugo.Data.highlights.intro }}</p>
+    </div>
+    {{ partial "highlights.html" . }}
+    <div class="section-foot">
+        <a href="https://github.com/funinkina" target="_blank" rel="noopener" class="btn btn-quiet">Everything else on GitHub<span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span></a>
+    </div>
+</section>
 
-        <div class="blog-list-clean flex flex-col gap-10 mt-0">
-            {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
-            {{ partial "blog_row.html" (dict "Page" $p "Index" (add $i 1)) }}
-            {{ end }}
-        </div>
-        {{ if gt (len .RegularPages) 5 }}
-        <div class="mt-6 flex justify-end">
-            <a href="{{ .RelPermalink }}"
-                class="aero inline-flex items-center gap-1 text-text-dim text-base border border-solid border-border px-4 py-2 transition-all duration-200 ease-ease no-underline hover:text-text hover:border-text-dim hover:no-underline">See
-                all posts
-                <span
-                    class="material-symbols-outlined text-base pb-0">arrow_forward</span></a>
-        </div>
-        {{ end }}
+{{ with .Site.GetPage "section" "projects" }}
+<section class="section" id="projects">
+    <div class="section-head">
+        <h2>Projects</h2>
+        <p>Tools I built because I wanted them, mostly for Linux desktops and terminals.</p>
+    </div>
+    <div class="project-grid">
+        {{ range first 6 .RegularPages }}{{ partial "project_card.html" . }}{{ end }}
+    </div>
+    {{ if gt (len .RegularPages) 6 }}
+    <div class="section-foot">
+        <a href="{{ .RelPermalink }}" class="btn">All {{ len .RegularPages }} projects<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
     </div>
     {{ end }}
-
-    <!-- Projects Section -->
-    {{ with .Site.GetPage "section" "projects" }}
-    <div class="section-block">
-        <div class="h-17.5"></div>
-        <h2 class="section-heading"><span
-                class="material-symbols-outlined">construction</span> Building &
-            Learning</h2>
-        <div
-            class="project-grid grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 mb-16 mt-0">
-            {{ range first 6 .RegularPages }}
-            {{ partial "project_card.html" . }}
-            {{ end }}
-        </div>
-        {{ if gt (len .RegularPages) 6 }}
-        <div class="mt-6 flex justify-end">
-            <a href="{{ .RelPermalink }}"
-                class="aero inline-flex items-center gap-1 text-text-dim text-base border border-solid border-border px-4 py-2 transition-all duration-200 ease-ease no-underline hover:text-text hover:border-text-dim hover:no-underline">See
-                all projects
-                <span
-                    class="material-symbols-outlined text-base pb-0">arrow_forward</span></a>
-        </div>
-        {{ end }}
-    </div>
-    {{ end }}
-
-    {{ partial "rss_subscribe.html" . }}
-</div>
-{{ else }}
-<div class="home-content">{{ .Content }}</div>
-
-{{ if eq .Section "blog" }}
-{{ partial "section-search.html" . }}
-<div class="blog-list-clean flex flex-col gap-10 mt-4">
-    {{ range $i, $p := .RegularPages.ByDate.Reverse }}
-    {{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}
-    {{ end }}
-</div>
-{{ partial "rss_subscribe.html" . }}
-<script defer src="{{ relURL "/js/section-filter.js" }}"></script>
-{{ else if eq .Section "projects" }}
-{{ partial "section-search.html" . }}
-<div
-    class="project-grid grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 mb-16 mt-1.5">
-    {{ range .RegularPages }}
-    {{ partial "project_card.html" . }}
-    {{ end }}
-</div>
-{{ partial "rss_subscribe.html" . }}
-<script defer src="{{ relURL "/js/section-filter.js" }}"></script>
-{{ else }}
-{{ if not .Site.Params.noSearch }}
-{{ partial "search-form.html" . }}
-<ul id="results"></ul>
-{{ partial "search-index.html" . }}
+</section>
 {{ end }}
 
-<div class="sections-container">
-    {{ range .Sections }}
-    <div class="section">
-        <h2 class="border-0 text-3xl font-semibold">{{ .CurrentSection.Title
-            }}</h2>
-        {{ .CurrentSection.Content }}
-        {{ partial "post_list.html" . }}
+{{ with .Site.GetPage "section" "blog" }}
+<section class="section" id="writing">
+    <div class="section-head">
+        <h2>Writing</h2>
+        <p>Linux, systems and whatever I'm building, read by 1000+ people a month.</p>
+    </div>
+    <div class="post-rows">
+        {{ range $i, $p := first 5 .RegularPages.ByDate.Reverse }}
+        {{ partial "blog_row.html" (dict "Page" $p "Index" (add $i 1)) }}
+        {{ end }}
+    </div>
+    {{ if gt (len .RegularPages) 5 }}
+    <div class="section-foot">
+        <a href="{{ .RelPermalink }}" class="btn">All {{ len .RegularPages }} posts<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
     </div>
     {{ end }}
+</section>
+{{ end }}
+
+{{- $ghContribs := slice -}}
+{{- $ghTotal := 0 -}}
+{{- $ghOpts := dict "headers" (dict "X-Requested-With" "XMLHttpRequest" "Referer" "https://github.com/funinkina" "User-Agent" "Mozilla/5.0 (compatible; Hugo)") -}}
+{{- $ghResult := try (resources.GetRemote "https://github.com/users/funinkina/contributions" $ghOpts) -}}
+{{- if not $ghResult.Err -}}
+{{- $html := $ghResult.Value.Content -}}
+{{- $ghCounts := dict -}}
+{{- range findRE `<tool-tip[^>]*for="contribution-day-component-\d+-\d+"[^>]*>[^<]*</tool-tip>` $html -}}
+{{- $id := . | replaceRE `.*for="(contribution-day-component-\d+-\d+)".*` "$1" -}}
+{{- $txt := . | replaceRE `.*<tool-tip[^>]*>([^<]*)</tool-tip>.*` "$1" -}}
+{{- $cnt := 0 -}}
+{{- with findRE `^\d+` $txt -}}{{- $cnt = index . 0 | int -}}{{- end -}}
+{{- $ghCounts = merge $ghCounts (dict $id $cnt) -}}
+{{- end -}}
+{{- range findRE `data-date="\d{4}-\d{2}-\d{2}"[^>]*id="contribution-day-component-\d+-\d+"[^>]*data-level="[0-4]"` $html -}}
+{{- $d := . | replaceRE `.*data-date="(\d{4}-\d{2}-\d{2})".*` "$1" -}}
+{{- $id := . | replaceRE `.*id="(contribution-day-component-\d+-\d+)".*` "$1" -}}
+{{- $l := . | replaceRE `.*data-level="([0-4])".*` "$1" | int -}}
+{{- $c := index $ghCounts $id | default 0 -}}
+{{- $ghContribs = $ghContribs | append (dict "d" $d "l" $l "c" $c) -}}
+{{- end -}}
+{{- with findRE `\d+\s*contributions\s*in the last year` $html -}}
+{{- $ghTotal = index (findRE `\d+` (index . 0)) 0 | int -}}
+{{- end -}}
+{{- end -}}
+<div id="gh-data" data-entries="{{ $ghContribs | jsonify }}" data-total="{{ $ghTotal }}" hidden></div>
+
+<section class="section" id="github">
+    <div class="section-head">
+        <h2>Commits</h2>
+        <p>Public GitHub activity over the last year. Work and private repos not included.</p>
+    </div>
+    <div class="gh-panel glass panel">
+        <div class="gh-scroll"><div id="github-calendar-container"></div></div>
+        <p class="gh-foot">
+            <span><span id="github-contrib-total"></span> contributions by <a href="https://github.com/funinkina" target="_blank" rel="noopener">@funinkina</a></span>
+            <span id="github-contrib-legend"></span>
+        </p>
+    </div>
+</section>
+
+<div class="home-prose">{{ .ContentWithoutSummary }}</div>
+
+{{ partial "rss_subscribe.html" . }}
+
+{{ else if eq .Section "blog" }}
+<div class="page-head">
+    <h1>Writing</h1>
+    <p>{{ len .RegularPages }} posts on Linux, systems programming, voice agents and the odd opinion. Also available <a href="{{ "/index.xml" | relURL }}">as RSS</a>.</p>
 </div>
+{{ .Content }}
+{{ partial "section-search.html" . }}
+<div class="post-rows blog-list-clean">
+    {{ range $i, $p := .RegularPages.ByDate.Reverse }}{{ partial "blog_row.html" (dict "Page" $p "Index" $i) }}{{ end }}
+</div>
+<script defer src="{{ relURL "/js/section-filter.js" }}"></script>
+
+{{ else if eq .Section "projects" }}
+<div class="page-head">
+    <h1>Projects</h1>
+    <p>{{ len .RegularPages }} things I built because I wanted them to exist, with a write-up for each. Source is on <a href="https://github.com/funinkina" target="_blank" rel="noopener">GitHub</a>.</p>
+</div>
+{{ .Content }}
+{{ partial "section-search.html" . }}
+<div class="project-grid">
+    {{ range .RegularPages }}{{ partial "project_card.html" . }}{{ end }}
+</div>
+<script defer src="{{ relURL "/js/section-filter.js" }}"></script>
+
+{{ else }}
+<div class="page-head"><h1>{{ .Title }}</h1></div>
+{{ .Content }}
+{{ range .Sections }}
+<section class="section">
+    <div class="section-head"><h2>{{ .Title }}</h2></div>
+    {{ partial "post_list.html" . }}
+</section>
 {{ end }}
 {{ end }}
 

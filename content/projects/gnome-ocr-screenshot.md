@@ -6,7 +6,7 @@ draft : false
 tags : ['python', 'gtk', 'tesseract', 'linux']
 toc: true
 next: true
-image: 'https://github.com/funinkina/Gnome-OCR-Screenshot/raw/main/screenshot.png'
+image: '/blog-assets/gnome-ss-demo.png'
 github: 'funinkina/Gnome-OCR-Screenshot'
 ---
 

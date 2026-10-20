@@ -47,8 +47,7 @@ extraMaterialIcons = [
     "keyboard",
     "content_copy",
     "check",
-    "article",
-    "deployed_code",
+    "close",
 ]
 
 [related]
@@ -69,10 +68,10 @@ blog = "/blog/:slug/"
 # url = "/"
 # weight = 1
 [[menu.main]]
-name = "blogs"
+name = "Blog"
 url = "/blog/"
 weight = 1
 [[menu.main]]
-name = "projects"
+name = "Projects"
 url = "/projects/"
 weight = 2

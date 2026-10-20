@@ -8,12 +8,6 @@
   Cache-Control: public, max-age=31536000, immutable
 /default-header.png
   Cache-Control: public, max-age=31536000, immutable
-/Rectangle.*
-  Cache-Control: public, max-age=31536000, immutable
-/footer-bg*
-  Cache-Control: public, max-age=31536000, immutable
-/waves*
-  Cache-Control: public, max-age=31536000, immutable
 /*.xml
   Cache-Control: public, max-age=3600
 /favicon*

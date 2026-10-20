@@ -1,91 +1,198 @@
-.single-share-button {
-  align-items: center;
-  background-color: var(--card-bg);
-  border: 1px solid var(--toc-border);
-
-  color: var(--text);
-  cursor: pointer;
-  display: inline-flex;
-  flex-shrink: 0;
-  width: auto;
-  height: 3rem;
-  justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  transition: all 0.2s ease-in-out;
+/* ARTICLE HEADER */
+.post-head {
+  margin: 3.5rem 0 2.5rem;
 }
 
-.single-share-button>p {
-  font-weight: 100;
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 1.1rem;
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  color: var(--text-3);
+}
+
+.post-title {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 200;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
   margin: 0;
-  padding: 0;
+}
+
+.post-sub {
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--text-2);
+  margin: 1.1rem 0 0;
+  max-width: 60ch;
+}
+
+.post-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+#tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+#tags a,
+#tags a:visited {
+  color: var(--text-2);
+}
+
+#tags a:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+  text-decoration: none;
+}
+
+.single-share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 2.4rem;
+  padding: 0 0.7rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  background: var(--glass-2);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, gap 0.2s ease;
+}
+
+.single-share-button > p {
+  margin: 0;
   max-width: 0;
   overflow: hidden;
   white-space: nowrap;
   opacity: 0;
+  color: inherit;
   transition: max-width 0.3s ease, opacity 0.2s ease;
 }
 
 .single-share-button:hover {
-  color: var(--card-bg);
-  background-color: var(--complimentary);
-  gap: 6px;
+  color: var(--text);
+  border-color: var(--line-strong);
+  gap: 0.4rem;
 }
 
-.single-share-button:hover>p {
-  color: var(--card-bg);
+.single-share-button:hover > p {
   max-width: 12rem;
   opacity: 1;
 }
 
 .single-share-button .material-symbols-outlined {
-  font-size: 1.6rem;
-  line-height: 1;
-  padding-bottom: 0px;
+  font-size: 1.15rem;
 }
 
-#single-header img {
+.post-cover {
+  margin: 2rem 0 0;
+  overflow: hidden;
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  box-shadow: var(--glass-shadow);
+  background: var(--glass-2);
+}
+
+.post-cover picture,
+.post-cover img {
   display: block;
   width: 100%;
   height: auto;
-
+  margin: 0;
+  max-height: none;
 }
 
-.datesub {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: normal;
-  color: var(--text-dim);
+/* ARTICLE BODY */
+main {
+  font-size: 1.0625rem;
+  line-height: 1.65;
 }
 
-.datesub .material-symbols-outlined {
-  padding-top: 4px;
-  font-size: 1.1em;
-  line-height: 1;
+main > p,
+main > ul,
+main > ol {
+  color: var(--text);
 }
 
-.readtime+.datesub::before {
-  content: "·\00a0";
+main p {
+  margin: 1em 0;
 }
 
-#single-meta a:visited {
-  color: var(--link);
+main li {
+  margin: 0.35em 0;
 }
 
-#tags {
-  font-weight: normal;
-  color: var(--text-dim);
+main h2 {
+  font-size: 1.9rem;
+  margin-top: 2.6em;
 }
 
-#tags a,
-#tags a:visited {
-  filter: brightness(80%);
+main h3 {
+  font-size: 1.35rem;
+  margin-top: 2em;
+}
+
+main h2 + p,
+main h3 + p {
+  margin-top: 0.6em;
+}
+
+.footnotes {
+  margin-top: 4rem;
+  font-size: 0.92rem;
+  color: var(--text-2);
+}
+
+/* END OF ARTICLE */
+.post-end {
+  margin-top: 4rem;
+}
+
+.post-end h2 {
+  font-size: 2rem;
+  margin: 0 0 1.2rem;
+}
+
+.related-posts h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-2);
+  margin: 0 0 0.4rem;
+}
+
+.single-footer-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+  font-size: 0.92rem;
 }
 
 @media (max-width: 600px) {
-  .single-share-button {
-    height: 3rem;
-    width: 3rem;
+  .post-head {
+    margin-top: 2rem;
+  }
+
+  .post-sub {
+    font-size: 1.15rem;
+  }
+
+  .single-footer-row {
+    flex-direction: column;
   }
 }

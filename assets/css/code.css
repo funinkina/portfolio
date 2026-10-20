@@ -11,17 +11,18 @@
 .highlight div,
 pre {
   background: var(--code-background) !important;
-  padding: 0.75rem;
+  padding: 0.9rem 1rem;
   overflow-x: auto;
   position: relative;
-  margin: 0px;
+  margin: 0;
   border: 1px solid var(--code-border);
-  line-height: 1.25;
+  border-radius: var(--r-card);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+  line-height: 1.5;
 }
 
 .highlight {
-  margin: 0.8em 0;
-  font-size: 1.3em;
+  margin: 1.4em 0;
 }
 
 .highlight div pre {
@@ -33,30 +34,30 @@ pre {
 }
 
 code {
-  font-family: monospace;
-  font-weight: 600;
+  font-family: var(--mono);
+  font-weight: 400;
   background: var(--code-background);
-  font-stretch: normal;
-  padding: 1px;
+  color: var(--code);
+  padding: 0.1em 0.4em;
   border: 1px solid var(--code-border);
-  font-weight: 200;
+  border-radius: var(--r-xs);
 }
 
 p code,
 li code {
-  font-size: 1rem;
+  font-size: 0.88em;
 }
 
 pre>code {
   display: block;
-  font-size: 0.85rem;
-  font-stretch: normal;
+  font-size: 0.86rem;
   background: var(--code-background) !important;
   tab-size: 4;
-  font-weight: 200;
+  font-weight: 400;
   border: none;
-  padding: 0px;
+  padding: 0;
   line-height: inherit;
+  border-radius: 0;
 }
 
 @media screen and (max-width: 760px) {
@@ -112,13 +113,13 @@ pre>code {
   align-items: center;
   animation-duration: 1s;
   animation-name: code-fade-in;
-  background-color: var(--text-dim);
-  border: 1px solid var(--code-border);
-
-  color: var(--code-background);
+  background-color: var(--glass-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-xs);
+  color: var(--text);
   cursor: pointer;
   display: inline-flex;
-  height: 1.65rem;
+  height: 1.75rem;
   justify-content: center;
   opacity: 0;
   padding: 0px;
@@ -126,7 +127,7 @@ pre>code {
   right: 0.45rem;
   top: 0.45rem;
   transition: opacity 0.15s ease;
-  width: 1.65rem;
+  width: 1.75rem;
 }
 
 .highlight div:hover>.copy-code-button,

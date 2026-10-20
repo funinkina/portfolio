@@ -1,184 +1,162 @@
-/* Experiences timeline (home page) */
-
-/* --gutter holds the date column left of the line; 0 on narrow screens */
+/* EXPERIENCE PANEL: one glass panel, a row per role.
+   Desktop: [dates | logo + text]. Mobile: dates move above the role. */
 .exp-timeline {
-  --gutter: 6.5rem;
+  --gutter: 4.75rem;
+  padding: 0.25rem 1.6rem;
 }
 
-.exp-row {
-  padding-left: calc(var(--gutter) + 2.25rem);
+.exp-item {
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  gap: 0 1.25rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
 }
 
-/* vertical line (decorative pseudo — retained) */
-.exp-timeline::before {
-  content: "";
-  position: absolute;
-  left: calc(var(--gutter) + 7px);
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: var(--border);
+.exp-item:first-child {
+  border-top: 0;
 }
 
-/* dot on the line (decorative) */
-.exp-dot {
-  position: absolute;
-  left: calc(var(--gutter) + 1px);
-  top: 16px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--complimentary);
-  box-shadow: 0 0 0 4px var(--background);
-}
-
-/* start/end date, right-aligned against the dot */
 .exp-when {
-  position: absolute;
-  left: 0;
-  top: 5px;
-  width: calc(var(--gutter) - 0.75rem);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  font-size: 0.875rem;
-  line-height: 1.3;
+  padding-top: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-3);
   font-variant-numeric: tabular-nums;
-  color: var(--text-dim);
   white-space: nowrap;
 }
 
-.exp-when span:first-child {
-  color: var(--text);
+/* end date on top, start date at the bottom, line between */
+.exp-when {
+  align-items: center;
 }
 
-@media (max-width: 600px) {
+.exp-when span:first-child {
+  order: 3;
+}
+
+.exp-when span:last-child {
+  order: 1;
+  color: var(--text-2);
+}
+
+.exp-when:has(span + span)::before {
+  content: "";
+  order: 2;
+  flex: 1;
+  width: 1px;
+  min-height: 1.5rem;
+  margin: 0.4rem 0;
+  background: linear-gradient(var(--line-strong), var(--line));
+}
+
+.exp-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.exp-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--glass-2);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
+  color: var(--text-3);
+  transition: border-color 0.2s ease;
+}
+
+a.exp-logo:hover {
+  border-color: var(--line-strong);
+}
+
+.exp-logo img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  margin: 0;
+  border-radius: 4px;
+}
+
+.exp-company {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.exp-company:hover {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.exp-role {
+  color: var(--text-2);
+  font-size: 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.9rem;
+}
+
+.exp-location {
+  color: var(--text-3);
+}
+
+.exp-resp {
+  margin: 0.9rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.exp-resp li {
+  color: var(--text-2);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  margin: 0.35em 0;
+}
+
+.exp-resp strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
   .exp-timeline {
-    --gutter: 0rem;
+    padding: 0 1.1rem;
+  }
+
+  .exp-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1.25rem 0;
   }
 
   .exp-when {
-    position: static;
-    width: auto;
     flex-direction: row;
     gap: 0.35em;
-    margin-bottom: 0.5rem;
+    padding-top: 0;
+    font-size: 0.85rem;
+  }
+
+  .exp-when span:first-child,
+  .exp-when span:last-child {
+    order: 0;
+  }
+
+  .exp-when:has(span + span)::before {
+    display: none;
   }
 
   .exp-when span + span::before {
     content: "– ";
-  }
-
-  .exp-dot {
-    top: 3px;
-  }
-}
-
-/* badge markup is currently commented out in the shortcode; rule retained so
-   styling survives if it is re-enabled */
-.exp-badge {
-  font-size: 0.7rem;
-  padding: 0.5px 8px;
-  border-radius: 999px;
-  background: var(--accent);
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  white-space: nowrap;
-}
-
-/* Ghost "your company here" slot above the first experience.
-   Collapsed it is just a 22px hover strip; hover/focus expands it. */
-.exp-ghost {
-  display: grid;
-  grid-template-rows: 0fr;
-  padding-bottom: 22px;
-  color: inherit;
-  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    padding-bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* short handle centred in the collapsed hover strip */
-.exp-ghost::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 20px;
-  width: 40px;
-  height: 2px;
-  background: var(--complimentary);
-  opacity: 0.6;
-  transition: opacity 0.25s ease;
-}
-
-.exp-ghost-inner {
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.exp-ghost-dot {
-  background: transparent;
-  border: 2px dashed var(--complimentary);
-  box-shadow: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.exp-ghost-logo {
-  border: 1px dashed var(--border);
-  color: var(--text-dim);
-}
-
-.exp-ghost .exp-company,
-.exp-ghost .exp-role,
-.exp-ghost .exp-date span,
-.exp-ghost .exp-location {
-  transition: color 0.2s ease;
-}
-
-.exp-ghost:hover,
-.exp-ghost:focus-visible {
-  grid-template-rows: 1fr;
-  padding-bottom: 0;
-}
-
-.exp-ghost:hover::before,
-.exp-ghost:focus-visible::before {
-  opacity: 0;
-}
-
-.exp-ghost:hover .exp-ghost-inner,
-.exp-ghost:focus-visible .exp-ghost-inner {
-  opacity: 1;
-  transition-delay: 0.1s;
-}
-
-.exp-ghost:hover .exp-ghost-dot,
-.exp-ghost:focus-visible .exp-ghost-dot {
-  opacity: 1;
-}
-
-.exp-ghost:hover .exp-company,
-.exp-ghost:focus-visible .exp-company,
-.exp-ghost:hover .exp-location,
-.exp-ghost:focus-visible .exp-location {
-  color: var(--complimentary);
-}
-
-/* no hover on touch — the strip would just be dead space */
-@media (hover: none) {
-  .exp-ghost {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .exp-ghost,
-  .exp-ghost::before,
-  .exp-ghost-inner,
-  .exp-ghost-dot {
-    transition: none;
   }
 }

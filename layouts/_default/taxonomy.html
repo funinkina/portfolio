@@ -1,12 +1,9 @@
 {{ partial "header.html" . }}
-
-<h1>{{ .Title }}</h1>
-<ul class="text-complementary">
-  {{ range .Pages }}
-
-  {{ partial "post_row.html" . }}
-
-  {{ end }}
-</ul>
-
+<div class="page-head">
+  <h1>{{ .Title }}</h1>
+  <p>{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} tagged {{ .Title }}. <a href="/tags/">All tags</a>.</p>
+</div>
+<div class="post-rows">
+  {{ range .Pages }}{{ partial "blog_row.html" (dict "Page" .) }}{{ end }}
+</div>
 {{ partial "footer.html" . }}

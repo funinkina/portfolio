@@ -1,61 +1,126 @@
-/* SECTION SEARCH BAR
-   Layout/box/typography are inlined as Tailwind utilities in
-   layouts/partials/section-search.html. Only the color + border-color of the
-   interactive elements stay here in @layer base, because their :focus / :hover /
-   :focus~ / :has() overrides also live in the base layer and must win the
-   cascade — an inlined color utility (later layer) would beat those overrides. */
+/* SECTION SEARCH + SORT (blog and project list pages) */
+.section-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 2rem;
+}
+
+.search-box {
+  flex: 1 1 280px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.75rem;
+  padding: 0 0.5rem 0 0.9rem;
+  border-radius: 999px;
+}
+
+.search-box .material-symbols-outlined {
+  color: var(--text-3);
+  font-size: 1.2rem;
+}
+
 #section-search-input {
-    border-color: var(--border-general);
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.98rem;
+  outline: none;
 }
 
-#section-search-input:focus {
-    outline: none;
-    border-color: var(--complimentary);
+#section-search-input::placeholder {
+  color: var(--text-3);
 }
 
-#section-search-input:focus~#section-search-btn {
-    border-color: var(--complimentary);
+#section-search-clear {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-3);
+  cursor: pointer;
+}
+
+#section-search-clear.visible {
+  display: inline-flex;
+}
+
+#section-search-clear:hover {
+  color: var(--text);
+  background: var(--glass-2);
+}
+
+#section-search-clear .material-symbols-outlined {
+  font-size: 1.1rem;
+  color: inherit;
 }
 
 #section-search-btn {
-    border-color: var(--border-general);
-    color: var(--text);
+  display: none;
 }
 
-#section-search-btn:hover {
-    border-color: var(--complimentary);
-    color: var(--complimentary);
+.sort-group {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem;
+  border-radius: 999px;
 }
 
-/* SECTION SORT */
 .sort-option {
-    border-color: var(--border-general);
-    color: var(--text);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.sort-option input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .sort-option:hover {
-    border-color: var(--complimentary);
-    color: var(--complimentary);
+  color: var(--text);
 }
 
 .sort-option:has(input:checked) {
-    border-color: var(--complimentary);
-    color: var(--complimentary);
-    font-weight: 600;
+  color: var(--text);
+  background: var(--glass-2);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .sort-option:has(input:focus-visible) {
-    outline: 2px solid var(--complimentary);
-    outline-offset: 2px;
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
 }
 
-/* LEGACY SEARCH */
+/* LEGACY SITE SEARCH (taxonomy/terms fallback) */
 input {
-    background-color: var(--background);
-    color: var(--text);
-    border-color: var(--border-general);
+  background-color: var(--glass);
+  color: var(--text);
+  border-color: var(--line-strong);
 }
 
 #results {
-    padding-left: 16px;
+  padding-left: 16px;
 }
