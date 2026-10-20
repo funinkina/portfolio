@@ -40,7 +40,7 @@
 })();
 </script>
 
-<div id="terminal-overlay" aria-hidden="true" role="dialog" aria-label="Terminal" aria-modal="true" class="fixed inset-0 flex items-center justify-center z-10000">
+<div id="terminal-overlay" aria-hidden="true" inert role="dialog" aria-label="Terminal" aria-modal="true" class="fixed inset-0 flex items-center justify-center z-10000">
   <div id="terminal-window" class="rounded-[var(--r-card)] w-[min(680px,92vw)] h-[min(460px,80vh)] bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden font-['Fira_Code','Cascadia_Code','JetBrains_Mono',ui-monospace,monospace] text-sm border border-solid border-[#2a2a2a]">
     <div id="terminal-titlebar" class="bg-[#1a1a1a] pt-1.5 pb-1.5 pr-12.5 pl-3 flex items-center gap-3 [border-bottom:1px_solid_#2a2a2a] shrink-0">
       <div class="terminal-dots flex gap-1.5 items-center">
@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<div id="shortcuts-modal" class="shortcuts-modal fixed inset-0 flex items-center justify-center z-9999" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true">
+<div id="shortcuts-modal" class="shortcuts-modal fixed inset-0 flex items-center justify-center z-9999" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" aria-hidden="true" inert>
   <div class="shortcuts-modal-content glass panel p-5 min-w-65 max-w-75 w-[90vw]" tabindex="-1">
     <div class="shortcuts-modal-header flex items-center justify-between mb-4">
       <h2 class="text-base font-medium m-0">Keyboard shortcuts</h2>

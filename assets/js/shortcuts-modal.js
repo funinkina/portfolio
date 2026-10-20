@@ -7,11 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function openModal() {
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
+    modal.inert = false;
   }
 
   function closeModal() {
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
+    modal.inert = true;
   }
 
   document.addEventListener('keydown', function (e) {

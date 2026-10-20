@@ -125,7 +125,7 @@
 
   function openTerminal() {
     overlay.classList.add('open');
-    overlay.setAttribute('aria-hidden', 'false');
+    overlay.setAttribute('aria-hidden', 'false'); overlay.inert = false;
     input.focus();
     if (!output.children.length) {
       appendLines([
@@ -138,7 +138,7 @@
 
   function closeTerminal() {
     overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('aria-hidden', 'true'); overlay.inert = true;
   }
 
   function esc(s) {

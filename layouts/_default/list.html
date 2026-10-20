@@ -171,6 +171,7 @@ $html -}}
 </div>
 {{ .Content }}
 {{ partial "section-search.html" . }}
+<h2 class="sr-only">All posts</h2>
 <div class="post-rows blog-list-clean">
     {{ range $i, $p := .RegularPages.ByDate.Reverse }}{{ partial "blog_row.html"
     (dict "Page" $p "Index" $i) }}{{ end }}
@@ -187,6 +188,7 @@ $html -}}
 </div>
 {{ .Content }}
 {{ partial "section-search.html" . }}
+<h2 class="sr-only">All projects</h2>
 <div class="project-grid">
     {{ range .RegularPages }}{{ partial "project_card.html" . }}{{ end }}
 </div>

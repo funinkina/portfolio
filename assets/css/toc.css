@@ -19,7 +19,7 @@
     width: 15vw;
   }
 
-  #tableOfContentContainer h3 {
+  #tableOfContentContainer .toc-heading {
     font-size: 0.8rem;
     margin-left: -12px;
     margin-bottom: 0.4rem;
@@ -79,6 +79,14 @@
     text-overflow: ellipsis;
     font-size: 0.75rem;
   }
+
+  /* 24px rows: WCAG 2.2 minimum target size */
+  #TableOfContents li a {
+    display: block;
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 /* !important was here for some reason. */
@@ -123,7 +131,7 @@
   padding-left: 20px;
 }
 
-.toc h3 {
+.toc .toc-heading {
   margin-left: 20px;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -143,7 +151,7 @@
     margin: 0;
   }
 
-  #tableOfContentContainer h3 {
+  #tableOfContentContainer .toc-heading {
     font-weight: 500;
     font-size: 0.85rem;
     color: var(--text-3);
