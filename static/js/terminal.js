@@ -49,7 +49,7 @@
         'Final-year CS undergrad · 250+ GitHub stars',
         '',
         'Currently: Backend Intern @ SuperDash',
-        '→ https://funinkina.co.in'
+        '→ https://funinkina.com'
       );
     },
 

@@ -1,4 +1,4 @@
-baseURL = 'https://funinkina.co.in/'
+baseURL = 'https://funinkina.com/'
 title = "funinkina's corner"
 enableRobotsTXT = true
 
@@ -50,12 +50,6 @@ extraMaterialIcons = [
     "article",
     "deployed_code",
 ]
-
-[params.vercel_analytics]
-enable = true
-
-[params.vercel_speed_insights]
-enable = true
 
 [related]
 threshold = 80

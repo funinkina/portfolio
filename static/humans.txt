@@ -29,7 +29,7 @@
     Styling: Tailwind CSS + a pile of hand-written CSS
     Scripts: vanilla JS, no dependencies, no trackers
     Fonts: Inter, Material Symbols
-    Hosting: Vercel
+    Hosting: Cloudflare Workers
     Source: it is a static site — the whole thing is in view-source,
             help yourself
 

@@ -3,7 +3,7 @@ node_modules/
 # Hugo Generated Files
 hugo_stats.json
 # Hugo remote-fetch cache for the GitHub contributions HTML — keep uncommitted so each
-# Vercel build refetches live data. All other getresource/* files (opengraph project
+# CI build refetches live data. All other getresource/* files (opengraph project
 # previews) stay tracked to avoid hammering opengraph.github.com on every build.
 resources/_gen/getresource/281215017466305533
 # Static File Cache
@@ -36,3 +36,6 @@ public/
 *.tmp
 *.~*
 *.orig
+
+# Wrangler local state
+.wrangler/
