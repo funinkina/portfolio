@@ -1,0 +1,64 @@
+{{- /* Social preview card, screenshotted by scripts/og.sh into static/default-header.png.
+       Draft-only (content/og.md), so it never ships. */ -}}
+{{- $post := index (where site.RegularPages.ByDate.Reverse "Section" "blog") 0 -}}
+{{- $intro := hugo.Data.highlights.intro -}}
+{{- $stars := index (findRESubmatch `(\S+) stars` $intro) 0 1 -}}
+{{- $users := index (findRESubmatch `(\S+) users` $intro) 0 1 -}}
+{{- $av := (resources.Get "avatar.jpg").Resize "400x400 webp" -}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: Switzer; src: url("/fonts/Switzer-Variable.woff2") format("woff2"); font-weight: 100 900; }
+  :root { --bg: #0b1018; --text: #e9eef6; --text-2: #a9b4c8; --text-3: #74819a; --green: #6cc49a;
+          --line: rgba(233, 238, 246, 0.1); --glass: rgba(20, 28, 40, 0.55); --mono: "SF Mono", ui-monospace, Menlo, monospace; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 627px; overflow: hidden; }
+  body {
+    display: grid; grid-template-rows: auto 1fr auto; padding: 52px 64px;
+    background:
+      radial-gradient(600px 400px at 100% 0%, color-mix(in srgb, var(--green) 12%, transparent), transparent 70%),
+      radial-gradient(rgba(233, 238, 246, 0.09) 1px, transparent 1.5px) 0 0 / 22px 22px,
+      var(--bg);
+    color: var(--text); font-family: Switzer, sans-serif; -webkit-font-smoothing: antialiased;
+  }
+  header, footer { display: flex; justify-content: space-between; align-items: center; }
+  .site { font-size: 26px; font-weight: 300; letter-spacing: -0.01em; }
+  .site span { color: var(--text-3); }
+  .url { font: 17px var(--mono); color: var(--text-2); }
+  main { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px; }
+  h1 { font-size: 92px; font-weight: 150; letter-spacing: -0.02em; line-height: 0.95; }
+  .alias { display: block; margin-top: 18px; font: 20px var(--mono); color: var(--text-3); }
+  .role { margin-top: 22px; font-size: 30px; font-weight: 300; color: var(--text-2); }
+  .role b { font-weight: 400; color: var(--green); }
+  img { width: 200px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 18px 40px -24px rgba(0, 0, 0, 0.7); }
+  footer { padding: 18px 22px; border: 1px solid var(--line); border-radius: 4px; background: var(--glass);
+           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); font-size: 19px; }
+  .latest { color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 720px; }
+  .latest em { font: normal 14px var(--mono); color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 12px; }
+  .latest span { color: var(--text); }
+  .stats { display: flex; gap: 26px; font: 16px var(--mono); color: var(--text-3); }
+  .stats b { color: var(--green); font-weight: 500; }
+</style>
+</head>
+<body>
+  <header>
+    <p class="site">funinkina<span>'s corner</span></p>
+    <p class="url">{{ (urls.Parse site.BaseURL).Host }}</p>
+  </header>
+  <main>
+    <div>
+      <h1>{{ .Params.name }}</h1>
+      <span class="alias">@funinkina · {{ site.Params.location }}</span>
+      <p class="role">{{ site.Params.subtitle | replaceRE `at (.+)$` "at <b>$1</b>" | safeHTML }}</p>
+    </div>
+    <img src="{{ $av.RelPermalink }}" alt="">
+  </main>
+  <footer>
+    <p class="latest"><em>Latest</em><span>{{ $post.Title }}</span></p>
+    <p class="stats"><span><b>{{ $stars }}</b> stars</span><span><b>{{ $users }}</b> users</span></p>
+  </footer>
+</body>
+</html>
