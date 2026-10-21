@@ -10,9 +10,10 @@
   {{- else -}}
     {{- $webp     := $img.Resize "800x webp" -}}
     {{- $fallback := $img.Resize "800x" -}}
+    {{- $full := cond (gt $img.Width 800) ($img.Resize (printf "%dx webp" (int (math.Min $img.Width 2000)))) $webp -}}
 <picture>
   <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
-  <img src="{{ $fallback.RelPermalink }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }}
+  <img src="{{ $fallback.RelPermalink }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }} data-zoom="{{ $full.RelPermalink }}"
        width="{{ $webp.Width }}" height="{{ $webp.Height }}" loading="lazy" decoding="async">
 </picture>
   {{- end -}}

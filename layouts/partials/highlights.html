@@ -2,7 +2,7 @@
 <div class="highlights">
   {{- range $h.items }}
   {{- $ext := hasPrefix .url "http" }}
-  <a class="highlight glass card" href="{{ .url }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}>
+  <a class="highlight-card glass card" href="{{ .url }}"{{ if $ext }} target="_blank" rel="noopener"{{ end }}>
     <span class="tag">{{ .tag }}</span>
     <h3>{{ .name }}</h3>
     <p>{{ .blurb }}</p>

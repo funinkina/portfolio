@@ -6,7 +6,7 @@
     data-title="{{ $page.Title | lower }}" data-date="{{ $page.Date.Unix }}"
     data-description="{{ $page.Description | default $page.Summary | plainify | lower }}">
     <div class="blog-row-body">
-        <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+        <h3 class="vt-title" style="--vt: post-{{ substr (md5 $page.RelPermalink) 0 10 }}"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
         {{- with or $page.Description $page.Params.subtitle }}<p>{{ . }}</p>{{ end }}
         <div class="row-meta">
             <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "January 2, 2006" }}</time>

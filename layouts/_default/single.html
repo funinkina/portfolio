@@ -7,7 +7,7 @@
     <span>{{ or .ReadingTime 1 }} min read</span>
     {{ if .GitInfo }}<span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
   </p>
-  <h1 class="post-title">{{ .Title | markdownify }}</h1>
+  <h1 class="post-title vt-title" style="--vt: post-{{ substr (md5 .RelPermalink) 0 10 }}">{{ .Title | markdownify }}</h1>
   {{ with .Params.subtitle }}<p class="post-sub" id="subtitle">{{ . }}</p>{{ end }}
   <div id="single-meta" class="post-tools">
     {{ partial "tags.html" . }}

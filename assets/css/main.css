@@ -149,6 +149,8 @@ html {
     line-height: 1.55;
     scroll-behavior: smooth;
     scroll-padding-top: 90px;
+    scrollbar-gutter: stable;
+    accent-color: var(--green);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
@@ -163,6 +165,10 @@ body {
     position: relative;
 }
 
+body:has(> .nav-bar) {
+    padding-top: var(--nav-h, 3.2rem);
+}
+
 body.is-article {
     --page-w: var(--article-w);
 }
@@ -174,6 +180,12 @@ main {
 strong,
 b {
     font-weight: 600;
+}
+
+p,
+li,
+blockquote {
+    text-wrap: pretty;
 }
 
 p {
@@ -190,6 +202,7 @@ h4 {
     line-height: 1.1;
     margin: 0;
     color: var(--text);
+    text-wrap: balance;
 }
 
 h1 {
@@ -397,7 +410,7 @@ a.exp-logo:hover {
     text-decoration: none;
 }
 
-.highlights .highlight:hover,
+.highlights .highlight-card:hover,
 .project-card:hover,
 .blog-row:hover::before {
     background-color: var(--hover-bg);
@@ -633,7 +646,7 @@ a.exp-logo:hover {
     gap: 1rem;
 }
 
-.highlight {
+.highlight-card {
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
@@ -645,23 +658,23 @@ a.exp-logo:hover {
         background-color 0.2s ease;
 }
 
-.highlight:visited {
+.highlight-card:visited {
     color: inherit;
 }
 
-.highlight h3 {
+.highlight-card h3 {
     font-size: 1.7rem;
     font-weight: 300;
     letter-spacing: -0.03em;
     margin: 0;
 }
 
-.highlight .tag {
+.highlight-card .tag {
     color: var(--text-3);
     font-size: 0.9rem;
 }
 
-.highlight p {
+.highlight-card p {
     margin: 0;
     color: var(--text-2);
     font-size: 0.95rem;
@@ -669,7 +682,7 @@ a.exp-logo:hover {
     flex: 1;
 }
 
-.highlight .meta {
+.highlight-card .meta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem 1rem;
@@ -678,13 +691,13 @@ a.exp-logo:hover {
     margin-top: 0.3rem;
 }
 
-.highlight .meta>span {
+.highlight-card .meta>span {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
 }
 
-.highlight .meta .material-symbols-outlined {
+.highlight-card .meta .material-symbols-outlined {
     font-size: 1rem;
     color: var(--text-3);
 }
@@ -1178,7 +1191,7 @@ footer .pill .material-symbols-outlined {
 }
 
 /* tilt angles come from the pointer; the glare is a faint green spotlight */
-.highlight {
+.highlight-card {
     position: relative;
     transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     transition:
@@ -1187,7 +1200,7 @@ footer .pill .material-symbols-outlined {
         transform 0.25s ease-out;
 }
 
-.highlight::after {
+.highlight-card::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -1198,7 +1211,7 @@ footer .pill .material-symbols-outlined {
     transition: opacity 0.25s ease;
 }
 
-.highlight:hover::after {
+.highlight-card:hover::after {
     opacity: 1;
 }
 
@@ -1228,11 +1241,36 @@ footer .pill .material-symbols-outlined {
     transform: none;
 }
 
-/* theme toggle reveal: js/theme-toggle.js drives the clip-path */
-::view-transition-old(root),
-::view-transition-new(root) {
+/* page navigations cross-fade; post titles morph from list row to heading */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-group(*) {
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vt-title {
+    view-transition-name: var(--vt);
+}
+
+/* theme toggle reveal: js/theme-toggle.js drives the clip-path over the
+   whole page, so titles must not split off into their own layers */
+html.theme-reveal .vt-title {
+    view-transition-name: none;
+}
+
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition {
+        navigation: none;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1256,7 +1294,7 @@ footer .pill .material-symbols-outlined {
         animation: none;
     }
 
-    .highlight,
+    .highlight-card,
     .project-card,
     .btn {
         transition: none;

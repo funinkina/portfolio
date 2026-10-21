@@ -5,13 +5,29 @@
   // Local clock beside the location, ticking on the minute.
   var clock = document.querySelector('.local-time');
   if (clock) {
+    var tz = clock.dataset.tz;
     var fmt = new Intl.DateTimeFormat('en-US', {
-      hour: 'numeric', minute: '2-digit', timeZone: clock.dataset.tz, timeZoneName: 'short'
+      hour: 'numeric', minute: '2-digit', timeZone: tz, timeZoneName: 'short'
     });
+    var parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'
+    });
+    // tooltip: how far ahead/behind the visitor, and whether I'm likely awake
+    var hint = function (now) {
+      var p = {};
+      parts.formatToParts(now).forEach(function (x) { p[x.type] = +x.value; });
+      var there = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute);
+      var diff = (there - (now - now % 60000)) / 60000 + now.getTimezoneOffset();
+      var abs = Math.abs(diff), h = Math.floor(abs / 60), m = abs % 60;
+      var span = (h ? h + 'h' : '') + (h && m ? ' ' : '') + (m ? m + 'm' : '');
+      var rel = diff ? span + (diff > 0 ? ' ahead of' : ' behind') + ' you' : 'Same time as you';
+      return rel + (p.hour < 7 ? ', probably asleep' : '');
+    };
     var tick = function () {
       var now = new Date();
       clock.dateTime = now.toISOString();
       clock.textContent = fmt.format(now).replace('GMT+5:30', 'IST');
+      clock.title = hint(now);
       setTimeout(tick, 60000 - (now % 60000));
     };
     tick();
@@ -44,7 +60,7 @@
 
   // Highlight cards lean a couple of degrees toward the pointer, desktop only.
   if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll('.highlight').forEach(function (card) {
+    document.querySelectorAll('.highlight-card').forEach(function (card) {
       var frame = 0;
       card.addEventListener('pointermove', function (e) {
         cancelAnimationFrame(frame);

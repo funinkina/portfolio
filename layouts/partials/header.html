@@ -153,6 +153,9 @@
       imagesrcset="{{ $av1.RelPermalink }} 1x, {{ $av2.RelPermalink }} 2x" fetchpriority="high">
     {{- end -}}
     {{- end -}}
+    <script type="speculationrules">
+      {"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"selector_matches": "[target], [download], [rel~=nofollow]"}}]}, "eagerness": "moderate"}]}
+    </script>
   </head>
 
   <body class="{{ if .IsPage }}is-article{{ end }}">
@@ -193,17 +196,28 @@
       </div>
       {{ if .IsPage }}<div id="reading-progress" aria-hidden="true"></div>{{ end }}
     </nav>
+    <script>
+    (function (nav) {
+      function fit() { document.documentElement.style.setProperty('--nav-h', nav.getBoundingClientRect().height + 'px'); }
+      fit();
+      new ResizeObserver(fit).observe(nav);
+    })(document.currentScript.previousElementSibling);
+    </script>
     {{ if .IsPage }}
     <script>
     (function () {
       var bar = document.getElementById('reading-progress');
-      if (!bar) return;
+      if (!bar || CSS.supports('animation-timeline: scroll()')) return;
+      var frame = 0;
       function update() {
-        var scrolled = window.scrollY || 0;
-        var total = document.body.scrollHeight - window.innerHeight;
-        bar.style.width = (total > 0 ? Math.min(100, (scrolled / total) * 100) : 0) + '%';
+        frame = 0;
+        var total = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.setProperty('--p', total > 0 ? Math.min(1, window.scrollY / total) : 0);
       }
-      window.addEventListener('scroll', update, { passive: true });
+      function schedule() { if (!frame) frame = requestAnimationFrame(update); }
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule, { passive: true });
+      update();
     })();
     </script>
     {{ end }}

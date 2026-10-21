@@ -39,3 +39,77 @@ video {
   height: 100%;
   vertical-align: middle;
 }
+
+/* IMAGE ZOOM (see js/image-zoom.js) */
+img.is-zoomable {
+  cursor: zoom-in;
+}
+
+.img-zoom {
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: 100dvh;
+  margin: 0;
+  padding: 4vmin;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.2s ease, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+}
+
+.img-zoom:not([open]) {
+  display: none;
+}
+
+.img-zoom[open] {
+  opacity: 1;
+}
+
+.img-zoom img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--r-card);
+  box-shadow: var(--glass-shadow);
+  transform: scale(0.96);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.img-zoom[open] img {
+  transform: none;
+}
+
+.img-zoom::backdrop {
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.2s ease, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+}
+
+.img-zoom[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .img-zoom[open],
+  .img-zoom[open]::backdrop {
+    opacity: 0;
+  }
+
+  .img-zoom[open] img {
+    transform: scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-zoom,
+  .img-zoom img,
+  .img-zoom::backdrop {
+    transition: none;
+  }
+}

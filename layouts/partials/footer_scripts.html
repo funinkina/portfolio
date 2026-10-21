@@ -9,6 +9,7 @@
 (resources.Get "js/github-calendar.js")
 (resources.Get "js/shortcuts-modal.js")
 (resources.Get "js/home.js")
+(resources.Get "js/image-zoom.js")
 | resources.Concat "js/bundle.js" | minify | fingerprint -}}
 <script defer src="{{ $bundle.RelPermalink }}"></script>
 
