@@ -30,10 +30,11 @@
     align-items: center;
     color: var(--text);
     text-decoration: none;
+    transition: color 0.2s;
 }
 
 .nav-bar h1 a:hover {
-    text-decoration: underline;
+    color: color-mix(in srgb, var(--green) 60%, var(--text));
 }
 
 .nav-right {
