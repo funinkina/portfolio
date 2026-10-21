@@ -53,11 +53,6 @@
   border-radius: 50%;
   background: var(--bg);
   border: 1.5px solid color-mix(in srgb, var(--text-3) 60%, transparent);
-  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.exp-item:hover::after {
-  border-color: var(--green);
 }
 
 .exp-item.is-current::after {

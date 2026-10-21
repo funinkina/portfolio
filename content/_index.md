@@ -5,7 +5,7 @@ toc: false
 
 {{< announcement >}}
 
-I build fast, boring-to-operate backends in **Go, Python and C/C++**. Lately that means **real-time LLM infrastructure** and **voice agent backends**, with an 80% cut in voice latency and a 5× inference speedup along the way. Lower in the stack, I write device drivers and have a patch merged into mainline Linux.
+23, a Delhi kid who moved to **Bangalore** and somehow fell for the weather and the community. These days I'm building **company brain** and an **agentic OS** at [Libra](https://trylibra.ai). Off the clock I contribute to **open source** and **Linux**, ricing my desktop and building software for humans.
 
 <!--more-->
 

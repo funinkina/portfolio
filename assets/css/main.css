@@ -43,12 +43,10 @@
     --glass-edge: rgba(255, 255, 255, 0.12);
     --glass-shadow:
         inset 0 1px 0 var(--glass-edge), 0 18px 40px -24px rgba(0, 0, 0, 0.7);
-    --gloss: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.08),
-        rgba(255, 255, 255, 0.02) 55%,
-        rgba(255, 255, 255, 0)
-    );
+    --gloss: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.02) 55%,
+            rgba(255, 255, 255, 0));
     --dot: rgba(233, 238, 246, 0.09);
 
     --hover-bg: color-mix(in srgb, var(--green) 8%, var(--glass-2));
@@ -83,12 +81,10 @@
     --corner-sm: var(--r-ctl);
     --corner-xs: var(--r-xs);
     --aero-gloss: var(--gloss);
-    --aero-gloss-hover: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.14),
-        rgba(255, 255, 255, 0.04) 55%,
-        rgba(255, 255, 255, 0.01)
-    );
+    --aero-gloss-hover: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.14),
+            rgba(255, 255, 255, 0.04) 55%,
+            rgba(255, 255, 255, 0.01));
     --aero-shadow:
         inset 0 1px 0 var(--glass-edge), 0 1px 2px rgba(0, 0, 0, 0.35);
 }
@@ -109,24 +105,20 @@
     --glass-shadow:
         inset 0 1px 0 var(--glass-edge), 0 1px 2px rgba(16, 26, 43, 0.04),
         0 18px 40px -24px rgba(16, 26, 43, 0.3);
-    --gloss: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.9),
-        rgba(255, 255, 255, 0.4) 55%,
-        rgba(255, 255, 255, 0.1)
-    );
+    --gloss: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.9),
+            rgba(255, 255, 255, 0.4) 55%,
+            rgba(255, 255, 255, 0.1));
     --dot: rgba(16, 26, 43, 0.12);
 
     --code: #1f2a3d;
     --code-background: rgba(255, 255, 255, 0.7);
     --code-hl: rgba(31, 122, 77, 0.1);
     --table-th: rgba(31, 122, 77, 0.1);
-    --aero-gloss-hover: linear-gradient(
-        180deg,
-        #fff,
-        rgba(255, 255, 255, 0.75) 55%,
-        rgba(255, 255, 255, 0.3)
-    );
+    --aero-gloss-hover: linear-gradient(180deg,
+            #fff,
+            rgba(255, 255, 255, 0.75) 55%,
+            rgba(255, 255, 255, 0.3));
     --aero-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(16, 26, 43, 0.08);
 }
 
@@ -419,12 +411,10 @@ a.exp-logo:hover {
     color: var(--green-ink);
     background: var(--green);
     border-color: transparent;
-    background-image: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.28),
-        rgba(255, 255, 255, 0.05) 55%,
-        rgba(255, 255, 255, 0)
-    );
+    background-image: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.28),
+            rgba(255, 255, 255, 0.05) 55%,
+            rgba(255, 255, 255, 0));
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.35),
         0 8px 20px -10px var(--green);
@@ -526,7 +516,7 @@ a.exp-logo:hover {
     margin-top: 5rem;
 }
 
-.hero > div {
+.hero>div {
     grid-row: span 2;
 }
 
@@ -557,14 +547,14 @@ a.exp-logo:hover {
 
 .hero-name {
     font-size: clamp(3.2rem, 7vw, 5.5rem);
-    font-weight: 200;
+    font-weight: 150;
     letter-spacing: -0.015em;
     line-height: 0.98;
     margin: 0 0 1.4rem;
 }
 
 .hero-alias {
-    margin-left: 0.3rem;
+    margin-left: 0.2rem;
     font-family: var(--mono);
     font-size: 1rem;
     letter-spacing: 0;
@@ -688,7 +678,7 @@ a.exp-logo:hover {
     margin-top: 0.3rem;
 }
 
-.highlight .meta > span {
+.highlight .meta>span {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -918,7 +908,7 @@ a.exp-logo:hover {
     white-space: nowrap;
 }
 
-.gh-legend > span {
+.gh-legend>span {
     margin: 0 3px;
 }
 
@@ -939,23 +929,23 @@ a.exp-logo:hover {
     margin: 0;
 }
 
-.home-prose > ul > li {
+.home-prose>ul>li {
     padding: 1.1rem 0;
     border-top: 1px solid var(--line);
     color: var(--text-2);
     margin: 0;
 }
 
-.home-prose > ul > li:last-child {
+.home-prose>ul>li:last-child {
     border-bottom: 1px solid var(--line);
 }
 
-.home-prose > ul > li strong {
+.home-prose>ul>li strong {
     color: var(--text);
     font-weight: 500;
 }
 
-.home-prose > ul > li em {
+.home-prose>ul>li em {
     color: var(--text-3);
     font-style: normal;
 }
@@ -1076,7 +1066,7 @@ footer .pill .material-symbols-outlined {
         margin-top: 2.5rem;
     }
 
-    .hero > div {
+    .hero>div {
         grid-row: auto;
     }
 
@@ -1246,6 +1236,7 @@ footer .pill .material-symbols-outlined {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .blog-row-image img,
     .blog-row-body h3::after {
         transition: none;
@@ -1279,7 +1270,9 @@ footer .pill .material-symbols-outlined {
     }
 }
 
-@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+@media (prefers-reduced-transparency: reduce),
+(forced-colors: active) {
+
     .glass,
     .btn,
     .aero,
