@@ -1,0 +1,193 @@
+# Curated half of /uses. The live half (packages, extensions, aliases,
+# keybinds) is vendored from the dotfiles repo by scripts/sync-uses.sh.
+repo: https://github.com/funinkina/dotfiles
+
+fetch:
+  - { key: OS, value: Arch Linux x86_64, to: system }
+  - { key: Kernel, value: linux, note: rolling, to: system }
+  - { key: DE, value: GNOME Shell, note: Wayland, to: desktop }
+  - { key: Shell, value: fish + starship, to: terminal }
+  - { key: Terminal, value: Ghostty, note: Adwaita Dark, to: terminal }
+  - { key: Editor, value: Zed, note: GitHub Dark / One Light, to: dev }
+  - { key: Theme, value: adw-gtk3-dark, note: WhiteSur icons, to: desktop }
+  - { key: Fonts, value: Adwaita Sans, note: JetBrainsMono Nerd Font, to: desktop }
+  - { key: Display, value: 2880×1800 @ 90Hz, note: 1.5× scale, to: system }
+
+# fastfetch-style colour blocks: Ghostty's Adwaita Dark palette
+palette: ["#241f31", "#c01c28", "#2ec27e", "#f5c211", "#1e78e4", "#9841bb", "#0ab9dc", "#c0bfbc"]
+
+categories:
+  - { id: desktop, name: Desktop, icon: desktop_windows }
+  - { id: terminal, name: Terminal, icon: terminal }
+  - { id: dev, name: Dev, icon: code }
+  - { id: apps, name: Apps, icon: apps }
+  - { id: system, name: System, icon: memory }
+
+tools:
+  - name: GNOME Shell
+    cat: desktop
+    meta: Wayland · dark · 25 extensions
+    note: The daily driver. Shortcuts live in a script, not in dconf, so they're declared once and rebuilt from scratch on every run.
+    url: https://www.gnome.org
+    config: gnome-keybinds.sh
+  - name: niri + Quickshell
+    cat: desktop
+    meta: scrollable tiling · 60 QML files
+    note: A second desktop, kept stowed and warm but not live. The bar, dock, lock screen, notification centre and a Claude usage widget are all hand-written QML.
+    url: https://github.com/YaLTeR/niri
+    config: quickshell/.config/quickshell
+  - name: adw-gtk3 + WhiteSur
+    cat: desktop
+    meta: GTK theme · icon theme
+    note: Keeps legacy GTK3 apps looking like libadwaita ones, with MoreWaita filling icon gaps.
+    url: https://github.com/lassekongo83/adw-gtk3
+    config: snapshots/gnome-dconf.ini
+  - name: JetBrainsMono Nerd Font
+    cat: desktop
+    meta: monospace · Adwaita Sans for UI
+    note: One mono font everywhere — terminal, editor and GNOME — with Nerd glyphs for the prompt and fastfetch.
+    url: https://www.nerdfonts.com
+    config: fontconfig/.config/fontconfig/fonts.conf
+  - name: Satty
+    cat: desktop
+    meta: screenshot annotation
+    note: My `shot` script captures a region or output and hands it straight to Satty, themed to match the shell.
+    url: https://github.com/gabm/Satty
+    config: satty/.config/satty/config.toml
+
+  - name: Ghostty
+    cat: terminal
+    meta: Adwaita Dark · 11pt
+    note: Native GTK titlebar, fish shell integration and single-instance mode, so new windows open instantly.
+    url: https://ghostty.org
+    config: ghostty/.config/ghostty/config
+  - name: fish
+    cat: terminal
+    meta: shell · nvm.fish
+    note: Sane defaults with no framework. Most of my config is aliases — try them in the terminal below.
+    url: https://fishshell.com
+    config: fish/.config/fish/config.fish
+  - name: Starship
+    cat: terminal
+    meta: prompt
+    note: user on host, then a plain green `$`. The prompt should get out of the way.
+    url: https://starship.rs
+    config: starship/.config/starship.toml
+  - name: tmux
+    cat: terminal
+    meta: prefix Ctrl+A · mouse on
+    note: Screen-style prefix and Alt+arrow pane switching without the prefix.
+    url: https://github.com/tmux/tmux
+    config: tmux/.tmux.conf
+  - name: eza · ripgrep · fzf
+    cat: terminal
+    meta: ls · grep · fuzzy finder
+    note: The modern core-utils trio. `search` pipes the whole AUR into fzf with a live package preview.
+    url: https://github.com/eza-community/eza
+    config: fish/.config/fish/config.fish
+  - name: btop + fastfetch
+    cat: terminal
+    meta: monitor · system info
+    note: The panel at the top of this page is a nod to my fastfetch config.
+    url: https://github.com/fastfetch-cli/fastfetch
+    config: fastfetch/.config/fastfetch/config.jsonc
+
+  - name: Zed
+    cat: dev
+    meta: JetBrainsMono 14 · VS Code keymap
+    note: Main editor. Follows the system theme, switching between GitHub Dark and One Light.
+    url: https://zed.dev
+    config: zed/.config/zed/settings.json
+  - name: Claude Code
+    cat: dev
+    meta: custom skills · status line
+    note: Global instructions, settings, a custom status line and my own skills, all stowed like any other config.
+    url: https://claude.com/claude-code
+    config: claude/.claude
+  - name: Git + GitHub CLI
+    cat: dev
+    meta: per-directory identity
+    note: An includeIf switches to my work identity inside the Libra folder, so personal and work commits never mix.
+    url: https://cli.github.com
+    config: git/.gitconfig
+  - name: Go · Node · uv
+    cat: dev
+    meta: pnpm · Hugo · meson
+    note: Toolchains straight from pacman. uv handles every Python project.
+    url: https://docs.astral.sh/uv
+  - name: LM Studio
+    cat: dev
+    meta: local models
+    note: Runs models locally, installed from the AUR.
+    url: https://lmstudio.ai
+
+  - name: Helium
+    cat: apps
+    meta: two profiles
+    note: The browser, with separate launcher entries for personal and Libra profiles.
+    url: https://helium.computer
+    config: applications/.local/share/applications
+  - name: Spotify · mpv
+    cat: apps
+    meta: music · video
+    note: medialine, a GNOME extension I wrote, puts the playing track in the top bar.
+    url: https://github.com/funinkina/medialine
+  - name: Telegram · Figma · OnlyOffice
+    cat: apps
+    meta: chat · design · docs
+    note: Figma runs through figma-linux, and OnlyOffice handles anything .docx.
+    url: https://github.com/Figma-Linux/figma-linux
+
+  - name: GNU Stow
+    cat: system
+    meta: dotfile manager
+    note: Every config is a package symlinked into $HOME. A fresh machine is one stow command away.
+    url: https://www.gnu.org/software/stow
+    config: README.md
+  - name: yay + Chaotic-AUR
+    cat: system
+    meta: AUR helper · prebuilt repo
+    note: Snapshots of explicit and foreign packages are committed, so the package list below is the real one.
+    url: https://github.com/Jguer/yay
+    config: snapshots/pkglist.txt
+  - name: Secure Boot with UKIs
+    cat: system
+    meta: sbctl · systemd-ukify
+    note: sbctl and systemd-ukify for building and signing unified kernel images.
+    url: https://github.com/Foxboron/sbctl
+  - name: PipeWire + WirePlumber
+    cat: system
+    meta: USB-C DAC tuning
+    note: Software volume for my AB13X dongle DAC, for a smooth low end with no cutoff.
+    url: https://pipewire.org
+    config: wireplumber/.config/wireplumber/wireplumber.conf.d
+  - name: power-profiles-daemon
+    cat: system
+    meta: thermald · powertop
+    note: Super+Shift+P cycles profiles, and an extension switches them automatically on battery.
+    url: https://gitlab.freedesktop.org/upower/power-profiles-daemon
+    config: scripts/.local/bin/toggle-power-profile
+
+keynames: { Control: Ctrl, Return: Enter, Escape: Esc, Print: PrtSc }
+keylabels:
+  terminal: Open Ghostty
+  terminal-alt: Open Ghostty
+  resources: System monitor
+  ocr screenshot: OCR a screenshot
+  dnd: Toggle Do Not Disturb
+  power profile: Cycle power profile
+
+# extension ids that don't humanize cleanly
+extnames:
+  appindicatorsupport: AppIndicator support
+  weatheroclock: Weather O'Clock
+  googletasks: Google Tasks
+  editdesktopfiles: Edit desktop files
+  gsconnect: GSConnect
+  openeffects: OpenEffects
+  medialine: medialine
+
+mine:
+  medialine: https://github.com/funinkina/medialine
+  openeffects: https://github.com/funinkina/openeffects
+  weekly-commits: /projects/weekly-commits/

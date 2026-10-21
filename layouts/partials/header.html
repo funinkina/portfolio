@@ -1,3 +1,4 @@
+{{- $article := and .IsPage (not .Params.wide) -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale }}">
   <head>
@@ -129,7 +130,7 @@
     {{ $tw := resources.Get "css/app.css" | css.TailwindCSS (dict "minify"
     hugo.IsProduction) }}
     {{- printf "<%s>%s</%s>" $st $tw.Content $st | safeHTML -}}
-    {{- if .IsPage -}}
+    {{- if $article -}}
     {{ $articleCSS := slice
     (resources.Get "css/code.css")
     (resources.Get "css/toc.css")
@@ -158,15 +159,15 @@
     </script>
   </head>
 
-  <body class="{{ if .IsPage }}is-article{{ end }}">
+  <body class="{{ if $article }}is-article{{ end }}">
     {{ if not .Params.nomenu }}
     <nav
       class="nav-bar{{ if and .IsPage .Params.toc }} has-mobile-toc{{ end }}"
       aria-label="Site">
-      <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><span>funinkina<span class="site-suffix">'s {{ index (dict "blog" "blogs" "projects" "projects") .Section | default "corner" }}</span></span></a></h1>
+      <h1><a href="{{ .Site.Home.Permalink }}" class="site-title"><span>funinkina<span class="site-suffix">'s {{ .Params.navSuffix | default (index (dict "blog" "blogs" "projects" "projects") .Section) | default "corner" }}</span></span></a></h1>
       <ul class="menu">
         {{ range .Site.Menus.main }}
-        {{- $active := eq (strings.TrimSuffix "/" .URL) (printf "/%s" $.Section) -}}
+        {{- $active := or (eq (strings.TrimSuffix "/" .URL) (printf "/%s" $.Section)) (eq .URL $.RelPermalink) -}}
         <li><a href="{{ .URL | relURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
         {{ end }}
       </ul>
@@ -194,7 +195,7 @@
             aria-hidden="true">routine</span>
         </button>
       </div>
-      {{ if .IsPage }}<div id="reading-progress" aria-hidden="true"></div>{{ end }}
+      {{ if $article }}<div id="reading-progress" aria-hidden="true"></div>{{ end }}
     </nav>
     <script>
     (function (nav) {
@@ -203,7 +204,7 @@
       new ResizeObserver(fit).observe(nav);
     })(document.currentScript.previousElementSibling);
     </script>
-    {{ if .IsPage }}
+    {{ if $article }}
     <script>
     (function () {
       var bar = document.getElementById('reading-progress');

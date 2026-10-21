@@ -3,17 +3,29 @@
     <span><kbd>h</kbd> home</span>
     <span><kbd>b</kbd> blog</span>
     <span><kbd>p</kbd> projects</span>
+    <span><kbd>u</kbd> uses</span>
     <span><kbd>i</kbd> search</span>
     <span><kbd>`</kbd> terminal</span>
     <span><kbd>/</kbd> shortcuts</span>
   </p>
   <p class="footer-row">
-    <span>Built with <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
     <a href="https://github.com/funinkina/portfolio" target="_blank" rel="noopener" class="pill">
       <span class="material-symbols-outlined" aria-hidden="true">commit</span>funinkina/portfolio
       {{- with partial "git_commit.html" . }} <span title="Latest commit">{{ . }}</span>{{ end -}}
     </a>
   </p>
+  <details class="colophon">
+    <summary class="pill"><span class="material-symbols-outlined" aria-hidden="true">expand_more</span>colophon</summary>
+    <p>Written in Markdown and built with <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>
+      {{ hugo.Version }} and <a href="https://tailwindcss.com" target="_blank" rel="noopener">Tailwind CSS</a> v4.
+      Set in <a href="https://www.fontshare.com/fonts/switzer" target="_blank" rel="noopener">Switzer</a>, with
+      <a href="https://fonts.google.com/icons" target="_blank" rel="noopener">Material Symbols</a> subset at build time
+      to the {{ len (split (partialCached "material_icons.html" .) ",") }} icons actually used.
+      Page transitions, the reading bar and the timeline are plain CSS (view transitions and scroll-driven animations);
+      the rest of the JavaScript ships as one deferred bundle. Comments by
+      <a href="https://giscus.app" target="_blank" rel="noopener">giscus</a>. Served as static files from
+      <a href="https://workers.cloudflare.com" target="_blank" rel="noopener">Cloudflare Workers</a>, with no analytics.</p>
+  </details>
   <nav aria-label="kanring webring" class="footer-row">
     <a href="https://ring.kan.sh/members/aryan/prev" rel="prev" title="Previous site in kanring" class="pill">
       <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>prev</a>
@@ -70,6 +82,7 @@
       <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>h</kbd></dt><dd class="m-0 text-text-dim text-sm">Home</dd></div>
       <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>b</kbd></dt><dd class="m-0 text-text-dim text-sm">Blog</dd></div>
       <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>p</kbd></dt><dd class="m-0 text-text-dim text-sm">Projects</dd></div>
+      <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>u</kbd></dt><dd class="m-0 text-text-dim text-sm">Uses</dd></div>
       <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>i</kbd></dt><dd class="m-0 text-text-dim text-sm">Focus search</dd></div>
       <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>`</kbd></dt><dd class="m-0 text-text-dim text-sm">Toggle terminal</dd></div>
       <div class="flex items-center gap-3"><dt class="shrink-0 flex justify-center"><kbd>/</kbd></dt><dd class="m-0 text-text-dim text-sm">Show this panel</dd></div>

@@ -48,6 +48,12 @@ extraMaterialIcons = [
     "content_copy",
     "check",
     "close",
+    # /uses category icons come from data/uses.yaml
+    "desktop_windows",
+    "terminal",
+    "code",
+    "apps",
+    "memory",
 ]
 
 [related]
@@ -75,3 +81,7 @@ weight = 1
 name = "Projects"
 url = "/projects/"
 weight = 2
+[[menu.main]]
+name = "Uses"
+url = "/uses/"
+weight = 3

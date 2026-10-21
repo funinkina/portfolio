@@ -27,6 +27,10 @@
       e.preventDefault();
       e.stopPropagation();
       window.location.href = "/projects/";
+    } else if (key === "u") {
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.href = "/uses/";
     } else if (key === "t") {
       e.preventDefault();
       e.stopPropagation();

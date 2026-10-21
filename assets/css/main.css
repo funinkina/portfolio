@@ -1049,6 +1049,49 @@ footer .pill .material-symbols-outlined {
     font-size: 0.9rem;
 }
 
+/* colophon: collapsed pill that opens into a short paragraph */
+.colophon {
+    margin: 0 0 1.2rem;
+    text-align: center;
+}
+
+.colophon summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.colophon summary::-webkit-details-marker {
+    display: none;
+}
+
+.colophon summary .material-symbols-outlined {
+    transition: transform 0.2s ease;
+}
+
+.colophon[open] summary .material-symbols-outlined {
+    transform: rotate(180deg);
+}
+
+.colophon p a {
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+}
+
+.colophon p {
+    max-width: 62ch;
+    margin: 0.9rem auto 0;
+    color: var(--text-2);
+    line-height: 1.6;
+    text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .colophon summary .material-symbols-outlined {
+        transition: none;
+    }
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .highlights {

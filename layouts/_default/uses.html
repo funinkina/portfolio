@@ -1,0 +1,184 @@
+{{ partial "header.html" . }}
+{{- $d := hugo.Data.uses -}}
+{{- $lines := dict -}}
+{{- range slice "pkglist" "aurlist" "gnome-extensions" -}}
+{{- $lines = merge $lines (dict . (split (trim (resources.Get (printf "uses/%s.txt" .)).Content "\n ") "\n")) -}}
+{{- end -}}
+{{- $aur := index $lines "aurlist" -}}
+{{- $pkgs := sort (index $lines "pkglist") -}}
+{{- $exts := index $lines "gnome-extensions" -}}
+{{- $fish := (resources.Get "uses/config.fish").Content -}}
+{{- $aliases := slice -}}
+{{- range findRESubmatch `(?m)^\s*alias\s+([^=\s]+)=(?:"([^"]*)"|'([^']*)')` $fish -}}
+{{- $aliases = $aliases | append (dict "name" (index . 1) "cmd" (or (index . 2) (index . 3))) -}}
+{{- end -}}
+{{- $binds := findRESubmatch `"([^"|]+)\|([^"|]+)\|([^"]+)"` (resources.Get "uses/gnome-keybinds.sh").Content -}}
+{{- $rev := split (trim (resources.Get "uses/REVISION").Content "\n ") " " -}}
+{{- $mine := 0 -}}
+{{- range $exts }}{{ if index $d.mine (index (split . "@") 0) }}{{ $mine = add $mine 1 }}{{ end }}{{ end -}}
+
+<div class="page-head">
+    <h1>Uses</h1>
+    <p>The software I use every day on Arch Linux, built from my <a
+            href="{{ $d.repo }}" target="_blank" rel="noopener">dotfiles</a>.
+        Package lists, extensions, aliases and keybinds all come straight from
+        the repo, so this page doesn't drift out of date.</p>
+</div>
+
+<section class="uses-fetch glass panel" aria-label="System summary">
+    <pre class="uses-ascii" aria-hidden="true">
+                  -`
+                 .o+`
+                `ooo/
+               `+oooo:
+              `+oooooo:
+              -+oooooo+:
+            `/:-:++oooo+:
+           `/++++/+++++++:
+          `/++++++++++++++:
+         `/+++ooooooooooooo/`
+        ./ooosssso++osssssso+`
+       .oossssso-````/ossssss+`
+      -osssssso.      :ssssssso.
+     :osssssss/        osssso+++.
+    /ossssssss/        +ssssooo/-
+  `/ossssso+/:-        -:/+osssso+-
+ `+sso+:-`                 `.-/+oso:
+`++:.                           `-/+/
+.`                                 `/</pre>
+    <div class="uses-fetch-body">
+        <p class="uses-fetch-title"><b>funinkina</b>@<b>arch</b></p>
+        <ul class="uses-fetch-rows">
+            {{- range $d.fetch }}
+            <li><a href="#tools" data-filter="{{ .to }}"><b>{{ .key }}</b><span>{{ .value }}{{ with .note }} <em>{{ . }}</em>{{ end }}</span></a></li>
+            {{- end }}
+            <li><a href="#packages"><b>Packages</b><span>{{ len $pkgs }} (pacman) <em>{{ len $aur }} from the AUR</em></span></a></li>
+            <li><a href="#extensions"><b>Extensions</b><span>{{ len $exts }} (gnome-shell) <em>{{ $mine }} written by me</em></span></a></li>
+        </ul>
+        <div class="uses-palette">
+            {{- range $d.palette }}<span style="background: {{ . | safeCSS }}" title="{{ . }}"></span>{{ end -}}
+        </div>
+    </div>
+</section>
+
+<section class="section" id="tools">
+    <div class="section-head">
+        <h2>Toolbox</h2>
+        <p>{{ len $d.tools }} picks, each linked to its config. Filter by
+            category.</p>
+    </div>
+    <div class="sort-group glass uses-filters" role="radiogroup" aria-label="Filter tools">
+        <label class="sort-option"><input type="radio" name="uses-cat" value="" checked><span>All</span></label>
+        {{- range $d.categories }}
+        <label class="sort-option"><input type="radio" name="uses-cat" value="{{ .id }}"><span>{{ .name }}</span></label>
+        {{- end }}
+    </div>
+    <div class="uses-grid">
+        {{- range $d.tools }}
+        {{- $cat := index (where $d.categories "id" .cat) 0 }}
+        <article class="uses-card glass card" data-cat="{{ .cat }}">
+            <header>
+                <span class="material-symbols-outlined" aria-hidden="true">{{ $cat.icon }}</span>
+                <h3>{{ .name }}</h3>
+            </header>
+            <p class="uses-meta">{{ .meta }}</p>
+            <p>{{ .note | markdownify }}</p>
+            <div class="uses-links">
+                {{- with .url }}<a href="{{ . }}" target="_blank" rel="noopener">Website</a>{{ end }}
+                {{- with .config }}<a href="{{ $d.repo }}/blob/main/{{ . }}" target="_blank" rel="noopener">Config</a>{{ end }}
+            </div>
+        </article>
+        {{- end }}
+    </div>
+</section>
+
+<section class="section" id="extensions">
+    <div class="section-head">
+        <h2>Extensions</h2>
+        <p>{{ len $exts }} GNOME Shell extensions. The green ones are mine.</p>
+    </div>
+    <ul class="uses-exts">
+        {{- range $exts }}
+        {{- $id := index (split . "@") 0 }}
+        {{- $name := index $d.extnames $id | default ($id | replaceRE `([a-z])([A-Z])` "$1 $2" | humanize) }}
+        <li>{{ with index $d.mine $id }}<a class="chip is-mine" href="{{ . }}"{{ if hasPrefix . "http" }} target="_blank" rel="noopener"{{ end }}>{{ $name }}</a>{{ else }}<span class="chip" title="{{ . }}">{{ $name }}</span>{{ end }}</li>
+        {{- end }}
+    </ul>
+</section>
+
+<section class="section" id="aliases">
+    <div class="section-head">
+        <h2>Aliases</h2>
+        <p>{{ len $aliases }} fish aliases, live from my config. Start typing,
+            <kbd>Tab</kbd> completes.</p>
+    </div>
+    <div class="uses-term">
+        <div class="uses-term-bar" aria-hidden="true"><i></i><i></i><i></i><span>fish — ~</span></div>
+        <ul class="uses-term-out" aria-live="polite">
+            {{- range $aliases }}
+            <li data-name="{{ .name }}"><b>{{ .name }}</b><span>{{ .cmd }}</span></li>
+            {{- end }}
+            <li class="uses-term-empty" hidden>fish: Unknown command</li>
+        </ul>
+        <label class="uses-term-in">
+            <span aria-hidden="true"><b>funinkina</b> on <i>arch</i> $</span>
+            <input type="text" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Filter aliases">
+        </label>
+    </div>
+</section>
+
+<section class="section" id="keys">
+    <div class="section-head">
+        <h2>Keybinds</h2>
+        <p>Set by <code>gnome-keybinds.sh</code>, rebuilt from scratch on every
+            run.</p>
+    </div>
+    <ul class="uses-keys glass panel">
+        {{- range $binds }}
+        {{- $keys := split (index . 2 | replaceRE `<([^>]+)>` "$1+") "+" }}
+        <li>
+            <span class="uses-combo">{{ range $i, $k := $keys }}{{ if $i }}<i>+</i>{{ end }}<kbd>{{ cond (eq (len $k) 1) (upper $k) (index $d.keynames $k | default $k) }}</kbd>{{ end }}</span>
+            <span>{{ index $d.keylabels (index . 1) | default (index . 1 | humanize) }}</span>
+            <code>{{ index . 3 | replaceRE `^.*/` "" }}</code>
+        </li>
+        {{- end }}
+        <li>
+            <span class="uses-combo"><kbd>Super</kbd><i>+</i><kbd>1</kbd><i>…</i><kbd>9</kbd></span>
+            <span>Raise the Nth dock app</span>
+            <code>dash-to-dock</code>
+        </li>
+    </ul>
+</section>
+
+<section class="section" id="packages">
+    <div class="section-head">
+        <h2>Packages</h2>
+        <p>Every explicitly installed package: {{ len $pkgs }} in total,
+            {{ len $aur }} of them from the AUR.</p>
+    </div>
+    <div class="section-tools">
+        <label class="search-box glass">
+            <span class="material-symbols-outlined" aria-hidden="true">search</span>
+            <input type="text" class="uses-pkg-q" placeholder="Search packages…" aria-label="Search packages">
+        </label>
+        <div class="sort-group glass" role="radiogroup" aria-label="Package source">
+            <label class="sort-option"><input type="radio" name="uses-src" value="" checked><span>All</span></label>
+            <label class="sort-option"><input type="radio" name="uses-src" value="repo"><span>Official</span></label>
+            <label class="sort-option"><input type="radio" name="uses-src" value="aur"><span>AUR</span></label>
+        </div>
+    </div>
+    <ul class="uses-pkgs">
+        {{- range $pkgs }}
+        {{- $isAur := in $aur . }}
+        <li data-src="{{ cond $isAur "aur" "repo" }}"><a class="chip{{ if $isAur }} is-aur{{ end }}" href="{{ if $isAur }}https://aur.archlinux.org/packages/{{ . }}{{ else }}https://archlinux.org/packages/?q={{ . }}{{ end }}" target="_blank" rel="noopener">{{ . }}</a></li>
+        {{- end }}
+    </ul>
+    <p class="uses-pkg-count" aria-live="polite"></p>
+    <p class="uses-rev">Synced from <a href="{{ $d.repo }}/commit/{{ index $rev 0 }}"
+            target="_blank" rel="noopener"><code>dotfiles@{{ index $rev 0 }}</code></a>
+        · {{ index $rev 1 }}</p>
+</section>
+
+{{ with resources.Get "js/uses.js" | minify | fingerprint }}<script defer src="{{ .RelPermalink }}"></script>{{ end }}
+
+{{ partial "footer.html" . }}
