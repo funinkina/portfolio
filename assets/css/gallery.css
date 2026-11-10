@@ -1,0 +1,361 @@
+/* GALLERY PAGE (layouts/_default/gallery.html, js/gallery.js) */
+
+/* GRID: equal 4:5 tiles; the full uncropped frame is in the lightbox */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--glass);
+  color: #fff;
+  cursor: zoom-in;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease), filter 0.5s var(--ease);
+}
+
+/* viewfinder corner marks */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0.8rem;
+  z-index: 1;
+  pointer-events: none;
+  --c: rgba(255, 255, 255, 0.85);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 14px 1px,
+    linear-gradient(var(--c), var(--c)) top left / 1px 14px,
+    linear-gradient(var(--c), var(--c)) top right / 14px 1px,
+    linear-gradient(var(--c), var(--c)) top right / 1px 14px,
+    linear-gradient(var(--c), var(--c)) bottom left / 14px 1px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px 14px,
+    linear-gradient(var(--c), var(--c)) bottom right / 14px 1px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px 14px;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.35s var(--ease), transform 0.5s var(--ease);
+}
+
+.tile-cap {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  display: grid;
+  gap: 0.3rem;
+  padding: 2.5rem 1.4rem 1.3rem;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  background: linear-gradient(transparent, rgba(5, 8, 13, 0.85));
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.tile-cap b,
+.tile-cap span {
+  transform: translateY(0.6rem);
+  transition: transform 0.45s var(--ease);
+}
+
+.tile-cap span {
+  color: rgba(255, 255, 255, 0.75);
+  transition-delay: 0.04s;
+}
+
+.tile-cap b {
+  font-family: var(--font);
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.tile-cap b.is-coords {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--green);
+}
+
+.tile:hover img,
+.tile:focus-visible img {
+  transform: scale(1.06);
+  filter: brightness(0.7);
+}
+
+.tile:hover::before,
+.tile:focus-visible::before {
+  opacity: 1;
+  transform: none;
+}
+
+.tile:hover .tile-cap,
+.tile:focus-visible .tile-cap {
+  opacity: 1;
+}
+
+.tile:hover .tile-cap > *,
+.tile:focus-visible .tile-cap > * {
+  transform: none;
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* SPEC SHEET (rendered inside the lightbox) */
+.shot-spec {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.shot-idx {
+  margin: 0 0 0.9rem;
+  color: var(--text-3);
+  letter-spacing: 0.12em;
+}
+
+.shot-spec h2 {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.shot-spec h2.shot-coords {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+}
+
+.shot-coords {
+  margin: 0.35rem 0 0;
+}
+
+.shot-coords a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.shot-coords a:hover {
+  text-decoration: underline;
+}
+
+.shot-spec dl {
+  margin: 1.1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--line-strong);
+}
+
+.shot-spec dl div {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+}
+
+.shot-spec dt {
+  color: var(--green);
+}
+
+.shot-spec dd {
+  margin: 0;
+  color: var(--text);
+}
+
+.shot-spec em {
+  font-style: normal;
+  color: var(--text-3);
+}
+
+/* LIGHTBOX */
+.lb {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 4vmin;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.25s ease, display 0.25s allow-discrete, overlay 0.25s allow-discrete;
+}
+
+.lb[open] {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 19rem;
+  justify-content: center;
+  gap: 2.5rem;
+  align-items: center;
+  opacity: 1;
+}
+
+.lb::backdrop {
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.lb-fig {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  cursor: zoom-out;
+}
+
+.lb-img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 8vmin);
+  margin: 0;
+  object-fit: contain;
+  border-radius: var(--r-card);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  cursor: default;
+}
+
+.lb[open] .lb-img {
+  view-transition-name: lb-shot;
+}
+
+.lb[open] .lb-side {
+  view-transition-name: lb-side;
+}
+
+.lb-bar {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.lb-btn {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-ctl);
+  background: var(--glass);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.lb-btn:hover {
+  background: var(--hover-bg);
+  border-color: var(--hover-line);
+}
+
+.lb-close {
+  margin-left: auto;
+}
+
+@starting-style {
+  .lb[open] {
+    opacity: 0;
+  }
+}
+
+/* VIEW TRANSITIONS (js/gallery.js sets html[data-lb]) */
+::view-transition-group(lb-shot) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* tile (4:5 crop) and full frame differ in shape: cover avoids stretching mid-morph */
+::view-transition-old(lb-shot),
+::view-transition-new(lb-shot) {
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+}
+
+html[data-lb="next"]::view-transition-old(lb-shot) { animation: lb-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; --dx: -6%; }
+html[data-lb="next"]::view-transition-new(lb-shot) { animation: lb-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; --dx: 6%; }
+html[data-lb="prev"]::view-transition-old(lb-shot) { animation: lb-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; --dx: 6%; }
+html[data-lb="prev"]::view-transition-new(lb-shot) { animation: lb-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; --dx: -6%; }
+
+html[data-lb="open"]::view-transition-new(lb-side) {
+  animation: lb-in 0.45s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --dx: 1.5rem;
+}
+
+html[data-lb="close"]::view-transition-old(lb-side) {
+  animation: lb-out 0.2s ease both;
+  --dx: 1rem;
+}
+
+@keyframes lb-out {
+  to { opacity: 0; transform: translateX(var(--dx)) scale(0.97); filter: blur(6px); }
+}
+
+@keyframes lb-in {
+  from { opacity: 0; transform: translateX(var(--dx)) scale(0.97); filter: blur(6px); }
+}
+
+@media (max-width: 860px) {
+  .lb[open] {
+    grid-template-columns: 1fr;
+    align-content: start;
+    align-items: start;
+    gap: 1.5rem;
+    overflow-y: auto;
+  }
+
+  .lb-fig {
+    height: auto;
+  }
+
+  .lb-img {
+    max-height: 75dvh;
+  }
+}
+
+@media (max-width: 640px) {
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+}
+
+@media (hover: none) {
+  .tile::before,
+  .tile-cap {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile img,
+  .tile::before,
+  .tile-cap,
+  .tile-cap > *,
+  .lb {
+    transition: none;
+  }
+}

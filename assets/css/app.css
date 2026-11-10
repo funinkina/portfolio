@@ -12,6 +12,7 @@
 @import "./assets/css/experiences.css" layer(base);
 @import "./assets/css/post_meta.css" layer(base);
 @import "./assets/css/uses.css" layer(base);
+@import "./assets/css/gallery.css" layer(base);
 
 @source "./layouts";
 

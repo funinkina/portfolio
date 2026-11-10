@@ -1,0 +1,86 @@
+{{ partial "header.html" . }}
+{{- $shots := sort (.Resources.ByType "image") "Meta.Date" "desc" -}}
+
+<div class="page-head">
+    <h1>Gallery</h1>
+    <p>Photos I've taken, each with where it was shot and the exposure
+        data straight from the file's EXIF. Hover for details, click to view.</p>
+</div>
+
+<ul class="tiles">
+{{- range $i, $img := $shots }}
+{{- $p := .Params }}
+{{- $x := .Meta.Exif }}
+{{- $lat := $p.lat }}
+{{- $lng := $p.lng }}
+{{- $t := float ($x.ExposureTime | default 0) }}
+{{- $ev := float ($x.ExposureCompensation | default 0) }}
+{{- if not $p.alt }}{{ errorf "gallery: %s has no alt text in content/gallery/index.md" .Name }}{{ end }}
+{{- $sm := .Resize (printf "%dx webp" (math.Min 600 .Width | int)) }}
+{{- $md := .Resize (printf "%dx webp" (math.Min 1000 .Width | int)) }}
+{{- $lg := .Resize (printf "%dx webp" (math.Min 2400 .Width | int)) }}
+{{- $coords := "" }}
+{{- if and $lat $lng }}{{ $coords = printf "%.3f° %s, %.3f° %s" (math.Abs $lat) (cond (ge $lat 0) "N" "S") (math.Abs $lng) (cond (ge $lng 0) "E" "W") }}{{ end }}
+{{- $shutter := "" }}
+{{- if $t }}{{ $shutter = cond (lt $t 0.5) (printf "1/%.0fs" (div 1 $t)) (printf "%vs" $t) }}{{ end }}
+{{- $aperture := "" }}
+{{- with $x.FNumber }}{{ $aperture = printf "ƒ/%.3g" (float .) }}{{ end }}
+{{- $quick := slice }}
+{{- with $aperture }}{{ $quick = $quick | append . }}{{ end }}
+{{- with $shutter }}{{ $quick = $quick | append . }}{{ end }}
+{{- with $x.ISO }}{{ $quick = $quick | append (printf "ISO %v" .) }}{{ end }}
+{{- with $x.FocalLengthIn35mmFormat }}{{ $quick = $quick | append (printf "%vmm" .) }}{{ end }}
+<li>
+    <button class="tile" type="button" id="{{ path.BaseName .Name | lower }}" data-full="{{ $lg.RelPermalink }}">
+        <img src="{{ $sm.RelPermalink }}"
+            srcset="{{ $sm.RelPermalink }} {{ $sm.Width }}w, {{ $md.RelPermalink }} {{ $md.Width }}w"
+            sizes="(max-width: 640px) 50vw, 340px"
+            width="{{ $md.Width }}" height="{{ $md.Height }}"
+            alt="{{ $p.alt }}" loading="{{ cond (lt $i 6) "eager" "lazy" }}" decoding="async">
+        <span class="tile-cap" aria-hidden="true">
+            <b{{ if and (not $p.place) $coords }} class="is-coords"{{ end }}>{{ $p.place | default $coords | default "Unknown location" }}</b>
+            <span>{{ delimit $quick " · " }}</span>
+        </span>
+    </button>
+    <template>
+        <p class="shot-idx">{{ printf "%02d / %02d" (add $i 1) (len $shots) }}</p>
+        {{- $link := "" }}
+        {{- with $coords }}{{ $link = printf `<a href="https://www.openstreetmap.org/?mlat=%v&mlon=%v#map=15/%v/%v" target="_blank" rel="noopener">%s</a>` $lat $lng $lat $lng . | safeHTML }}{{ end }}
+        {{- with $p.place }}
+        <h2>{{ . }}</h2>
+        {{- with $link }}<p class="shot-coords">{{ . }}</p>{{ end }}
+        {{- else }}
+        <h2{{ with $link }} class="shot-coords"{{ end }}>{{ $link | default "Unknown location" }}</h2>
+        {{- end }}
+        <dl>
+            {{- with $x.Model }}<div><dt>Camera</dt><dd>{{ . }}</dd></div>{{ end }}
+            {{- with $x.LensModel }}<div><dt>Lens</dt><dd>{{ replaceRE `^.*?(back|front) (camera )?` "" . | strings.FirstUpper }}</dd></div>{{ end }}
+            {{- with $x.FocalLengthIn35mmFormat }}<div><dt>Focal</dt><dd>{{ . }}mm <em>35mm eq.</em></dd></div>{{ end }}
+            {{- with $aperture }}<div><dt>Aperture</dt><dd>{{ . }}</dd></div>{{ end }}
+            {{- with $shutter }}<div><dt>Shutter</dt><dd>{{ . }}</dd></div>{{ end }}
+            {{- with $x.ISO }}<div><dt>ISO</dt><dd>{{ . }}</dd></div>{{ end }}
+            {{- if $ev }}<div><dt>Exp. comp</dt><dd>{{ printf "%+.1f" $ev }} EV</dd></div>{{ end }}
+            {{- with .Meta.Date }}<div><dt>Taken</dt><dd><time datetime="{{ .Format "2006-01-02T15:04:05-07:00" }}">{{ .Format "2006-01-02 15:04" }}</time> <em>UTC{{ .Format "-07:00" }}</em></dd></div>{{ end }}
+            {{- with $x.Software }}<div><dt>Software</dt><dd>{{ cond (findRE `^[\d.]+$` .) (printf "iOS %s" .) (index (split . " ") 0) }}</dd></div>{{ end }}
+        </dl>
+    </template>
+</li>
+{{- end }}
+</ul>
+
+<dialog class="lb" aria-label="Photo viewer" autofocus>
+    <p class="lb-status sr-only" aria-live="polite"></p>
+    <figure class="lb-fig"><img class="lb-img" alt=""></figure>
+    <div class="lb-side">
+        <div class="lb-bar">
+            <button type="button" class="lb-btn" data-step="-1" aria-label="Previous photo"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+            <button type="button" class="lb-btn" data-step="1" aria-label="Next photo"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
+            <button type="button" class="lb-btn lb-close" aria-label="Close"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+        </div>
+        <div class="lb-spec shot-spec"></div>
+    </div>
+</dialog>
+
+{{ with resources.Get "js/gallery.js" | minify | fingerprint }}<script defer src="{{ .RelPermalink }}"></script>{{ end }}
+
+{{ partial "footer.html" . }}

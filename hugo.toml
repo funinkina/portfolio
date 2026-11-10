@@ -85,3 +85,7 @@ weight = 2
 name = "Uses"
 url = "/uses/"
 weight = 3
+[[menu.main]]
+name = "Gallery"
+url = "/gallery/"
+weight = 4
