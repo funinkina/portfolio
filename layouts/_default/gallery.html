@@ -60,7 +60,8 @@
             {{- with $shutter }}<div><dt>Shutter</dt><dd>{{ . }}</dd></div>{{ end }}
             {{- with $x.ISO }}<div><dt>ISO</dt><dd>{{ . }}</dd></div>{{ end }}
             {{- if $ev }}<div><dt>Exp. comp</dt><dd>{{ printf "%+.1f" $ev }} EV</dd></div>{{ end }}
-            {{- with .Meta.Date }}<div><dt>Taken</dt><dd><time datetime="{{ .Format "2006-01-02T15:04:05-07:00" }}">{{ .Format "2006-01-02 15:04" }}</time> <em>UTC{{ .Format "-07:00" }}</em></dd></div>{{ end }}
+            {{- /* .Meta.Date carries the build machine's zone (UTC in CI), so the offset comes from EXIF. */}}
+            {{- with .Meta.Date }}{{ $off := $x.OffsetTimeOriginal | default "" }}<div><dt>Taken</dt><dd><time datetime="{{ .Format "2006-01-02T15:04:05" }}{{ $off }}">{{ .Format "2006-01-02 15:04" }}</time>{{ with $off }} <em>UTC{{ . }}</em>{{ end }}</dd></div>{{ end }}
             {{- with $x.Software }}<div><dt>Software</dt><dd>{{ cond (findRE `^[\d.]+$` .) (printf "iOS %s" .) (index (split . " ") 0) }}</dd></div>{{ end }}
         </dl>
     </template>
